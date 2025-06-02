@@ -1,0 +1,118 @@
+# Multiplexing
+- MIMO - Multiple Input Multiple Output
+- SDM - Space Division Multiplexing
+- FDM - FrequencyDivision Multiplexing
+- TDM - Time Division Multiplexing
+- CDM - Code Division Multiplexing
+	- FHSS - Frequency Hopping Spread Spectrum
+	- DSSS - Direct Sequence Spread Spectrum
+# Wireless MAC
+- CD - Collision Detection
+- CA - Collision Avoidance
+- **Multiple A[[]]ccess Mac Protocols:**
+	- TDMA - Time Division Multiple Access
+	- FDMA - Frequency Division Multiple Access
+	- ALOHA:
+		- Classical
+		- Slotted
+		- CSMA - Carrier Sense Multiple Access
+		- Reservation mechanisms
+	- MACA - Multiple Access Collision Avoidance
+	- CDMA - Code Division Multiple Access
+- **Wireless Networks:**
+	- MANETs - Mobile Ad-hoc Networks
+	- WSN - Wireless Sensor Networks
+	- Delay-Tolerant Network
+- **MAC Power Saving Algorithms:**
+	- Beacon Mode:
+		- NBT - Non-Beacon Tracking
+		- BT - Beacon Tracking
+	- Non Beacon Mode:
+		- LPE - Long Preamble Emulation:
+			- with acknowledgement
+			- with acknowledgement after local synchronizations
+- **MAC protocols for WSNs:**
+	- Contention-based:
+		- S-MAC
+	- Contention-free:
+		- TRAMA
+# Mesh Networking
+- **Addressing**:
+	- Hardware
+	- Geographical
+	- Hierarchical
+	- Stochastic
+- **Traditional Routing:**
+	- Link State
+	- Distance Vector
+- **Mesh Routing:**
+	- Proactive:
+		- OLSR - Optimized Link State Routing:
+			- MPR - Multiple Point Relay
+	- Reactive:
+		- DSR - Dynamic Source Routing
+			- RREQ - Route Request message
+			- RREP - Route Reply message
+			- RERR - Route Error message
+		- AODV - Ad-hoc On-demand Distance Vector
+	- Hierarchical/Tree Routing
+	- Geographic Routing:
+		- Greedy Forwarding
+	- Gossip Algorithms (Delay-Tolerant Networks)
+# Protocols
+-  Licensed Bands
+- Unlicensed Bands
+	- Sub-GHz bands
+- **Layer 1 and 2 Protocols**:
+	- IEEE 802.15.4 (used in ZigBee 6LoWPAN)
+	- IEEE 802.11 (WiFi) IEEE 802.11ah (WiFi HaLow)
+	- LoRaWAN - Long-Range Wide-Area Network
+		- LPWA - Low Power Wide-Area
+	- BLE - Bluetooth Low Energy:
+		- GAP - Generic Acces Profile
+		- GATT - Generic Attribut Profile
+		- ATT - Attribute Protocol
+- **Layer 3 Protocols:**
+	- IPv6
+	- 6LoWPAN - IPv6 over Low-Power Wireless Persona Area Networks
+- **Application Protocols:**
+	- MQTT - Message Queuing Telemetry Transport
+	- CoAP - Constrained Application Protocol
+# Cellular Networks
+- GSM - Global System for Mobile Communications
+- LTE - Long-Term Evolution
+	- HSS - Home Subscriver Server
+	- MME - Mobility Management Entity
+	- S-GW - Serving Gateway
+	- P-GW - PDN Gateway - Packet Data Network Gateway
+- NB-IoT - Narrow Bands-IoT
+# Security
+- **Vulnerabilities:**
+	- Thing Layer:
+		- Node capturing
+		- Malicious code injecting
+		- False data injection attack
+		- Eavesdropping and interference
+		- Sleep deprivation attacks
+	- Network layer
+		- Dos/DDoS attacks
+		- Routing Attacks:
+			- Sinkhole
+			- Warmhole
+	- Middleware and gateway layer
+		- Man-in-the-Middle Attack
+		- Data Breaches in End-to-End encryption
+# Federated Learning
+- Local/Non-local Learning
+- Distributed Learning
+- IID Data - Indipendent and Identically Distributed
+- **FL - Federated Learning:**
+	- Horizontal and Vertical FL
+	- Cross-Device and Cross-Silos FL
+	- **Centralised FL:**
+		- FedAvg
+		- FedZero
+	- **Decentralised FL:**
+		- Decentralised FedAvg
+		- Proxy FL:
+			-  Differential Privacy 
