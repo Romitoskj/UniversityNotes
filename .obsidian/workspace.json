@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "84dca4b84a98c613",
+        "id": "9c308c6a83a1d888",
         "type": "tabs",
         "children": [
           {
-            "id": "9831c399eafb2477",
+            "id": "bc9ae883aed11095",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -88,9 +88,19 @@
               "icon": "lucide-bookmark",
               "title": "Bookmarks"
             }
+          },
+          {
+            "id": "5599bd769540023d",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -151,23 +161,14 @@
               "icon": "lucide-tags",
               "title": "Tags"
             }
-          },
-          {
-            "id": "5599bd769540023d",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 302.5
+    "width": 302.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -180,10 +181,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "9831c399eafb2477",
+  "active": "bc9ae883aed11095",
   "lastOpenFiles": [
-    "Internet of Things/Flashcards.md",
+    "Untitled.canvas",
     "Internet of Things/Protocols & Acronym List.md",
+    "Internet of Things/Flashcards.md",
     "flashcards 2.csv",
     "flashcards 1.csv",
     "flashcards.csv",

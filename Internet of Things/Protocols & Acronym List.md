@@ -9,7 +9,7 @@
 # Wireless MAC
 - CD - Collision Detection
 - CA - Collision Avoidance
-- **Multiple A[[]]ccess Mac Protocols:**
+- **Multiple Access Mac Protocols:**
 	- TDMA - Time Division Multiple Access
 	- FDMA - Frequency Division Multiple Access
 	- ALOHA:
