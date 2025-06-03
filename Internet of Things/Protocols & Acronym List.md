@@ -61,7 +61,7 @@
 	- Geographic Routing:
 		- Greedy Forwarding
 	- Gossip Algorithms (Delay-Tolerant Networks)
-# Protocols
+# IoT Protocols
 -  Licensed Bands
 - Unlicensed Bands
 	- Sub-GHz bands

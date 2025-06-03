@@ -8,17 +8,29 @@
         "type": "tabs",
         "children": [
           {
-            "id": "bc9ae883aed11095",
+            "id": "c29c5f4a6f5c6e71",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Internet of Things/Protocols & Acronym List.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "Protocols & Acronym List"
+            }
+          },
+          {
+            "id": "bc9ae883aed11095",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "Internet of Things/mind-map.png"
+              },
+              "icon": "lucide-image",
+              "title": "mind-map"
             }
           }
         ]
@@ -181,12 +193,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5599bd769540023d",
+  "active": "c29c5f4a6f5c6e71",
   "lastOpenFiles": [
     "Internet of Things/mind-map.png",
+    "Internet of Things/Protocols & Acronym List.md",
     "Internet of Things/flashcards.csv",
     "Untitled.canvas",
-    "Internet of Things/Protocols & Acronym List.md",
     "Internet of Things/Flashcards.md",
     "flashcards 2.csv",
     "flashcards 1.csv",
