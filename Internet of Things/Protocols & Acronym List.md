@@ -17,7 +17,9 @@
 		- Slotted
 		- CSMA - Carrier Sense Multiple Access
 		- Reservation mechanisms
-	- MACA - Multiple Access Collision Avoidance
+	- MACA - Multiple Access Collision Avoidance:
+		- RTS - Request to send
+		- CTS - Clear to send
 	- CDMA - Code Division Multiple Access
 - **Wireless Networks:**
 	- MANETs - Mobile Ad-hoc Networks
