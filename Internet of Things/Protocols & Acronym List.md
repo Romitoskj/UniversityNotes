@@ -35,9 +35,9 @@
 			- with acknowledgement after local synchronizations
 - **MAC protocols for WSNs:**
 	- Contention-based:
-		- S-MAC
+		- S-MAC - Sensor MAC
 	- Contention-free:
-		- TRAMA
+		- TRAMA - Traffic Adaptive Medium Access
 # Mesh Networking
 - **Addressing**:
 	- Hardware
