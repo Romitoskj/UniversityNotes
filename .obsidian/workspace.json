@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "4c010d0c3a1ed56f",
+        "id": "dfa050f52f7dba06",
         "type": "tabs",
         "children": [
           {
-            "id": "b48e75521ad54849",
+            "id": "6301b4f12752b980",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Distributed Systems/1 -.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "1 -"
             }
           }
         ]
@@ -178,8 +182,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5599bd769540023d",
+  "active": "6301b4f12752b980",
   "lastOpenFiles": [
+    "Distributed Systems/1 -.md",
+    "Distributed Systems",
+    "Untitled.base",
     "Varie/OnTrek algoritmo direzione.md",
     "Untitled.canvas",
     "Varie",
