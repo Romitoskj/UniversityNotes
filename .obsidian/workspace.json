@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "bceb679e033c209a",
+    "id": "588ba97860030ecb",
     "type": "split",
     "children": [
       {
-        "id": "dfa050f52f7dba06",
+        "id": "ae83d49d0aaaabdc",
         "type": "tabs",
         "children": [
           {
-            "id": "6301b4f12752b980",
+            "id": "dde5e9d2c1a0bd0c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Distributed Systems/1 -.md",
+                "file": "Computer Vision/02 - Image acquisition.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1 -"
+              "title": "02 - Image acquisition"
             }
           }
         ]
@@ -27,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "a629fd0466de9ccd",
+    "id": "ffadc25280a554dc",
     "type": "split",
     "children": [
       {
-        "id": "20eeed3f6a0bf251",
+        "id": "250aaea8637a98ce",
         "type": "tabs",
         "children": [
           {
-            "id": "c6fc9949a74205e3",
+            "id": "eebcb231126945ae",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,22 +48,7 @@
             }
           },
           {
-            "id": "8a3efc6ed6c570a5",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "Varie/OnTrek algoritmo direzione.md",
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "Outline of OnTrek algoritmo direzione"
-            }
-          },
-          {
-            "id": "7d33c6d76b3ca2f4",
+            "id": "f4af3baef02cddbd",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -80,7 +65,7 @@
             }
           },
           {
-            "id": "018a740739d30ee8",
+            "id": "60ae1b9fdd34c5f6",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -88,9 +73,87 @@
               "icon": "lucide-bookmark",
               "title": "Bookmarks"
             }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "73e94f3e6a943598",
+    "type": "split",
+    "children": [
+      {
+        "id": "12c6aa3a614b7afc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "376a9e8b7e7c9172",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Computer Vision/02 - Image acquisition.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 02 - Image acquisition"
+            }
           },
           {
-            "id": "5599bd769540023d",
+            "id": "0d691106cdad67cb",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Computer Vision/02 - Image acquisition.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 02 - Image acquisition"
+            }
+          },
+          {
+            "id": "26ebb2216bd815aa",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "604a342e498c5bc8",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Computer Vision/02 - Image acquisition.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 02 - Image acquisition"
+            }
+          },
+          {
+            "id": "dae6ac1a546a1f63",
             "type": "leaf",
             "state": {
               "type": "git-view",
@@ -106,101 +169,42 @@
     "direction": "horizontal",
     "width": 300
   },
-  "right": {
-    "id": "aa10b63985fa2b21",
-    "type": "split",
-    "children": [
-      {
-        "id": "f7c70395c79a4702",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "ef523a5198b980bf",
-            "type": "leaf",
-            "state": {
-              "type": "backlink",
-              "state": {
-                "file": "Internet of Things/Flashcards.md",
-                "collapseAll": false,
-                "extraContext": false,
-                "sortOrder": "alphabetical",
-                "showSearch": false,
-                "searchQuery": "",
-                "backlinkCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-coming-in",
-              "title": "Backlinks for Flashcards"
-            }
-          },
-          {
-            "id": "9458af3a5a7ad8e1",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "Internet of Things/Flashcards.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "Outgoing links from Flashcards"
-            }
-          },
-          {
-            "id": "0cfe67d935c1c2fd",
-            "type": "leaf",
-            "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-tags",
-              "title": "Tags"
-            }
-          }
-        ],
-        "currentTab": 2
-      }
-    ],
-    "direction": "horizontal",
-    "width": 302.5,
-    "collapsed": true
-  },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
+      "bases:Create new base": false,
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6301b4f12752b980",
+  "active": "dde5e9d2c1a0bd0c",
   "lastOpenFiles": [
     "Distributed Systems/1 -.md",
-    "Distributed Systems",
-    "Untitled.base",
-    "Varie/OnTrek algoritmo direzione.md",
-    "Untitled.canvas",
-    "Varie",
-    "Internet of Things/mind-map.png",
+    "Computer Vision/images/Pasted image 20250925084856.png",
+    "Computer Vision/images/Pasted image 20250925084812.png",
+    "Pasted image 20250925084700.png",
+    "Computer Vision/02 - Image acquisition.md",
+    "Computer Vision/images/Pasted image 20250925084549.png",
+    "Computer Vision/images",
+    "Computer Vision",
     "Internet of Things/Protocols & Acronym List.md",
+    "Distributed Systems",
+    "Internet of Things/mind-map.png",
     "Internet of Things/flashcards.csv",
-    "Internet of Things/Flashcards.md",
-    "flashcards 2.csv",
-    "flashcards 1.csv",
-    "flashcards.csv",
-    "2025-05-30.md",
-    "Untitled/Untitled.md",
+    "Internet of Things/Research_on_CNN-BiLSTM_Fall_Detection_Algorithm_Ba.pdf",
     "Internet of Things",
-    "create a link.md",
-    "Welcome.md"
+    "Varie/OnTrek algoritmo direzione.md",
+    "Varie",
+    "Welcome.md",
+    "UniversityNotes/Varie/OnTrek algoritmo direzione.md",
+    "UniversityNotes/Varie",
+    "UniversityNotes/Internet of Things/mind-map.png",
+    "UniversityNotes/Internet of Things/flashcards.csv",
+    "UniversityNotes/Internet of Things/Research_on_CNN-BiLSTM_Fall_Detection_Algorithm_Ba.pdf",
+    "UniversityNotes/Internet of Things/Protocols & Acronym List.md"
   ]
 }
