@@ -26,3 +26,12 @@ Each component in the image called **pixel** associates with value (single value
 **Spatial coordinate** = (x,y) with origin on the top left
 ***f(x,y)*** may represent the intensity or color
 
+#### Digital image types
+- Intensity or monochrome image: each pixel represent light intensity(grayscale)
+- RGB: each pixel vector with red, green and blue
+- Binary image: black and white , each pixel 1 white and 0 black
+- Index image: pixel contains index number pointing to a color in a color table
+- 
+
+
+
