@@ -73,12 +73,23 @@
               "icon": "lucide-bookmark",
               "title": "Bookmarks"
             }
+          },
+          {
+            "id": "dae6ac1a546a1f63",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 244.5
+    "width": 272.5
   },
   "right": {
     "id": "73e94f3e6a943598",
@@ -150,19 +161,9 @@
               "icon": "lucide-list",
               "title": "Outline of 02 - Image acquisition"
             }
-          },
-          {
-            "id": "dae6ac1a546a1f63",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -180,7 +181,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "dde5e9d2c1a0bd0c",
+  "active": "dae6ac1a546a1f63",
   "lastOpenFiles": [
     "Distributed Systems/1 -.md",
     "Computer Vision/images/Pasted image 20250925084856.png",

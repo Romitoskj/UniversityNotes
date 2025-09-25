@@ -1,4 +1,4 @@
-#### Surface properties
+## Surface properties
 - Absorption
 - Diffusion
 - Reflex
@@ -18,7 +18,7 @@ Natural images has:
 #### Colors 
 - cameras have three sensor with sensitivity functions tuned to the colors red, green and blue, outputting three image functions
 
-#### Digitalization
+## Digitalization
 **Digital image** = multidimensional array of number (intensity image) or vectors (color image)
 Each component in the image called **pixel** associates with value (single value in intensity images or vector in color images)
 
@@ -31,7 +31,6 @@ Each component in the image called **pixel** associates with value (single value
 - RGB: each pixel vector with red, green and blue
 - Binary image: black and white , each pixel 1 white and 0 black
 - Index image: pixel contains index number pointing to a color in a color table
-- 
 
 
 
