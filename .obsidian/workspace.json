@@ -53,13 +53,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Varie/OnTrek algoritmo direzione.md",
+                "file": "Distributed Systems/1 -.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of OnTrek algoritmo direzione"
+              "title": "Outline of 1 -"
             }
           },
           {
@@ -99,8 +99,7 @@
               "title": "Source Control"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
@@ -182,7 +181,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6301b4f12752b980",
+  "active": "c6fc9949a74205e3",
   "lastOpenFiles": [
     "Distributed Systems/1 -.md",
     "Distributed Systems",
