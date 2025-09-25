@@ -34,3 +34,4 @@ Each component in the image called **pixel** associates with value (single value
 
 
 
+
