@@ -3,7 +3,11 @@
   "autoCommitMessage": "vault backup: {{date}}",
   "commitMessageScript": "",
   "commitDateFormat": "YYYY-MM-DD HH:mm:ss",
+<<<<<<< HEAD
   "autoSaveInterval": 2,
+=======
+  "autoSaveInterval": 3,
+>>>>>>> origin/main
   "autoPushInterval": 0,
   "autoPullInterval": 0,
   "autoPullOnBoot": true,
@@ -13,7 +17,7 @@
   "disablePopups": false,
   "showErrorNotices": true,
   "disablePopupsForNoChanges": false,
-  "listChangedFilesInMessageBody": false,
+  "listChangedFilesInMessageBody": true,
   "showStatusBar": true,
   "updateSubmodules": false,
   "syncMethod": "merge",
