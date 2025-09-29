@@ -5,5 +5,5 @@ A large class of problem in distributed computing (monitoring, detection, load b
 
 The **global state** of a distributed system is the _union of the states_ of the individual processes, which do not shares memory but communicate solely through exchange of messages. 
 
->The fundamental problem is to ensure that a global state constructed in this manner is meaningful
+>The fundamental problem is to ensure that a global state constructed in this manner is meaningful.
 
