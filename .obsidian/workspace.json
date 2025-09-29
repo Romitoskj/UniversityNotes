@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "dfa050f52f7dba06",
+        "id": "dd0180ab2b46a307",
         "type": "tabs",
         "children": [
           {
-            "id": "6301b4f12752b980",
+            "id": "c2183409bb0aa523",
             "type": "leaf",
             "state": {
               "type": "split-diff-view",
@@ -182,10 +182,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6301b4f12752b980",
+  "active": "c2183409bb0aa523",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "Distributed Systems/1 - Computing predicates on global states.md",
+    "Varie/OnTrek algoritmo direzione.md",
+    "2025-09-29.md",
+    "Distributed Systems/Untitled.md",
+    "conflict-files-obsidian-git.md",
     "Computer Vision/images/Pasted image 20250925084856.png",
     "Computer Vision/images/Pasted image 20250925084812.png",
     "Computer Vision/images/Pasted image 20250925084549.png",
@@ -194,7 +197,6 @@
     "Computer Vision",
     "Distributed Systems",
     "Untitled.base",
-    "Varie/OnTrek algoritmo direzione.md",
     "Untitled.canvas",
     "Varie",
     "Internet of Things/mind-map.png",
