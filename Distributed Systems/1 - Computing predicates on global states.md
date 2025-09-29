@@ -1,4 +1,4 @@
-# Introduction
+## Introduction
 A **distributed system** is a kind of computer system consisting of a set of interconnected processes whose communications between them happen only by message exchange.
 
 A large class of problem in distributed computing (monitoring, detection, load balancing) can be cast as executing some notification or reaction when the state of the system satisfies certain conditions. Thus, the ability to construct a **global state** and evaluate a predicate over such a state constitutes the core of solutions to many problems in distributed computing.
@@ -7,3 +7,4 @@ The **global state** of a distributed system is the _union of the states_ of the
 
 >The fundamental problem is to ensure that a global state constructed in this manner is meaningful.
 
+## Asynchronous distributed systems
