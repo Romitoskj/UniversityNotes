@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "dd0180ab2b46a307",
+        "id": "0f5d198df565972d",
         "type": "tabs",
         "children": [
           {
-            "id": "c2183409bb0aa523",
+            "id": "15c140c49af8b97b",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
+                "file": "Distributed Systems/1 - Computing predicates on global states.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json"
+              "icon": "lucide-file",
+              "title": "1 - Computing predicates on global states"
             }
           }
         ]
@@ -99,8 +99,7 @@
               "title": "Source Control"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
@@ -182,8 +181,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c2183409bb0aa523",
+  "active": "15c140c49af8b97b",
   "lastOpenFiles": [
+    "Untitled.base",
     "Distributed Systems/1 - Computing predicates on global states.md",
     "Varie/OnTrek algoritmo direzione.md",
     "2025-09-29.md",
@@ -196,7 +196,6 @@
     "Computer Vision/02 - Image acquisition.md",
     "Computer Vision",
     "Distributed Systems",
-    "Untitled.base",
     "Untitled.canvas",
     "Varie",
     "Internet of Things/mind-map.png",
