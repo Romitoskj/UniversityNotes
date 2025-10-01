@@ -18,3 +18,4 @@ Two models:
 - **Synchronous**:
 	- processes speeds and message delays bounded
 ## Distributed Computations
+>The execution of a distributed program by a collection of processes. Each process
