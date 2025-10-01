@@ -4,18 +4,28 @@
     "type": "split",
     "children": [
       {
-        "id": "0c58ef46ce7d9446",
+        "id": "f52d688908cc5a02",
         "type": "tabs",
         "children": [
           {
-            "id": "71351d8ab6e1bb33",
+            "id": "fa1a960bedf655e4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "icon": "lucide-file",
               "title": "1 - Consistent Global States of Distributed Systems"
@@ -161,8 +171,7 @@
               "title": "Tags"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -181,11 +190,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c6fc9949a74205e3",
+  "active": "fa1a960bedf655e4",
   "lastOpenFiles": [
-    "Distributed Systems/images/Pasted image 20251001230004.png",
     "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
     "Distributed Systems/images/Pasted image 20251001233311.png",
+    "figure.md",
+    "Distributed Systems/images/Pasted image 20251001230004.png",
     "Distributed Systems/images",
     "Untitled.base",
     "Varie/OnTrek algoritmo direzione.md",

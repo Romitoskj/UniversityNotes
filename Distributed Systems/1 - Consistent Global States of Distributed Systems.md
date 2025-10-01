@@ -47,7 +47,7 @@ It is possible that for some event $e$ and $e'$ neither $e \rightarrow e'$ nor $
 #### Space-time diagram
 ![[Pasted image 20251001233311.png]]
 If a path can be traced from one event to the other left to right along the horizontal lines and in the sense of the arrow the are related, otherwise they are concurrent.
-For example in the figure $e_2^1 \rightarrow e_3^6$ but $e_2^2 || e_3^6$ .
+For example in the [[#Space-time diagram|figure]] $e_2^1 \rightarrow e_3^6$ but $e_2^2 || e_3^6$ .
 
 ---
 ## Global States, Cuts and Runs
