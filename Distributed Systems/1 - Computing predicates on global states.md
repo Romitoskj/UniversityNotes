@@ -8,3 +8,6 @@ The **global state** of a distributed system is the _union of the states_ of the
 >The fundamental problem is to ensure that a global state constructed in this manner is meaningful.
 
 ## Asynchronous distributed systems
+Distributed system is composed of:
+- a collection of **processes** $p_1, p_2, ..., p_n$
+- **communication channels** between pair of them for message exchange
