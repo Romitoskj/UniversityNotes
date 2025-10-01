@@ -31,5 +31,10 @@ where  $m$ is the message identifier.
 - *local history* of process $p_i$ is a sequence of event $h_i = e_i^1 e_i^2 ... e_i^n$, 
 - history of the process $p_i$ containing the first $k$ events $h_i^k = e_i^1 e_i^2 ... e_i^k$
 - *global history* is a set $H=h_1 \cup ... \cup h_n$
+#### Happened-before
+Global history does not specify timing between events, they can only be ordered based on *"cause-and-effect"* relationship: two events are considered to occur in a certain order only if the first affect the outcome of the second, either because they are from the same process or they are from different processes and they correspond to the exchange of a message.
 
-Global history does not specify timing between events, they can only be ordered based on *"caused-and-effect"* relationship: two events are considered to occur in a certain order only if the first affect the outcome of the second.
+The binary relation *happened-before* $\rightarrow$ is defined over events such that:
+1. $e_i^k, e_i^\ell \in h_i \wedge k<\ell \Rightarrow e_i^k \rightarrow e_i^\ell$ 
+2. $e_i = send(m) \wedge e_j = receive(m) \Rightarrow e_i \rightarrow e_j$ 
+3. $e \rightarrow e' \wedge e' \rightarrow e'' \Rightarrow e \rightarrow e''$ (transitivity)
