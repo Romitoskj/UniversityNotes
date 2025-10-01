@@ -18,4 +18,8 @@ Two models:
 - **Synchronous**:
 	- processes speeds and message delays bounded
 ## Distributed Computations
->The execution of a distributed program by a collection of processes. Each process
+The execution of a distributed program by a collection of processes. Each process executes a sequence of *events*, that can be internal or involve communications.
+A communication event can be:
+- $send(m)$ (enqueuing message for transmission to destination process)
+	- $receive(m)$ (dequeing message at destination process)
+where  $m$ is the message identifier.
