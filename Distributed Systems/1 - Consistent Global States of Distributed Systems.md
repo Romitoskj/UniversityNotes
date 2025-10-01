@@ -6,6 +6,7 @@ A large class of problem in distributed computing (monitoring, detection, load b
 The **global state** of a distributed system is the _union of the states_ of the individual processes, which do not shares memory but communicate solely through exchange of messages. 
 
 >The fundamental problem is to ensure that a global state constructed in this manner is meaningful.
+---
 ## Asynchronous distributed systems
 Distributed system is composed of:
 - a collection of **processes** $p_1, p_2, ..., p_n$
@@ -17,9 +18,13 @@ Two models:
 	- communications only mechanism for synchronization
 - **Synchronous**:
 	- processes speeds and message delays bounded
+---
 ## Distributed Computations
-The execution of a distributed program by a collection of processes. Each process executes a sequence of *events*, that can be internal or involve communications.
+The execution of a distributed program by a collection of processes. Each process executes a sequence of ***events***, that can be internal or involve communications.
+
 A communication event can be:
 - $send(m)$ (enqueuing message for transmission to destination process)
-	- $receive(m)$ (dequeing message at destination process)
+- $receive(m)$ (dequeing message at destination process)
 where  $m$ is the message identifier.
+
+The *local history* of process $p_i$ is a sequence of event $h = e_i^1 e_i^2 ... e_i^n$ 
