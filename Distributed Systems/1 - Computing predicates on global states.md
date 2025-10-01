@@ -11,3 +11,10 @@ The **global state** of a distributed system is the _union of the states_ of the
 Distributed system is composed of:
 - a collection of **processes** $p_1, p_2, ..., p_n$
 - **communication channels** between pair of them for message exchange
+Two models:
+- **Asynchronous** (realistic for actual sistems):
+	- no bound on processes speeds and on message delay
+	- synchronized to local clock
+	- communications only mechanism for synchronization
+- **Synchronous**:
+	- processes speeds and message delays bounded
