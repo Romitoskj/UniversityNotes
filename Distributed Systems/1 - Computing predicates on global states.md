@@ -12,7 +12,7 @@ Distributed system is composed of:
 - a collection of **processes** $p_1, p_2, ..., p_n$
 - **communication channels** between pair of them for message exchange
 Two models:
-- **Asynchronous** (realistic for actual sistems):
+- **Asynchronous** (realistic for actual systems):
 	- no bound on processes speeds and on message delay
 	- synchronized to local clock
 	- communications only mechanism for synchronization
