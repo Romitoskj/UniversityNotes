@@ -99,8 +99,7 @@
               "title": "Source Control"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -182,10 +181,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8a3efc6ed6c570a5",
+  "active": "71351d8ab6e1bb33",
   "lastOpenFiles": [
-    "Untitled.base",
+    "Distributed Systems/images/Pasted image 20251001230004.png",
     "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
+    "Distributed Systems/images",
+    "Untitled.base",
     "Varie/OnTrek algoritmo direzione.md",
     "2025-09-29.md",
     "Distributed Systems/Untitled.md",
@@ -208,7 +209,6 @@
     "flashcards.csv",
     "2025-05-30.md",
     "Untitled/Untitled.md",
-    "Internet of Things",
     "create a link.md",
     "Welcome.md"
   ]

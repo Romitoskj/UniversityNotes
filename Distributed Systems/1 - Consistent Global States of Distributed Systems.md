@@ -38,3 +38,9 @@ The binary relation *happened-before* $\rightarrow$ is defined over events such 
 1. $e_i^k, e_i^\ell \in h_i \wedge k<\ell \Rightarrow e_i^k \rightarrow e_i^\ell$ 
 2. $e_i = send(m) \wedge e_j = receive(m) \Rightarrow e_i \rightarrow e_j$ 
 3. $e \rightarrow e' \wedge e' \rightarrow e'' \Rightarrow e \rightarrow e''$ (transitivity)
+It denotes that if $e \rightarrow e'$ the outcome of $e'$ *may* have been influenced by $e$. 
+
+It is possible that for some event $e$ and $e'$ neither $e \rightarrow e'$ nor $e' \rightarrow e$ so they are *concurrent* $e||e'$.
+
+####
+![[Pasted image 20251001230004.png]]
