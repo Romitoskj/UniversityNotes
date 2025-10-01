@@ -20,11 +20,16 @@ Two models:
 	- processes speeds and message delays bounded
 ---
 ## Distributed Computations
+#### Events
 The execution of a distributed program by a collection of processes. Each process executes a sequence of ***events***, that can be internal or involve communications.
 
 A communication event can be:
 - $send(m)$ (enqueuing message for transmission to destination process)
 - $receive(m)$ (dequeing message at destination process)
 where  $m$ is the message identifier.
+#### History
+- *local history* of process $p_i$ is a sequence of event $h_i = e_i^1 e_i^2 ... e_i^n$, 
+- history of the process $p_i$ containing the first $k$ events $h_i^k = e_i^1 e_i^2 ... e_i^k$
+- *global history* is a set $H=h_1 \cup ... \cup h_n$
 
-The *local history* of process $p_i$ is a sequence of event $h = e_i^1 e_i^2 ... e_i^n$ 
+Global history does not specify timing between events, they can only be ordered based on *"caused-and-effect"* relationship: two events are considered to occur in a certain order only if the first affect the outcome of the second.
