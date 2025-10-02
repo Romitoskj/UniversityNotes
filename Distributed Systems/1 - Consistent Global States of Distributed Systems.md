@@ -44,6 +44,8 @@ It denotes that if $e \rightarrow e'$ the outcome of $e'$ *may* have been influe
 
 It is possible that for some event $e$ and $e'$ neither $e \rightarrow e'$ nor $e' \rightarrow e$ so they are *concurrent* $e||e'$.
 
+A distributed computation is a partially ordered set defined by $(H,\rightarrow)$.
+
 #### Space-time diagram
 ![[figure_1.png]]
 If a path can be traced from one event to the other left to right along the horizontal lines and in the sense of the arrow the are related, otherwise they are concurrent.
@@ -56,5 +58,23 @@ $\sigma_i^k$ or $a_i^k$ denote the *local* state of process $p_i$ after the even
 #### Global State
 The *global* state of a distributed computation is an n-tuple of local states $\Sigma=(\sigma_1, \sigma_2, ..., \sigma_n)$ one for each process
 #### Cut
+A *cut* of a distributed computation is a subset $C$ of its global history $H$ and contains an initial prefix of each of the local histories.
+
+It is denoted as $C=h_1^{c_1} \cup ... \cup h_n^{c_n}$ with the tuple of natural numbers $(c_1,...,c_n)$ corresponding to the index of the last event included for each process.
+
+The set of last events $(e_1^{c_1},...,e_n^{c_n})$ included in a cut is called the *frontier* of the cut.
+
+Each cut has a corresponding global state $(\sigma_1^{c_1}, ..., \sigma_n^{c_n})$.
+
 ![[figure_2.png]]
-a *cut* of a distributed computation is a subset $C$ of its global history $H$ and contains an initial prefix of each of the local histories.
+A cut is graphically represented as a partition of the space-time diagram along the time axis. In the figure there are two cuts $C$ corresponding to the tuple $(5,2,4)$ and $C'$ corresponding to $(3,2,6)$.
+
+#### Runs
+A *run* of a distributed computation is total ordering set $R$ that includes all of the events in the global history ordered by the effective time they occur and that is consistent with each local history. That is because all events occur in some total order even though a distributed computation is a partially ordered set ([[#Happened-before]]).
+
+So for each process $p_i$ the events of $p_i$ appear in $R$ in the same order they appear in $h_i$. 
+
+A run may not correspond to any possible execution and a single computation may have many possible runs.
+
+---
+## Monitoring Distributed Computations
