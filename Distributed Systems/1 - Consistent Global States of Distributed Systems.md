@@ -45,9 +45,16 @@ It denotes that if $e \rightarrow e'$ the outcome of $e'$ *may* have been influe
 It is possible that for some event $e$ and $e'$ neither $e \rightarrow e'$ nor $e' \rightarrow e$ so they are *concurrent* $e||e'$.
 
 #### Space-time diagram
-![[Pasted image 20251001233311.png]]
+![[figure_1.png]]
 If a path can be traced from one event to the other left to right along the horizontal lines and in the sense of the arrow the are related, otherwise they are concurrent.
 For example in the [[#Space-time diagram|figure]] $e_2^1 \rightarrow e_3^6$ but $e_2^2 || e_3^6$ .
 
 ---
 ## Global States, Cuts and Runs
+### Local State
+$\sigma_i^k$ or $a_i^k$ denote the *local* state of process $p_i$ after the event $e_i^k$ is executed, so $\sigma_i^0$ is the initial state. The local state of a process may include information such as the values of local variables and the sequence of messages sent and received.
+#### Global State
+The *global* state of a distributed computation is an n-tuple of local states $\Sigma=(\sigma_1, \sigma_2, ..., \sigma_n)$ one for each process
+#### Cut
+![[figure_2.png]]
+a *cut* of a distributed computation is a subset $C$ of its global history $H$ and contains an initial prefix of each of the local histories.
