@@ -4,22 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "08d71f5de4448bc1",
+        "id": "c46dc1544c7c8841",
         "type": "tabs",
         "children": [
           {
-            "id": "9c84addd92725630",
+            "id": "78f5ae194b1bccba",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
-                "bFile": "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
-                "aRef": "HEAD",
-                "bRef": ""
+                "file": "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
               },
-              "icon": "diff",
-              "title": "Diff: 1 - Consistent Global States of Distributed Systems"
+              "icon": "lucide-file",
+              "title": "1 - Consistent Global States of Distributed Systems"
             }
           }
         ]
@@ -100,8 +100,7 @@
               "title": "Source Control"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
@@ -182,7 +181,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5599bd769540023d",
+  "active": "c6fc9949a74205e3",
   "lastOpenFiles": [
     "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
     "conflict-files-obsidian-git.md",
