@@ -92,3 +92,15 @@ To construct the global state $p_0$ sends each process a "state enquiry" message
 >*The global state constructed by $p_0$ is the one corresponding to this cut* 
 
 Given that the monitor process is part of the DS and is subject to the same uncertainties as any other process, this approach may lead to non-meaningful predicate values.
+
+---
+## Consistency
+>[!Important] Definition
+>A cut $C$ *is consistent* if for all events $e$ and $e'$ 
+>$$
+>(e \in C) \wedge (e' \rightarrow e) \Rightarrow e'\in C
+>$$
+
+In other words, a consistent cut is left closed under the [[#Happened-before|causal precedence relation]]. Graphically if all arrows that intersect the cut have their bases to the left and heads to the right of it, then the cut is consistent.
+
+A consistent global state is one corresponding to a consistent cut.
