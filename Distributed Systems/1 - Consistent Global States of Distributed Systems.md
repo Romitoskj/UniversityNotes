@@ -104,3 +104,5 @@ Given that the monitor process is part of the DS and is subject to the same unce
 In other words, a consistent cut is left closed under the [[#Happened-before|causal precedence relation]]. Graphically if all arrows that intersect the cut have their bases to the left and heads to the right of it, then the cut is consistent.
 
 A consistent global state is one corresponding to a consistent cut.
+
+A run $R$ is consistent if for all events, $e \rightarrow e'$ implies that $e$ appears before $e'$ in $R$.
