@@ -21,8 +21,21 @@
               "icon": "lucide-file",
               "title": "1 - Consistent Global States of Distributed Systems"
             }
+          },
+          {
+            "id": "c4060b5590e9de9c",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.14"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.14"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -100,8 +113,7 @@
               "title": "Source Control"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "horizontal",
@@ -182,7 +194,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5599bd769540023d",
+  "active": "c4060b5590e9de9c",
   "lastOpenFiles": [
     "Distributed Systems/assets/figure_2.png",
     "Distributed Systems/assets/figure_1.png",
