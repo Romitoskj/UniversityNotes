@@ -122,8 +122,12 @@ send_i(m) \rightarrow send_i(m') \Rightarrow deliver_j(m) \rightarrow deliver_j(
 $$
 FIFO prevents one message overtaking an earlier message sent by the same process.
 
+---
+
 >[!Warning]  Assumption
 > - Global real-time clock
 > - All message delays are bounded by $\delta$ (prof. call it *delivery upper-bound time* as $\Delta T$)
 
 Let $TS(e)$ denote the value of the clock  when event $e$ is executed. When a process notifies $p_0$ of some local event $e$, it includes $TS(e)$ in the notification as a *timestamp*.
+#### DR1
+At time $t$, deliver all received message with timestamps up to $t-\Delta T$ in increasing timestamp order.
