@@ -155,3 +155,10 @@ The Lamport clock is updated to be greater than both of the previous local value
 >Lamport clock values increase with respect to [[#Happened-before|causal precedence]] 
 
 It is easy to verify that for any two events where $e \rightarrow e'$, the Lamport clocks associated with them are such that $LC(e)<LC(e')$, so the clock condition is satisfied.
+
+>[!Error] Problem
+Considering a delivery rule where messages are delivered in increasing timestamp order, without message delivery upper-bound time no message will be delivered for fear of receiving a later message with a smaller timestamp.
+
+>[!Important] Definition
+>**Gap-detection:** Given two events $e$ and $e'$ along with their clock values $LC(e)$ and $LC(e')$, determine whether some other event $e''$ exists such that $LC(e) < LC(e'') < LC(e')$.
+
