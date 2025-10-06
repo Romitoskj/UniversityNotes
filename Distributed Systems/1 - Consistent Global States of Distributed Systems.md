@@ -162,3 +162,4 @@ Considering a delivery rule where messages are delivered in increasing timestamp
 >[!Important] Definition
 >**Gap-detection:** Given two events $e$ and $e'$ along with their clock values $LC(e)$ and $LC(e')$, determine whether some other event $e''$ exists such that $LC(e) < LC(e'') < LC(e')$.
 
+Using FIFO communication between all processes and $p_0$ 
