@@ -100,7 +100,8 @@
               "title": "Source Control"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -181,7 +182,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c6fc9949a74205e3",
+  "active": "78f5ae194b1bccba",
   "lastOpenFiles": [
     "Distributed Systems/1 - Consistent Global States of Distributed Systems.md",
     "conflict-files-obsidian-git.md",
