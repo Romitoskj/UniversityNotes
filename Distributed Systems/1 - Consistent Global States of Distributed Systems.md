@@ -109,10 +109,7 @@ A run $R$ is consistent if for all events, $e \rightarrow e'$ implies that $e$ a
 
 ---
 ## Delivery rules
->[!Note]
->An *observation* is a run constructed by a monitor process through notification messages.
-
-
+An *observation* is a run constructed by a monitor process through notification messages. So a consistent observation is one that correspond to a consistent run.
 
 The order of messages between pairs of process can be restored by defining a *delivery rule* for deciding when received message are to be presented to the application process.
 
