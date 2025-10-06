@@ -106,3 +106,13 @@ In other words, a consistent cut is left closed under the [[#Happened-before|cau
 A consistent global state is one corresponding to a consistent cut.
 
 A run $R$ is consistent if for all events, $e \rightarrow e'$ implies that $e$ appears before $e'$ in $R$.
+
+---
+## Delivery rules
+The order of messages between pairs of process can be restored by defining a *delivery rule* for deciding when received message are to be presented to the application process.
+
+>[!Note]
+> - **deliver**: message presented to the application process
+> - **receive**: message arrived at the destination process
+
+#### FIFO Delivery
