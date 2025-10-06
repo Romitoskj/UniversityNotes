@@ -130,4 +130,5 @@ FIFO prevents one message overtaking an earlier message sent by the same process
 
 Let $TS(e)$ denote the value of the clock  when event $e$ is executed. When a process notifies $p_0$ of some local event $e$, it includes $TS(e)$ in the notification as a *timestamp*.
 #### DR1
-At time $t$, deliver all received message with timestamps up to $t-\Delta T$ in increasing timestamp order.
+At time $t$, deliver all received message with timestamps up to $t-\Delta T$ in increasing timestamp order. This ensures that no future message can arrive with a timestamp smaller than any of the messages already delivered. 
+
