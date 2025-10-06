@@ -116,3 +116,8 @@ The order of messages between pairs of process can be restored by defining a *de
 > - **receive**: message arrived at the destination process
 
 #### FIFO Delivery
+Communication from process $p_i$ to $p_j$ is said to satisfy *First-In-First-Out delivery* if for all messages $m$ and $m'$ 
+$$
+send_i(m) \rightarrow send_i(m') \Rightarrow deliver_j(m) \rightarrow deliver_j(m)
+$$
+FIFO prevents one message overtaking an earlier message sent by the same process.
