@@ -173,9 +173,11 @@ Given a FIFO communication between all processes an $p_0$, stability of message 
 Deliver all received messages that are stable at $p_0$ in increasing timestamp order.
 
 ---
-## Casual Delivery
+## Causal Delivery (CD)
+More general abstraction extending FIFO ordering to all message that are causal related, even if they came from different processes.
 $$
 send_i(m) \rightarrow send_j(m') \Rightarrow deliver_k(m) \rightarrow deliver_k(m')
 $$
 for all messages $m,m'$ sending processes $p_i,p_j$ and destination process $p_k$.
 
+If $p_0$ uses a delivery rule that satisfy CD all observation will be consistent.
