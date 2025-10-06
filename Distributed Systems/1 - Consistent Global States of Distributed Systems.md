@@ -171,3 +171,11 @@ Given a FIFO communication between all processes an $p_0$, stability of message 
 
 #### Delivery Rule 2 (DR2)
 Deliver all received messages that are stable at $p_0$ in increasing timestamp order.
+
+---
+## Casual Delivery
+$$
+send_i(m) \rightarrow send_j(m') \Rightarrow deliver_k(m) \rightarrow deliver_k(m')
+$$
+for all messages $m,m'$ sending processes $p_i,p_j$ and destination process $p_k$.
+
