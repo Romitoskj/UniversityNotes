@@ -162,4 +162,12 @@ Considering a delivery rule where messages are delivered in increasing timestamp
 >[!Important] Definition
 >**Gap-detection:** Given two events $e$ and $e'$ along with their clock values $LC(e)$ and $LC(e')$, determine whether some other event $e''$ exists such that $LC(e) < LC(e'') < LC(e')$.
 
-Using FIFO communication between all processes and $p_0$ 
+Since each Lamport clock is monotone increasing and Using FIFO communication between all processes and $p_0$ preserves order among messages of the same process, when $p_0$ receives a message $m$ from process $p_i$ with timestamp $TS(m)$ it is certain that no other message $m'$ can arrive from $p_i$ such that $TS(m') \leq TS(m)$.
+
+>[!Important] Definition
+>A message $m$ received by process $p$ is called ***stable*** if no future messages with timestamps smaller than $TS(m)$ can be received by $p$.
+
+Given a FIFO communication between all processes an $p_0$, stability of message $m$ at $p_0$ can be guaranteed when $p_0$ has received at least one message from *all* other processes with a timestamp greater than $TS(m)$.
+
+#### Delivery Rule 2 (DR2)
+Deliver all received messages that are stable at $p_0$ in increasing timestamp order.
