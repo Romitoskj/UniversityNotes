@@ -30,10 +30,10 @@ Templates are...
 A subject is accepted if the similarity achieved from the comparison is greater than or equal to acceptance threshold, or distance is less than or equal to threshold.
 
 4 possible cases:
-- **Genuine Acceptance (GA)**: The claim of identity is true and the subject is accepted
-- **False Rejection: (FR)** The claimed identity is true but the subject is rejected
-- **Genuine Rejection (GR):** An impostor is rejected
-- **False Acceptance (FA):** An impostor subject is accepted
+- ✅ **Genuine Acceptance (GA)**: The claim of identity is true and the subject is accepted
+- ❌ **False Rejection: (FR)** The claimed identity is true but the subject is rejected
+- ✅ **Genuine Rejection (GR):** An impostor is rejected
+- ❌ **False Acceptance (FA):** An impostor subject is accepted
 
 It is necessary to *measure* and *compare* performance (counting errors is not suited):
 - **False Acceptance Rate - FAR:** percentage of recognition operations with an impostor claim in which false acceptance occurs. *False acceptance rate + genuine acceptance rate GAR = 1*
@@ -41,6 +41,9 @@ It is necessary to *measure* and *compare* performance (counting errors is not s
 - **Equal Error Rate ERR**
 - **Detection Error Trade-off DET**
 - **Receiving Operating Curve ROC**
+
+> [!Danger] Important
+> All measures depend on the adopted **acceptance threshold**
 
 ### Problem of accuracy:
 accuracy = number of correct responses / total responses
