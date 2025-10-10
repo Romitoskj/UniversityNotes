@@ -1,2 +1,5 @@
 Color is a psychological property of our visual experiences when we look at objects and lights, *not a physical property of objects or light*.
 It is the result of interaction between physical light in the environment and our visual system.
+
+> Observed color is the result of interaction of light source with surface reflectance
+
