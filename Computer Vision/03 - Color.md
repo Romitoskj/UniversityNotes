@@ -16,3 +16,5 @@ Primaries are monochromatic lights (for monitors, they correspond to the three t
 # Color perception
 - Color/lightness constancy
 	- the ability of the human visual system to perceive the intrinsic reflectance properties of the surfaces despite changes in illumination condition
+- Instantaneous effects
+	- Simultaneous contrast: background color affects perceived color of the target
