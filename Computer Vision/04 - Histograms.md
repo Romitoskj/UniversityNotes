@@ -19,6 +19,13 @@ For color images there three approaches:
 - or an individual histogram of red, green and blue
 - or a 3-D histogram with three axes representing the red, blue and green channels, and brightness at each point representing the pixel count
 # Histogram transformation
-# Histogram equalization
-# Contrast streching
+Method used in image processing to enhance contrast or distribution of pixel values (grey levels) in an image.
+
+It is a *point operation* (do not consider neighbours ) $T(r_k)=s_k$, hence each pixel value $r_k$ is transformed to a new value $s_k$ using a transformation function $T$. 
+
+![[Pasted image 20251011005542.png]]
+# Histogram equalization (HE)
+>[!Important]
+Transform the intensity values so the histogram of the output image approximately matches the flat (uniform) histogram
+# Contrast stretching
 # Application
