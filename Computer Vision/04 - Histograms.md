@@ -39,6 +39,10 @@ $$
 
 ![[Pasted image 20251011012021.png]]
 
+## Histogram Projection (HP)
+Assigns equal display space to every occupied raw signal level, regardless of how many pixels are at the same level. The raw signal histogram is "projected" into a similar-looking display histogram.
+
+![[Pasted image 20251011013823.png]]
 
 # Contrast stretching
 # Application
