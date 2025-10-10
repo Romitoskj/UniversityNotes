@@ -30,7 +30,7 @@ It is a *point operation* (do not consider neighbours ) $T(r_k)=s_k$, hence each
 Transform the intensity values so the histogram of the output image approximately matches the flat (uniform) histogram
 
 $$
-s_k=t(r_k)=\sum_{j=0}^k\frac{n_j}{n}\cdot(L-1)
+s_k=t(r_k)=(L-1)\sum_{j=0}^k\frac{n_j}{n}
 $$
 - $k=0,1,2,...,L-1$
 - $L$: number of grey levels in an image (e.g. 255)
