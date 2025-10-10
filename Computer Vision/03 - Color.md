@@ -16,5 +16,22 @@ Primaries are monochromatic lights (for monitors, they correspond to the three t
 # Color perception
 - Color/lightness constancy
 	- the ability of the human visual system to perceive the intrinsic reflectance properties of the surfaces despite changes in illumination condition
+	- ![[Pasted image 20251010211510.png]]
 - Instantaneous effects
 	- Simultaneous contrast: background color affects perceived color of the target
+	- Match bands
+- Gradual effects
+	- light/dark adaptation
+	- chromatic adaptation
+		- the visual system changes its sensitivity depending on the luminances prevailing in the visual field
+		- e.g. walking into a building from full sunshine
+	- afterimages
+- High-level effects
+	- color naming
+		- our perception of color is different form the computer
+# Uses of color in computer vision
+- Color histograms for indexing and retrieval
+- Skin detection
+- Image segmentation and retrieval
+- Building appearance models for tracking
+- Judging visual realism
