@@ -13,3 +13,6 @@ Three numbers are sufficient for encoding colors: most people can match any give
 - Mixing three lights produces colors that lie within the triangle defined in color space
 ## RGB
 Primaries are monochromatic lights (for monitors, they correspond to the three types of phosphors)
+# Color perception
+- Color/lightness constancy
+	- the ability of the human visual system to perceive the intrinsic reflectance properties of the surfaces despite changes in illumination condition
