@@ -24,8 +24,21 @@ Method used in image processing to enhance contrast or distribution of pixel val
 It is a *point operation* (do not consider neighbours ) $T(r_k)=s_k$, hence each pixel value $r_k$ is transformed to a new value $s_k$ using a transformation function $T$. 
 
 ![[Pasted image 20251011005542.png]]
+
 # Histogram equalization (HE)
 >[!Important]
 Transform the intensity values so the histogram of the output image approximately matches the flat (uniform) histogram
+
+$$
+s_k=t(r_k)=\sum_{j=0}^k\frac{n_j}{n}\cdot(L-1)
+$$
+- $k=0,1,2,...,L-1$
+- $L$: number of grey levels in an image (e.g. 255)
+- $n_j$: number of times $j$-th grey level appears in an image
+- $n$: total number of pixel in the image
+
+![[Pasted image 20251011012021.png]]
+
+
 # Contrast stretching
 # Application
