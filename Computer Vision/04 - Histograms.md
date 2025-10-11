@@ -88,6 +88,12 @@ The PE algorithm computes the distribution not for the full image histogram but 
 > s_k = 255 \cdot P(k)
 > $$
 
+- Compute a new histogram for all grey levels.
+	- The plateau value $P$ is a threshold on the histogram height
+	- If a gray level $k$ has $n_k > P$ pixels, we clip it down to $P$
+	- if $n_k \leq P$, we keep it unchanged
+- Perform an Histogram Equalization on the modified histogram
 
+Doing so bright or dark regions that dominate the histogram no longer "squeeze" other tones and the resulting image has **better contrast** but **less noise** and smoother brightness transitions.
 # Contrast stretching
 # Application
