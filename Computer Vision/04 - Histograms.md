@@ -52,7 +52,15 @@ Assigns equal display space to every occupied raw signal level, regardless of ho
 > [!Important]
 > Spreads the *used gray levels* evenly across the display range, **ignoring how many pixels each level has**.
 
+- *occupied grey level:* there is at least one pixel with that grey level
+- *$B(k)$:* the fraction of occupied grey levels at or below grey level k, rises from $0$ to $1$ in discrete uniform steps of $1/n$, where $n$ is the total number of occupied levels.
+$$
+s_k=255\cdot B(k)
+$$
+Meaning that each occupied gray level $k$ in the original image is mapped to a new gray level $s_k$ that is uniformly spaced between $0$ and $255$.
 
+> [!Note] 
+> Every used gray level gets an equal slice of display space
 
 ![[Pasted image 20251011013823.png]]
 
