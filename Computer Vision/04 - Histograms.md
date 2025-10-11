@@ -95,5 +95,22 @@ The PE algorithm computes the distribution not for the full image histogram but 
 - Perform an Histogram Equalization on the modified histogram
 
 Doing so bright or dark regions that dominate the histogram no longer "squeeze" other tones and the resulting image has **better contrast** but **less noise** and smoother brightness transitions.
+So, when you **clip** high peaks in the histogram and then equalize, you reduce their influence — this **softens** the equalization result, making it less extreme than HE but more adaptive than HP.
+
+---
+## Differences between transformations
+
+| **Method** | **How display space is assigned**                                             | **Effect**                           |
+| ---------- | ----------------------------------------------------------------------------- | ------------------------------------ |
+| HE         | Space proportional to pixel count (based on Cumulative Distribution Function) | Strong contrast, sometimes too harsh |
+| HP         | Equal space to each used gray level (ignores frequency)                       | Mild contrast stretch                |
+| PE         | Space partly proportional to pixel count, but large counts are **clipped**    | Balanced contrast (intermediate)     |
+
 # Contrast stretching
+By stretching the histogram we attempt to use the available full grey level range. Do not help if all the display range is already used.
+
+>[!Info] Transformation:
+>$$
+>s_k=255 \cdot (r_k-min)/(max-min)
+>$$
 # Application
