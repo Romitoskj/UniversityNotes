@@ -66,5 +66,11 @@ Meaning that each occupied gray level $k$ in the original image is mapped to a n
 IR = Infra Red (other value scale)
 ## Plateau equalization (PE)
 By clipping the histogram count at a saturation or *plateau value*, one can produce display allocations intermediate in character between in those of HP and HE.
+
+### Problems with ordinary histogram equalization:
+1. Over-enhancemente (too much contrast)
+2. Noise amplification (especially in smooth regions)
+3. Washed-out areas (loss of details in bright/dark zones)
+That's because HE tries to make **all gray levels equally probable** even if some gray levels occur excessively due to noise or large uniform regions.
 # Contrast stretching
 # Application
