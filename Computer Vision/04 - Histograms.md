@@ -39,10 +39,20 @@ $$
 - $n_j$: number of times $j$-th grey level appears in an image
 - $n$: total number of pixel in the image
 
+This technique redistributes the pixel intensities so that the resulting image has more **uniform histogram** - meaning all intensity levels are used more evenly.
+1. $\frac{n_j}{n}$: probability of gray level $j$ 
+2. $\sum_{j=0}^k\frac{n_j}{n}$ is the **cumulative distribution function** up to level $k$ $\rightarrow$ It tells us the cumulative probability of intensity $\leq r_k$
+3. Multiply by $(L-1)$ maps this cumulative probability into the range of gray levels $[0, L-1]$ 
+
 ![[Pasted image 20251011012021.png]]
 
 ## Histogram Projection (HP)
 Assigns equal display space to every occupied raw signal level, regardless of how many pixels are at the same level. The raw signal histogram is "projected" into a similar-looking display histogram.
+
+> [!Important]
+> Spreads the *used gray levels* evenly across the display range, **ignoring how many pixels each level has**.
+
+
 
 ![[Pasted image 20251011013823.png]]
 
