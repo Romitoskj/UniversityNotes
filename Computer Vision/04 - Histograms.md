@@ -125,4 +125,5 @@ min = 79, max = 136
 	- useful when images have been acquired under different circumstances
 	- can be HE for example
 	- can be used for MRI images: MRI intensities do not have a fixed meaning, not even with the same protocol for the same body region on the same scanner for the same patient![[Pasted image 20251011214132.png]]![[Pasted image 20251011214217.png]]
-- Digitaliz
+- Digitalised high dynamic range images, such infrared or CAT scan, spans a much larger range of levels than typical (0-255) available for monitor display, so they need to be mapped to that range preserving as much information as possible 
+	- 
