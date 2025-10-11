@@ -26,8 +26,10 @@ It is a *point operation* (do not consider neighbours ) $T(r_k)=s_k$, hence each
 ![[Pasted image 20251011005542.png]]
 
 ## Histogram equalization (HE)
+Transform the intensity values so the histogram of the output image approximately matches the flat (uniform) histogram.
+
 >[!Important]
-Transform the intensity values so the histogram of the output image approximately matches the flat (uniform) histogram
+> **Spreads pixels evenly across all brightness levels.**
 
 $$
 s_k=t(r_k)=(L-1)\sum_{j=0}^k\frac{n_j}{n}
