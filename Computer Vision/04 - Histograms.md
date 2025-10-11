@@ -31,9 +31,10 @@ Transform the intensity values so the histogram of the output image approximatel
 >[!Important]
 > **Spreads pixels evenly across all brightness levels.**
 
-$$
-s_k=t(r_k)=(L-1)\sum_{j=0}^k\frac{n_j}{n}
-$$
+> [!Info] Transformation:
+> $$
+> s_k=t(r_k)=(L-1)\sum_{j=0}^k\frac{n_j}{n}
+> $$
 - $k=0,1,2,...,L-1$
 - $L$: number of grey levels in an image (e.g. 255)
 - $n_j$: number of times $j$-th grey level appears in an image
@@ -54,9 +55,12 @@ Assigns equal display space to every occupied raw signal level, regardless of ho
 
 - *occupied grey level:* there is at least one pixel with that grey level
 - *$B(k)$:* the fraction of occupied grey levels at or below grey level k, rises from $0$ to $1$ in discrete uniform steps of $1/n$, where $n$ is the total number of occupied levels.
-$$
-s_k=255\cdot B(k)
-$$
+
+>[!Info] Transformation:
+> $$
+> s_k=255\cdot B(k)
+> $$
+
 Meaning that each occupied gray level $k$ in the original image is mapped to a new gray level $s_k$ that is uniformly spaced between $0$ and $255$.
 
 > [!Note] 
@@ -66,11 +70,24 @@ Meaning that each occupied gray level $k$ in the original image is mapped to a n
 IR = Infra Red (other value scale)
 ## Plateau equalization (PE)
 By clipping the histogram count at a saturation or *plateau value*, one can produce display allocations intermediate in character between in those of HP and HE.
-
 ### Problems with ordinary histogram equalization:
 1. Over-enhancemente (too much contrast)
 2. Noise amplification (especially in smooth regions)
 3. Washed-out areas (loss of details in bright/dark zones)
 That's because HE tries to make **all gray levels equally probable** even if some gray levels occur excessively due to noise or large uniform regions.
+
+![[Pasted image 20251011204643.png]]
+
+The PE algorithm computes the distribution not for the full image histogram but for the histogram clipped at a plateau value in the count.
+- When that plateau value is set at 1, we generate $B(k)$ and so perform HP;
+- When is set above the histogram peak, we generate $F(k)$ and so perform HE;
+- At intermediate values, we generate an intermediate distribution denoted as $P(k)$
+
+> [!Info] Transformation:
+> $$
+> s_k = 255 \cdot P(k)
+> $$
+
+
 # Contrast stretching
 # Application
