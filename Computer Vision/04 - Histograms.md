@@ -107,10 +107,15 @@ So, when you **clip** high peaks in the histogram and then equalize, you reduce 
 | PE         | Space partly proportional to pixel count, but large counts are **clipped**    | Balanced contrast (intermediate)     |
 
 # Contrast stretching
-By stretching the histogram we attempt to use the available full grey level range. Do not help if all the display range is already used.
+By stretching the histogram we attempt to use the available full grey level range. 
+Do not help if all the display range is already used (better other techniques).
 
 >[!Info] Transformation:
 >$$
 >s_k=255 \cdot (r_k-min)/(max-min)
 >$$
+
+![[Pasted image 20251011212813.png]]
+min = 79, max = 136
 # Application
+- CT lung studies
