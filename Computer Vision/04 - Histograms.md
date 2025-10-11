@@ -121,4 +121,7 @@ min = 79, max = 136
 - CT lung studies
 - Thresholding $\rightarrow$ converting a greyscale image to a binary one
 - Normalization:
-	- when comparing between two or more images on a specific basis, such as texture, it is common to first normalize 
+	- when comparing between two or more images on a specific basis, such as texture, it is common to first normalize their histograms to a standard one.
+	- useful when images have been acquired under different circumstances
+	- can be HE for example
+	- can be used for MRI images: MRI intensities do not have a fixed meaning, not even with the same protocol for the same body region on the same sca
