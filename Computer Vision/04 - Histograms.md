@@ -64,7 +64,7 @@ Meaning that each occupied gray level $k$ in the original image is mapped to a n
 
 ![[Pasted image 20251011013823.png]]
 IR = Infra Red (other value scale)
-## Plateau equalization
-
+## Plateau equalization (PE)
+By clipping the histogram count at a saturation or *plateau value*, one can produce display allocations intermediate in character between in those of HP and HE.
 # Contrast stretching
 # Application
