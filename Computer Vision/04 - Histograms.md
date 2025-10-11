@@ -63,6 +63,8 @@ Meaning that each occupied gray level $k$ in the original image is mapped to a n
 > Every used gray level gets an equal slice of display space
 
 ![[Pasted image 20251011013823.png]]
+IR = Infra Red (other value scale)
+## Plateau equalization
 
 # Contrast stretching
 # Application
