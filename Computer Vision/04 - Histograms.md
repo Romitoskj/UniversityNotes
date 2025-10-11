@@ -124,4 +124,5 @@ min = 79, max = 136
 	- when comparing between two or more images on a specific basis, such as texture, it is common to first normalize their histograms to a standard one.
 	- useful when images have been acquired under different circumstances
 	- can be HE for example
-	- can be used for MRI images: MRI intensities do not have a fixed meaning, not even with the same protocol for the same body region on the same sca
+	- can be used for MRI images: MRI intensities do not have a fixed meaning, not even with the same protocol for the same body region on the same scanner for the same patient![[Pasted image 20251011214132.png]]![[Pasted image 20251011214217.png]]
+- Digitaliz
