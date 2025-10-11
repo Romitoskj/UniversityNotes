@@ -119,3 +119,6 @@ Do not help if all the display range is already used (better other techniques).
 min = 79, max = 136
 # Application
 - CT lung studies
+- Thresholding $\rightarrow$ converting a greyscale image to a binary one
+- Normalization:
+	- when comparing between two or more images on a specific basis, such as texture, it is common to first normalize 
