@@ -11,7 +11,7 @@ $$
 $$
 
 > [!Info] Low contrast
-> An image has low contrast when the complete range of possible value is not used
+> An image has low contrast when the complete range  of possible value (*Display space*) is not used
 
 ## Histograms of color images
 For color images there three approaches:
