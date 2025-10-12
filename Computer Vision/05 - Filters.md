@@ -70,9 +70,11 @@ To sharpened image subtract the Laplacian filter from the original one.
 
 This operations can be combined into a single filter that perform all the job in one step: ![[Pasted image 20251012174755.png]]
 
-#### Highboost filtering
+## Highboost filtering
 Using sequence of linear spatial filters in order to get sharpening effect:
 - Blur
 - subtract from the original image
 - add resulting mask to original image
+
+![[Pasted image 20251012180049.png]]
 #### $1^{st}$ Derivative Filtering
