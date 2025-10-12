@@ -77,4 +77,4 @@ Using sequence of linear spatial filters in order to get sharpening effect:
 - add resulting mask to original image
 
 ![[Pasted image 20251012180049.png]]
-#### $1^{st}$ Derivative Filtering
+## $1^{st}$ Derivative Filtering
