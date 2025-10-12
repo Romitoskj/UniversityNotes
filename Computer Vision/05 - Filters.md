@@ -56,10 +56,10 @@ Convolution is similar but mirrored (for symmetric filters no difference)
 
 ### Sharpening
 - Seek to highlight fine detail (remove blurring and highlight edges)
-- Based on spatial differentiation
+- Based on *spatial differentiation*
 
-#### Spatial differentiation
-measures the *rate of change* of a function based on second derivative to construct *Laplacian filter*, getting a Laplacian image. To sharpened image subtract the laplacian filter from the original one.
+### The Laplacian
+Measures the *rate of change* of a function based on second derivative to construct *Laplacian filter*, getting a Laplacian image. To sharpened image subtract the Laplacian filter from the original one.
 ![[Pasted image 20251007101827.png]]
 ![[Pasted image 20251007101900.png]]
 ![[Pasted image 20251007101923.png]]
