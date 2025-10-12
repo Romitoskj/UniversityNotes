@@ -27,3 +27,21 @@ The gradient points in the direction of most rapid increase in intensity:
 >![[Pasted image 20251012222859.png]]
 
 ## Effect of noise
+
+> [!fail] Where is the edge?
+> Consider a single row or column of the image and plotting the intensity as a function of position given signal
+> 
+![[Pasted image 20251012223944.png]]
+>
+> **Finite difference filters respond strongly to noise.**
+
+> [!check] Solution: Smooth First
+> ![[Pasted image 20251012224256.png]]
+> 
+> To find edges, look for peaks in the differentiation after applying a smooth filter.
+
+> [!note]
+> To save one operation, we can combine the smoothing filter by the differentiation filter because convolution is associative: $\frac{d}{dx}(f*g)=f*\frac{d}{dx}g$ 
+> 
+> ![[Pasted image 20251012224950.png]]
+
