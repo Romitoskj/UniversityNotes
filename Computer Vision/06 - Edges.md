@@ -19,3 +19,11 @@ $$
 The gradient points in the direction of most rapid increase in intensity:
 - The gradient *direction* is given by $\theta=\tan ^{-1} \big(\frac{\partial f}{\partial y} \big/ \frac{\partial f}{\partial x} \big)$ which is perpendicular to the edge direction
 - The edge *strength* is given by the gradient magnitude $\lVert \nabla f \rVert = \sqrt{\big(\frac{\partial f}{\partial y} \big)^2 + \big( \frac{\partial f}{\partial x} \big)^2}$ (norm)
+
+> [!Note] Finite filterse
+> It translates to finite difference filters (one for x axis one for y axis):
+> 
+>![[Pasted image 20251012222754.png]]
+>![[Pasted image 20251012222859.png]]
+
+## Effect of noise
