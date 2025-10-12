@@ -1,9 +1,29 @@
+## Neighbourhood operations
 **Neighborhood operations** operate on a rectangle around a central pixel, for each pixel the outcome is written on the same position at the target image.
-## Spatial Filtering
+
+![[Pasted image 20251012160448.png]]
+- Input = rectangle
+- Output = pixel (central)
+
+Simple neighbourhood operations:
+- **Min:** set pixel value to the minimum in the neighbourhood
+- **Max:** set pixel value to the maximum in the neighbourhood
+# Spatial Filtering
 ![[Pasted image 20251007091225.png]]
-#### Smoothing
-average all of the pixel in a neighbourhood around a central value -> Blurring
-the greater is the kernel (filter) the more is blurred
+
+### Spatial filtering equation form
+$$
+g(x,y) = \sum_{s=-a}^a\sum_{t=-b}^bw(s,t)f(x+s, y+t)
+$$
+- $f$ is the original image function
+- $g$ is the output image function
+- $w$ is the filter function or *kernel*
+## Smoothing
+Average all of the pixel in a neighbourhood around a central value $\rightarrow$ Blurring
+
+>[!Warning]
+>The greater is the kernel (filter) the more the output is blurred
+
 ![[Pasted image 20251007092126.png]]
 #### Weighted smoothing
 pixel closer to the centre is more important
