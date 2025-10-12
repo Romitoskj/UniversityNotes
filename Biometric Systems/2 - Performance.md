@@ -10,7 +10,7 @@
 - **Sample:** the raw captured data
 - **Hand-crafted features:** features that are manually engineered by data scientist and *extracted from samples*
 - **Template:** collection of feature extracted from raw data
-	- non-invertible, impossible to get raw data from it for privacy reason
+	- non-invertable, impossible to get raw data from it for privacy reason
 ## How to compare templates
 Templates are...
 - vectors:
