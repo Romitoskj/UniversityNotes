@@ -59,12 +59,16 @@ Convolution is similar but mirrored (for symmetric filters no difference)
 - Based on *spatial differentiation*
 
 ### The Laplacian
-Measures the *rate of change* of a function based on second derivative to construct *Laplacian filter*, getting a Laplacian image. To sharpened image subtract the Laplacian filter from the original one.
+Measures the *rate of change* of a function based on second derivative to construct *Laplacian filter*. 
 ![[Pasted image 20251007101827.png]]
+
+Applying the Laplacian to an image we get a new image that highlights edges and discontinuities.
 ![[Pasted image 20251007101900.png]]
+
+To sharpened image subtract the Laplacian filter from the original one.
 ![[Pasted image 20251007101923.png]]
 
-Simplified filter that do not need subtraction
+This operations can be combined into a single filter that perform all the job in one step: ![[Pasted image 20251012174755.png]]
 
 #### Highboost filtering
 Using sequence of linear spatial filters in order to get sharpening effect:
