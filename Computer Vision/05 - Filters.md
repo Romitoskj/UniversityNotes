@@ -30,7 +30,7 @@ Average all of the pixel in a neighbourhood around a central value $\rightarrow$
 First original image 500\*500 pixels, then increasing kernel sizes (3,5,9,15,35)
 ![[Pasted image 20251012164953.png]]
 #### Weighted smoothing
-Different pixels have different weights in the averaging function. Pixel closer to the centre is more important.
+Different pixels have different weights in the averaging function. Pixel closer to the centre is more important. Gaussian Blur is a weighted smoothing.
 
 >[!Important] Thresholding
 >By smoothing the original image we *get rid* of lots of the finer detail which leaves only with the gross features for thresholding
@@ -73,7 +73,7 @@ This operations can be combined into a single filter that perform all the job in
 ## Highboost filtering
 Using sequence of linear spatial filters in order to get sharpening effect:
 - Blur
-- subtract from the original image
+- subtract the blurred image from the original image
 - add resulting mask to original image
 
 ![[Pasted image 20251012180049.png]]
