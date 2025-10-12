@@ -77,4 +77,23 @@ Using sequence of linear spatial filters in order to get sharpening effect:
 - add resulting mask to original image
 
 ![[Pasted image 20251012180049.png]]
-## $1^{st}$ Derivative Filtering
+## Sobel operators
+Two filter based on the  $1^{st}$ derivative, applied to the same image and the results are added together.
+
+![[Pasted image 20251012202151.png]]
+
+Sobel filters are typically used for edge detection
+
+![[Pasted image 20251012202336.png]]
+
+### $1^{st}$ & $2^{nd}$ Derivatives
+- $1^{st}$ order derivatives
+	- produces thicker edges
+	- have stronger response to grey level step
+- $2^{nd}$ order derivatives
+	- have stronger response to detail (thin lines)
+	- produce a double response at step changes in grey level
+# Combining Spatial Enhancement Methods
+Successful image enhancement is not achieved using a single operator, rather we combine a range of techniques in a pipeline.
+
+![[Pasted image 20251012202913.png]]![[Pasted image 20251012202955.png]]![[Pasted image 20251012203027.png]]
