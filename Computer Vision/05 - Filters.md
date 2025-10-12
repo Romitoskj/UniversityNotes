@@ -21,14 +21,21 @@ $$
 ## Smoothing
 Average all of the pixel in a neighbourhood around a central value $\rightarrow$ Blurring
 
+![[Pasted image 20251007092126.png]]
+
 >[!Warning]
 >The greater is the kernel (filter) the more the output is blurred
 
-![[Pasted image 20251007092126.png]]
-#### Weighted smoothing
-pixel closer to the centre is more important
+First original image 500\*500 pixels, then increasing kernel sizes (3,5,9,15,35)
+![[Pasted image 20251012164953.png]]
+### Weighted smoothing
+Different pixels have different weights in the averaging function. Pixel closer to the centre is more important.
 
-#### Median Filter
+>[!Important] Thresholding
+>By smoothing the original image we *get rid* of lots of the finer detail which leaves only with the gross features for thresholding
+>
+>![[Pasted image 20251012165807.png]]
+### Median Filter
 used to remove noise from images
 
 #### What happen at the edge
