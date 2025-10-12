@@ -1,4 +1,4 @@
-**Neighbourhood operations** operate on a rectangle around a central pixel, for each pixel the outcome is written on the same position at the target image.
+**Neighborhood operations** operate on a rectangle around a central pixel, for each pixel the outcome is written on the same position at the target image.
 ## Spatial Filtering
 ![[Pasted image 20251007091225.png]]
 #### Smoothing
