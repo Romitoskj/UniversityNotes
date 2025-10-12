@@ -42,7 +42,7 @@ It is necessary to *measure* and *compare* performance (counting errors is not s
 - **Detection Error Trade-off DET**
 - **Receiving Operating Curve ROC**
 
-> [!Danger] I
+> [!Danger]
 > All measures depend on the adopted **acceptance threshold**
 
 ### Problem of accuracy:
