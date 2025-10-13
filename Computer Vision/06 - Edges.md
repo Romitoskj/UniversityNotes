@@ -66,9 +66,10 @@ We can do it by looking for a maximum along a slice normal (perpendicular) to th
 
 > [!bug] Algorithmic issues
 > At which point is the maximum and where is the next one?
+### Find local maximum
+![[Pasted image 20251013130752.png]]
 
-> [!success] Non-maximum suppression
-> ![[Pasted image 20251013130752.png]]
-> 
-> At $q$, we have a maximum if the value is larger than those at $p$ (neighbour in gradient direction) and $r$ (neighbour opposite to the gradient direction)
-
+At $q$, we have a maximum if the value is larger than those at $p$ (neighbour in gradient direction) and $r$ (neighbour opposite to the gradient direction)
+ ![[Pasted image 20251013131434.png]]
+### Predicting the next edge point
+Assume the marked point is an edge point, we costruct
