@@ -72,4 +72,28 @@ We can do it by looking for a maximum along a slice normal (perpendicular) to th
 At $q$, we have a maximum if the value is larger than those at $p$ (neighbour in gradient direction) and $r$ (neighbour opposite to the gradient direction)
  ![[Pasted image 20251013131434.png]]
 ### Predicting the next edge point
-Assume the marked point is an edge point, we costruct
+Assume the marked point is an edge point, we construct the *tangent* to the edge curve (which is perpendicular to the gradient at that point) and us it to predict next points.
+
+![[Pasted image 20251013132648.png]]
+### Designing an edge detector
+![[Pasted image 20251013133158.png]]
+
+An optimal edge detector follows these criteria:
+- **Good detection:** minimize false positives (caused by noise) and false negatives (missing edges)
+- **Good localization:** the detected edges must be as close as possible to the true edges
+- **Single response:** must return one point only for each true edge point, minimizing the number of local maxima around the edge
+## Canny edge detector
+1. Filter image with derivative of Gaussian
+2. Find magnitude (norm) and orientation of gradient 
+![[Pasted image 20251013133911.png|300]]
+3. Non-maximum suppression: thin multi-pixel wide ridges down to single pixel width 
+![[Pasted image 20251013134214.png|300]]
+4. Linking and (**Hysteresis**) thresholding :
+	1. Define two thresholds: low and high
+	2. Use the high one to start edge curves and the low to continue them
+![[Pasted image 20251013134348.png]]
+
+> [!note>]- Effect of $\sigma$ (Gaussian kernel spread/size)
+> - large $\sigma$ detects large scale edges
+> - small $\sigma$ detects fine features
+
