@@ -55,3 +55,20 @@ The gradient points in the direction of most rapid increase in intensity:
 > ![[Pasted image 20251013124909.png]]
 
 ## Implementation issues
+
+> [!question]
+> The gradient magnitude is large along a thick "trail" or "ridge", so how do we identify the actual edge point and how do we link them to form curves?
+> 
+> We wish to mark points along the curve where the **magnitude is biggest**. 
+
+## Non-maximum suppression
+We can do it by looking for a maximum along a slice normal (perpendicular) to the curve, and this points should form a curve
+
+> [!bug] Algorithmic issues
+> At which point is the maximum and where is the next one?
+
+> [!success] Non-maximum suppression
+> ![[Pasted image 20251013130752.png]]
+> 
+> At $q$, we have a maximum if the value is larger than those at $p$ (neighbour in gradient direction) and $r$ (neighbour opposite to the gradient direction)
+
