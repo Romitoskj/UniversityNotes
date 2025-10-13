@@ -49,7 +49,9 @@ The gradient points in the direction of most rapid increase in intensity:
 > 
 > ![[Pasted image 20251013123756.png]]
 > ![[Pasted image 20251013123846.png]]
+> 
+> **Tradeoff between smoothing and localization** because smoothed derivative removes noise but also blurs edges
+> 
+> ![[Pasted image 20251013124909.png]]
 
-
-
-
+## Implementation issues
