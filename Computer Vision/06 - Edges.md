@@ -9,10 +9,10 @@
 > 
 > ![[Pasted image 20251012213908.png]]
 > 
-> Edges correspond to extremes of derivative
+> *Edges correspond to extremes of derivative*
 
 ## Image gradient
-The image is a function of two variables so we use a gradient:
+The image is a function of two variables so we must use gradient:
 $$
 \nabla f = \bigg[ \frac{\partial f}{\partial x},\frac{\partial f}{\partial y}\bigg]
 $$
@@ -44,4 +44,12 @@ The gradient points in the direction of most rapid increase in intensity:
 > To save one operation, we can combine the smoothing filter by the differentiation filter because convolution is associative: $\frac{d}{dx}(f*g)=f*\frac{d}{dx}g$ 
 > 
 > ![[Pasted image 20251012224950.png]]
+> 
+> Example: the derivative of the **Gaussian filter**
+> 
+> ![[Pasted image 20251013123756.png]]
+> ![[Pasted image 20251013123846.png]]
+
+
+
 
