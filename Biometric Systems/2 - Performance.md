@@ -93,3 +93,4 @@ There are different cases in comparison with verification:
 	- the first individual **is not** the right one = **no correct identification**
 	- 
 ### Closed set
+We can assume for sure that every single probe image has a corresponding match in the database. Who is the person?
