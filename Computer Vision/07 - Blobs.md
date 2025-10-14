@@ -31,3 +31,10 @@ if either $\lambda$ is close to 0, then this is not a corner, so look for locati
 Since M is symmetric we have ![[../Pasted image 20251014094107.png|200]]
 We can visualize M as an ellipse with axis lengths determined by the eigenvalues and orientation determined by R
 ![[../Pasted image 20251014094228.png]]
+#### Visualization of second moment matrices
+![[../Pasted image 20251014094645.png|300]]
+#### Interpreting the eigenvalues
+![[../Pasted image 20251014094800.png|400]]
+#### Corner response function
+![[../Pasted image 20251014094859.png]]
+![[../Pasted image 20251014094915.png|400]]
