@@ -67,3 +67,29 @@ Let us assume to have:
 ![[images/Pasted image 20251014133657.png]]
 
 *We chose the threshold at EER or we chose to minimize on type of error.*
+## Identification
+Individual **does not make** an identity claim. The steps for identification:
+1. calculate the distances/similarities
+2. order them
+3. check if the first one is below/above the threshold
+![](../Pasted%20image%2020251014142938.png)
+### Open set
+In the open set identification task (e.g. watchlist, as black and whitelists), the biometric system  determines if the individual's biometric signature matches a biometric signature of someone in the gallery (or not - never enrolled).
+
+Question:
+- is the probe subject in the database? (**Detection**)
+- who is the probe subject?
+#### Possible errors
+There are different cases in comparison with verification:
+
+- ***correct detect and identify***
+	- two individuals **above** the threshold = **correct detect**
+	- the first individual is the **right** one = **correct identification**
+- ***no correct detect and identify***
+	- **No** individual above the threshold = **no detect**
+		- we do not care about looking at the top individual = **no correct identification**
+- **no correct detect and identify**
+	- two individuals **above** the threshold = **correct detect**
+	- the first individual **is not** the right one = **no correct identification**
+	- 
+### Closed set
