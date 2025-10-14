@@ -27,3 +27,7 @@ At the end of computation we obtain a $2 \times 2$ matrix computed from image de
 ![[Pasted image 20251014093152.png]]
 Dominant gradient directions align with x or y axis.
 if either $\lambda$ is close to 0, then this is not a corner, so look for location where both are large.
+
+Since M is symmetric we have ![[../Pasted image 20251014094107.png|200]]
+We can visualize M as an ellipse with axis lengths determined by the eigenvalues and orientation determined by R
+![[../Pasted image 20251014094228.png]]
