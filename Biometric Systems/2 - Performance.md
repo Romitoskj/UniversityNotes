@@ -64,3 +64,4 @@ Let us assume to have:
 > [!info] Definition
 > A score is said **genuine** (authentic) if the results from matching two samples of the biometric trait of a same enrolled individual; it is said **impostor** if it results from matching the sample of a non-enrolled individual.
 
+![[../Pasted image 20251014133657.png]]
