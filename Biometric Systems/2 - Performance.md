@@ -59,9 +59,11 @@ Let us assume to have:
 - $P_N=$ set of probes **belonging to the subjects*** not in the gallery (but in the dataset, so id function works)
 ---
 
-![[../Pasted image 20251014132419.png|300]]![[../Pasted image 20251014132914.png|300]]
+![[images/Pasted image 20251014132419.png|300]]![[images/Pasted image 20251014132914.png|300]]
 
 > [!info] Definition
 > A score is said **genuine** (authentic) if the results from matching two samples of the biometric trait of a same enrolled individual; it is said **impostor** if it results from matching the sample of a non-enrolled individual.
 
-![[../Pasted image 20251014133657.png]]
+![[images/Pasted image 20251014133657.png]]
+
+*We chose the threshold at EER or we chose to minimize on type of error.*

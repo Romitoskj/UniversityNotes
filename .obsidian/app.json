@@ -1,5 +1,7 @@
 {
   "showLineNumber": false,
   "alwaysUpdateLinks": true,
-  "newLinkFormat": "relative"
+  "newLinkFormat": "relative",
+  "newFileLocation": "current",
+  "useMarkdownLinks": true
 }
