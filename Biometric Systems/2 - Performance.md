@@ -72,7 +72,7 @@ Individual **does not make** an identity claim. The steps for identification:
 1. calculate the distances/similarities
 2. order them
 3. check if the first one is below/above the threshold
-![](../Pasted%20image%2020251014142938.png)
+![](images/Pasted%20image%2020251014142938.png)
 ### Open set
 In the open set identification task (e.g. watchlist, as black and whitelists), the biometric system  determines if the individual's biometric signature matches a biometric signature of someone in the gallery (or not - never enrolled).
 
