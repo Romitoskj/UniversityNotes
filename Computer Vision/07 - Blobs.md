@@ -44,14 +44,27 @@ We can visualize M as an ellipse with axis lengths determined by the eigenvalues
 3. Compute corner response function R
 4. Threshold R
 5. Find local maxima of response function (non-maximum suppression)
-## Invariance
+# Invariance
 We want features to be detected despite geometric or photometric changes in the image: if we have to transformed versions of the same image, features should be detected in corresponding locations.
-### Models of image change
+## Models of image change
 - Geometric
 	- Rotation
 	- Scale
 	- Affine
 - Photometric
 	- Affine intensity change $(I \rightarrow aI+b)$ 
-# Scale-invariant feature detection
-**Goal**
+## Scale-invariant feature detection
+**Goal:** independently detect corresponding regions in scaled versions of the same image.
+Need *scale selection* mechanism for finding characteristic region size that is *covariant* with the image transformation.
+### Blobs
+![[images/Pasted image 20251014102721.png|300]]
+Edge = ripple
+blob = superposition of two ripples
+![[images/Pasted image 20251014103213.png]]
+Spatial selection: the magnitude of the Laplacian response will achieve a maximum at the center of the blob, provided the scale of the Laplacian "matched" to the scale of the blob.
+
+We want to find the characteristic scale of the blob by convolving it with Laplacian at several scales and looking for the maximum response. However, Laplacian response decays as scale increases.
+
+### Scale Normalization
+The response of a derivative of Gaussian filter to a perfect step edge decreases as $\sigma$ increases. To keep response the same (scale-invariant), must multiply Gaussian derivative by $\sigma$. Laplacian is the second Gaussian derivative, so it mus be multiplied by $\sigma^2$.
+![[images/Pasted image 20251014103911.png]]
