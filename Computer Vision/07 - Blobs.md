@@ -53,3 +53,4 @@ We want features to be detected despite geometric or photometric changes in the 
 	- Affine
 - Photometric
 	- Affine intensity change $(I \rightarrow aI+b)$ 
+# Scale-invariant feature detection
