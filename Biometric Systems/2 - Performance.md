@@ -38,14 +38,29 @@ A subject is accepted if the similarity achieved from the comparison is greater 
 It is necessary to *measure* and *compare* performance (counting errors is not suited):
 - **False Acceptance Rate - FAR:** percentage of recognition operations with an impostor claim in which false acceptance occurs. *False acceptance rate + genuine acceptance rate GAR = 1*
 - **False Rejection Rate - FRR:** percentage of recognition operations with a genuine claim in which false rejections occurs. *False rejection rate + genuine rejection rate  GRR= 1*
-- **Equal Error Rate ERR**
+- **Equal Error Rate ERR** FAR = FRR
 - **Detection Error Trade-off DET**
 - **Receiving Operating Curve ROC**
 
-> [!Danger]
+> [!info]
 > All measures depend on the adopted **acceptance threshold**
 
-### Problem of accuracy:
-accuracy = number of correct responses / total responses
-high accuracy systems can have high accuracy but also high FAR or FRR
+> [!fail] Accuracy $\neq$ FAR
+> accuracy = number of correct responses / total responses
+> high accuracy systems can have high accuracy but also high FAR or FRR
+
+### Error measures
+Let us assume to have:
+- a ground truth function $id(template)$ that, given a template, returns its **true** identity. 
+- $topMatch(p_j, identity)$ returns the best match between $p_j$ and the templates associated to the claimed identity in the gallery.
+- $s(t1,t2)$ returns the similarity between template $t1$ and template (t2)
+
+- $P_G=$ set of probes ***belonging to the subjects*** in the gallery
+- $P_N=$ set of probes **belonging to the subjects*** not in the gallery (but in the dataset, so id function works)
+---
+
+![[../Pasted image 20251014132419.png|300]]![[../Pasted image 20251014132914.png|300]]
+
+> [!info] Definition
+> A score is said **genuine** (authentic) if the results from matching two samples of the biometric trait of a same enrolled individual; it is said **impostor** if it results from matching the sample of a non-enrolled individual.
 
