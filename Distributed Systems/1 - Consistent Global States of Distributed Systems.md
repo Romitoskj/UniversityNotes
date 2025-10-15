@@ -157,7 +157,7 @@ LC(e_i) := \begin{cases} LC + 1 & \text{if }e_i\text{ is an internal or send eve
 $$
 The Lamport clock is updated to be greater than both of the previous local value and the timestamp of the incoming message.
 
->[!important] Lamport Clock
+>[!important] Figure 3 - Lamport Clock Space Time Diagram
 >![center|500](assets/figure_3.png)
 
 
