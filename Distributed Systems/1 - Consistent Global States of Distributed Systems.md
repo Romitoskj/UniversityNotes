@@ -48,9 +48,12 @@ It is possible that for some event $e$ and $e'$ neither $e \rightarrow e'$ nor $
 A distributed computation is a partially ordered set defined by $(H,\rightarrow)$.
 
 #### Space-time diagram
-![[figure_1.png]]
+
+>[!important] Figure 1 - Space time diagram
+>![500|center](assets/figure_1.png)
+
 If a path can be traced from one event to the other left to right along the horizontal lines and in the sense of the arrow the are related, otherwise they are concurrent.
-For example in the [[#Space-time diagram|figure]] $e_2^1 \rightarrow e_3^6$ but $e_2^2 || e_3^6$ .
+For example in the [[#|figure]] $e_2^1 \rightarrow e_3^6$ but $e_2^2 || e_3^6$ .
 
 ---
 ## Global States, Cuts and Runs
@@ -67,7 +70,9 @@ The set of last events $(e_1^{c_1},...,e_n^{c_n})$ included in a cut is called t
 
 Each cut has a corresponding global state $(\sigma_1^{c_1}, ..., \sigma_n^{c_n})$.
 
-![[figure_2.png]]
+>[!important] Figure 2 - Cuts
+>![center|500](assets/figure_2.png)
+
 A cut is graphically represented as a partition of the space-time diagram along the time axis. In the figure there are two cuts $C$ corresponding to the tuple $(5,2,4)$ and $C'$ corresponding to $(3,2,6)$.
 
 #### Runs
@@ -150,7 +155,12 @@ The clock is update by $p_i$ as follow:
 $$
 LC(e_i) := \begin{cases} LC + 1 & \text{if }e_i\text{ is an internal or send event} \\ max{LC, TS(m)} + 1 & \text{if }e_i = receive(m) \end{cases}
 $$
-The Lamport clock is updated to be greater than both of the previous local value and the timestamp of the incoming message.![[figure_3.png]]
+The Lamport clock is updated to be greater than both of the previous local value and the timestamp of the incoming message.
+
+>[!important] Lamport Clock
+>![center|500](assets/figure_3.png)
+
+
 >[!Note]
 >Lamport clock values increase with respect to [[#Happened-before|causal precedence]] 
 
