@@ -163,7 +163,7 @@ The Lamport clock is updated to be greater than both of the previous local value
 
 It is easy to verify that for any two events where $e \rightarrow e'$, the Lamport clocks associated with them are such that $LC(e)<LC(e')$, so the clock condition is satisfied.
 
->[!Error] Problem
+>[!Fail] Problem
 Considering a delivery rule where messages are delivered in increasing timestamp order, without message delivery upper-bound time no message will be delivered for fear of receiving a later message with a smaller timestamp.
 
 >[!Important] Definition
