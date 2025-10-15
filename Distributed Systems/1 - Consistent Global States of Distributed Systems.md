@@ -85,7 +85,7 @@ A run may not correspond to any possible execution and a single computation may 
 ## Monitoring Distributed Computations
 **GPE (Global Predicate Evaluation)**  has the goal of determine the predicate $\Phi$ that is a function of the global state $\Sigma$. A single process $p_0$ called ***monitor*** is responsible for constructing $\Sigma$ and evaluating $\Phi$.
 
->[!info] 
+>[!warning] Assumption 
 >We assume that monitoring events are external to the  computation and does not alter other events.
 
 To construct the global state $p_0$ sends each process a "state enquiry" message and when $p_i$ receives it, it replies with its current local state $\sigma_i$. When all processes have replied $p_0$ can construct the global state.
