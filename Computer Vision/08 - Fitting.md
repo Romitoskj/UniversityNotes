@@ -13,3 +13,5 @@ Issues:
 Let each feature vote for all the models that are compatible with, hopefully the noise features will not vote consistently for any single model.
 
 # Hough space
+## Polar representation
+![](images/Pasted%20image%2020251016085705.png)
