@@ -168,8 +168,8 @@ It is easy to verify that for any two events where $e \rightarrow e'$, the Lampo
 >[!Fail] Problem
 Considering a delivery rule where messages are delivered in increasing timestamp order, without message delivery upper-bound time no message will be delivered for fear of receiving a later message with a smaller timestamp.
 
->[!Important] Definition
->**Gap-detection:** Given two events $e$ and $e'$ along with their clock values $LC(e)$ and $LC(e')$, determine whether some other event $e''$ exists such that $LC(e) < LC(e'') < LC(e')$.
+>[!Important] Definition - **Gap-detection:**
+> Given two events $e$ and $e'$ along with their clock values $LC(e)$ and $LC(e')$ where $LC(e) < LCe'$, determine whether some other event $e''$ exists such that $LC(e) < LC(e'') < LC(e')$.
 
 Since each Lamport clock is monotone increasing and Using FIFO communication between all processes and $p_0$ preserves order among messages of the same process, when $p_0$ receives a message $m$ from process $p_i$ with timestamp $TS(m)$ it is certain that no other message $m'$ can arrive from $p_i$ such that $TS(m') \leq TS(m)$.
 
