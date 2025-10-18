@@ -152,7 +152,7 @@ Each process maintains a local variable $LC$ that maps events to positive natura
 
 The clock is update by $p_i$ as follow:
 $$
-LC(e_i) := \begin{cases} LC + 1 & \text{if }e_i\text{ is an internal or send event} \\ max{LC, TS(m)} + 1 & \text{if }e_i = receive(m) \end{cases}
+LC(e_i) := \begin{cases} LC + 1 & \text{if }e_i\text{ is an internal or send event} \\ max\{LC, TS(m)\} + 1 & \text{if }e_i = receive(m) \end{cases}
 $$
 The Lamport clock is updated to be greater than both of the previous local value and the timestamp of the incoming message.
 
