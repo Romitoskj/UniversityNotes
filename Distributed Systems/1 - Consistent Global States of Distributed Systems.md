@@ -34,7 +34,7 @@ where  $m$ is the message identifier.
 - *local history* of process $p_i$ is a sequence of event $h_i = e_i^1 e_i^2 ... e_i^n$, 
 - history of the process $p_i$ containing the first $k$ events $h_i^k = e_i^1 e_i^2 ... e_i^k$
 - *global history* is a set $H=h_1 \cup ... \cup h_n$
-#### Happened-before
+#### Happened-before (Causal relation)
 Global history does not specify timing between events, they can only be ordered based on *"cause-and-effect"* relationship: two events are considered to occur in a certain order only if the first affect the outcome of the second, either because they are from the same process or they are from different processes and they correspond to the exchange of a message.
 
 The binary relation *happened-before* $\rightarrow$ is defined over events such that:
@@ -190,3 +190,8 @@ $$
 for all messages $m,m'$ sending processes $p_i,p_j$ and destination process $p_k$.
 
 If $p_0$ uses a delivery rule that satisfy CD all observation will be consistent.
+
+---
+
+# Constructing the Causal Precedence Relation
+For implementing causal delivery efficiently, what is really needed is an effective procedure for deciding the following: given events $e, e'$ that are causally related and their clock values, does there exist some other event $e''$ such that $e \rightarrow e'' \rightarrow e '$  (i. e., $e''$ falls in the causal "gap" between $e$ and $e''$)? 
