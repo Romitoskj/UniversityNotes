@@ -102,5 +102,5 @@ We can assume for sure that every single probe image has a corresponding match i
 
 --- 
 # All vs All
-All the template are compared with any other template once and for all.
+All the template are compared with any other template once and for all, computing a all-against-all distance matrix instead of building each time a distance matrix based on test values.
 Diagonal values are not considered (comparison with itself)
