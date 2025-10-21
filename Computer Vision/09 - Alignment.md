@@ -1,3 +1,5 @@
+The goal of image alignment is to find a transformation T that minimises the residual between pairs of features, xi​ and xi′​, in the two images. This transformation T minimises ∑i​residual(xi​,xi′​,T)
+
 Uses:
 - Panorama stitching
 - Object recognition
@@ -52,4 +54,10 @@ Gradient is less sensitive to illumination change
 "subdivide and disorder" strategy achieves robustness to small shifts, but still preserves spatial information
 
 then generate putative matches: for each patch in one image, find a short list of patches in the other image that could match it based solely on appearance
+
+### Dealing with outliers
+Strategies:
+1. RANSAC
+2. Incremental alignment
+3. Hough transform
 
