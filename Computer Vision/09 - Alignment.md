@@ -28,5 +28,6 @@ Fitting a model to a transformation between pairs of features (*matches*) in two
 
 >[!info] Basic 2D transformations
 >![](../Pasted%20image%2020251021092136.png)
-
+>
+>![](../Pasted%20image%2020251021092750.png)
 
