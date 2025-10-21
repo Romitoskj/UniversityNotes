@@ -51,5 +51,5 @@ Descriptor computation:
 Gradient is less sensitive to illumination change
 "subdivide and disorder" strategy achieves robustness to small shifts, but still preserves spatial information
 
-then generate putative matches: for each patch in one image, find a short list of pathces in the other image that could match it based solely on appearence
+then generate putative matches: for each patch in one image, find a short list of patches in the other image that could match it based solely on appearance
 
