@@ -60,4 +60,11 @@ Strategies:
 1. RANSAC
 2. Incremental alignment
 3. Hough transform
-
+4. Hashing
+# Application
+- Panorama stitching
+- Recognizing panoramas
+# Issues
+- choosing the geometric alignment model
+- choosing the descriptor
+- strategy for finding putative matches
