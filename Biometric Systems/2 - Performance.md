@@ -98,3 +98,9 @@ We can assume for sure that every single probe image has a corresponding match i
 
 ---
 
+...
+
+--- 
+# All vs All
+All the template are compared with any other template once and for all.
+Diagonal values are not considered (comparison with itself)
