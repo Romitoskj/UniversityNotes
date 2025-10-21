@@ -94,3 +94,7 @@ There are different cases in comparison with verification:
 	- 
 ### Closed set
 We can assume for sure that every single probe image has a corresponding match in the database. Who is the person?
+
+
+---
+
