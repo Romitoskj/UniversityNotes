@@ -24,3 +24,11 @@ Alignment to manage those problems
 ### Limitations
 - can work on relatively simple patterns
 - not robust to clutter, occlusion, lighting changes
+
+## Sliding window
+A sliding window approach involves checking a classifier across multiple scales and orientations of an image. The core idea is to move a window (or patch) across the entire image space and, at each location, classify the contents of that window.
+
+Key issues associated with this method include:
+- The **scale/orientation range** that needs to be searched over.
+- The **speed** of the processing.
+- The role of **context**.
