@@ -34,7 +34,7 @@ where  $m$ is the message identifier.
 - *local history* of process $p_i$ is a sequence of event $h_i = e_i^1 e_i^2 ... e_i^n$, 
 - history of the process $p_i$ containing the first $k$ events $h_i^k = e_i^1 e_i^2 ... e_i^k$
 - *global history* is a set $H=h_1 \cup ... \cup h_n$
-#### Happened-before (Causal relation)
+#### Happened-before (Causal precedence)
 Global history does not specify timing between events, they can only be ordered based on *"cause-and-effect"* relationship: two events are considered to occur in a certain order only if the first affect the outcome of the second, either because they are from the same process or they are from different processes and they correspond to the exchange of a message.
 
 The binary relation *happened-before* $\rightarrow$ is defined over events such that:
@@ -195,3 +195,9 @@ If $p_0$ uses a delivery rule that satisfy CD all observation will be consistent
 
 # Constructing the Causal Precedence Relation
 For implementing causal delivery efficiently, what is really needed is an effective procedure for deciding the following: given events $e, e'$ that are causally related and their clock values, does there exist some other event $e''$ such that $e \rightarrow e'' \rightarrow e '$  (i. e., $e''$ falls in the causal "gap" between $e$ and $e''$).
+
+>[!fail] Problems
+>By delivering event messages in strict increasing timestamp order, rules DR1 and DR2 assume that $TS(e)<TS(e')$ implies $e\rightarrow e'$. This is not necessarily true since timestamp generated with real-time or logical clocks only guarantee the clock condition, which is this implication in the opposite sense ().
+
+
+
