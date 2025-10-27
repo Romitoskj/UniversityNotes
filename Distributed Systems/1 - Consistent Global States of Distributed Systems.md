@@ -204,3 +204,4 @@ For implementing causal delivery efficiently, what is really needed is an effect
 >e \rightarrow e' \equiv TS(e)<TS(e')
 >$$
 ## Vector Clocks
+Each process $p_i$ maintains a local vector $VC$ of natural numbers where $VC(e_i)$ denotes the vector clock value of $p_i$ when it executes event $e_i$. It is initialized by each process to contain all zeros. 
