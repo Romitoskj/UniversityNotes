@@ -203,4 +203,4 @@ For implementing causal delivery efficiently, what is really needed is an effect
 >$$
 >e \rightarrow e' \equiv TS(e)<TS(e')
 >$$
-> 
+## Causal Histories
