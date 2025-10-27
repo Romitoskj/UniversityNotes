@@ -194,4 +194,4 @@ If $p_0$ uses a delivery rule that satisfy CD all observation will be consistent
 ---
 
 # Constructing the Causal Precedence Relation
-For implementing causal delivery efficiently, what is really needed is an effective procedure for deciding the following: given events $e, e'$ that are causally related and their clock values, does there exist some other event $e''$ such that $e \rightarrow e'' \rightarrow e '$  (i. e., $e''$ falls in the causal "gap" between $e$ and $e''$)   
+For implementing causal delivery efficiently, what is really needed is an effective procedure for deciding the following: given events $e, e'$ that are causally related and their clock values, does there exist some other event $e''$ such that $e \rightarrow e'' \rightarrow e '$  (i. e., $e''$ falls in the causal "gap" between $e$ and $e''$)  
