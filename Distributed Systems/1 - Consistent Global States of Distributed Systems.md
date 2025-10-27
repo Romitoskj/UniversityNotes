@@ -197,7 +197,7 @@ If $p_0$ uses a delivery rule that satisfy CD all observation will be consistent
 For implementing causal delivery efficiently, what is really needed is an effective procedure for deciding the following: given events $e, e'$ that are causally related and their clock values, does there exist some other event $e''$ such that $e \rightarrow e'' \rightarrow e '$  (i. e., $e''$ falls in the causal "gap" between $e$ and $e''$).
 
 >[!fail] Problems
->By delivering event messages in strict increasing timestamp order, rules DR1 and DR2 assume that $TS(e)<TS(e')$ implies $e\rightarrow e'$. This is not necessarily true since timestamp generated with real-time or logical clocks only guarantee the clock condition, which is this implication in the opposite sense ().
+>By delivering event messages in strict increasing timestamp order, rules DR1 and DR2 assume that $TS(e)<TS(e')$ implies $e\rightarrow e'$. This is not necessarily true since timestamp generated with real-time or logical clocks only guarantee the clock condition, which is this implication in the opposite sense (given $TS(e)<TS(e')$ it may be that $e\rightarrow e'$ or that they are concurrent).
 
 
 
