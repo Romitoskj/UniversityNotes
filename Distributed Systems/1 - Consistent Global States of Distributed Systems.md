@@ -199,3 +199,8 @@ For implementing causal delivery efficiently, what is really needed is an effect
 >[!fail] Problems
 >By delivering event messages in strict increasing timestamp order, rules DR1 and DR2 assume that $TS(e)<TS(e')$ implies $e\rightarrow e'$. This is not necessarily true since timestamp generated with real-time or logical clocks only guarantee the clock condition, which is this implication in the opposite sense, so given $TS(e)<TS(e')$ it may be that $e\rightarrow e'$ or that they are concurrent (but never $e'\rightarrow e$).
 
+>[!Important] Definition - **Strong clock condition**
+>$$
+>e \rightarrow e' \equiv TS(e)<TS(e')
+>$$
+> 
