@@ -229,7 +229,12 @@ VC(e_i)[j] \equiv \text{number of $p_j$ that causally preced event $e_i$ of } p_
 $$
 On the other hand, $VC(e_i)[i]$ counts the number of events $p_i$ has executed up to and including $e_i$.
 
-Given two vectors clock $V$ and $V'$, we can say $V<V'$ when each component of $V$ is less than the corresponding of $V'$, allowing to express the strong clock condition in terms of vector clock as:
+Given two vectors clock $V$ and $V'$, we can say $V<V'$ when each component of $V$ is less than the corresponding of $V'$, allowing to express the **strong clock condition** in terms of vector clock as:
 $$
 e \rightarrow e' \equiv VC(e)<VC(e')
+$$
+And a **simple strong clock condition** as: 
+Given $e_i$ of process $p_i$ and event $e_j$ of process $p_j$ where $i \neq j$ 
+$$
+e_i \rightarrow e_j \equiv VC(e_i)[i] \leq VC(e_j)[i].
 $$
