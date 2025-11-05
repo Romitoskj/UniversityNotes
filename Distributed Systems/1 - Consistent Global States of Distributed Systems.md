@@ -221,9 +221,12 @@ Each process $p_i$ maintains a local vector $VC$ of natural numbers where $VC(e_
 > $$
 > An internal or send event simply increments the local component of the vector clock. A receive event first updates the vector clock to be greater then both the previous value and the timestamp of the incoming message and then increase the local component.
 
-![center|500](../Pasted%20image%2020251105170402.png)
+![center|500](assets/Pasted%20image%2020251105170402.png)
 
 The vector clock of process $p_i$ has the following interpretation for all $j \neq i$:
 $$
 VC(e_i)[j] \equiv \text{number of $p_j$ that causally preced event $e_i$ of } p_i.
 $$
+On the other hand, $VC(e_i)[i]$ counts the number of events $p_i$ has executed up to and including $e_i$.
+
+Given two vectors clock $V$ and $V'$, we can say $V<V'$ when each component of $V$ is less than the corresponding of $V'$.
