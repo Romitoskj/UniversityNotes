@@ -150,11 +150,12 @@ In an asynchronous system no global real-time clock can exist, but other mechani
 #### Lamport clock
 Each process maintains a local variable $LC$ that maps events to positive natural numbers (at process start is set to 0). The value of the logical clock when event $e_i$ is executed by process $p_i$ is denoted $LC(e_i)$. And each message sent contains a timestamp $TS(m)$ which is the clock associated with the sending of the event. 
 
-The clock is update by $p_i$ as follow:
-$$
-LC(e_i) := \begin{cases} LC + 1 & \text{if }e_i\text{ is an internal or send event} \\ max\{LC, TS(m)\} + 1 & \text{if }e_i = receive(m) \end{cases}
-$$
-The Lamport clock is updated to be greater than both of the previous local value and the timestamp of the incoming message.
+> [!info] Update rule
+> The clock is update by $p_i$ as follow:
+> $$
+> LC(e_i) := \begin{cases} LC + 1 & \text{if }e_i\text{ is an internal or send event} \\ max\{LC, TS(m)\} + 1 & \text{if }e_i = receive(m) \end{cases}
+> $$
+> The Lamport clock is updated to be greater than both of the previous local value and the timestamp of the incoming message.
 
 >[!important] Figure 3 - Lamport Clock Space Time Diagram
 >![center|500](assets/figure_3.png)
@@ -205,3 +206,15 @@ For implementing causal delivery efficiently, what is really needed is an effect
 >$$
 ## Vector Clocks
 Each process $p_i$ maintains a local vector $VC$ of natural numbers where $VC(e_i)$ denotes the vector clock value of $p_i$ when it executes event $e_i$. It is initialized by each process to contain all zeros. All messages contain a timestamp $TS(m)$ which is the vector clock of $m$'s send event.
+
+> [!info] Update rule
+> $$
+> \begin{cases}
+> VC(e_i)[i] \coloneqq VC[i]+1 & \text{ if } e_i \text{is an internal or send event}
+> \\
+> \\
+> VC(e_i) \coloneqq max\{VC,TS(m)\} & \text{if } e_1 = receive(m)
+> \\
+> VC(e_i)[i] \coloneqq VC[i]+1
+> \end{cases}
+> $$
