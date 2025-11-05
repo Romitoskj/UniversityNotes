@@ -208,6 +208,7 @@ For implementing causal delivery efficiently, what is really needed is an effect
 Each process $p_i$ maintains a local vector $VC$ of natural numbers where $VC(e_i)$ denotes the vector clock value of $p_i$ when it executes event $e_i$. It is initialized by each process to contain all zeros. All messages contain a timestamp $TS(m)$ which is the vector clock of $m$'s send event.
 
 > [!info] Update rule
+> The vector clock is modified by  $p_1$ with the occurrence of each new event $e_i$ as follow:
 > $$
 > \begin{cases}
 > VC(e_i)[i] \coloneqq VC[i]+1 & \text{ if } e_i \text{is an internal or send event}
@@ -218,3 +219,6 @@ Each process $p_i$ maintains a local vector $VC$ of natural numbers where $VC(e_
 > VC(e_i)[i] \coloneqq VC[i]+1
 > \end{cases}
 > $$
+> An internal or send event simply increments the local component of the vector clock. A receive event first updates the vector clock to be greater then both the previous value and the timestamp of the incoming message and then increas the local component.
+
+![center|500](../Pasted%20image%2020251105170402.png)
