@@ -246,3 +246,9 @@ $$
 $$
 ---
 # Implementing Causal Delivery with Vector Clocks
+The weak gap-detection property can be exploited to efficiently implement causal delivery using vector clocks.
+
+>[!warning] Assumption
+>Processes increment the local component of their vector clocks only for events that are notified to the monitor ($p_0$).
+
+All message that ave been received but not yet delivered by the monitor process are maintained in a set $\$, initially empty.
