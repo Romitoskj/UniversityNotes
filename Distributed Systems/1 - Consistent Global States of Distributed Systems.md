@@ -244,5 +244,6 @@ Given event $e_i$ of process $p_j$ and event $e_j$ of process $p_j$, if $VC(e_i)
 $$
 (e_k \nrightarrow e_i) \land (e_k \rightarrow e_j)
 $$
+
 ---
 # Implementing Causal Delivery with Vector Clocks
