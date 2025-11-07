@@ -247,3 +247,4 @@ $$
 
 ---
 # Implementing Causal Delivery with Vector Clocks
+The weak gap-detection property can be exploited to implement causal delivery using vector clocks.
