@@ -239,7 +239,7 @@ e_i \rightarrow e_j \equiv VC(e_i)[i] \leq VC(e_j)[i].
 $$
 Two events of different process are concurrent if they have both a grater number in their vector cell than the other process.
 ### Weak Gap-Detection property
-Given event $e_i$ of process $p_j$ and event $e_j$ of process $p_j$, if $VC(e_i)[k] < VC(e_j)[k]$ for some $k \neq j$, then there exists an event $e_k$ such that
+Given event $e_i$ of process $p_i$ and event $e_j$ of process $p_j$, if $VC(e_i)[k] < VC(e_j)[k]$ for some $k \neq j$, then there exists an event $e_k$ such that
 $$
 (e_k \nrightarrow e_i) \land (e_k \rightarrow e_j)
 $$
