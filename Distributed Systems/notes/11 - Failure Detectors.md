@@ -1,0 +1,49 @@
+### 1. The Function and Impossibility of Perfect Detectors
+
+A Failure Detector (D) is a **local software module** residing within a process (P) that can be queried to determine the fate of another process (Q), specifically whether Q has crashed or stalled. If the process P dies, its local detector D also dies.
+
+If one assumes a **magically perfect** failure detector—one that is **always right**—it would be simple to solve leader election, even in an asynchronous system. Processes could query the detector, disregard processes identified as dead, and elect the living process with the minimum ID.
+
+However, achieving such a perfect module is **not possible** in an asynchronous system. If it were possible, it could be used to make Paxos both safe and live, thereby solving consensus, which is known to be impossible in asynchronous systems due to the FLP result.
+
+### 2. Formal Properties of Failure Detectors
+
+Failure detectors are classified based on two formal properties:
+
+#### A. Completeness
+
+Completeness means that **if a process has crashed, the detector can see it** (i.e., detect the crash).
+
+- **Strong Completeness:** If a process (P) crashes, **every** other up process (Q) will eventually suspect P.
+- **Weak Completeness:** If a process (P) crashes, there exists **at least one** up process (Q) that will eventually suspect P.
+
+It is possible to transform any failure detector with **weak completeness** into one with **strong completeness**. This is achieved by having processes broadcast the list of dead processes they suspect and taking the **union** of these lists.
+
+#### B. Accuracy
+
+Accuracy means that **if the module tells a process that Q is dead, it must be true**. Accuracy pertains to processes that are alive.
+
+- **Strong Accuracy:** If two processes (P and Q) are up (alive), Q does not think P is dead.
+- **Weak Accuracy:** There exists at least one process (P) that remains up and is **never suspected** by any other up process (Q).
+- **Eventual Strong Accuracy ($\diamond$S):** The detector may be inaccurate initially, but from some **fixed time (T) onward**, the strong accuracy property holds.
+
+A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies accuracy holds at all times, not just eventually.
+
+### 3. Nikico's Detector and System Synchrony
+
+A practical example, **Nikico's failure detector**, works by having a process (P) send a "ping" message to Q repeatedly and suspecting Q if no reply is received within a specific time delay ($\Delta D$).
+
+- **Completeness:** In any system, if Q crashes, it cannot reply, so P will suspect it. Thus, Nikico's detector has **strong completeness**.
+- **Accuracy (Asynchronous System):** In an asynchronous system (where message delays are unbounded), Nikico's detector lacks strong accuracy because a slow message reply might lead the detector to **falsely suspect** a process is dead when it is merely running slowly.
+- **Accuracy (Synchronous System):** If the system is **synchronous** (messages deliver within a known time bound), the delay ($\Delta D$) can be set large enough (e.g., larger than the round trip time) to guarantee **strong accuracy**.
+
+### 4. Leader Election and Paxos Liveness
+
+Using a leader election protocol based on a detector with **strong completeness and eventual strong accuracy** (like Nikico's in a partially synchronous system) can lead to eventual consensus.
+
+While this detector can eventually ensure only one leader exists, during the initial "messy" phase (before the detector becomes accurate), two problems may temporarily arise:
+
+1. **Two Leaders:** A live process (P1) might be wrongly suspected of being dead due to the initial lack of accuracy, causing another process (P2) to declare itself the leader.
+2. **Zero Leaders:** When an actual leader dies, there is a delay (waiting for the $\Delta D$ timeout) before other processes detect the crash (a completeness issue), resulting in a temporary period with no leader.
+
+Despite these temporary issues, the eventual strong accuracy guarantees that eventually, the system converges on a single leader, which is sufficient to **make Paxos live**. However, a detector with these properties (strong completeness and eventual strong accuracy) is only possible if the system is synchronous or partially synchronous; it is **not possible** in a strictly asynchronous system.
