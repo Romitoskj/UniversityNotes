@@ -3,5 +3,7 @@
   "enabledCssSnippets": [
     "ImageAlign"
   ],
-  "nativeMenus": false
+  "nativeMenus": false,
+  "cssTheme": "",
+  "accentColor": "#00a989"
 }
