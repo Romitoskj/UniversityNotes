@@ -1,56 +1,41 @@
-Cryptographic Foundations
+# Cryptographic Foundations
 
-The lesson details several key cryptographic concepts:
+## Hash Functions
+> These functions take variable-length data (like a file) and output a fixed, typically short, hash or digest
 
-1. **Hash Functions (Digest):** These functions take variable-length data (like a file) and output a fixed, typically short, hash or digest
+They are crucial because they possess two key properties: 
+- it is very difficult to find the original data from the hash (preimage resistance)
+- it is very hard to find a different file that produces the same hash (collision resistance). 
 
-. They are crucial because they possess two key properties: it is very difficult to find the original data from the hash (preimage resistance), and it is very hard to find a different file that produces the same hash (collision resistance). Examples of hash functions include SHA-256. They are used to verify data integrity, such as checking if two files are the same without exchanging the files themselves
+Examples of hash functions include SHA-256. They are used to verify data integrity, such as checking if two files are the same without exchanging the files themselves
+## Public Key Cryptography
+> This asymmetric encryption system uses two connected keys, a **private key** (kept secret) and a **public key** (which can be widely published)
 
-.
+**Signatures:** To digitally sign a message, the owner uses their **private key** to encrypt the hash of the message
+Anyone can use the corresponding **public key** to decrypt the signature and verify its authenticity
 
-2. **Public Key Cryptography:** This asymmetric encryption system uses two connected keys, a **private key** (kept secret) and a **public key** (which can be widely published)
+## Merkle Tree
+> This data structure is used to prove that a specific data record (D) belongs to a larger collection
 
-.
+By hashing individual records and then hashing pairs up to a **root of the tree**, one only needs the root hash (H) and a small **Merkle proof** (a sequence of hashes along the path) to verify D's inclusion. The size of this proof is **logarithmic** (logN), making it highly efficient
 
-    ◦ **Signatures:** To digitally sign a message, the owner uses their **private key** to encrypt the hash of the message
+---
+# Bitcoin and the Double Spending Problem
 
-. Anyone can use the corresponding **public key** to decrypt the signature and verify its authenticity
+Bitcoin is a digital cash system, functioning similarly to a signed check.
 
-.
+A transaction transfers ownership of a value.
 
-3. **Merkle Tree:** This data structure is used to prove that a specific data record (D) belongs to a larger collection
-
-. By hashing individual records and then hashing pairs up to a **root of the tree**, one only needs the root hash (H) and a small **Merkle proof** (a sequence of hashes along the path) to verify D's inclusion. The size of this proof is **logarithmic** (logN), making it highly efficient
-
-.
-
-Bitcoin and the Double Spending Problem
-
-Bitcoin is a digital cash system, functioning similarly to a signed check
-
-. A transaction transfers ownership of a value
-
-.
-
-• The "name" of the owner in Bitcoin is actually their **public key**
-
-, and the transfer is secured using a **digital signature** created with the private key
-
-.
+The "name" of the owner in Bitcoin is actually their **public key**, and the transfer is secured using a **digital signature** created with the private key.
 
 • A transaction references the hash of the previous transaction (input) and specifies the new owner(s) (output) and the values transferred
 
-. An owner can send a portion of a bitcoin to a new owner and send the remainder back to themselves
+. An owner can send a portion of a bitcoin to a new owner and send the remainder back to themselves.
 
-.
+## Double spending problem
+The central challenge for any digital cash system is the **double spending** problem: the ability to spend the same coin twice. To prevent this, Bitcoin requires a system where all transactions are stored and checked for prior spending. Since the creators desired a decentralized system, this ledger must be managed by a **distributed system** rather than a single central server.
 
-The central challenge for any digital cash system is the **double spending** problem: the ability to spend the same coin twice
-
-. To prevent this, Bitcoin requires a system where all transactions are stored and checked for prior spending. Since the creators desired a decentralized system, this ledger must be managed by a **distributed system** rather than a single central server
-
-.
-
-Consensus, Blocks, and Proof of Work
+## Consensus, Blocks, and Proof of Work
 
 The Bitcoin network must achieve **consensus** on which transactions are committed
 
