@@ -37,52 +37,13 @@ The central challenge for any digital cash system is the **double spending** pro
 
 ## Consensus, Blocks, and Proof of Work
 
-The Bitcoin network must achieve **consensus** on which transactions are committed
+The Bitcoin network must achieve **consensus** on which transactions are committed. Since traditional consensus protocols like Paxos are not suitable for large, dynamic networks due to high message overhead and malicious nodes (Bzantine faults), Bitcoin uses a different approach:
 
-. Since traditional consensus protocols like Paxos are not suitable for large, dynamic networks due to high message overhead and malicious nodes (Bzantine faults)
-
-, Bitcoin uses a different approach:
-
-1. **Blocks and Blockchain:** Consensus is run not on individual transactions, but on a **collection of transactions** called a **block**
-
-. A new block is perpetually linked to its predecessor by including the hash of the previous block in its header, forming the **blockchain**
-
-.
-
-2. **Block Structure:** A block header contains the hash of the previous block, the **Merkle root** of all its transactions (used for verification), and a crucial value called the **nonce**
-
-.
-
-3. **Proof of Work (PoW):** For a block to be valid, the hash of the entire block must meet a specific difficulty requirement, such as having the K **least significant bits set to zero**
-
-. The probability of this is 1/2K
-
-.
-
-    ◦ Miners repeatedly try different **nonce** values until they find a valid hash, a process that requires a substantial amount of computational effort
-
-. This is called **Proof of Work**
-
-.
-
-4. **Incentives:** The first miner to find a valid block gets to commit that block and is rewarded with newly **minted bitcoins** (created in the first transaction of the block)
-
-. This is why these actors are called **miners**
-
-.
-
-5. **Forks and Safety:** If two miners find valid blocks simultaneously, the chain splits into two branches (**forks**)
-
-. The consensus rule is that the **longest chain prevails**. Miners stop working on shorter branches. The system is calibrated so that a new block is produced roughly **every 10 minutes**. A transaction is typically considered permanently committed only after **six new blocks** have been added to its branch, which can take about an hour
-
-.
-
-6. **Safety and Liveness:** The Bitcoin protocol is considered **safe** and **live with high probability**
-
-.
-
-Drawbacks
-
-The main disadvantages of this PoW-based consensus mechanism are the **very high power consumption** required to perform the computational work
-
-and the lack of speed, as transactions can take up to an hour to be fully committed.
+1. **Blocks and Blockchain:** Consensus is run not on individual transactions, but on a **collection of transactions** called a **block**. A new block is perpetually linked to its predecessor by including the hash of the previous block in its header, forming the **blockchain**.
+2. **Block Structure:** A block header contains the hash of the previous block, the **Merkle root** of all its transactions (used for verification), and a crucial value called the **nonce**.
+3. **Proof of Work (PoW):** For a block to be valid, the hash of the entire block must meet a specific difficulty requirement, such as having the K **least significant bits set to zero**. The probability of this is 1/2K. Miners repeatedly try different **nonce** values until they find a valid hash, a process that requires a substantial amount of computational effort. This is called **Proof of Work**.
+4. **Incentives:** The first miner to find a valid block gets to commit that block and is rewarded with newly **minted bitcoins** (created in the first transaction of the block). This is why these actors are called **miners**.
+5. **Forks and Safety:** If two miners find valid blocks simultaneously, the chain splits into two branches (**forks**). The consensus rule is that the **longest chain prevails**. Miners stop working on shorter branches. The system is calibrated so that a new block is produced roughly **every 10 minutes**. A transaction is typically considered permanently committed only after **six new blocks** have been added to its branch, which can take about an hour.
+6. **Safety and Liveness:** The Bitcoin protocol is considered **safe** and **live with high probability**.
+### Drawbacks
+The main disadvantages of this PoW-based consensus mechanism are the **very high power consumption** required to perform the computational work and the lack of speed, as transactions can take up to an hour to be fully committed.
