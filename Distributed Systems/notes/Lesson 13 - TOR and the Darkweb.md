@@ -41,7 +41,8 @@ This protocol is used to establish a shared secret key over an insecure channel.
 
 As seen in the image the key K is computed without it being actually shared over the channel.
 
-1. **Man-in-the-Middle (MITM) Attack:** The basic DH protocol is weak against a MITM attack, where an adversary intercepts messages and negotiates separate secret keys with both parties, allowing the adversary to decrypt all traffic.
+#### Man-in-the-Middle Attack
+The basic DH protocol is weak against a MITM attack, where an adversary intercepts messages and negotiates separate secret keys with both parties, allowing the adversary to decrypt all traffic.
 ### Authenticated DH
 Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achieves this by encrypting their DH contribution ($G^X$) using the relay's **public key**. Since only the intended relay can decrypt the message, the user is guaranteed to be talking to the correct server.
 1. **Negotiation Improvement:** Modern Tor avoids direct communication when negotiating keys K2 and K3, instead negotiating them **through the already established circuit** (starting with Sydney). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
