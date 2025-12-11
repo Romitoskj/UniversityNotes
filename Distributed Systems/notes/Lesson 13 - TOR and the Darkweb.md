@@ -1,9 +1,10 @@
 # I. Privacy Tools Comparison
 
-The initial discussion established the need to understand **what kind of privacy** is sought and **against whom** (stakeholders include the government, internet providers, and other users of the same system).
+First it is needed to understand **what kind of privacy** is sought and **against whom** (stakeholders include the government, internet providers, and other users of the same system).
 
-1. **Incognito/Private Browsing Mode:** This provides a little privacy, primarily against **other users of the same system** (e.g., your spouse) by preventing the browser from storing cookies or history. It offers **zero privacy** against internet profiling, internet providers, or the government.
-2. **VPN (Virtual Private Network):** Using a VPN gives you privacy against your **internet provider** because the communication goes through the VPN provider. However, you place significant trust in the VPN provider. It is typically not designed specifically for privacy but for creating the illusion of being on a private network. Privacy against the government is questionable, as authorities could request data from the VPN provider.
+Browsers privacy tools:
+1. **Incognito/Private Browsing Mode:** This provides a little privacy, primarily against **other users of the same system** by preventing the browser from storing cookies or history. It offers **zero privacy** against internet profiling, internet providers, or the government.
+2. **VPN (Virtual Private Network):** Using a VPN gives you privacy against your **internet provider** because the communication is encrypted and goes through the VPN provider. However, you place significant trust in the VPN provider. It is typically not designed specifically for privacy but for creating the illusion of being on a private network. Privacy against the government is questionable, as authorities could request data from the VPN provider.
 
 # II. Tor (The Onion Router) Protocol
 
