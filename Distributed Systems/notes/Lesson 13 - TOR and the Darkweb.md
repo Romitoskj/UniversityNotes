@@ -64,7 +64,7 @@ Tor's circuit structure impacts performance:
 
 **Dark Web** refers to hidden services using Tor to ensure that **both the user and the web server are hidden**.
 
-***All communications occur using Tor connections***
+> ***All communications occur using Tor connections***
 
 ## Mechanism
 The hidden web server selects "introductory points" and publishes information about these points and its public key on a Distributed Hash Table (DHT).
@@ -77,4 +77,4 @@ A user consults the DHT, selects a separate **meeting point** (rendezvous) betwe
 ![](../assets/Pasted%20image%2020251211184924.png)![](../assets/Pasted%20image%2020251211185025.png)
 ![](../assets/Pasted%20image%2020251211185043.png)![](../assets/Pasted%20image%2020251211185057.png)![](../assets/Pasted%20image%2020251211185121.png)
 
-Offloading the service to a separate meeting point than the introductory points is done to perform load balancing and also the rendezvous changes through time while the introductory points remain the same. 
+Offloading the service to a separate meeting point than the introductory points is done to perform **load balancing** and also the rendezvous changes through time while the introductory points remain the same. 
