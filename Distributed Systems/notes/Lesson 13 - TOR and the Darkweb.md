@@ -20,7 +20,7 @@ Tor achieves anonymity by routing packets through a circuit of servers called **
     - **Guard (Entry Point):** The first relay. It knows the user's location (e.g., Rome) and the next relay (e.g., Sydney) but not the final destination (e.g., CNN website).
     - **Middle Relays (e.g., Paris):** Know only the previous relay (e.g., Sydney) and the next relay (e.g., Rio).
     - **Exit Point:** The last relay. It knows the last relay (e.g., Paris) and the final destination (e.g., CNN website in New York City) but nothing about the user's origin.
-	The user downloads the 
+	The user downloads the list of relays with their IPs and public keys and select a subgroup 3 of them at least to create the circuit.
 
 2. **Onion Encryption:** The user creates an "onion" by encrypting the packet multiple times, starting with the key for the **last relay (K3)**, then the key for the second-to-last relay (K2), and finally the key for the **Guard (K1)**.
     
