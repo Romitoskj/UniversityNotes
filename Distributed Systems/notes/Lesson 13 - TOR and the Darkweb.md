@@ -44,7 +44,7 @@ Since the user and the relays initially share no secret information, they must n
     - **Latency:** Is **critical/high** because the total latency is the **sum** of the latency across all relays (L1 + L2 + L3), making it potentially very slow.
     - **Bandwidth:** Is limited by the **minimum** bandwidth of the slowest relay in the circuit.
 
-### III. The Dark Web (Hidden Services)
+# III. The Dark Web (Hidden Services)
 
 The discussion concluded by introducing the **Dark Web**, which refers to hidden services using Tor to ensure that **both the user and the web server are hidden**.
 
