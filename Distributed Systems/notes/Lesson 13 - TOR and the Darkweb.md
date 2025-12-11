@@ -20,23 +20,27 @@ Tor achieves anonymity by routing packets through a circuit of servers called **
     - **Guard (Entry Point):** The first relay. It knows the user's location (e.g., Rome) and the next relay (e.g., Sydney) but not the final destination (e.g., CNN website).
     - **Middle Relays (e.g., Paris):** Know only the previous relay (e.g., Sydney) and the next relay (e.g., Rio).
     - **Exit Point:** The last relay. It knows the last relay (e.g., Paris) and the final destination (e.g., CNN website in New York City) but nothing about the user's origin.
-	The user downloads the list of all relays with their IPs and public keys and select at least 3 of them  to create the circuit.
+	The user downloads the list of all relays with their IPs and keys and select at least 3 of them  to create the circuit.
 
-2. **Onion Encryption:** The user creates an "onion" by encrypting the packet multiple times, starting with the key for the **last relay (K3)**, then the key for the second-to-last relay (K2), and finally the key for the **Guard (K1)**. The reverse order is because the packet are decrypted from the outer to the inner layer. Doing so each relay knows only about the previous and next relay, not the content of the message.
+2. **Onion Encryption:** The user creates an "onion" by encrypting the packet multiple times, starting with the key for the **last relay (K3)**, then the key for the second-to-last relay (K2), and finally the key for the **Guard (K1)**. The reverse order is because the packet are decrypted from the outer to the inner layer.
     
-3. **Layered Decryption:** As the packet travels, each relay decrypts one layer of the onion using its respective shared key.    
-    - The Guard decrypts K1, sees the next layer (K2 encrypted), and forwards it to Paris.
-    - Paris decrypts K2, sees the next layer (K3 encrypted), and forwards it to Rio.
-    - Rio decrypts K3, sees the original packet, and sends it to the destination website.
+3. **Layered Decryption:** As the packet travels, each relay decrypts one layer of the onion using its respective key.    
+    - The Guard decrypts K1, sees the next layer (K2 encrypted), and forwards it to the middle relay.
+    - The middle relay decrypts K2, sees the next layer (K3 encrypted), and forwards it to the exit point.
+    - The exit point decrypts K3, sees the original packet, and sends it to the destination website.
+	Doing so each relay knows only about the previous and next relay, not the content of the message.
 
 ## B. Key Negotiation and Authentication
 
 Since the user and the relays initially share no secret information, they must negotiate shared keys (K1, K2, K3).
 
-1. **Diffie-Hellman (DH) Protocol:** This protocol is used to establish a shared secret key over an insecure channel. It relies on the computational difficulty of the **Discrete Logarithm Problem**—it is easy to compute $g^x$ from $x$, but impossible (infeasible) to compute $x$ from $g^x$.
-2. **Man-in-the-Middle (MITM) Attack:** The basic DH protocol is weak against a MITM attack, where an adversary intercepts messages and negotiates separate secret keys with both parties, allowing the adversary to decrypt all traffic.
-3. **Authenticated DH:** Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achieves this by encrypting their DH contribution ($G^X$) using the relay's **public key**. Since only the intended relay can decrypt the message, the user is guaranteed to be talking to the correct server.
-4. **Negotiation Improvement:** Modern Tor avoids direct communication when negotiating keys K2 and K3, instead negotiating them **through the already established circuit** (starting with Sydney). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
+### Diffie-Hellman (DH) Protocol
+This protocol is used to establish a shared secret key over an insecure channel. It relies on the computational difficulty of the **Discrete Logarithm Problem** —it is easy to compute $g^x$ from $x$, but impossible (infeasible) to compute $x$ from $g^x$.
+
+1. **Man-in-the-Middle (MITM) Attack:** The basic DH protocol is weak against a MITM attack, where an adversary intercepts messages and negotiates separate secret keys with both parties, allowing the adversary to decrypt all traffic.
+### Authenticated DH
+Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achieves this by encrypting their DH contribution ($G^X$) using the relay's **public key**. Since only the intended relay can decrypt the message, the user is guaranteed to be talking to the correct server.
+1. **Negotiation Improvement:** Modern Tor avoids direct communication when negotiating keys K2 and K3, instead negotiating them **through the already established circuit** (starting with Sydney). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
 
 ## C. Attacks and Performance
 
