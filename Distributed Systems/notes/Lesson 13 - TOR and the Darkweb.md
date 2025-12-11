@@ -66,10 +66,11 @@ Tor's circuit structure impacts performance:
 
 > ***All communications occur using Tor connections***
 
-## Mechanism
-The hidden web server selects "introductory points" and publishes information about these points and its public key on a Distributed Hash Table (DHT).
-![](../assets/Pasted%20image%2020251211184825.png)
-![](../assets/Pasted%20image%2020251211184834.png)
+## Hidden Service
+1. The hidden web server selects "introductory points".
+	![](../assets/Pasted%20image%2020251211184825.png)
+2. Than publishes information about these points and its public key on a Distributed Hash Table (DHT).
+	![](../assets/Pasted%20image%2020251211184834.png)
 
 ## Connection
 A user consults the DHT, selects a separate **meeting point** (rendezvous) between all the introductory points, and communicates information about the meeting point to the web server via another **introductory points**. This complex process allows the user and the server to connect without revealing their locations.
