@@ -64,7 +64,17 @@ Tor's circuit structure impacts performance:
 
 **Dark Web** refers to hidden services using Tor to ensure that **both the user and the web server are hidden**.
 
-1. **Mechanism:** The hidden web server selects "introductory points" and publishes information about these points and its public key on a Distributed Hash Table (DHT).
-2. **Connection:** A user consults the DHT, selects a separate **meeting point** (rendezvous), and communicates information about the meeting point to the web server via the introductory points (**all communications occur using Tor connections**). This complex process allows the user and the server to connect without revealing their locations.
+***All communications occur using Tor connections***
+
+## Mechanism
+The hidden web server selects "introductory points" and publishes information about these points and its public key on a Distributed Hash Table (DHT).
+![](../assets/Pasted%20image%2020251211184825.png)
+![](../assets/Pasted%20image%2020251211184834.png)
+
+## Connection
+A user consults the DHT, selects a separate **meeting point** (rendezvous) between all the introductory points, and communicates information about the meeting point to the web server via another **introductory points**. This complex process allows the user and the server to connect without revealing their locations.
+![](../assets/Pasted%20image%2020251211184915.png)
+![](../assets/Pasted%20image%2020251211184924.png)![](../assets/Pasted%20image%2020251211185025.png)
+![](../assets/Pasted%20image%2020251211185043.png)![](../assets/Pasted%20image%2020251211185057.png)![](../assets/Pasted%20image%2020251211185121.png)
 
 Offloading the service to a separate meeting point than the introductory points is done to perform load balancing and also the rendezvous changes through time while the introductory points remain the same. 
