@@ -43,18 +43,22 @@ As seen in the image the key K is computed without it being actually shared over
 
 #### Man-in-the-Middle Attack
 The basic DH protocol is weak against a MITM attack, where an adversary intercepts messages and negotiates separate secret keys with both parties, allowing the adversary to decrypt all traffic.
+
 ### Authenticated DH
-Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achieves this by encrypting their DH contribution ($G^X$) using the relay's **public key**. Since only the intended relay can decrypt the message, the user is guaranteed to be talking to the correct server.
-1. **Negotiation Improvement:** Modern Tor avoids direct communication when negotiating keys K2 and K3, instead negotiating them **through the already established circuit** (starting with Sydney). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
+Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achieves this by encrypting their DH contribution ($g^X$) using the relay's **public key**. Since only the intended relay can decrypt the message, the user is guaranteed to be talking to the correct server. After that they both have the same key to perform symmetric cryptography.
+#### Negotiation Improvement
+ Modern Tor avoids direct communication when negotiating keys with the middle relay and exit point, instead negotiating them **through the already established circuit** (starting with the guard). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
 
 ## C. Attacks and Performance
 
-1. **Strongest Attack:** The most potent attack against Tor is when an adversary controls both the **Guard and the Exit Point** in a single circuit.
+### Attacks 
+1. The most potent attack against Tor is when an adversary controls both the **Guard and the Exit Point** in a single circuit.
 2. **Traffic Analysis:** Even without full decryption, an attacker controlling both points can perform **traffic analysis**, correlating the timing of packets entering the Guard with those exiting the Exit Point to deduce that they belong to the same flow, thereby breaking anonymity.
 3. **Mitigation:** To minimize this attack, users select a higher number of relays and choose the Guard and Exit Point from **different continents or autonomous systems**.
-4. **Performance Metrics:** Tor's circuit structure impacts performance:
-    - **Latency:** Is **critical/high** because the total latency is the **sum** of the latency across all relays (L1 + L2 + L3), making it potentially very slow.
-    - **Bandwidth:** Is limited by the **minimum** bandwidth of the slowest relay in the circuit.
+### Performance Metrics
+Tor's circuit structure impacts performance:
+-  **Latency:** Is **critical/high** because the total latency is the **sum** of the latency across all relays of the circuit, making it potentially very slow.
+- **Bandwidth:** Is limited by the **minimum** bandwidth of the slowest relay in the circuit (bottleneck), so it is not necessarily low but it can be.
 
 # III. The Dark Web (Hidden Services)
 
