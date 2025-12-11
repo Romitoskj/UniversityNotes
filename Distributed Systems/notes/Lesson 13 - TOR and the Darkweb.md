@@ -15,6 +15,7 @@ Tor was introduced as a system designed to provide good privacy against the inte
 Tor achieves anonymity by routing packets through a circuit of servers called **relays** (thousands exist globally). A user randomly selects a number of relays (typically five, or three for illustrative purposes).
 
 ![](../assets/Pasted%20image%2020251211103913.png)
+![](../assets/Pasted%20image%2020251211110006.png)
 
 1. **Circuit Server Roles:**
     - **Guard (Entry Point):** The first relay. It knows the user's location (e.g., Rome) and the next relay (e.g., Sydney) but not the final destination (e.g., CNN website).
@@ -22,7 +23,7 @@ Tor achieves anonymity by routing packets through a circuit of servers called **
     - **Exit Point:** The last relay. It knows the last relay (e.g., Paris) and the final destination (e.g., CNN website in New York City) but nothing about the user's origin.
 	The user downloads the list of relays with their IPs and public keys and select a subgroup 3 of them at least to create the circuit.
 
-2. **Onion Encryption:** The user creates an "onion" by encrypting the packet multiple times, starting with the key for the **last relay (K3)**, then the key for the second-to-last relay (K2), and finally the key for the **Guard (K1)**.
+2. **Onion Encryption:** The user creates an "onion" by encrypting the packet multiple times, starting with the key for the **last relay (K3)**, then the key for the second-to-last relay (K2), and finally the key for the **Guard (K1)**. The reverse order is because the packet are decrypted from the outer to the inner layer. Doing so each relay knows only about the previous and next relay, not the content of the message.
     
 3. **Layered Decryption:** As the packet travels, each relay decrypts one layer of the onion using its respective shared key.
     
