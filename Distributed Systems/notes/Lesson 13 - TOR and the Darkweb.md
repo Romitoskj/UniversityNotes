@@ -14,11 +14,14 @@ Tor was introduced as a system designed to provide good privacy against the inte
 
 Tor achieves anonymity by routing packets through a circuit of servers called **relays** (thousands exist globally). A user randomly selects a number of relays (typically five, or three for illustrative purposes).
 
-1. **Circuit Roles:**
-    
-    - **Guard (Entry Point):** The first relay. It knows the user's location (e.g., Rome) and the next relay (e.g., Sydney) but not the final destination (e.g., CNN).
+![](../assets/Pasted%20image%2020251211103913.png)
+
+1. **Circuit Server Roles:**
+    - **Guard (Entry Point):** The first relay. It knows the user's location (e.g., Rome) and the next relay (e.g., Sydney) but not the final destination (e.g., CNN website).
     - **Middle Relays (e.g., Paris):** Know only the previous relay (e.g., Sydney) and the next relay (e.g., Rio).
     - **Exit Point:** The last relay. It knows the last relay (e.g., Paris) and the final destination (e.g., CNN website in New York City) but nothing about the user's origin.
+	The user downloads the 
+
 2. **Onion Encryption:** The user creates an "onion" by encrypting the packet multiple times, starting with the key for the **last relay (K3)**, then the key for the second-to-last relay (K2), and finally the key for the **Guard (K1)**.
     
 3. **Layered Decryption:** As the packet travels, each relay decrypts one layer of the onion using its respective shared key.
