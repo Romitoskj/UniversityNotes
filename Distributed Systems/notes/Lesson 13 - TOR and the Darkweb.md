@@ -62,8 +62,9 @@ Tor's circuit structure impacts performance:
 
 # III. The Dark Web (Hidden Services)
 
-The discussion concluded by introducing the **Dark Web**, which refers to hidden services using Tor to ensure that **both the user and the web server are hidden**.
+**Dark Web** refers to hidden services using Tor to ensure that **both the user and the web server are hidden**.
 
 1. **Mechanism:** The hidden web server selects "introductory points" and publishes information about these points and its public key on a Distributed Hash Table (DHT).
-2. **Connection:** A user consults the DHT, selects a separate **meeting point**, and communicates information about the meeting point to the web server via the introductory points (all communications occur using Tor connections). This complex process allows the user and the server to connect without revealing their locations.
-3. **Real-World Example:** The infamous **Silk Road**, an eBay-like site built using Tor for buying and selling anything using Bitcoin, was a major example of a hidden service.
+2. **Connection:** A user consults the DHT, selects a separate **meeting point** (rendezvous), and communicates information about the meeting point to the web server via the introductory points (**all communications occur using Tor connections**). This complex process allows the user and the server to connect without revealing their locations.
+
+Offloading the service to a separate meeting point than the introductory points is done to perform load balancing and also the rendezvous changes through time while the introductory points remain the same. 
