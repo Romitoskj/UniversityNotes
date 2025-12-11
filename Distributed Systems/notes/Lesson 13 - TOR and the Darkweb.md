@@ -35,9 +35,12 @@ Tor achieves anonymity by routing packets through a circuit of servers called **
 Since the user and the relays initially share no secret information, they must negotiate shared keys (K1, K2, K3).
 
 ### Diffie-Hellman (DH) Protocol
-This protocol is used to establish a shared secret key over an insecure channel. The key is in fact computed without it being sent. It relies on the computational difficulty of the **Discrete Logarithm Problem** —it is easy to compute $g^x$ from $x$, but impossible (infeasible) to compute $x$ from $g^x$.
+This protocol is used to establish a shared secret key over an insecure channel.  It relies on the computational difficulty of the **Discrete Logarithm Problem** —it is easy to compute $g^x$ from $x$, but impossible (infeasible) to compute $x$ from $g^x$, were $g \in \mathbb{Z}_p$  is a generator for the field $\mathbb{Z}_p$.
 
-![](../../Pasted%20image%2020251211175245.png)
+![](../assets/Pasted%20image%2020251211175844.png)
+
+As seen in the image the key K is computed without it being actually shared over the channel.
+
 1. **Man-in-the-Middle (MITM) Attack:** The basic DH protocol is weak against a MITM attack, where an adversary intercepts messages and negotiates separate secret keys with both parties, allowing the adversary to decrypt all traffic.
 ### Authenticated DH
 Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achieves this by encrypting their DH contribution ($G^X$) using the relay's **public key**. Since only the intended relay can decrypt the message, the user is guaranteed to be talking to the correct server.
