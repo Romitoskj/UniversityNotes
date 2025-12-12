@@ -25,7 +25,7 @@ The DNS is a distributed system designed to translate memorable domain name stri
 - **Anycast Mechanism:** All replicas share the **same IP address**. This shared IP is announced by a large number of **Autonomous Systems (AS)** using the **BGP routing protocol**.
 - **Benefit:** When a user queries a root server, they are automatically routed to the **closest copy**. This makes the DNS system **extremely reliable** and resistant to Denial of Service (DoS) attacks.
 
-> [!Info]  The Border Gateway Protocol
+> [!Info]-  The Border Gateway Protocol
 > BGP (Border Gateway Protocol) is the routing protocol used for communication **among Autonomous Systems (AS)** on the internet.
 > 
 The internet is fundamentally composed of these Autonomous Systems, which, as their name suggests, operate autonomously. While routing within a single AS can use internal rules, communication _between_ different Autonomous Systems follows the BGP protocol.
@@ -51,7 +51,7 @@ CDNs were developed to make access to internet content much faster and more reli
 
 ## B. CDN Mechanism
 
-1. **Atomization:** HTML pages are modified ("atomized") by changing the links to media files to include the CDN's domain (e.g., `akamai.com`).
+1. **"Akamization":** HTML pages are modified ("Akamization") by changing the links to media files to include the CDN's domain (e.g., `cnn.com.akamai.com/pictures/34.jpg`).
 2. **DNS Redirection:** When a user's resolver queries the Akamai name, the Akamai DNS system intercepts the request.
 3. **Closest Server Selection:** Akamai's DNS analyzes the location of the request and returns the IP address of the **closest CDN server** holding the content. The next HTTP connection is then made to this closer server, not the origin server (e.g., CNN server in the US).
 4. **Load Balancing:** The CDN DNS system is also used to perform load balancing, routing users to a less-loaded server even if it is slightly farther away.
