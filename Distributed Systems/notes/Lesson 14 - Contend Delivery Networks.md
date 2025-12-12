@@ -25,6 +25,19 @@ The DNS is a distributed system designed to translate memorable domain name stri
 - **Anycast Mechanism:** All replicas share the **same IP address**. This shared IP is announced by a large number of **Autonomous Systems (AS)** using the **BGP routing protocol**.
 - **Benefit:** When a user queries a root server, they are automatically routed to the **closest copy**. This makes the DNS system **extremely reliable** and resistant to Denial of Service (DoS) attacks.
 
+> [!Info]  The Border Gateway Protocol
+> BGP (Border Gateway Protocol) is the routing protocol used for communication **among Autonomous Systems (AS)** on the internet.
+> 
+The internet is fundamentally composed of these Autonomous Systems, which, as their name suggests, operate autonomously. While routing within a single AS can use internal rules, communication _between_ different Autonomous Systems follows the BGP protocol.
+>
+Here is a brief explanation of how BGP routing works based on the sources:
+>
+> - **Announcing IPs:** Under the BGP protocol, an Autonomous System can **announce** which IP addresses are located within its system. Essentially, it declares, "If you are looking for these IPs, they are within my system. Send the packet to me to reach them".
+> - **Propagation and Path Building:** These announcements are propagated across other Autonomous Systems. Every time an announcement is propagated, the receiving Autonomous System adds information indicating the path that must be followed to reach those IPs.
+> - **Path Construction:** If Autonomous System A announces IPs, saying traffic must go through A, and then this announcement is sent to Autonomous System B, B will propagate the information saying, "To reach those IPs, you have to go through B, and then A". This process **builds the paths** necessary to route traffic across the internet.
+>
+This protocol is vital for reliability, as demonstrated by the use of **Anycast** for DNS root servers: the IP address of a root server is announced by all the many Autonomous Systems that host a replica of that server, routing users to the closest copy.
+
 ---
 
 # II. Content Delivery Networks (CDNs) – The Akamai Idea
