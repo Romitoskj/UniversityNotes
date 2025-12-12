@@ -1,8 +1,8 @@
-# I. The Domain Name System (DNS)
+### I. The Domain Name System (DNS)
 
 The DNS is a distributed system designed to translate memorable domain name strings into numerical IP addresses.
 
-## A. DNS Structure and Process
+#### A. DNS Structure and Process
 
 - **Purpose:** IP addresses are difficult to remember (e.g., four bytes as a number), so DNS provides human-readable names.
 - **Hierarchy:** The structure of domains is hierarchical (e.g., top-level domains like `.it` having numerous subdomains).
@@ -13,14 +13,14 @@ The DNS is a distributed system designed to translate memorable domain name stri
 
 ![](../assets/Pasted%20image%2020251212120140.png)
 
-## B. Consistency, Availability, and Partition Tolerance (CAP)
+#### B. Consistency, Availability, and Partition Tolerance (CAP)
 
 - **Caching:** All retrieved IP information is **cached** by the DNS resolver to avoid repeating the entire resolution process.
 - **Consistency Challenge:** Caching breaks consistency. If a domain's IP address is changed, the cached information becomes invalid.
 - **Mitigation:** Consistency problems are reduced by propagating changes to everybody (though this takes time) or by giving cached elements a Time-To-Live (TTL) after which they are refreshed.
 - **Trade-off:** The caching system gives the system more **partition tolerance** and **availability** at the expense of consistency.
 
-## C. Reliability through Anycast
+#### C. Reliability through Anycast
 
 - **Replication:** The root servers are extensively replicated to handle the load of the entire internet.
 - **Scale:** Each of the 13 logical root servers has **hundreds of physical replicas**.
@@ -42,16 +42,16 @@ This protocol is vital for reliability, as demonstrated by the use of **Anycast*
 
 ---
 
-# II. Content Delivery Networks (CDNs) – The Akamai Idea
+### II. Content Delivery Networks (CDNs) – The Akamai Idea
 
 CDNs were developed to make access to internet content much faster and more reliable.
 
-## A. The Problem and the Solution
+#### A. The Problem and the Solution
 
 - **Problem:** While HTML page text is light, pages are full of media content (pictures, videos) which require multiple HTTP connections to retrieve and take significant time to download.
 - **Akamai's Solution:** Build a globally distributed network of servers (CDNs) that hold **copies of this media content**.
 
-## B. CDN Mechanism
+#### B. CDN Mechanism
 
 1. **"Akamization":** HTML pages are modified ("Akamization") by changing the links to media files to include the CDN's domain (e.g., `cnn.com.akamai.com/pictures/34.jpg`).
 2. **DNS Redirection:** When a user's resolver queries the Akamai name, the Akamai DNS system intercepts the request.
@@ -60,7 +60,7 @@ CDNs were developed to make access to internet content much faster and more reli
 
 ![](../assets/Pasted%20image%2020251212115807.png)
 
-## C. CDN Trade-offs (Prioritizing Availability)
+#### C. CDN Trade-offs (Prioritizing Availability)
 
 - CDNs are distributed systems that prioritize **availability** and **partition tolerance**.
 - **Consistency Trade-off:** For applications like news distribution or social media (e.g., Facebook), **consistency is traded for availability**. It is acceptable to retrieve a picture or post that is a **few minutes old** if it ensures the user can access the system.
