@@ -9,7 +9,6 @@ However, achieving such a perfect module is **not possible** in an asynchronous 
 ### 2. Formal Properties of Failure Detectors
 
 Failure detectors are classified based on two formal properties:
-
 #### A. Completeness
 
 Completeness means that **if a process has crashed, the detector can see it** (i.e., detect the crash).
@@ -28,6 +27,9 @@ Accuracy means that **if the module tells a process that Q is dead, it must be t
 - **Eventual Strong Accuracy ($\diamond$S):** The detector may be inaccurate initially, but from some **fixed time (T) onward**, the strong accuracy property holds.
 
 A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies accuracy holds at all times, not just eventually.
+
+#### Failure Detector Taxonomy
+INSERT TABLE
 
 ### 3. Nikico's Detector and System Synchrony
 
