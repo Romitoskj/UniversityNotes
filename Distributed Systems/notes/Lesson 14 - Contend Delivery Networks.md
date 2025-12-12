@@ -11,6 +11,8 @@ The DNS is a distributed system designed to translate memorable domain name stri
     2. This is an iterative process: the resolver is directed down the hierarchy until the final IP address is obtained.
 - **Root Servers:** Logically, there are **13 root servers** in the world.
 
+![](../assets/Pasted%20image%2020251212120140.png)
+
 ## B. Consistency, Availability, and Partition Tolerance (CAP)
 
 - **Caching:** All retrieved IP information is **cached** by the DNS resolver to avoid repeating the entire resolution process.
@@ -30,7 +32,7 @@ The DNS is a distributed system designed to translate memorable domain name stri
 > 
 The internet is fundamentally composed of these Autonomous Systems, which, as their name suggests, operate autonomously. While routing within a single AS can use internal rules, communication _between_ different Autonomous Systems follows the BGP protocol.
 >
-Here is a brief explanation of how BGP routing works based on the sources:
+BGP routing works like that:
 >
 > - **Announcing IPs:** Under the BGP protocol, an Autonomous System can **announce** which IP addresses are located within its system. Essentially, it declares, "If you are looking for these IPs, they are within my system. Send the packet to me to reach them".
 > - **Propagation and Path Building:** These announcements are propagated across other Autonomous Systems. Every time an announcement is propagated, the receiving Autonomous System adds information indicating the path that must be followed to reach those IPs.
@@ -53,8 +55,10 @@ CDNs were developed to make access to internet content much faster and more reli
 
 1. **"Akamization":** HTML pages are modified ("Akamization") by changing the links to media files to include the CDN's domain (e.g., `cnn.com.akamai.com/pictures/34.jpg`).
 2. **DNS Redirection:** When a user's resolver queries the Akamai name, the Akamai DNS system intercepts the request.
-3. **Closest Server Selection:** Akamai's DNS analyzes the location of the request and returns the IP address of the **closest CDN server** holding the content. The next HTTP connection is then made to this closer server, not the origin server (e.g., CNN server in the US).
+3. **Closest Server Selection:** Akamai's DNS analyzes the location of the request and returns the IP address of the **closest CDN server (Point of Presence)** holding the content. The next HTTP connection is then made to this closer server, not the origin server (e.g., CNN server in the US).
 4. **Load Balancing:** The CDN DNS system is also used to perform load balancing, routing users to a less-loaded server even if it is slightly farther away.
+
+![](../assets/Pasted%20image%2020251212115807.png)
 
 ## C. CDN Trade-offs (Prioritizing Availability)
 
