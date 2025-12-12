@@ -31,17 +31,17 @@ A detector with **strong completeness and strong accuracy** is called **Perfect 
 #### Failure Detector Taxonomy
 INSERT TABLE
 
-### 3. Nikico's Detector and System Synchrony
+### 3. Example of Failure detector
 
-A practical example, **Nikico's failure detector**, works by having a process (P) send a "ping" message to Q repeatedly and suspecting Q if no reply is received within a specific time delay ($\Delta D$).
+A practical example, this failure detector works by having a process (P) send a "ping" message to Q repeatedly and suspecting Q if no reply is received within a specific time delay ($\Delta D$).
 
 - **Completeness:** In any system, if Q crashes, it cannot reply, so P will suspect it. Thus, Nikico's detector has **strong completeness**.
-- **Accuracy (Asynchronous System):** In an asynchronous system (where message delays are unbounded), Nikico's detector lacks strong accuracy because a slow message reply might lead the detector to **falsely suspect** a process is dead when it is merely running slowly.
+- **Accuracy (Asynchronous System):** In an asynchronous system (where message delays are unbounded), the detector lacks strong accuracy because a slow message reply might lead the detector to **falsely suspect** a process is dead when it is merely running slowly.
 - **Accuracy (Synchronous System):** If the system is **synchronous** (messages deliver within a known time bound), the delay ($\Delta D$) can be set large enough (e.g., larger than the round trip time) to guarantee **strong accuracy**.
 
 ### 4. Leader Election and Paxos Liveness
 
-Using a leader election protocol based on a detector with **strong completeness and eventual strong accuracy** (like Nikico's in a partially synchronous system) can lead to eventual consensus.
+Using a leader election protocol based on a detector with **strong completeness and eventual strong accuracy** (like the one described before in a partially synchronous system) can lead to eventual consensus.
 
 While this detector can eventually ensure only one leader exists, during the initial "messy" phase (before the detector becomes accurate), two problems may temporarily arise:
 
