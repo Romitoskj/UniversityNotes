@@ -32,8 +32,14 @@ It is possible to transform any failure detector with **weak completeness** into
 
 Accuracy means that **if the module tells a process that Q is dead, it must be true**. Accuracy pertains to processes that are alive.
 
-- **Strong Accuracy:** If two processes (P and Q) are up (alive), Q does not think P is dead.
-- **Weak Accuracy:** There exists at least one process (P) that remains up and is **never suspected** by any other up process (Q).
+- **Strong Accuracy:** If two processes ($p$ and $q$) are up (alive), $q$ does not think $p$ is dead:
+$$
+\forall\sigma\quad\forall t \quad\forall p,q\in up(t, \sigma): p \notin D_q (t, \sigma)
+$$
+- **Weak Accuracy:** There exists at least one process $p$ that remains up and is **never suspected** by any other up process $q$:
+$$
+\forall\sigma\quad\forall t \quad\exists p\in up(\sigma) \quad\forall q\in up(t, \sigma): p \notin D_q (t, \sigma)
+$$
 - **Eventual Strong Accuracy ($\diamond$S):** The detector may be inaccurate initially, but from some **fixed time (T) onward**, the strong accuracy property holds.
 
 A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies accuracy holds at all times, not just eventually.
