@@ -13,8 +13,19 @@ Failure detectors are classified based on two formal properties:
 
 Completeness means that **if a process has crashed, the detector can see it** (i.e., detect the crash).
 
-- **Strong Completeness:** If a process (P) crashes, **every** other up process (Q) will eventually suspect P.
+Given that $\sigma$ is a run, $crashed(\sigma$) the set of process crashed during the run, $up(\sigma)$ the set of live process during the run and $D_q(t, \sigma)$ the set of process believed to be that at time $t$ in the run $\sigma$ by process $q$.
+
+- **Strong Completeness:** If a process (P) crashes, **every** other up process (Q) will eventually suspect P:
+$$
+
+\forall\sigma, \quad \forall p\in crashed(\sigma),\quad  \forall q\in up(\sigma) \quad  \exists t : \forall t'>t \quad  p\in D_q(t', \sigma)
+$$
+
 - **Weak Completeness:** If a process (P) crashes, there exists **at least one** up process (Q) that will eventually suspect P.
+$$
+
+\forall\sigma, \quad \forall p\in crashed(\sigma),\quad  \exists q\in up(\sigma) \quad  \exists t : \forall t'>t \quad  p\in D_q(t', \sigma)
+$$
 
 It is possible to transform any failure detector with **weak completeness** into one with **strong completeness**. This is achieved by having processes broadcast the list of dead processes they suspect and taking the **union** of these lists.
 
@@ -29,8 +40,16 @@ Accuracy means that **if the module tells a process that Q is dead, it must be t
 A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies accuracy holds at all times, not just eventually.
 
 #### Failure Detector Taxonomy
-INSERT TABLE
 
+| **C\A** | **S**    | **W** | **$\Diamond$S** | **$\Diamond$W** |
+| ------- | -------- | ----- | --------------- | --------------- |
+| **S**   | P        | S     | $\Diamond$P     | $\Diamond$S     |
+| **W**   | $\theta$ | W     | $\theta$        | $\Diamond$W     |
+Where:
+- P = perfect
+- S = strong
+- W = weak
+- $\Diamond$ = eventual
 ### 3. Example of Failure detector
 
 A practical example, this failure detector works by having a process (P) send a "ping" message to Q repeatedly and suspecting Q if no reply is received within a specific time delay ($\Delta D$).
