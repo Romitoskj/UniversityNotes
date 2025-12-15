@@ -1,5 +1,4 @@
 ### 1. The Function and Impossibility of Perfect Detectors
-
 A Failure Detector (D) is a **local software module** residing within a process (P) that can be queried to determine the fate of another process (Q), specifically whether Q has crashed or stalled. If the process P dies, its local detector D also dies.
 
 If one assumes a **magically perfect** failure detector—one that is **always right**—it would be simple to solve leader election, even in an asynchronous system. Processes could query the detector, disregard processes identified as dead, and elect the living process with the minimum ID.
@@ -7,10 +6,8 @@ If one assumes a **magically perfect** failure detector—one that is **always r
 However, achieving such a perfect module is **not possible** in an asynchronous system. If it were possible, it could be used to make Paxos both safe and live, thereby solving consensus, which is known to be impossible in asynchronous systems due to the FLP result.
 
 ### 2. Formal Properties of Failure Detectors
-
 Failure detectors are classified based on two formal properties:
 #### A. Completeness
-
 Completeness means that **if a process has crashed, the detector can see it** (i.e., detect the crash).
 
 Given that $\sigma$ is a run, $crashed(\sigma$) the set of process crashed during the run, $up(\sigma)$ the set of live process during the run and $D_q(t, \sigma)$ the set of process believed to be that at time $t$ in the run $\sigma$ by process $q$.
@@ -30,7 +27,6 @@ $$
 It is possible to transform any failure detector with **weak completeness** into one with **strong completeness**. This is achieved by having processes broadcast the list of dead processes they suspect and taking the **union** of these lists.
 
 #### B. Accuracy
-
 Accuracy means that **if the module tells a process that Q is dead, it must be true**. Accuracy pertains to processes that are alive.
 
 - **Strong Accuracy:** If two processes (P and Q) are up (alive), Q does not think P is dead.
@@ -51,15 +47,13 @@ Where:
 - W = weak
 - $\Diamond$ = eventual
 ### 3. Example of Failure detector
-
-A practical example, this failure detector works by having a process (P) send a "ping" message to Q repeatedly and suspecting Q if no reply is received within a specific time delay ($\Delta D$).
+A practical example can be a failure detector that works by having a process (P) send a "ping" message to Q repeatedly and suspecting Q if no reply is received within a specific time delay ($\Delta D$).
 
 - **Completeness:** In any system, if Q crashes, it cannot reply, so P will suspect it. Thus, Nikico's detector has **strong completeness**.
 - **Accuracy (Asynchronous System):** In an asynchronous system (where message delays are unbounded), the detector lacks strong accuracy because a slow message reply might lead the detector to **falsely suspect** a process is dead when it is merely running slowly.
 - **Accuracy (Synchronous System):** If the system is **synchronous** (messages deliver within a known time bound), the delay ($\Delta D$) can be set large enough (e.g., larger than the round trip time) to guarantee **strong accuracy**.
 
 ### 4. Leader Election and Paxos Liveness
-
 Using a leader election protocol based on a detector with **strong completeness and eventual strong accuracy** (like the one described before in a partially synchronous system) can lead to eventual consensus.
 
 While this detector can eventually ensure only one leader exists, during the initial "messy" phase (before the detector becomes accurate), two problems may temporarily arise:

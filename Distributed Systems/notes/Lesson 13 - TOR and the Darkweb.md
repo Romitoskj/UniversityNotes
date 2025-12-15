@@ -1,5 +1,4 @@
 ### I. Privacy Tools Comparison
-
 First it is needed to understand **what kind of privacy** is sought and **against whom** (stakeholders include the government, internet providers, and other users of the same system).
 
 Browsers privacy tools:
@@ -7,11 +6,9 @@ Browsers privacy tools:
 2. **VPN (Virtual Private Network):** Using a VPN gives you privacy against your **internet provider** because the communication is encrypted and goes through the VPN provider. However, you place significant trust in the VPN provider. It is typically not designed specifically for privacy but for creating the illusion of being on a private network. Privacy against the government is questionable, as authorities could request data from the VPN provider.
 
 ### II. Tor (The Onion Router) Protocol
-
 Tor was introduced as a system designed to provide good privacy against the internet provider and the government, without relying on trusting an external service.
 
 #### A. The Onion Circuit and Routing
-
 Tor achieves anonymity by routing packets through a circuit of servers called **relays** (thousands exist globally). A user randomly selects a number of relays (typically five, or three for illustrative purposes).
 
 ![](../assets/Pasted%20image%2020251211110006.png)
@@ -31,7 +28,6 @@ Tor achieves anonymity by routing packets through a circuit of servers called **
 	Doing so each relay knows only about the previous and next relay, not the content of the message.
 
 #### B. Key Negotiation and Authentication
-
 Since the user and the relays initially share no secret information, they must negotiate shared keys (K1, K2, K3).
 
 ##### Diffie-Hellman (DH) Protocol
@@ -50,7 +46,6 @@ Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achi
  Modern Tor avoids direct communication when negotiating keys with the middle relay and exit point, instead negotiating them **through the already established circuit** (starting with the guard). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
 
 #### C. Attacks and Performance
-
 ##### Attacks 
 1. The most potent attack against Tor is when an adversary controls both the **Guard and the Exit Point** in a single circuit.
 2. **Traffic Analysis:** Even without full decryption, an attacker controlling both points can perform **traffic analysis**, correlating the timing of packets entering the Guard with those exiting the Exit Point to deduce that they belong to the same flow, thereby breaking anonymity.
@@ -61,7 +56,6 @@ Tor's circuit structure impacts performance:
 - **Bandwidth:** Is limited by the **minimum** bandwidth of the slowest relay in the circuit (bottleneck), so it is not necessarily low but it can be.
 
 ### III. The Dark Web (Hidden Services)
-
 **Dark Web** refers to hidden services using Tor to ensure that **both the user and the web server are hidden**.
 
 > ***All communications occur using Tor connections***
