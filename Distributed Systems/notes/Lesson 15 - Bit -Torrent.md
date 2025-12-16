@@ -7,15 +7,25 @@
 
 ### II. System Components and Structure
 
-- **Torrent File:** To join a BitTorrent community and start downloading, a user must first obtain a **torrent file**.
-    - **File Structure:** The torrent file contains critical metadata, including the file name, the file length, and the **URL of the tracker**.
-- **Tracker:** This is a centralized server responsible for **coordination**.
-    - The user contacts the tracker to obtain a list of at least a few **peers** who are currently sharing that specific file. The tracker usually does _not_ keep the file itself.
-- **File Division and Integrity:**
-    - The entire file is divided into **pieces** (typically 256 kilobytes).
-    - These pieces are further divided into **sub-pieces** (typically 16 kilobytes).
-    - Integrity is maintained by including the **root hash of the Merkle Tree** of the file within the torrent file.
-    - To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root.
+#### Torrent File:
+To join a BitTorrent community and start downloading, a user must first obtain a **torrent file**.
+##### File Structure:
+The torrent file contains critical metadata:
+- URL of the tracker
+- name of the file
+- piece length (typically 256 KB)
+- version
+- length of the file
+- root hash of the Merkel Tree
+- piece layers ($R_1,R_2, ..., R_n$)
+#### Tracker:
+This is a server responsible for **coordination**. There are multiple of them.
+The user contacts the tracker to obtain a list of at least a few **peers** who are currently sharing that specific file. The tracker usually does _not_ keep the file itself.
+#### File Division and Integrity:
+- The entire file is divided into **pieces** (typically 256 kilobytes).
+- These pieces are further divided into **sub-pieces** (typically 16 kilobytes).
+- Integrity is maintained by including the **root hash of the Merkle Tree** of the file within the torrent file.
+- To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root.
 
 ### III. Download and Contribution Mechanisms
 
