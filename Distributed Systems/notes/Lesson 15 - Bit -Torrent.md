@@ -7,10 +7,10 @@
 
 ### II. System Components and Structure
 
-- **Torrent File:** To join a BitTorrent community and start downloading, a user must first obtain a **torrent file**,.
-    - **File Structure:** The torrent file contains critical metadata, including the file name, the file length, and the **URL of the tracker**,.
+- **Torrent File:** To join a BitTorrent community and start downloading, a user must first obtain a **torrent file**.
+    - **File Structure:** The torrent file contains critical metadata, including the file name, the file length, and the **URL of the tracker**.
 - **Tracker:** This is a centralized server responsible for **coordination**.
-    - The user contacts the tracker to obtain a list of at least a few **peers** who are currently sharing that specific file,. The tracker usually does _not_ keep the file itself.
+    - The user contacts the tracker to obtain a list of at least a few **peers** who are currently sharing that specific file. The tracker usually does _not_ keep the file itself.
 - **File Division and Integrity:**
     - The entire file is divided into **pieces** (typically 256 kilobytes).
     - These pieces are further divided into **sub-pieces** (typically 16 kilobytes).
