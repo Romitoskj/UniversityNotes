@@ -78,7 +78,7 @@ Using a leader election protocol based on a detector with **strong completeness 
 
 While this detector can eventually ensure only one leader exists, during the initial "messy" phase (before the detector becomes accurate), two problems may temporarily arise:
 
-1. **Two Leaders:** A live process (P1) might be wrongly suspected of being dead due to the initial lack of accuracy, causing another process (P2) to declare itself the leader.
-2. **Zero Leaders:** When an actual leader dies, there is a delay (waiting for the $\Delta D$ timeout) before other processes detect the crash (a completeness issue), resulting in a temporary period with no leader.
+1. **Two Leaders:** A live process $p_1$ might be wrongly suspected of being dead due to the initial lack of accuracy, causing another process $p_2$ to declare itself the leader.
+2. **Zero Leaders:** When an actual leader dies, there is a delay (waiting for the $\Delta d$ timeout) before other processes detect the crash (a completeness issue), resulting in a temporary period with no leader.
 
 Despite these temporary issues, the eventual strong accuracy guarantees that eventually, the system converges on a single leader, which is sufficient to **make Paxos live**. However, a detector with these properties (strong completeness and eventual strong accuracy) is only possible if the system is synchronous or partially synchronous; it is **not possible** in a strictly asynchronous system.
