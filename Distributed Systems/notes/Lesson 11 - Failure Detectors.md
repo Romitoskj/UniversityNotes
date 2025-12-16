@@ -30,31 +30,38 @@ It is possible to transform any failure detector with **weak completeness** into
 
 #### B. Accuracy
 
-Accuracy means that **if the module tells a process that Q is dead, it must be true**. Accuracy pertains to processes that are alive.
+Accuracy means that **if the module tells a process that Q is dead, it must be true** (if a process is alive, the detector see it alive). Accuracy pertains to processes that are alive.
 
 - **Strong Accuracy:** If two processes ($p$ and $q$) are up (alive), $q$ does not think $p$ is dead:
 $$
 \forall\sigma\quad\forall t \quad\forall p,q\in up(t, \sigma): p \notin D_q (t, \sigma)
 $$
-- **Weak Accuracy:** There exists at least one process $p$ that remains up and is **never suspected** by any other up process $q$:
+- **Weak Accuracy:** There exists at least one process $p$ that remains up and is **never suspected** to be dead by any other up process $q$:
 $$
 \forall\sigma\quad\forall t \quad\exists p\in up(\sigma) \quad\forall q\in up(t, \sigma): p \notin D_q (t, \sigma)
 $$
-- **Eventual Strong Accuracy ($\diamond$S):** The detector may be inaccurate initially, but from some **fixed time (T) onward**, the strong accuracy property holds.
-
-A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies accuracy holds at all times, not just eventually.
+- **Eventual Strong Accuracy ($\diamond$S):** The detector may be inaccurate initially, but from some **fixed time $t$ onward**, the strong accuracy property holds:
+$$
+\forall\sigma\quad\forall t'>t \quad\forall p,q\in up(t', \sigma): p \notin D_q (t', \sigma)
+$$
+- **Eventual Weak Accuracy ($\diamond$W):** The detector may be inaccurate initially, but from some **fixed time $t$ onward**, the weak accuracy property holds:
+$$
+\forall\sigma\quad\forall t \quad\exists p\in up(\sigma) \quad\forall q\in up(t, \sigma): p \notin D_q (t, \sigma)
+$$
 
 > [!Info] Failure Detector Taxonomy
 >
 > 
-> | **C\A** | **S**    | **W** | **$\Diamond$S** | **$\Diamond$W** |
+> | **C\A** | **S**    | **W** | **$\diamond$S** | **$\diamond$W** |
 | ------- | -------- | ----- | --------------- | --------------- |
-| **S**   | P        | S     | $\Diamond$P     | $\Diamond$S     |
-| **W**   | $\theta$ | W     | $\theta$        | $\Diamond$W     |
+| **S**   | P        | S     | $\diamond$P     | $\diamond$S     |
+| **W**   | $\theta$ | W     | $\theta$        | $\diamond$W     |
 Where:
 > - P = perfect- S = strong
 > - W = weak
-> - $\Diamond$ = eventual
+> - $\diamond$ = eventual
+> 
+> A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies accuracy holds at all times, not just eventually.
 
 ### 3. Example of Failure detector
 
