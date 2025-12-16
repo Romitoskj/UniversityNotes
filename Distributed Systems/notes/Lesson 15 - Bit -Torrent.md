@@ -3,7 +3,7 @@
 - **Definition:** Peer-to-Peer (P2P) systems are system could share files, ideas, or code without a central authority.
 - **Context:** BitTorrent, invented in 2001, became famous for allowing the sharing of large files, such as movies or operating system distributions.
 - **The Problem Solved:** The core challenge for sharing large files, particularly when simultaneous demand is high (like on "click days"), is that a single central server can become easily **overloaded**, potentially leading to a Distributed Denial of Service (DDoS) situation.
-- **The P2P Solution:** Instead of downloading from one central server, peers download parts (pieces) of the file from **multiple other peers**, distributing the load and allowing the file to be reconstructed. The system can continue to work even if the original central server goes down, provided the file is fully shared by the community.
+- **The P2P Solution:** Instead of downloading from one central server, peers download pieces of the file from **multiple other peers**, distributing the load and allowing the file to be reconstructed. The system can continue to work even if the original central server goes down, provided the file is fully shared by the community.
 
 ### II. System Components and Structure
 
