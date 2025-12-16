@@ -46,7 +46,7 @@ $$
 $$
 - **Eventual Weak Accuracy ($\diamond$W):** The detector may be inaccurate initially, but from some **fixed time $t$ onward**, the weak accuracy property holds:
 $$
-\forall\sigma\quad\forall t \quad\exists p\in up(\sigma) \quad\forall q\in up(t, \sigma): p \notin D_q (t, \sigma)
+\forall\sigma\quad\forall t'>t \quad\exists p\in up(\sigma) \quad\forall q\in up(t', \sigma): p \notin D_q (t', \sigma)
 $$
 
 > [!Info] Failure Detector Taxonomy
@@ -57,19 +57,20 @@ $$
 | **S**   | P        | S     | $\diamond$P     | $\diamond$S     |
 | **W**   | $\theta$ | W     | $\theta$        | $\diamond$W     |
 Where:
-> - P = perfect- S = strong
+> - P = perfect
+> - S = strong
 > - W = weak
 > - $\diamond$ = eventual
 > 
-> A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies accuracy holds at all times, not just eventually.
+> A detector with **strong completeness and strong accuracy** is called **Perfect (P)**. The "magical" detector described earlier is even stronger than P because it implies completeness holds at all times, not just eventually.
 
 ### 3. Example of Failure detector
 
-A practical example can be a failure detector that works by having a process (P) send a "ping" message to Q repeatedly and suspecting Q if no reply is received within a specific time delay ($\Delta D$).
+A practical example can be a failure detector that works by having a process $p$ send a "ping" message to $q$ repeatedly (every $\Delta t$) and suspecting $q$ to be dead if no reply is received within a specific time delay ($\Delta d$).
 
-- **Completeness:** In any system, if Q crashes, it cannot reply, so P will suspect it. Thus, Nikico's detector has **strong completeness**.
-- **Accuracy (Asynchronous System):** In an asynchronous system (where message delays are unbounded), the detector lacks strong accuracy because a slow message reply might lead the detector to **falsely suspect** a process is dead when it is merely running slowly.
-- **Accuracy (Synchronous System):** If the system is **synchronous** (messages deliver within a known time bound), the delay ($\Delta D$) can be set large enough (e.g., larger than the round trip time) to guarantee **strong accuracy**.
+- **Completeness:** In any system, if $q$ crashes, it cannot reply, so $p$ will suspect it. Thus, the detector has **strong completeness**.
+- **Accuracy (Asynchronous System):** In an asynchronous system (where message delays are unbounded), the detector lacks of accuracy because a slow message reply might lead the detector to **falsely suspect** a process is dead when it is merely running slowly.
+- **Accuracy (Synchronous System):** If the system is **synchronous** (messages deliver within a known time bound), the delay ($\Delta d$) can be set large enough (e.g., larger than the round trip time) to guarantee **strong accuracy**.
 
 ### 4. Leader Election and Paxos Liveness
 
