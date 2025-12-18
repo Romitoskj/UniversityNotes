@@ -3,14 +3,12 @@
 - **Definition:** Peer-to-Peer (P2P) systems are system could share files, ideas, or code without a central authority.
 - **Context:** BitTorrent, invented in 2001, became famous for allowing the sharing of large files, such as movies or operating system distributions.
 - **The Problem Solved:** The core challenge for sharing large files, particularly when simultaneous demand is high (like on "click days"), is that a single central server can become easily **overloaded**, potentially leading to a Denial of Service (DoS) situation.
-- **The P2P Solution:** Instead of downloading from one central server, peers download pieces of the file **** from **multiple other peers**, distributing the load and allowing the file to be reconstructed. The system can continue to work even if the original central server goes down, provided the file is fully shared by the community.
+- **The P2P Solution:** Instead of downloading from one central server, peers download pieces of the file **concurrently** from **multiple other peers**, distributing the load and allowing the file to be reconstructed. The system can continue to work even if the original central server goes down, provided the file is fully shared by the community.
 
 ### II. System Components and Structure
 
 #### Torrent File:
-To start downloading a file, a user must first obtain a **torrent file** typically from the web.
-##### File Structure:
-The torrent file contains critical metadata:
+To start downloading a file, a user must first obtain a **torrent file** typically from the web. The torrent file contains critical metadata:
 - URL of the tracker
 - name of the file
 - piece length (typically 256 KB)
@@ -32,7 +30,7 @@ The user contacts the tracker to obtain a list of **peers** who are currently sh
 ![](../assets/Pasted%20image%2020251218094702.png)
 
 #### Peer Roles:
-- **Leecher:** A user who is currently downloading the file.
+- **Leecher:** A user who is currently downloading the file. A piece is downloaded from a single peer. After collecting some pieces it starts uploading them to other users.
 - **Seeder:** A user who has downloaded the entire file and remains in the system to upload pieces to others. Usually when a user finish to download the file the client starts act as a seed. While this is considered a "good habit" to contribute to the community, the user can chose to leave the system.
 #### Piece Selection Strategy:
 The strategy for choosing which pieces to download first is key:
@@ -61,7 +59,5 @@ To solve this, when only the last piece (or few pieces) remain, the system enter
 - **Modern Usage:** Although BitTorrent is less used by the public now, the underlying ideas—such as decentralized downloads and fetching content from multiple locations—are used by major corporations to distribute operating system updates quickly without overloading a central server.
 
 >[!question]- Questions
-> - Is the same piece of the file downloaded only form one peer or the sub-layers of it can be downloaded from different peers? 
 > - The integrity of the piece can be checked only when all of its sublayers are downloaded so we can calculate the root of the merkle tree and comparing with the one in the torrent file?
-> - If we said that the user start upload the file after finishing to download it what is purpose of random selection first? Do the client actually start to upload pieces before the whole file is downloaded?
 > - what are piece layers ($R_1,R_2, ..., R_n$) in torrent file?
