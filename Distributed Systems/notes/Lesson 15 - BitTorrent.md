@@ -27,6 +27,9 @@ The user contacts the tracker to obtain a list of **peers** who are currently sh
 - Integrity is maintained by including the **root hash of the Merkle Tree** of the file within the torrent file.
 - To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root (each piece has one and can be verified when all the sub-layers are downloaded $R_1, R_2, ..., R_n$).
 
+>[!question] Question
+>Is the same piece of the file downloaded only form one peer or the sub-layers of it can be downloaded from different peers? And the integrity of the piece can be checked only when all of its sublayers are downloaded so we can calculate the root of the merkle tree and comparing with the one in the torrent file?
+
 ### III. Download and Contribution Mechanisms
 
 ![](../assets/Pasted%20image%2020251218094702.png)
@@ -45,20 +48,20 @@ The strategy for choosing which pieces to download first is key:
 > If we said that the user start upload the file after finishing to download it what is purpose of random selection first? Do the client actually start to act as a seed before the whole file is downloaded?
 
 #### Handling Free Riders:
-- A free rider is a participant who only downloads and refuses to upload.
-    - **Tit-for-Tat (T4T):** This technique limits free riding by requiring that a user can only download a piece if they are simultaneously uploading a piece to the other peer,.
-    - **Optimistically Unchoking:** Since a new user (leecher) starts with nothing to upload, the system must allow them to acquire their first pieces. This is done through the **unchoking algorithm**. Every minute (or period), the system optimistically unchokes (uploads to) a random peer, regardless of T4T, giving new users a chance to join and start contributing.
+A free rider is a participant who only downloads and refuses to upload.
+- **Tit-for-Tat (T4T):** This technique limits free riding by requiring that a user can only download a piece if they are simultaneously uploading another piece to the other peer,.
+- **Optimistically Unchoking:** Since a new user (leecher) starts with nothing to upload, the system must allow them to acquire their first pieces. This is done through the **unchoking algorithm**. Every minute (or period), the system optimistically unchokes (uploads to) a random peer, regardless of T4T, giving new users a chance to join and start contributing.
 #### End Game Mode:
 Near the end of the download (e.g., 98-99% complete), speed often slows down because the last remaining pieces are often held only by slow or distant peers,.
-    - To solve this, when only the last piece (or few pieces) remain, the system enters **End Game Mode**, which allows the peer to download sub-pieces simultaneously from different users.
+To solve this, when only the last piece (or few pieces) remain, the system enters **End Game Mode**, which allows the peer to download sub-pieces simultaneously from different users.
 
 ### IV. System Properties and Attacks
 
-- **CAP Theorem Analysis:**
+- **CAP Properties Analysis:**
     - **Partition Tolerance:** Considered **pretty good**. The system can work even if the network is partitioned, provided there are seeders remaining in the partition.
     - **Consistency:** Not strictly well-defined because the system is primarily **read-only** (the file is not modified).
     - **Availability:** Not always guaranteed, but generally acceptable, depending on how common the file is and the number of active peers/seeders.
 - **Attacks:** Corporations may fight the system by:
     - Becoming **seeders** themselves to log the IP addresses of downloaders.
     - Trying to **pollute the system** by distributing fake pieces (less effective due to hash checks) or distributing entirely fake files (polluting the entire file).
-- **Modern Usage:** Although BitTorrent is less used by the public now, the underlying ideas—such as decentralized downloads and fetching content from multiple locations—are used by major corporations (like Apple or Microsoft) to distribute operating system updates quickly.
+- **Modern Usage:** Although BitTorrent is less used by the public now, the underlying ideas—such as decentralized downloads and fetching content from multiple locations—are used by major corporations to distribute operating system updates quickly without overloading a central server.
