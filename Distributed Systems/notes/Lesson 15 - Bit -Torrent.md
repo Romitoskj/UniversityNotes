@@ -39,6 +39,9 @@ The strategy for choosing which pieces to download first is key:
 
 **Implementation:** BitTorrent starts with a **Random** strategy to quickly acquire an initial set of pieces (allowing the new user to start uploading quickly), and then switches to **Rarest First**.
 
+>[!question] Question
+> If we said that the user start upload the file after finishing to download it what is purpose of random selection first? Do the client actually start to act as a seed before the whole file is downloaded?
+
 #### Handling Free Riders:
 - A free rider is a participant who only downloads and refuses to upload.
     - **Tit-for-Tat (T4T):** This technique limits free riding by requiring that a user can only download a piece if they are simultaneously uploading a piece to the other peer,.
