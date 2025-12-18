@@ -29,6 +29,8 @@ The user contacts the tracker to obtain a list of **peers** who are currently sh
 
 ### III. Download and Contribution Mechanisms
 
+![](../assets/Pasted%20image%2020251218094702.png)
+
 #### Peer Roles:
 - **Leecher:** A user who is currently downloading the file.
 - **Seeder:** A user who has downloaded the entire file and remains in the system to upload pieces to others. Usually when a user finish to download the file the client starts act as a seed. While this is considered a "good habit" to contribute to the community, the user can chose to leave the system.
