@@ -7,8 +7,8 @@
 
 ### II. System Components and Structure
 
-#### Torrent File:
-To start downloading a file, a user must first obtain a **torrent file**, typically from the web. The torrent file contains critical metadata:
+#### `.torrent` File:
+To start downloading a file, a user must first obtain a **.torrent file**, typically from the web. The torrent file contains critical metadata:
 - URL of the tracker
 - name of the file
 - piece length (typically 256 KB)
