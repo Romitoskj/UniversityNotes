@@ -29,14 +29,15 @@ The core infrastructure used to locate files in these systems is a **DHT**, spec
 - **Storage Rule:** A file is stored on the **next server** encountered when moving **clockwise** around the ring from the file's hash position (the first server with greater hash).
 - **Load Balancing:** Because hash functions "act like random functions", files and servers are distributed **uniformly**. While distribution isn't perfect, the server with the most files typically only handles a factor of $O(\log n)$ files.
 
-####  B. Efficient Routing: Finger Tables
+####  B. Routing with Finger Tables
 
 To avoid contacting every server one by one to find a file, Chord uses a routing mechanism called a **Finger Table**.
 
-- **Finger Logic:** Each server maintains a table of "fingers" pointing to other servers at exponential distances ($p + 2^0, p + 2^1, p + 2^2, \dots$).
-- **$\log n$ Search:** Every time a request "hops" to a server in the finger table, the distance to the target file is reduced by at least **half**. Consequently, finding any file in a network of $n$ servers only requires **$O(\log n)$ communications**.
+- **Finger Logic:** Each server maintains a table of "fingers" pointing to other servers at exponential distances ($p + 2^0, p + 2^1, p + 2^2, \dots$ , where $p$ is the hash of the IP address of the server containing the table). The table doesn't contains all the servers but only does at this distances.
+- **User request:** When a user request the CID of a file to a server it can be stored by the server or, if not, the server relays the request to the one with preceding hash value that does the same thing.
+- **$\log n$ Search ("Binary search"):** Every time a request "hops" to a server in the finger table, the distance to the target file is reduced by at least **half**. Consequently, finding any file in a network of $n$ servers only requires **$O(\log n)$ communications**.
 
-#### C. Dynamic Membership (Churn)
+#### C. Dynamic Membership
 
 Distributed systems must handle nodes joining or leaving, a process known as **churn**.
 
