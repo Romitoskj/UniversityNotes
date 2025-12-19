@@ -1,6 +1,7 @@
 This notes explores decentralized storage systems, focusing on the **Interplanetary File System (IPFS)** and the mathematical infrastructure that allows them to function, specifically **Distributed Hash Tables (DHT)** like **Chord**.
 
-### I. IPFS: Content-Addressable Storage
+### I. IPFS
+#### Content-Addressable Storage
 
 IPFS is a distributed system with no central authority, where peers can store and retrieve files.
 
@@ -8,7 +9,7 @@ IPFS is a distributed system with no central authority, where peers can store an
 - **Immutability:** Files in IPFS cannot be modified. If a user wants to change a file, they must save a new version, resulting in two different files with two distinct hashes.
 - **Chunks:** To manage storage, files are broken down into smaller pieces called **chunks**, which are then distributed across various servers in the network.
 
-### II. System Properties and Persistence
+####  System Properties and Persistence
 
 - **Consistency:** This is generally not a problem because files are read-only; there aren't multiple conflicting versions of the same hash.
 - **Partition Tolerance:** low, if a chunk of a file is in another partition it can't be retrieved
@@ -16,7 +17,8 @@ IPFS is a distributed system with no central authority, where peers can store an
 - **Pinning:** To prevent data loss, users can "**pin**" a file. A pinned file is guaranteed by a server (often the user's own server or a paid service like **Pinata**) not to be deleted.
 - **Confidentiality:** By default, files are stored in plain text. For privacy, users must **encrypt** their files themselves before uploading them to the system.
 
-### III. The Chord Protocol: Mapping the Ring
+### II. The Chord Protocol
+#### A. Mapping the Ring
 
 The core infrastructure used to locate files in these systems is a **DHT**, specifically the **Chord** protocol.
 
@@ -25,14 +27,14 @@ The core infrastructure used to locate files in these systems is a **DHT**, spec
 - **Storage Rule:** A file is stored on the **next server** encountered when moving **clockwise** around the ring from the file's hash position.
 - **Load Balancing:** Because hash functions act like random functions, files and servers are distributed **uniformly**. While distribution isn't perfect, the server with the most files typically only handles a factor of $O(\log n)$ more than others.
 
-### IV. Efficient Routing: Finger Tables
+####  B. Efficient Routing: Finger Tables
 
 To avoid contacting every server one by one to find a file, Chord uses a routing mechanism called a **Finger Table**.
 
 - **Finger Logic:** Each server maintains a table of "fingers" pointing to other servers at exponential distances ($p + 2^0, p + 2^1, p + 2^2, \dots$).
 - **$\log n$ Search:** Every time a request "hops" to a server in the finger table, the distance to the target file is reduced by at least **half**. Consequently, finding any file in a network of $n$ servers only requires **$O(\log n)$ communications**.
 
-### V. Dynamic Membership (Churn)
+#### C. Dynamic Membership (Churn)
 
 Distributed systems must handle nodes joining or leaving, a process known as **churn**.
 
