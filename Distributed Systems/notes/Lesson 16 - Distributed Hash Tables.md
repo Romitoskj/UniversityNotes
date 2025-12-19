@@ -5,7 +5,7 @@ This notes explores decentralized storage systems, focusing on the **Interplanet
 
 IPFS is a distributed system with no central authority, where peers can store and retrieve files.
 
-- **Content Addressing:** Unlike traditional systems where files are accessed by a name or location, IPFS uses **Content IDs**. The "name" of the file is effectively a **hash** of its content.
+- **Content Addressing:** Unlike traditional systems where files are accessed by a name or location, IPFS uses **Content IDs** (CID). The "name" of the file is effectively a **hash** of its content.
 - **Immutability:** Files in IPFS cannot be modified. If a user wants to change a file, they must save a new version, resulting in two different files with two distinct hashes.
 - **Chunks:** To manage storage, files are broken down into smaller pieces called **chunks**, which are then distributed across various servers in the network.
 
@@ -34,12 +34,12 @@ The core infrastructure used to locate files in these systems is a **DHT**, spec
 To avoid contacting every server one by one to find a file, Chord uses a routing mechanism called a **Finger Table**.
 
 - **Finger Logic:** Each server maintains a table of "fingers" pointing to other servers at exponential distances ($p + 2^0, p + 2^1, p + 2^2, \dots$ , where $p$ is the hash of the IP address of the server containing the table). The table doesn't contains all the servers but only does at this distances.
-- **User request:** When a user request the CID of a file to a server it can be stored by the server or, if not, the server relays the request to the one with preceding hash value that does the same thing.
+- **User request:** When a user request the a file to a server it can be stored by the server itself. If not, the server checks the finger table to get the IP of the server with the largest preceding hash than the CID of the file(the first encountered going counterclockwise in the ring)  and relay the request to it, that will do the same thing.
 - **$\log n$ Search ("Binary search"):** Every time a request "hops" to a server in the finger table, the distance to the target file is reduced by at least **half**. Consequently, finding any file in a network of $n$ servers only requires **$O(\log n)$ communications**.
 
 #### C. Dynamic Membership
 
-Distributed systems must handle nodes joining or leaving, a process known as **churn**.
+Distributed systems must handle nodes joining or leaving.
 
 - **Joining the Ring:** When a new server joins, it must contact its successor to transfer the files for which it is now responsible. It then builds its own finger table, which takes approximately $O(\log^2 n)$ time.
 - **Leaving the Ring:** If a server leaves abruptly without its files being pinned elsewhere, those files are lost to the system.
