@@ -23,7 +23,7 @@ The user contacts the tracker to obtain a list of **peers** who are currently sh
 - The entire file is divided into **pieces** (typically 256 kilobytes).
 - These pieces are further divided into **sub-pieces** (typically 16 kilobytes).
 - Integrity is maintained by including the **root hash of the Merkle Tree** of the file within the torrent file.
-- To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root (each piece has one and can be verified when all the sub-layers are downloaded $R_1, R_2, ..., R_n$).
+- To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root (?or they are included in the piece layers?).
 
 ### III. Download and Contribution Mechanisms
 
