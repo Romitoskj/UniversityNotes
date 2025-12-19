@@ -22,10 +22,12 @@ IPFS is a distributed system with no central authority, where peers can store an
 
 The core infrastructure used to locate files in these systems is a **DHT**, specifically the **Chord** protocol, is a "ring".
 
+![](../assets/Pasted%20image%2020251219121219.png)
+
 - **The Identifier Space:** Identifiers (fingerprints) are treated as numbers in a circular space or **ring**, ranging from $0$ to $2^n-1$ where $n$ is the dimension of the space (*e.g.* $0$ to $2^{256} - 1$ if using SHA-256).
 - **Projection:** Both servers (using their IP addresses hash) and files (using their content hashes) are projected onto this ring.
-- **Storage Rule:** A file is stored on the **next server** encountered when moving **clockwise** around the ring from the file's hash position.
-- **Load Balancing:** Because hash functions act like random functions, files and servers are distributed **uniformly**. While distribution isn't perfect, the server with the most files typically only handles a factor of $O(\log n)$ more than others.
+- **Storage Rule:** A file is stored on the **next server** encountered when moving **clockwise** around the ring from the file's hash position (the first server with greater hash).
+- **Load Balancing:** Because hash functions "act like random functions", files and servers are distributed **uniformly**. While distribution isn't perfect, the server with the most files typically only handles a factor of $O(\log n)$ files.
 
 ####  B. Efficient Routing: Finger Tables
 
