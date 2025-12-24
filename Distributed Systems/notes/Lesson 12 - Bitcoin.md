@@ -1,49 +1,57 @@
-# Cryptographic Foundations
+### I. Introduction to Bitcoin
 
-## Hash Functions
-> These functions take variable-length data (like a file) and output a fixed, typically short, hash or digest
+- **Origins:** Bitcoin was introduced in a 2008 paper by an anonymous author known as **Satoshi**.
+- **Purpose:** The goal was to create **digital cash** independent of government control, rooted in the libertarian movements of the time.
+- **Core Ingredients:** The system is built on two pillars: **cryptography** (considered the "easy" part) and **consensus** (the "hard" part).
 
-They are crucial because they possess two key properties: 
-- it is very difficult to find the original data from the hash (preimage resistance)
-- it is very hard to find a different file that produces the same hash (collision resistance). 
+### II. Essential Cryptographic Tools
 
-Examples of hash functions include SHA-256. They are used to verify data integrity, such as checking if two files are the same without exchanging the files themselves
-## Public Key Cryptography
-> This asymmetric encryption system uses two connected keys, a **private key** (kept secret) and a **public key** (which can be widely published)
+The lesson outlines three primary tools used to secure the network:
 
-**Signatures:** To digitally sign a message, the owner uses their **private key** to encrypt the hash of the message
-Anyone can use the corresponding **public key** to decrypt the signature and verify its authenticity
+1. **Hash Functions:**
+    
+    - Functions that convert variable-length data into a short, fixed-length number called a **digest** or hash.
+    - **Key Properties:** It is computationally difficult to find the original data from a hash (pre-image resistance) or to find two different files that produce the same hash.
+    - **Examples:** SHA-256 (used in Bitcoin) and the older, weaker MD5.
+    - **Use Case:** Verifying file integrity without exchanging the entire file.
+2. **Public Key Cryptography & Digital Signatures:**
+    
+    - **Asymmetric Encryption:** Uses two mathematically linked keys: a **public key** (shared openly) and a **private key** (kept secret).
+    - **Signatures:** To sign a message, you encrypt its hash with your private key. Anyone with your public key can decrypt it to verify the message came from you and has not been tampered with.
+    - **Identity:** In Bitcoin, a user's **public key serves as their "name"** or address.
+3. **Merkle Trees:**
+    
+    - A structure used to prove a record is part of a large collection without needing the whole collection.
+    - **Process:** Records are hashed in pairs repeatedly until a single **root hash** is reached.
+    - **Merkle Proof:** To prove a transaction is in a block, one only needs a sequence of "brother" hashes ($O(\log n)$ size) to reconstruct the path to the root.
 
-## Merkle Tree
-> This data structure is used to prove that a specific data record (D) belongs to a larger collection
+### III. The Double-Spending Problem
 
-By hashing individual records and then hashing pairs up to a **root of the tree**, one only needs the root hash (H) and a small **Merkle proof** (a sequence of hashes along the path) to verify D's inclusion. The size of this proof is **logarithmic** (logN), making it highly efficient
+- **Definition:** Unlike physical cash, digital files can be easily duplicated. **Double-spending** occurs if a user tries to spend the same digital coin twice.
+- **The Decentralisation Challenge:** Traditional systems solve this with a **trusted central server** (like a bank) to track all transactions. Bitcoin aims to replace this central authority with a **distributed system** of thousands of nodes that must reach consensus on which transactions are valid.
+
+### IV. Transactions and Blockchain Structure
+
+- **Transactions:** Function like digital checks. They consist of **inputs** (references to previous transactions where the money came from) and **outputs** (the new owner's public key and the value being transferred).
+- **Blocks:** To improve performance, the network does not run consensus on every individual transaction. Instead, transactions are grouped into **blocks**.
+- **Blockchain:** Each new block contains the **hash of the previous block**. This creates a chain where any modification to a past block would invalidate all subsequent blocks.
+
+### V. Consensus and Proof-of-Work (Mining)
+
+- **The Mining Process:** For a block to be considered valid, its total hash must meet a specific difficulty requirement (e.g., the last $k$ bits must be zero).
+- **Nonce:** Miners repeatedly change a variable called a **nonce** and re-hash the block until they find a valid hash by chance.
+- **Proof-of-Work (PoW):** Finding a valid hash serves as proof that the miner performed a vast amount of computational work.
+- **Incentives:** The first transaction in every block (the **coinbase**) grants the miner newly created Bitcoin. This reward halves approximately every four years (e.g., from 50 BTC in 2009 to 25, 12.5, etc.), converging toward a **fixed supply of 21 million BTC**.
+
+### VI. System Dynamics and Limitations
+
+- **Forks:** If two miners find a block simultaneously, the chain **forks**. The network resolves this by following the **longest chain**, which represents the most cumulative work.
+- **Confirmation Time:** The system adjusts difficulty to ensure a new block is found roughly every **10 minutes**. A transaction is generally considered secure only after **six blocks** (roughly one hour) have been added to the chain.
+- **Drawbacks:**
+    - **Energy Consumption:** Mining requires massive power, leading to super-clusters of computers in cold climates for cooling.
+    - **Latency:** It is relatively slow compared to centralized systems.
+    - **Security Risk:** If one entity controls more than **50% of the hashing power**, the decentralised nature of the system is compromised.
 
 ---
-# Bitcoin and the Double Spending Problem
 
-Bitcoin is a digital cash system, functioning similarly to a signed check.
-
-A transaction transfers ownership of a value.
-
-The "name" of the owner in Bitcoin is actually their **public key**, and the transfer is secured using a **digital signature** created with the private key.
-
-• A transaction references the hash of the previous transaction (input) and specifies the new owner(s) (output) and the values transferred
-
-. An owner can send a portion of a bitcoin to a new owner and send the remainder back to themselves.
-
-## Double spending problem
-The central challenge for any digital cash system is the **double spending** problem: the ability to spend the same coin twice. To prevent this, Bitcoin requires a system where all transactions are stored and checked for prior spending. Since the creators desired a decentralized system, this ledger must be managed by a **distributed system** rather than a single central server.
-
-## Consensus, Blocks, and Proof of Work
-
-The Bitcoin network must achieve **consensus** on which transactions are committed. Since traditional consensus protocols like Paxos are not suitable for large, dynamic networks due to high message overhead and malicious nodes (Bzantine faults), Bitcoin uses a different approach:
-
-1. **Blocks and Blockchain:** Consensus is run not on individual transactions, but on a **collection of transactions** called a **block**. A new block is perpetually linked to its predecessor by including the hash of the previous block in its header, forming the **blockchain**.
-2. **Block Structure:** A block header contains the hash of the previous block, the **Merkle root** of all its transactions (used for verification), and a crucial value called the **nonce**.
-3. **Proof of Work (PoW):** For a block to be valid, the hash of the entire block must meet a specific difficulty requirement, such as having the K **least significant bits set to zero**. The probability of this is 1/2K. Miners repeatedly try different **nonce** values until they find a valid hash, a process that requires a substantial amount of computational effort. This is called **Proof of Work**.
-4. **Incentives:** The first miner to find a valid block gets to commit that block and is rewarded with newly **minted bitcoins** (created in the first transaction of the block). This is why these actors are called **miners**.
-5. **Forks and Safety:** If two miners find valid blocks simultaneously, the chain splits into two branches (**forks**). The consensus rule is that the **longest chain prevails**. Miners stop working on shorter branches. The system is calibrated so that a new block is produced roughly **every 10 minutes**. A transaction is typically considered permanently committed only after **six new blocks** have been added to its branch, which can take about an hour.
-6. **Safety and Liveness:** The Bitcoin protocol is considered **safe** and **live with high probability**.
-### Drawbacks
-The main disadvantages of this PoW-based consensus mechanism are the **very high power consumption** required to perform the computational work and the lack of speed, as transactions can take up to an hour to be fully committed.
+**Analogy for Proof-of-Work:** Imagine a global lottery where the only way to get a ticket is to spend energy running a treadmill. The "winning" ticket is a number that starts with ten zeros. You cannot predict which number you will get; you just have to keep running and checking your tickets. When someone finally shouts that they have won, everyone else can easily see the ten zeros on the ticket and agree that the winner must have put in the hard work to find it.
