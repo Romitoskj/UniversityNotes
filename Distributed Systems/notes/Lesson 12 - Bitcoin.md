@@ -1,12 +1,10 @@
 ### I. Introduction to Bitcoin
 
-- **Origins:** Bitcoin was introduced in a 2008 paper by an anonymous author known as **Satoshi**.
+- **Origins:** Bitcoin was introduced in a 2008 paper by an anonymous author known as **Satoshi Nakamoto**.
 - **Purpose:** The goal was to create **digital cash** independent of government control, rooted in the libertarian movements of the time.
 - **Core Ingredients:** The system is built on two pillars: **cryptography** (considered the "easy" part) and **consensus** (the "hard" part).
 
 ### II. Essential Cryptographic Tools
-
-The lesson outlines three primary tools used to secure the network:
 
 1. **Hash Functions:**
     
@@ -14,11 +12,13 @@ The lesson outlines three primary tools used to secure the network:
     - **Key Properties:** It is computationally difficult to find the original data from a hash (pre-image resistance) or to find two different files that produce the same hash.
     - **Examples:** SHA-256 (used in Bitcoin) and the older, weaker MD5.
     - **Use Case:** Verifying file integrity without exchanging the entire file.
+	
 2. **Public Key Cryptography & Digital Signatures:**
     
     - **Asymmetric Encryption:** Uses two mathematically linked keys: a **public key** (shared openly) and a **private key** (kept secret).
     - **Signatures:** To sign a message, you encrypt its hash with your private key. Anyone with your public key can decrypt it to verify the message came from you and has not been tampered with.
     - **Identity:** In Bitcoin, a user's **public key serves as their "name"** or address.
+	
 3. **Merkle Trees:**
     
     - A structure used to prove a record is part of a large collection without needing the whole collection.
