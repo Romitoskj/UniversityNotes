@@ -34,14 +34,11 @@ The user contacts the tracker to obtain a list of **peers** who are currently sh
 > 
 > - **Tree Construction:** The entire collection of data is divided into chunks, and each chunk is hashed individually. These hashes are then paired up and hashed again, a process that continues until only a single **root hash** remains at the top of the tree.
 > - **The Root Hash:** The user typically obtains the **authentic root hash** from a trusted source before starting the download. This root serves as the definitive "fingerprint" for the entire collection.
-> - **The Merkle Proof:** When a peer sends a data chunk, they also provide a **Merkle proof**, which is a specific sequence of "brother" hashes. These are the hashes located on the path from that chunk up to the root, representing the "missing pieces" needed to reconstruct the path.
+> - **The Merkle Proof:** When a peer sends a data chunk, they also provide a **Merkle proof**, which is a specific sequence of "brother" hashes. These are the hashes located on the path from that chunk up to the root, representing the "missing pieces" needed to reconstruct the path (e.g. in the image above if we get the data chunk L-4 we also get the hash 1-0 and 1).
 > - **Verification:** The receiver hashes the chunk they just received and then uses the hashes in the Merkle proof to **recalculate the root**. They take their calculated hash, combine it with the first brother hash, hash the result, and repeat the process until they reach the top. If the final calculated hash matches the known authentic root hash, the chunk is verified as authentic.
 > 
-> The main advantage of this system is its **efficiency**. Because the tree structure is logarithmic, the size of the proof ($O(\log n)$) remains very small even for massive collections of data. In Bitcoin, this mechanism allows a node to verify that a specific transaction has been included in a block without needing to store or process every other transaction in that same block.
-> 
-> ---
-> 
-> **Analogy for Understanding Merkle Trees:** Imagine a Merkle tree as a **tournament bracket** for a massive competition. The "root hash" is the final winner. If you want to prove that a specific "player" (a chunk of data) was actually in the tournament, you don't need to show the results of every single match ever played. You only need to show the results of the specific matches that player was involved in, and who their specific opponents were at each stage (the "brother hashes"), to show how they eventually led to that specific final winner.
+> The main advantage of this system is its **efficiency**. Because the tree structure is logarithmic, the size of the proof ($O(\log n)$) remains very small even for massive collections of data.
+
 ### III. Download and Contribution Mechanisms
 
 ![](../assets/Pasted%20image%2020251218094702.png)
