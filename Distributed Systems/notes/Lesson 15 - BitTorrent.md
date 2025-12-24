@@ -23,8 +23,25 @@ The user contacts the tracker to obtain a list of **peers** who are currently sh
 - The entire file is divided into **pieces** (typically 256 kilobytes).
 - These pieces are further divided into **sub-pieces** (typically 16 kilobytes).
 - Integrity is maintained by including the **root hash of the Merkle Tree** of the file within the torrent file.
-- To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root (?or they are included in the piece layers?).
+- To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root (==?or they are included in the piece layers?==).
 
+>[!info]- Merkle Trees
+>In peer-to-peer (P2P) systems, a Merkle tree is used to **verify that a specific piece of data is part of a larger collection** without requiring the user to possess or download the entire collection first. This is particularly useful when downloading large files, such as movies or operating system distributions, where data is received in **small chunks from multiple different peers** who may not be trusted.
+> 
+> To prevent a system from being "polluted" with fake or corrupted data, a user must be able to verify that each chunk they receive is authentic. A standard hash of the entire file is insufficient for this because the user cannot check it until they have received every single piece. Merkle trees solve this by allowing for **incremental verification**.
+>![](../assets/Pasted%20image%2020251224200840.png)
+> The verification process follows these key steps:
+> 
+> - **Tree Construction:** The entire collection of data is divided into chunks, and each chunk is hashed individually. These hashes are then paired up and hashed again, a process that continues until only a single **root hash** remains at the top of the tree.
+> - **The Root Hash:** The user typically obtains the **authentic root hash** from a trusted source before starting the download. This root serves as the definitive "fingerprint" for the entire collection.
+> - **The Merkle Proof:** When a peer sends a data chunk, they also provide a **Merkle proof**, which is a specific sequence of "brother" hashes. These are the hashes located on the path from that chunk up to the root, representing the "missing pieces" needed to reconstruct the path.
+> - **Verification:** The receiver hashes the chunk they just received and then uses the hashes in the Merkle proof to **recalculate the root**. They take their calculated hash, combine it with the first brother hash, hash the result, and repeat the process until they reach the top. If the final calculated hash matches the known authentic root hash, the chunk is verified as authentic.
+> 
+> The main advantage of this system is its **efficiency**. Because the tree structure is logarithmic, the size of the proof ($O(\log n)$) remains very small even for massive collections of data. In Bitcoin, this mechanism allows a node to verify that a specific transaction has been included in a block without needing to store or process every other transaction in that same block.
+> 
+> ---
+> 
+> **Analogy for Understanding Merkle Trees:** Imagine a Merkle tree as a **tournament bracket** for a massive competition. The "root hash" is the final winner. If you want to prove that a specific "player" (a chunk of data) was actually in the tournament, you don't need to show the results of every single match ever played. You only need to show the results of the specific matches that player was involved in, and who their specific opponents were at each stage (the "brother hashes"), to show how they eventually led to that specific final winner.
 ### III. Download and Contribution Mechanisms
 
 ![](../assets/Pasted%20image%2020251218094702.png)
@@ -59,5 +76,5 @@ To solve this, when only the last piece (or few pieces) remain, the system enter
 - **Modern Usage:** Although BitTorrent is less used by the public now, the underlying ideas—such as decentralized downloads and fetching content from multiple locations—are used by major corporations to distribute operating system updates quickly without overloading a central server.
 
 >[!question]- Questions
-> - The integrity of the piece can be checked only when all of its sub-pieces are downloaded so we can calculate the root of the merkle tree of that piece and comparing with the one in the torrent file? When we have the all the pieces we can calculate the root of the MT and check the whole file integrity?
-> - what are piece layers ($R_1,R_2, ..., R_n$) in torrent file?
+> - I read that in the first version of bittorent there wasn't merkle trees but the list of hashes of each file piece and in the second version the merkle tree was implemented and the root stored in the .torrent file. Doing so and having peers send the merkle proof along the sub-piece is it possible to check the integrity of each sub-piece. Is that correct?
+> - If so what are piece layers ($R_1,R_2, ..., R_n$) in torrent file?
