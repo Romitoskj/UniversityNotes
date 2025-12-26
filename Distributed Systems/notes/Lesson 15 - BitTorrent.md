@@ -14,7 +14,7 @@ To start downloading a file, a user must first obtain a **.torrent file**, typic
 - piece length (typically 256 KB)
 - version
 - length of the file
-- root hash of the Merkel Tree
+- root hash of the Merkle Tree
 - piece layers ($R_1,R_2, ..., R_n$)
 #### Tracker:
 This is a server responsible for **coordination**. There are multiple of them and each file refers to one of them.
@@ -22,22 +22,8 @@ The user contacts the tracker to obtain a list of **peers** who are currently sh
 #### File Division and Integrity:
 - The entire file is divided into **pieces** (typically 256 kilobytes).
 - These pieces are further divided into **sub-pieces** (typically 16 kilobytes).
-- Integrity is maintained by including the **root hash of the Merkle Tree** of the file within the torrent file.
+- Integrity is maintained by including the **root hash of the [Merkle Trees](Notes%20-%20Merkle%20Trees.md)** of the file within the torrent file.
 - To check if a piece has been tampered with, the user must download the data and the necessary sibling hashes (the Merkle proof) to verify it against the Merkle root (==?or they are included in the piece layers?==).
-
->[!info]- Merkle Trees
->In peer-to-peer (P2P) systems, a Merkle tree is used to **verify that a specific piece of data is part of a larger collection** without requiring the user to possess or download the entire collection first. This is particularly useful when downloading large files, such as movies or operating system distributions, where data is received in **small chunks from multiple different peers** who may not be trusted.
-> 
-> To prevent a system from being "polluted" with fake or corrupted data, a user must be able to verify that each chunk they receive is authentic. A standard hash of the entire file is insufficient for this because the user cannot check it until they have received every single piece. Merkle trees solve this by allowing for **incremental verification**.
->![](../assets/Pasted%20image%2020251224200840.png)
-> The verification process follows these key steps:
-> 
-> - **Tree Construction:** The entire collection of data is divided into chunks, and each chunk is hashed individually. These hashes are then paired up and hashed again, a process that continues until only a single **root hash** remains at the top of the tree.
-> - **The Root Hash:** The user typically obtains the **authentic root hash** from a trusted source before starting the download. This root serves as the definitive "fingerprint" for the entire collection.
-> - **The Merkle Proof:** When a peer sends a data chunk, they also provide a **Merkle proof**, which is a specific sequence of "brother" hashes. These are the hashes located on the path from that chunk up to the root, representing the "missing pieces" needed to reconstruct the path (e.g. in the image above if we get the data chunk L-4 we also get the hash 1-0 and 0).
-> - **Verification:** The receiver hashes the chunk they just received and then uses the hashes in the Merkle proof to **recalculate the root**. They take their calculated hash, combine it with the first brother hash, hash the result, and repeat the process until they reach the top. If the final calculated hash matches the known authentic root hash, the chunk is verified as authentic.
-> 
-> The main advantage of this system is its **efficiency**. Because the tree structure is logarithmic, the size of the proof ($O(\log n)$) remains very small even for massive collections of data.
 
 ### III. Download and Contribution Mechanisms
 

@@ -1,0 +1,12 @@
+In peer-to-peer (P2P) systems, a Merkle tree is used to **verify that a specific piece of data is part of a larger collection** without requiring the user to possess or download the entire collection first. This is particularly useful when downloading large files, such as movies or operating system distributions, where data is received in **small chunks from multiple different peers** who may not be trusted.
+
+To prevent a system from being "polluted" with fake or corrupted data, a user must be able to verify that each chunk they receive is authentic. A standard hash of the entire file is insufficient for this because the user cannot check it until they have received every single piece. Merkle trees solve this by allowing for **incremental verification**.
+![](../assets/Pasted%20image%2020251224200840.png)
+The verification process follows these key steps:
+
+- **Tree Construction:** The entire collection of data is divided into chunks, and each chunk is hashed individually. These hashes are then paired up and hashed again, a process that continues until only a single **root hash** remains at the top of the tree.
+- **The Root Hash:** The user typically obtains the **authentic root hash** from a trusted source before starting the download. This root serves as the definitive "fingerprint" for the entire collection.
+- **The Merkle Proof:** When a peer sends a data chunk, they also provide a **Merkle proof**, which is a specific sequence of "brother" hashes. These are the hashes located on the path from that chunk up to the root, representing the "missing pieces" needed to reconstruct the path (e.g. in the image above if we get the data chunk L-4 we also get the hash 1-0 and 0).
+- **Verification:** The receiver hashes the chunk they just received and then uses the hashes in the Merkle proof to **recalculate the root**. They take their calculated hash, combine it with the first brother hash, hash the result, and repeat the process until they reach the top. If the final calculated hash matches the known authentic root hash, the chunk is verified as authentic.
+
+The main advantage of this system is its **efficiency**. Because the tree structure is logarithmic, the size of the proof ($O(\log n)$) remains very small even for massive collections of data.

@@ -19,7 +19,7 @@
     - **Signatures:** To sign a message, you encrypt its hash with your private key. Anyone with your public key can decrypt it to verify the message came from you and has not been tampered with.
     - **Identity:** In Bitcoin, a user's **public key serves as their "name"** or address.
 	
-3. **Merkle Trees:**
+3. **[Merkle Trees](Notes%20-%20Merkle%20Trees.md):**
     
     - A structure used to prove a record is part of a large collection without needing the whole collection.
     - **Process:** Records are hashed in pairs repeatedly until a single **root hash** is reached.
