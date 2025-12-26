@@ -1,10 +1,6 @@
-### I. Introduction to Bitcoin
+Bitcoin was introduced in a 2008 paper by an anonymous author known as **Satoshi Nakamoto**. The goal was to create **digital cash** independent of government control, rooted in the libertarian movements of the time. The system is built on two pillars: **cryptography** (considered the "easy" part) and **consensus** (the "hard" part).
 
-- **Origins:** Bitcoin was introduced in a 2008 paper by an anonymous author known as **Satoshi Nakamoto**.
-- **Purpose:** The goal was to create **digital cash** independent of government control, rooted in the libertarian movements of the time.
-- **Core Ingredients:** The system is built on two pillars: **cryptography** (considered the "easy" part) and **consensus** (the "hard" part).
-
-### II. Essential Cryptographic Tools
+### I. Cryptography
 
 1. **Hash Functions:**
     
@@ -25,29 +21,37 @@
     - **Process:** Records are hashed in pairs repeatedly until a single **root hash** is reached.
     - **Merkle Proof:** To prove a transaction is in a block, one only needs a sequence of "brother" hashes ($O(\log n)$ size) to reconstruct the path to the root.
 
-### III. The Double-Spending Problem
+### II. Consensus
+
+Traditional consensus algorithms like Paxos assume only **benign failures**, while Bitcoin must tolerate **Byzantine Failures**, where participants may act maliciously. Moreover Paxos broadcasts to every node and this is not sustainable in a system with billions of users, so this problem is solved using best effort based communications. Specifically the updates are sent through the gossip protocol: node send message to a few number of other nodes and they will do the same till the whole system received the message.
+#### A. The Double-Spending Problem
 
 - **Definition:** Unlike physical cash, digital files can be easily duplicated. **Double-spending** occurs if a user tries to spend the same digital coin twice.
 - **The Decentralisation Challenge:** Traditional systems solve this with a **trusted central server** (like a bank) to track all transactions. Bitcoin aims to replace this central authority with a **distributed system** of thousands of nodes that must reach ***consensus*** on which transactions are valid.
-- **Traditional Consensus:** algorithms like Paxos assume only **benign failures**, while Bitcoin must tolerate **Byzantine Failures**, where participants may act maliciously. 
-- **Gossip protocol:** Moreover Paxos broadcasts to every node and this is not sustainable in a system with billions of users
 
-### IV. Transactions and Blockchain Structure
+#### B. Transactions and Blockchain Structure
 
-- **Transactions:** Function like digital checks. They consist of **inputs** (references to previous transactions where the money came from) and **outputs** (the new owner's public key and the value being transferred).
+- **Transactions:** Function like digital checks. They contain:
+	- **Hash of the previous transaction**
+	- **New owner's public key**
+	- **Previous owner signature** (created with its private key), used to verify the transaction (with the previous owner public key)
+	- **BTC amount**
+	
+	![](../assets/Pasted%20image%2020251226153512.png)
+	
 - **Blocks:** To improve performance, the network does not run consensus on every individual transaction. Instead, transactions are grouped into **blocks**.
 - **Blockchain:** Each new block contains the **hash of the previous block**. This creates a chain where any modification to a past block would invalidate all subsequent blocks.
+	
+	![](../../Pasted%20image%2020251226195745.png)
 
-![](../../Pasted%20image%2020251226153512.png)
-
-### V. Consensus and Proof-of-Work (Mining)
+#### C. Consensus and Proof-of-Work (Mining)
 
 - **The Mining Process:** For a block to be considered valid, its total hash must meet a specific difficulty requirement (e.g., the last $k$ bits must be zero).
 - **Nonce:** Miners repeatedly change a variable called a **nonce** and re-hash the block until they find a valid hash by chance.
 - **Proof-of-Work (PoW):** Finding a valid hash serves as proof that the miner performed a vast amount of computational work.
 - **Incentives:** The first transaction in every block (the **coinbase**) grants the miner newly created Bitcoin. This reward halves approximately every four years (e.g., from 50 BTC in 2009 to 25, 12.5, etc.), converging toward a **fixed supply of 21 million BTC**.
 
-### VI. System Dynamics and Limitations
+### III. System Dynamics and Limitations
 
 - **Forks:** If two miners find a block simultaneously, the chain **forks**. The network resolves this by following the **longest chain**, which represents the most cumulative work.
 - **Confirmation Time:** The system adjusts difficulty to ensure a new block is found roughly every **10 minutes**. A transaction is generally considered secure only after **six blocks** (roughly one hour) have been added to the chain.
