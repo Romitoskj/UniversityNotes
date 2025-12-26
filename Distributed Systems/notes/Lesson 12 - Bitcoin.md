@@ -28,13 +28,17 @@
 ### III. The Double-Spending Problem
 
 - **Definition:** Unlike physical cash, digital files can be easily duplicated. **Double-spending** occurs if a user tries to spend the same digital coin twice.
-- **The Decentralisation Challenge:** Traditional systems solve this with a **trusted central server** (like a bank) to track all transactions. Bitcoin aims to replace this central authority with a **distributed system** of thousands of nodes that must reach consensus on which transactions are valid.
+- **The Decentralisation Challenge:** Traditional systems solve this with a **trusted central server** (like a bank) to track all transactions. Bitcoin aims to replace this central authority with a **distributed system** of thousands of nodes that must reach ***consensus*** on which transactions are valid.
+- **Traditional Consensus:** algorithms like Paxos assume only **benign failures**, while Bitcoin must tolerate **Byzantine Failures**, where participants may act maliciously. 
+- **Gossip protocol:** Moreover Paxos broadcasts to every node and this is not sustainable in a system with billions of users
 
 ### IV. Transactions and Blockchain Structure
 
 - **Transactions:** Function like digital checks. They consist of **inputs** (references to previous transactions where the money came from) and **outputs** (the new owner's public key and the value being transferred).
 - **Blocks:** To improve performance, the network does not run consensus on every individual transaction. Instead, transactions are grouped into **blocks**.
 - **Blockchain:** Each new block contains the **hash of the previous block**. This creates a chain where any modification to a past block would invalidate all subsequent blocks.
+
+![](../../Pasted%20image%2020251226153512.png)
 
 ### V. Consensus and Proof-of-Work (Mining)
 
