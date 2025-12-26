@@ -19,7 +19,9 @@ Bitcoin was introduced in a 2008 paper by an anonymous author known as **Satoshi
     
     - A structure used to prove a record is part of a large collection without needing the whole collection.
     - **Process:** Records are hashed in pairs repeatedly until a single **root hash** is reached.
-    - **Merkle Proof:** To prove a transaction is in a block, one only needs a sequence of "brother" hashes ($O(\log n)$ size) to reconstruct the path to the root.
+    - **Merkle Proof:** To prove a transaction is in a block, one only needs the a sequence of "brother" hashes ($O(\log n)$ size) to reconstruct the path to the root.
+	
+    ![](../assets/Pasted%20image%2020251226201105.png)
 
 ### II. Consensus
 
@@ -39,15 +41,22 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 	
 	![](../assets/Pasted%20image%2020251226153512.png)
 	
-- **Blocks:** To improve performance, the network does not run consensus on every individual transaction. Instead, transactions are grouped into **blocks**.
-- **Blockchain:** Each new block contains the **hash of the previous block**. This creates a chain where any modification to a past block would invalidate all subsequent blocks.
+	To allow value to be split and combined, transactions contain multiple inputs and outputs. Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
 	
-	![](../../Pasted%20image%2020251226195745.png)
+	![](../../Pasted%20image%2020251226201529.png)
+	
+- **Blocks:** To improve performance, the network does not run consensus on every individual transaction. Instead, transactions are grouped into **blocks**  and **hashed in a Merkle Tree**. The root of the tree is stored in the **block header**, so that nodes does not need to store whole blocks but can still verify that a transaction belong to a block having the Merkle-proof.
+	
+	![|300](../../Pasted%20image%2020251226201645.png)
+	
+- **Blockchain:** Each block contains the **hash of the previous block** in the header. This creates a chain where any modification to a past block would invalidate all subsequent blocks.
+	
+	![](../assets/Pasted%20image%2020251226195745.png)
 
 #### C. Consensus and Proof-of-Work (Mining)
 
 - **The Mining Process:** For a block to be considered valid, its total hash must meet a specific difficulty requirement (e.g., the last $k$ bits must be zero).
-- **Nonce:** Miners repeatedly change a variable called a **nonce** and re-hash the block until they find a valid hash by chance.
+- **Nonce:** Miners repeatedly change a variable called a **nonce** (contained in block header) and re-hash the block until they find a valid hash by chance.
 - **Proof-of-Work (PoW):** Finding a valid hash serves as proof that the miner performed a vast amount of computational work.
 - **Incentives:** The first transaction in every block (the **coinbase**) grants the miner newly created Bitcoin. This reward halves approximately every four years (e.g., from 50 BTC in 2009 to 25, 12.5, etc.), converging toward a **fixed supply of 21 million BTC**.
 
