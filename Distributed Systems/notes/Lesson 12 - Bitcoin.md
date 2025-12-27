@@ -25,7 +25,7 @@ Bitcoin was introduced in a 2008 paper by an anonymous author known as **Satoshi
 
 ### II. Consensus
 
-Traditional consensus algorithms like Paxos assume only **benign failures**, while Bitcoin must tolerate **Byzantine Failures**, where participants may act maliciously. Moreover Paxos broadcasts to every node and this is not sustainable in a system with billions of users, so this problem is solved using best effort based communications. Specifically the updates are sent through the gossip protocol: node send message to a few number of other nodes and they will do the same till the whole system received the message.
+Traditional consensus algorithms like Paxos assume only **benign failures**, while Bitcoin must tolerate **Byzantine Failures**, where participants may act maliciously. Moreover Paxos broadcasts to every node and this is not sustainable in a system with billions of users, so this problem is solved using best effort based communications. Specifically the updates are sent through the **gossip protocol**: node send message to a few number of other nodes and they will do the same till the whole system received the message.
 #### A. The Double-Spending Problem
 
 - **Definition:** Unlike physical cash, digital files can be easily duplicated. **Double-spending** occurs if a user tries to spend the same digital coin twice.
@@ -60,20 +60,27 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 - **Proof-of-Work (PoW):** Finding a valid hash serves as proof that the miner performed a vast amount of computational work.
 - **Incentives:** The first transaction in every block (the **coinbase**) grants the miner newly created Bitcoin. This reward halves approximately every four years (e.g., from 50 BTC in 2009 to 25, 12.5, etc.), converging toward a **fixed supply of 21 million BTC**.
 
-> [!info] Safety
-> Manage to mine a block means that the transactions in it are the next valid ones so the systems **reached consensus** on these new transactions, that are appended to the chain and transmitted to everybody the block with gossip protocol.
+##### Forks
+- It can happen that two miners simultaneously mine the next block (they are different blocks that contains different transactions or the same ones in a different order).
+- These blocks are broadcasted with the gossip protocol so roughly $\frac{1}{2}$ of the miners will work on a branch and the other half on the other
+- Eventually one branch will grow faster than the other: then the other is discarded. Transactions in the other branch will be put in the remaining one.
 
->[!info] Liveness
-> It can happen that two miners simulta
+>[!success] Safety
+>Manage to mine a block means that the transactions in it are the next valid ones so the systems **reached consensus** on these new transactions, that are appended to the chain and transmitted to everybody the block with gossip protocol.
+>
+>Moreover all nodes in the blockchain only trust **the longest branch**.
 
+>[!success] Liveness
+>
 #### D. Security
 
 - **Mine a block is hard:** $\frac{1}{2^k}$ ​probability to compute a correct hash. For $k = 30$  the probability is $\frac{1}{1B}$.
 - **Modify old transaction:** If an attacker wants to modify an old transaction he would need to **re-mine all the subsequent blocks** to convince other peers that that is the true blockchain, this is very hard.
 - **Mine next malicious block:** an attacker still cannot mine the next block because the sign of the previous owner is needed
+
 ### III. System Dynamics and Limitations
 
-- **Forks:** If two miners find a block simultaneously, the chain **forks**. The network resolves this by following the **longest chain**, which represents the most cumulative work.
+- **Forks:** If two miners find a block simultaneously, the chain **forks** and one branch is wasted.
 - **Confirmation Time:** The system adjusts difficulty to ensure a new block is found roughly every **10 minutes**. A transaction is generally considered secure only after **six blocks** (roughly one hour) have been added to the chain.
 - **Drawbacks:**
     - **Energy Consumption:** Mining requires massive power, leading to super-clusters of computers in cold climates for cooling.
