@@ -71,7 +71,7 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 >Moreover all nodes in the blockchain only trust **the longest branch**.
 
 >[!success] Liveness
->
+> Two branches can keep grow simultaneously forever but the probability decreases over time
 #### D. Security
 
 - **Mine a block is hard:** $\frac{1}{2^k}$ ​probability to compute a correct hash. For $k = 30$  the probability is $\frac{1}{1B}$.
