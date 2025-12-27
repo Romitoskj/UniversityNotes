@@ -65,7 +65,7 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 #### D. Security
 - **Mine a block is hard:** $\frac{1}{2^k}$ ​probability to compute a correct hash. For $k = 30$  the probability is $\frac{1}{1B}$.
 - **Modify old transaction:** If an attacker wants to modify an old transaction he would need to **re-mine all the subsequent blocks** to convince other peers that that is the true blockchain, this is very hard.
-- **Mine next block:**
+- **Mine next malicious block:** an attacker still cannot mine the next block because they are signed by the previous owner
 ### III. System Dynamics and Limitations
 
 - **Forks:** If two miners find a block simultaneously, the chain **forks**. The network resolves this by following the **longest chain**, which represents the most cumulative work.
