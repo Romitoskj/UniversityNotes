@@ -53,13 +53,16 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 	
 	![](../assets/Pasted%20image%2020251226195745.png)
 
-#### C. Proof-of-Work (Mining)
+#### C. Proof-of-Work (Mining) to reach consensus
 
 - **The Mining Process:** For a block to be considered valid, its total hash must meet a specific difficulty requirement (e.g., the last $k$ bits must be zero).
 - **Nonce:** Miners repeatedly change a variable called a **nonce** (contained in block header) and re-hash the block until they find a valid hash by chance.
 - **Proof-of-Work (PoW):** Finding a valid hash serves as proof that the miner performed a vast amount of computational work.
 - **Incentives:** The first transaction in every block (the **coinbase**) grants the miner newly created Bitcoin. This reward halves approximately every four years (e.g., from 50 BTC in 2009 to 25, 12.5, etc.), converging toward a **fixed supply of 21 million BTC**.
 
+*Manage to mine a block means that the transactions in it are the next valid ones so the systems **reached consensus** on these new transactions, that are appended to the chain and transmitted to everybody the block with gossip protocol.*
+
+LIVE AND SAFETYNESS
 ### III. System Dynamics and Limitations
 
 - **Forks:** If two miners find a block simultaneously, the chain **forks**. The network resolves this by following the **longest chain**, which represents the most cumulative work.
