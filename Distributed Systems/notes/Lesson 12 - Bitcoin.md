@@ -62,10 +62,15 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 
 *Manage to mine a block means that the transactions in it are the next valid ones so the systems **reached consensus** on these new transactions, that are appended to the chain and transmitted to everybody the block with gossip protocol.*
 
+##### Forks
+
+It can happen that two miners simulta
+
 #### D. Security
+
 - **Mine a block is hard:** $\frac{1}{2^k}$ ​probability to compute a correct hash. For $k = 30$  the probability is $\frac{1}{1B}$.
 - **Modify old transaction:** If an attacker wants to modify an old transaction he would need to **re-mine all the subsequent blocks** to convince other peers that that is the true blockchain, this is very hard.
-- **Mine next malicious block:** an attacker still cannot mine the next block because they are signed by the previous owner
+- **Mine next malicious block:** an attacker still cannot mine the next block because the sign of the previous owner is needed
 ### III. System Dynamics and Limitations
 
 - **Forks:** If two miners find a block simultaneously, the chain **forks**. The network resolves this by following the **longest chain**, which represents the most cumulative work.
