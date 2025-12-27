@@ -60,10 +60,27 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 - **Proof-of-Work (PoW):** Finding a valid hash serves as proof that the miner performed a vast amount of computational work.
 - **Incentives:** The first transaction in every block (the **coinbase**) grants the miner newly created Bitcoin. This reward halves approximately every four years (e.g., from 50 BTC in 2009 to 25, 12.5, etc.), converging toward a **fixed supply of 21 million BTC**.
 
-##### Forks
+#### D. Security
+
+- **Mine a block is hard:** $\frac{1}{2^k}$ ​probability to compute a correct hash. For $k = 30$  the probability is $\frac{1}{1B}$.
+- **Modify old transaction:** If an attacker wants to modify an old transaction he would need to **re-mine all the subsequent blocks** to convince other peers that that is the true blockchain, this is very hard.
+- **Mine next malicious block:** an attacker still cannot mine the next block because the sign of the previous owner is needed
+
+#### E. Forks
+
 - It can happen that two miners simultaneously mine the next block (they are different blocks that contains different transactions or the same ones in a different order).
 - These blocks are broadcasted with the gossip protocol so roughly $\frac{1}{2}$ of the miners will work on a branch and the other half on the other
 - Eventually one branch will grow faster than the other: then the other is discarded. Transactions in the other branch will be put in the remaining one.
+- As a rule of thumb a branch is confirmed to be the right one after other six blocks are added to it.
+
+### III. System Dynamics and Limitations
+
+- **Forks:** If two miners find a block simultaneously, the chain **forks** and the work made on one of the branch is wasted.
+- **Confirmation Time:** The system adjusts difficulty to ensure a new block is found roughly every **10 minutes**. A transaction is generally considered secure only after **six blocks** (roughly one hour) have been added to the chain.
+- **Drawbacks:**
+    - **Energy Consumption:** Mining requires massive power, leading to super-clusters of computers in cold climates for cooling.
+    - **Latency:** It is relatively slow compared to centralized systems.
+    - **Security Risk:** If one entity controls more than **50% of the hashing power**, the decentralised nature of the system is compromised.
 
 >[!success] Safety
 >Manage to mine a block means that the transactions in it are the next valid ones so the systems **reached consensus** on these new transactions, that are appended to the chain and transmitted to everybody the block with gossip protocol.
@@ -71,18 +88,8 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 >Moreover all nodes in the blockchain only trust **the longest branch**.
 
 >[!success] Liveness
-> Two branches can keep grow simultaneously forever but the probability decreases over time
-#### D. Security
+> Two branches can keep grow simultaneously forever but the probability decreases over time (everybody wants to add to the longest chain to not waste their work), so it is live.
+> 
+>Moreover since is based on best effort communication and node flexibility (a node can leave and re-join the system) it continues to make progress without stalls.
 
-- **Mine a block is hard:** $\frac{1}{2^k}$ ​probability to compute a correct hash. For $k = 30$  the probability is $\frac{1}{1B}$.
-- **Modify old transaction:** If an attacker wants to modify an old transaction he would need to **re-mine all the subsequent blocks** to convince other peers that that is the true blockchain, this is very hard.
-- **Mine next malicious block:** an attacker still cannot mine the next block because the sign of the previous owner is needed
-
-### III. System Dynamics and Limitations
-
-- **Forks:** If two miners find a block simultaneously, the chain **forks** and one branch is wasted.
-- **Confirmation Time:** The system adjusts difficulty to ensure a new block is found roughly every **10 minutes**. A transaction is generally considered secure only after **six blocks** (roughly one hour) have been added to the chain.
-- **Drawbacks:**
-    - **Energy Consumption:** Mining requires massive power, leading to super-clusters of computers in cold climates for cooling.
-    - **Latency:** It is relatively slow compared to centralized systems.
-    - **Security Risk:** If one entity controls more than **50% of the hashing power**, the decentralised nature of the system is compromised.
+***Bitcoin is a non-deterministic consensus protocol both live and safe.***
