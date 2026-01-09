@@ -49,4 +49,4 @@ Distributed systems must handle nodes joining or leaving.
 **Analogy for Understanding Chord:** Imagine a **circular library** where every book has a specific number, and several librarians are standing at different points along the circular shelf. Each librarian is responsible for all the books sitting between them and the librarian standing to their left. Instead of walking past every single book to find what you need, each librarian has a "cheat sheet" (the Finger Table) that tells them exactly where colleagues are standing at distances of 10, 20, 40, and 80 metres away. This allows them to point you to the right section of the library very quickly, skipping over vast sections of the circle in just a few steps.
 
 > [!question]- Possible question
-> - Describe how consistent hash (DHT) and Chord work
+> - Describe how consistent hash and Chord work
