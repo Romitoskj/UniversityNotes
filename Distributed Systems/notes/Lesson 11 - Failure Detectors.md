@@ -85,3 +85,4 @@ Despite these temporary issues, the eventual strong accuracy guarantees that eve
 
 > [!question]- Possible question
 > - how to make Paxos live with a perfect failure detector
+> - propose an implementation of a failure detector in a synchronous distributed system
