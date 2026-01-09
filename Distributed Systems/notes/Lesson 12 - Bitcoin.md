@@ -93,3 +93,7 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 >Moreover since is based on best effort communication and node flexibility (a node can leave and re-join the system) it continues to make progress without stalls.
 
 ***Bitcoin is a non-deterministic consensus protocol both live and safe.***
+
+> [!question]- Possible questions
+> - forks
+> - proof of work
