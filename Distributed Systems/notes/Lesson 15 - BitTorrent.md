@@ -60,4 +60,4 @@ To solve this, when only the last piece (or few pieces) remain, the system enter
 
 >[!question]- Questions
 > - I read that in the first version of bittorent there wasn't merkle trees but the list of hashes of each file piece and in the second version the merkle tree was implemented and the root stored in the .torrent file. Doing so and having peers send the merkle proof along the sub-piece is it possible to check the integrity of each sub-piece. Is that correct?
-> - If so what are piece layers ($R_1,R_2, ..., R_n$) in torrent file?
+> - If so what are piece layers ($R_1,R_2, ..., R_n$) in torrent file? (nodi del merkle tree e non serve inviare merkle proof)
