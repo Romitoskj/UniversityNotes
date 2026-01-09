@@ -82,3 +82,6 @@ While this detector can eventually ensure only one leader exists, during the ini
 2. **Zero Leaders:** When an actual leader dies, there is a delay (waiting for the $\Delta d$ timeout) before other processes detect the crash (a completeness issue), resulting in a temporary period with no leader.
 
 Despite these temporary issues, the eventual strong accuracy guarantees that eventually, the system converges on a single leader, which is sufficient to **make Paxos live**. However, a detector with these properties (strong completeness and eventual strong accuracy) is only possible if the system is synchronous or partially synchronous; it is **not possible** in a strictly asynchronous system.
+
+> [!question]- Possible question
+> - how to make Paxos live with a perfect failure detector

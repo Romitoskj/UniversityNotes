@@ -95,5 +95,5 @@ Traditional consensus algorithms like Paxos assume only **benign failures**, whi
 ***Bitcoin is a non-deterministic consensus protocol both live and safe.***
 
 > [!question]- Possible questions
-> - forks
-> - proof of work
+> - forks (how they are handled)
+> - proof of work (how bitcoin miners get consensus on the next block)
