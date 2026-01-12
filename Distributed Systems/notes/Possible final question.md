@@ -14,6 +14,13 @@ tip: spend two words to say what is a miner.
 > [!question]- Describe the notion of proof of work in Bitcoin
 
 > [!question]- Briefly describe TOR
+> Tor is a protocol introduced to provide good privacy for internet browsing without relying on trusting an external service provider. It achieves anonymity by routing packets through a circuit of servers called relays, of which thousands exists globally. 
+> 
+> A user that wants to initiate a Tor communication randomly select a number of relays (minimum three) to create a circuit. In this circuit the relays have these roles:
+> - Guard: the first relay with which the user communicate. It know's the user's location and the next relay, but not the final destination.
+> - Middle relay: it can be one or more. Each one knows only the previous and the next relay location.
+> - exit point: the last relay that knows the previous one and the final destination of the message.
+> 
 main components, how to negotiate session key, how the circuiti si built, how relays are chosen, performance in terms of bandwidth and latency. Don't talk about dark web here because is not asked.
 
 > [!question]- Describe how Tor and the Dark Web work
