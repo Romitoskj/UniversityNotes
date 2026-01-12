@@ -1,8 +1,6 @@
 > [!tip] Tip
 *Don't write too much. Complete but not deep: main mechanisms, sometimes examples*
 
-> [!question]- CAP theorem (not in the final)
-
 > [!question]- Briefly describe bit-torrent
 
 > [!question]- Describe what forks are handled in Bitcoin blockchain, when they happen and how they are handled
@@ -25,4 +23,5 @@ what it is, how files are located, how you make lookup, what is a finger table
 
 > [!question]- Describe the notion of proof of work in Bitcoin
 
----
+> [!question]- BONUS Briefly describe Akamai
+
