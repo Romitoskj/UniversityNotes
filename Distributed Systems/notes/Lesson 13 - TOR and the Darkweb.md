@@ -68,7 +68,7 @@ Tor's circuit structure impacts performance:
 
 ### III. The Dark Web (Hidden Services)
 
-**Dark Web** refers to hidden services using Tor to ensure that **both the user and the web server are hidden**.
+**Dark Web** refers to a collection hidden services. They uses Tor along with the user who access them, that ensure that **both the user and the web server are hidden**.
 
 > ***All communications occur using Tor connections***
 
