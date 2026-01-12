@@ -52,7 +52,7 @@ The basic DH protocol is weak against a MITM attack, where an adversary intercep
 ##### Authenticated DH
 Tor uses an **authenticated DH protocol** to prevent MITM attacks. The user achieves this by encrypting their DH contribution ($g^X$) using the relay's **public key**. Since only the intended relay can decrypt the message, the user is guaranteed to be talking to the correct server. After that they both have the same key to perform symmetric cryptography.
 ###### Negotiation Improvement
- Modern Tor avoids direct communication when negotiating keys with the middle relay and exit point, instead negotiating them **through the already established circuit** (starting with the guard). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
+Modern Tor avoids direct communication when negotiating keys with the middle relay and exit point, instead negotiating them **through the already established circuit** (starting with the guard). This prevents the user's internet provider from knowing which relays were chosen, minimizing the risk of provider/server collusion.
 
 #### C. Attacks and Performance
 ##### Attacks 
