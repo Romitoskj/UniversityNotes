@@ -32,7 +32,7 @@ tip: spend two words to say what is a miner.
 > [!question]- Describe how Tor and the Dark Web work
 > Tor: previous question.
 >
->The term Dark Web refers
+>The term Dark Web refers 
 
 > [!question]- Briefly describe bit-torrent
 
