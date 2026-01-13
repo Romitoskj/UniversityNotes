@@ -20,8 +20,12 @@ tip: spend two words to say what is a miner.
 > - Guard: the first relay with which the user communicate. It know's the user's location and the next relay, but not the final destination.
 > - Middle relay: it can be one or more. Each one knows only the previous and the next relay location.
 > - exit point: the last relay that knows the previous one and the final destination of the message.
+>
+>Since the user and the relays initially do not share secret information, they must negotiate shared keys before sending the actual messages. To do that the authenticated Diffie-Hellman protocol is used: the user sends its contribution to the shared key encrypting it in the relay public key, that guarantees that only the correct server can decrypt the message with its private key and generate the same shared key, with which the two nodes will perform symmetric cryptography. 
 > 
-main components, how to negotiate session key, how the circuiti si built, how relays are chosen, performance in terms of bandwidth and latency. Don't talk about dark web here because is not asked.
+> After the circuit connection is established, the user create an "onion" encryption to send a message: the packet is encrypted multiple time starting with the key of the exit point, then with the key of the second-to-last relay and finally with the key of the guard. The reverse order is because  the packet are decrypted from the outer to the inner layer: each relay receive the message, it decrypts it with its own key and than forward the packet (that is still encrypted with the following relay key) to the next packet, that does the same. Eventually the message arrives to the exit point that decrypt the last layer of encryption, sees the original message and sends it to the destination website. Doing so each relay knows only about the previous and next relay, not the content of the message.
+>
+> main components, how to negotiate session key, how the circuiti si built, how relays are chosen, performance in terms of bandwidth and latency. Don't talk about dark web here because is not asked.
 
 > [!question]- Describe how Tor and the Dark Web work
 
