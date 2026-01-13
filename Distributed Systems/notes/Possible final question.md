@@ -30,6 +30,9 @@ tip: spend two words to say what is a miner.
 > Concerning the security of the system, the most powerful attack against Tor is the traffic analysis: an adversary can control both the guard and the exit point in a single circuit and, even without full decryption, can breaking anonymity only by correlating the timing of packets entering the guard with those exiting the exit point. To minimize this attack, users can select an high number of relay and choose the guard and exit point from different autonomous systems.
 
 > [!question]- Describe how Tor and the Dark Web work
+> Tor: previous question.
+>
+>The term Dark Web refers
 
 > [!question]- Briefly describe bit-torrent
 
