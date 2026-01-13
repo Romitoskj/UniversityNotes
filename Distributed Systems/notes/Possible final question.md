@@ -29,10 +29,14 @@ tip: spend two words to say what is a miner.
 > 
 > Concerning the security of the system, the most powerful attack against Tor is the traffic analysis: an adversary can control both the guard and the exit point in a single circuit and, even without full decryption, can breaking anonymity only by correlating the timing of packets entering the guard with those exiting the exit point. To minimize this attack, users can select an high number of relay and choose the guard and exit point from different autonomous systems.
 
-> [!question]- Describe how Tor and the Dark Web work
+> [!done]- Describe how Tor and the Dark Web work
 > Tor: previous question.
 >
->The term Dark Web refers 
+>The term Dark Web refers to a collection of hidden services on the web. They uses Tor along with the users who access them, which ensure that both the user and web server are hidden.
+>
+>To expose their content on the dark web a hidden service selects some Tor nodes ad introductory points, then publishes information about them (IP address) and its public key on a distributed hash table. All this communication are performed using Tor protocol.
+>
+>On the other end, a user that want to use one of these services firstly consult the DHT to know the introductory point of the desired service. Then it selects a separate Tor node as rendezvous point and communicate the address of this node to the hidden service via an introductory point. Eventually the user and the hidden service can communicate without revealing their location each other. Also all these steps are performed using Tor protocol.
 
 > [!question]- Briefly describe bit-torrent
 
