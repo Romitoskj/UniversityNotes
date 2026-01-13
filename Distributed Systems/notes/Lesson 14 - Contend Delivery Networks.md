@@ -1,5 +1,4 @@
 
-
 ### I. The Domain Name System (DNS)
 
 The DNS is a distributed system designed to translate memorable domain name strings into numerical IP addresses.
