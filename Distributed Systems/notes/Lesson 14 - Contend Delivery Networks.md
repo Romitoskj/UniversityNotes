@@ -45,7 +45,7 @@ This protocol is vital for reliability, as demonstrated by the use of **Anycast*
 
 ### II. Content Delivery Networks (CDNs) – The Akamai Idea
 
-CDNs were developed to make access to internet content much faster and more reliable.
+CDNs were developed to make access to internet content much faster and more reliable. A CDN is a network of servers that act as a cache of some content, for example static images from a news website, movies from a streaming platform ecc.
 
 #### A. The Problem and the Solution
 
