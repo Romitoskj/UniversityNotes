@@ -60,6 +60,7 @@ Modern Tor avoids direct communication when negotiating keys with the middle rel
 1. The most potent attack against Tor is when an adversary controls both the **Guard and the Exit Point** in a single circuit.
 2. **Traffic Analysis:** Even without full decryption, an attacker controlling both points can perform **traffic analysis**, correlating the timing of packets entering the Guard with those exiting the Exit Point to deduce that they belong to the same flow, thereby breaking anonymity.
 3. **Mitigation:** To minimize this attack, users select a higher number of relays and choose the Guard and Exit Point from **different continents or autonomous systems**.
+
 ##### Performance Metrics
 
 Tor's circuit structure impacts performance:

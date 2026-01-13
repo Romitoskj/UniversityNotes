@@ -13,7 +13,7 @@ tip: spend two words to say what is a miner.
 
 > [!question]- Describe the notion of proof of work in Bitcoin
 
-> [!question]- Briefly describe TOR
+> [!check]- Briefly describe TOR
 > Tor is a protocol introduced to provide good privacy for internet browsing without relying on trusting an external service provider. It achieves anonymity by routing packets through a circuit of servers called relays, of which thousands exists globally. 
 > 
 > A user that wants to initiate a Tor communication randomly select a number of relays (minimum three) to create a circuit. In this circuit the relays have these roles:
@@ -25,7 +25,9 @@ tip: spend two words to say what is a miner.
 > 
 > After the circuit connection is established, the user create an "onion" encryption to send a message: the packet is encrypted multiple time starting with the key of the exit point, then with the key of the second-to-last relay and finally with the key of the guard. The reverse order is because  the packet are decrypted from the outer to the inner layer: each relay receive the message, it decrypts it with its own key and than forward the packet (that is still encrypted with the following relay key) to the next packet, that does the same. Eventually the message arrives to the exit point that decrypt the last layer of encryption, sees the original message and sends it to the destination website. Doing so each relay knows only about the previous and next relay, not the content of the message.
 >
-> This circuit struct impacts the performance, since the latency can be high and the bandwitdth limited. because it is the sum of the latency across all the link between the nodes of the circuit, potentially making the communications very slow.
+> This circuit struct impacts the performance, since the latency can be high and the bandwitdth limited. In fact, the total latency it is the sum of the latency across all the link between the nodes of the circuit, potentially making the communications very slow. Regarding the bandwidth instead, it is limited by the minimum bandwidth of the slowest relay in the circuit that can create a bottleneck, so it can be low.
+> 
+> Concerning the security of the system, the most powerful attack against Tor is the traffic analysis: an adversary can control both the guard and the exit point in a single circuit and, even without full decryption, can breaking anonymity only by correlating the timing of packets entering the guard with those exiting the exit point. To minimize this attack, users can select an high number of relay and choose the guard and exit point from different autonomous systems.
 
 > [!question]- Describe how Tor and the Dark Web work
 
