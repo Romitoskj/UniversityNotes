@@ -9,7 +9,9 @@ leader election!
 > [!question]- Describe what forks are handled in Bitcoin blockchain, when they happen and how they are handled
 
 > [!question]- Describe how miners get consensus on the next blockchain
-tip: spend two words to say what is a miner.
+> 
+>
+> tip: spend two words to say what is a miner.
 
 > [!question]- Describe the notion of proof of work in Bitcoin
 
@@ -40,7 +42,14 @@ tip: spend two words to say what is a miner.
 
 > [!question]- Briefly describe bit-torrent
 
-> [!question]- BONUS Briefly describe Akamai
+> [!done]- BONUS Briefly describe Akamai
+> Akamai is a Content Delivery Network, that is a distributed system that act as a cache of some content, for example images of a website, movies from a streaming platform etc. Akamai is a network of server used to hold copies of this media files that usually takes time to download.
+>
+> To do that the url of this media in the webpages is replaced with an url containing the akamai domain (e.g. `uniroma1.it.akamai.com/pictures/22.jpg`), so when the url is resolved by a DNS resolver it is sent to an akamai dns server. This server analyzes the request and, based on the origin IP address, it replies with the address of the nearest Akamai server (called point of presence) that holds the requested resource. So the HTTP connection is made with this closer server than the source and it speed up the download of the content.
+>
+> This mechanism can be also exploited to perform load balancing, routing the user to less-loaded server that are slightly farther away.
+>
+> Distributed systems like Akamai have the purpose of prioritising availability despite losing a little bit of consistency (maybe the closest server is not update as the origin), and are used for content-driven application like social media, news, streaming services etc. in contrast to application like banking systems or tickets sale that require high consistency.
 
 > [!question]- Describe how consistent hash and Chord work
 what it is, how files are located, how you make lookup, what is a finger table
