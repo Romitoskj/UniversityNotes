@@ -3,8 +3,10 @@
 
 > [!question]- Propose an implementation of a failure detector and discuss its properties (completeness and accuracy) in a synchronous distributed system
 
-> [!question]- Show how to make Paxos live with a perfect failure detector
-> If the existence of a perfect failure detector is assumed, it would be simple to solve leader election even in an asynchronous system: process could query the detector, discard dead process and elect the living process with the minimum ID, achieving consensus on the same leader. Since Paxos with a leader that is the only one allowed to propose value 
+> [!done]- Show how to make Paxos live with a perfect failure detector
+> If the existence of a perfect failure detector is assumed, it would be simple to solve leader election even in an asynchronous system: process could query the detector, discard dead process and elect the living process with the minimum ID, achieving consensus on the same leader. Since Paxos with a leader that is the only one allowed to propose value, resolving the leader election problem make the protocol live. 
+> 
+> Moreover, making Paxos both safe and live will solve consensus in an asynchronous system will contradict the FLP theorem. However, achieving a perfect FD is not possible in an asynchronous system.
 
 > [!question]- Describe what forks are handled in Bitcoin blockchain, when they happen and how they are handled
 
@@ -55,4 +57,6 @@
 > Distributed systems like Akamai have the purpose of prioritising availability despite losing a little bit of consistency (maybe the closest server is not update as the origin), and are used for content-driven application like social media, news, streaming services etc. in contrast to application like banking systems or tickets sale that require high consistency.
 
 > [!question]- Describe how consistent hash and Chord work
-what it is, how files are located, how you make lookup, what is a finger table
+> 
+>
+> what it is, how files are located, how you make lookup, what is a finger table
