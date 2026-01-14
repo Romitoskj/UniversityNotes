@@ -8,7 +8,8 @@
 > 
 > Moreover, making Paxos both safe and live will solve consensus in an asynchronous system will contradict the FLP theorem. However, achieving a perfect FD is not possible in an asynchronous system.
 
-> [!question]- Describe what forks are handled in Bitcoin blockchain, when they happen and how they are handled
+> [!done]- Describe what forks are handled in Bitcoin blockchain, when they happen and how they are handled
+> When two miners simultaneously mine the next block, the blockchain forks in two different branches. After a block is mined, it is broadcasted with the gossip protocol so roughly half of the total miner will work on one of the two branches, while the other half on the other one. Eventually one branch will grow faster than the other and the shortest one will be discarded, not before copying its transaction on the survived branch. Due to forks, a branch is actually confirmed to be the right one after other six blocks are added to it (approximately one hour after its creation).
 
 > [!question]- Describe how miners get consensus on the next blockchain
 > 
