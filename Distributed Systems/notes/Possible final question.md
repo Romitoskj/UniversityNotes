@@ -4,7 +4,7 @@
 > [!question]- Propose an implementation of a failure detector and discuss its properties (completeness and accuracy) in a synchronous distributed system
 
 > [!question]- Show how to make Paxos live with a perfect failure detector
-leader election!
+> If the existence of a perfect failure detector is assumed, it would be simple to solve leader election even in an asynchronous system: process could query the detector, discard dead process and elect the living process with the minimum ID, achieving consensus on the same leader. Since Paxos with a leader that is the only one allowed to propose value 
 
 > [!question]- Describe what forks are handled in Bitcoin blockchain, when they happen and how they are handled
 
