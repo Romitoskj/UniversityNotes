@@ -14,7 +14,7 @@ leader election!
 > tip: spend two words to say what is a miner.
 
 > [!question]- Describe the notion of proof of work in Bitcoin
-> 
+> The proof of work is a mechanism with which miners poof that they performed a vast amount of computational work. It consists of finding a valid hash for a block of transaction, where valid indicate meet a specific difficult requirement such as produce a hash digest with the last k bit equal to zero. To obtain such digest, miners repeatedly change a variable called nonce
 
 > [!check]- Briefly describe TOR
 > Tor is a protocol introduced to provide good privacy for internet browsing without relying on trusting an external service provider. It achieves anonymity by routing packets through a circuit of servers called relays, of which thousands exists globally. 
@@ -54,3 +54,4 @@ leader election!
 
 > [!question]- Describe how consistent hash and Chord work
 what it is, how files are located, how you make lookup, what is a finger table
+
