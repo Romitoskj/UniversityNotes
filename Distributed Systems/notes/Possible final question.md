@@ -14,6 +14,7 @@ leader election!
 > tip: spend two words to say what is a miner.
 
 > [!question]- Describe the notion of proof of work in Bitcoin
+> 
 
 > [!check]- Briefly describe TOR
 > Tor is a protocol introduced to provide good privacy for internet browsing without relying on trusting an external service provider. It achieves anonymity by routing packets through a circuit of servers called relays, of which thousands exists globally. 
