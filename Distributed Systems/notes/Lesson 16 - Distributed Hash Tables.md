@@ -35,6 +35,7 @@ To avoid contacting every server one by one to find a file, Chord uses a routing
 
 - **Finger Logic:** Each server maintains a table of "fingers" pointing to other servers at exponential distances ($p + 2^0, p + 2^1, p + 2^2, \dots$ , where $p$ is the hash of the IP address of the server containing the table). The table doesn't contains all the servers but only does at this distances.
 - **User request:** When a user request the a file to a server it can be stored by the server itself. If not, the server checks the finger table to get the IP of the server with the largest preceding hash than the CID of the file(the first encountered going counterclockwise in the ring)  and relay the request to it, that will do the same thing.
+- The process of relaying to the "largest hash smaller than the CID" continues until a node discovers that the **file’s CID falls between itself and its immediate successor**. At that point, the node knows for certain that its **successor** is the one responsible for the file and directs the request there to complete the search.
 - **$\log n$ Search ("Binary search"):** Every time a request "hops" to a server in the finger table, the distance to the target file is reduced by at least **half**. Consequently, finding any file in a network of $n$ servers only requires **$O(\log n)$ communications**.
 
 #### C. Dynamic Membership

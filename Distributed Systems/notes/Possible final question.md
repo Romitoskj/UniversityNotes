@@ -56,7 +56,7 @@
 >
 > Distributed systems like Akamai have the purpose of prioritising availability despite losing a little bit of consistency (maybe the closest server is not update as the origin), and are used for content-driven application like social media, news, streaming services etc. in contrast to application like banking systems or tickets sale that require high consistency.
 
-> [!question]- Describe how consistent hash and Chord work
+> [!fail]- Describe how consistent hash and Chord work
 > Chord is a Distributed Hash Table protocol used to locate resources in peer-to-peer systems such as files in IPFS. In this protocol files are identified by the hash of their content called CID (Content Identifier). Also the IP addresses of the servers in the system are hashed and, along with the files CIDs, are treated as numbers in a circular space or ring where they are projected based on their hash. For example, if the hash algorithm used is SHA-256 the identifiers range from $0$ to $2^{256}-1$.
 > 
 > *Here draw the circle with files on the left and servers to the right projected on the circle*
@@ -66,3 +66,6 @@
 > Moreover, to avoid contacting almost all the servers one by one to find a file, Chord uses a routing mechanism called finger table: each server maintains a table of "fingers" pointing to other servers at exponential distances ($p + 2^0, p + 2^1, p + 2^2, \dots$ , where $p$ is the hash of the IP address of the server containing the table). The table doesn't contains all the servers but only does at this distances. When a user request a file to a server it can be stored by the server itself or not. If it is not present the server check the finger table to get the IP of the server with the largest preceding hash than the CID of the file (the first encountered going counterclockwise in the ring) and then relay the request to it, that will do the same thing. This lookup result in a cost of $O(\log n)$, since the distance to the target files is reduced by half at every request "hop".
 > 
 > **domanda come fa ad esserci il file nel server se guarda un hash appena precedente ogni volta**
+> The process of relaying to the "largest hash smaller than the CID" continues until a node discovers that the **file’s CID falls between itself and its immediate successor**. At that point, the node knows for certain that its **successor** is the one responsible for the file and directs the request there to complete the search.
+> 
+> Finally, when a new server joins the system, it must contact its successor to transfer the files for which it is now responsible. It then builds its own finger table, which takes approximately $O(\log^2 n)$ time. And if a server leaves abruptly without its files being pinned elsewhere, those files are lost to the system.
