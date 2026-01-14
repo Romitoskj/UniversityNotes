@@ -13,9 +13,11 @@ leader election!
 >
 > tip: spend two words to say what is a miner.
 
-> [!question]- Describe the notion of proof of work in Bitcoin
-> The proof of work is a mechanism with which miners poof that they performed a vast amount of computational work. Only with this proof a block of transaction is considered valid and the system reaches consensus on these transactions. The actual PoW consists of finding a valid hash for a block of transaction, where valid indicate meet a specific difficult requirement such as produce a hash digest with the last k bit equal to zero. To obtain such digest, miners repeatedly change a variable contained in the block header called nonce
-
+> [!done]- Describe the notion of proof of work in Bitcoin
+> The proof of work is a mechanism with which miners poof that they performed a vast amount of computational work. Only with this proof a block of transaction is considered valid and the system reaches consensus on these transactions. The actual PoW consists of finding a valid hash for a block of transaction, where valid indicate meet a specific difficult requirement such as produce a hash digest with the last k bit equal to zero. To obtain such digest, miners repeatedly change a variable contained in the block header called nonce until and re-hash the block until a valid digest is found. Also the first transaction in every block grants the miner newly minted Bitcoin, as an incentive for mining. This reward halves approximately every four years converging toward a total of 21 million bitcoin.
+>
+> Moreover this mechanism guarantee security to the system since mine a block is an hard task (the probability of computing a correct hash is $\frac{1}{2^k}$ that for $k=30$ is $\frac{1}{1B}$). Hence, if an attacker wants to modify an old transaction to get consensus on different transactions he would need to re-mine all the previous blocks and this is an infeasible task.
+ 
 > [!check]- Briefly describe TOR
 > Tor is a protocol introduced to provide good privacy for internet browsing without relying on trusting an external service provider. It achieves anonymity by routing packets through a circuit of servers called relays, of which thousands exists globally. 
 > 
@@ -54,4 +56,3 @@ leader election!
 
 > [!question]- Describe how consistent hash and Chord work
 what it is, how files are located, how you make lookup, what is a finger table
-
