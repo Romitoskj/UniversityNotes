@@ -11,10 +11,9 @@
 > [!done]- Describe what forks are handled in Bitcoin blockchain, when they happen and how they are handled
 > When two miners simultaneously mine the next block, the blockchain forks in two different branches. After a block is mined, it is broadcasted with the gossip protocol so roughly half of the total miner will work on one of the two branches, while the other half on the other one. Eventually one branch will grow faster than the other and the shortest one will be discarded, not before copying its transaction on the survived branch. Due to forks, a branch is actually confirmed to be the right one after other six blocks are added to it (approximately one hour after its creation).
 
-> [!question]- Describe how miners get consensus on the next blockchain
-> 
->
-> tip: spend two words to say what is a miner.
+> [!DONE]- Describe how miners get consensus on the next blockchain 
+> BECAME Who are miners in bitcoin? (look at the following question to know how they get consensus)
+> Miners are bitcoin nodes that perform a vast amount of computational work by repeatedly change the nonce of a block to obtain a valid hash (the proof of work) and reach consensus on a block of transactions. Moreover, they receive a sum of newly minted bitcoin as an incentive to perform this process.
 
 > [!done]- Describe the notion of proof of work in Bitcoin
 > The proof of work is a mechanism with which miners poof that they performed a vast amount of computational work. Only with this proof a block of transaction is considered valid and the system reaches consensus on these transactions. The actual PoW consists of finding a valid hash for a block of transaction, where valid indicate meet a specific difficult requirement such as produce a hash digest with the last k bit equal to zero. To obtain such digest, miners repeatedly change a variable contained in the block header called nonce until and re-hash the block until a valid digest is found. Also the first transaction in every block grants the miner newly minted Bitcoin, as an incentive for mining. This reward halves approximately every four years converging toward a total of 21 million bitcoin.
