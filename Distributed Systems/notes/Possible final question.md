@@ -54,6 +54,7 @@
 
 > [!question]- Briefly describe bit-torrent
 
+
 > [!done]- BONUS Briefly describe Akamai
 > Akamai is a Content Delivery Network, that is a distributed system that act as a cache of some content, for example images of a website, movies from a streaming platform etc. Akamai is a network of server used to hold copies of this media files that usually takes time to download.
 >
