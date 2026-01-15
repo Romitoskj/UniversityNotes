@@ -2,7 +2,13 @@
 *Don't write too much. Complete but not deep: main mechanisms, sometimes examples*
 
 > [!question]- Propose an implementation of a failure detector and discuss its properties (completeness and accuracy) in a synchronous distributed system
+> An implementation of a failure detector can be a FD that works by sending a ping message to all the other processes in the systems repeatedly, with an interval of time $\Delta t$. A process $p$ will suspect another process $q$ to be dead if no reply is received within a specific time delay $\Delta d$.
 > 
+> This implementation in a synchronous system guarantees both strong completeness and strong accuracy:
+> - if $q$ crashes it cannot reply to a ping sent by $p$ so the latter will suspect $p$ as dead. Thus, the detector has strong completeness.
+> - if the delay $\Delta d$ is set large enough, larger than the maximum round trip time of the system, we can be certain that if a process reply is not arrived after waiting $\Delta d$ it will never arrive, so the process is surely dead and the detector has strong accuracy.
+>   
+>   In an asynchronous system
 
 > [!done]- Show how to make Paxos live with a perfect failure detector
 > If the existence of a perfect failure detector is assumed, it would be simple to solve leader election even in an asynchronous system: process could query the detector, discard dead process and elect the living process with the minimum ID, achieving consensus on the same leader. Since Paxos with a leader that is the only one allowed to propose value, resolving the leader election problem make the protocol live. 
