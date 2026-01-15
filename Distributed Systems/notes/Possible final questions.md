@@ -51,6 +51,8 @@
 >To expose their content on the dark web a hidden service selects some Tor nodes ad introductory points, then publishes information about them (IP address) and its public key on a distributed hash table. All this communication are performed using Tor protocol.
 >
 >On the other end, a user that want to use one of these services firstly consult the DHT to know the introductory point of the desired service. Then it selects a separate Tor node as rendezvous point and communicate the address of this node to the hidden service via an introductory point. Eventually the user and the hidden service can communicate without revealing their location each other. Also all these steps are performed using Tor protocol.
+>
+>All that provide 
 
 > [!question]- Briefly describe bit-torrent
 
