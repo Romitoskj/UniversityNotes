@@ -1,50 +1,45 @@
 
 ```mermaid
 graph TD
-    %% Main NavHost
-    subgraph NavHost [Mobile Navigation Host]
-        
-        %% Track Flow (Start Destination)
-        subgraph TrackFlow [Tracks Nested Graph]
-            direction TB
-            T_Main[TrackScreen]
-            T_Detail[TrackDetailScreen]
-            
-            T_Main -->|Select Track| T_Detail
-        end
-
-        %% Profile Flow
-        subgraph ProfileFlow [Profile Nested Graph]
-            direction TB
-            P_Main["ProfileScreen (My Profile)"]
-            P_User["ProfileScreen (Other User)"]
-            
-            P_Main -.->|View Friend?| P_User
-        end
-
-        %% Group Flow
-        subgraph GroupFlow [Groups Nested Graph]
-            direction TB
-            G_Main[GroupsScreen]
-            G_Detail[GroupDetailsScreen]
-            
-            G_Main -->|Select Group| G_Detail
-        end
-
-        %% Search Flow
-        subgraph SearchFlow [Search Nested Graph]
-            S_Main[SearchFriendsScreen]
-        end
-
-    end
-
-    %% Note on switching
-    TrackFlow ~~~ ProfileFlow
-    ProfileFlow ~~~ GroupFlow
-    GroupFlow ~~~ SearchFlow
+    %% Nodes
+    Home[Homepage]
+    TrackSel[TrackSelectionScreen]
+    GroupSel[GroupSelectionScreen]
+    Track[TrackScreen]
+    SOS[SOSScreen]
     
+    %% External Logic Node
+    StartLogic(("External Event<br/>trackToStart"))
+    CheckDB{"Track in DB?"}
+    CheckSession{"Has Session?"}
+
+    %% Standard Navigation Flow
+    Home -->|Navigate to Tracks| TrackSel
+    Home -->|Navigate to Groups| GroupSel
+    
+    %% Selection Flows
+    GroupSel -->|Navigate to Track| Track
+    TrackSel -.->|Selection Logic| Track
+
+    %% SOS Flow
+    Track -.->|Emergency| SOS
+
+    %% Automatic Logic Flow
+    StartLogic --> CheckDB
+    
+    CheckDB -->|Yes| Track
+    
+    CheckDB -->|No| CheckSession
+    CheckSession -->|Yes| GroupSel
+    CheckSession -->|No| TrackSel
+
     %% Styling
-    classDef startNode fill:#d1e7dd,stroke:#0f5132,stroke-width:2px;
-    class T_Main,P_Main,G_Main,S_Main startNode;
+    classDef standard fill:#fff,stroke:#333,stroke-width:1px;
+    classDef logic fill:#fff3cd,stroke:#856404,stroke-width:1px,stroke-dasharray: 5 5;
+    classDef active fill:#cfe2ff,stroke:#084298,stroke-width:2px;
+    
+    class Home,TrackSel,GroupSel,SOS standard;
+    class StartLogic,CheckDB,CheckSession logic;
+    class Track active;
 
 ```
