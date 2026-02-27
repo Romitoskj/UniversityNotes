@@ -40,7 +40,7 @@
 - **Brackets** **[ ]**: Used to match a single character from a specified set.
     - `[wW]oodchuck` matches "Woodchuck" or "woodchuck".
     - Ranges can be specified: `[A-Z]` for uppercase letters, `[a-z]` for lowercase, for digits.
-- **Caret** **^**: When placed _inside_ brackets `[^...]`, it acts as a negation (e.g., `[^A-Z]` matches anything that is _not_ an uppercase letter). When outside, it signifies the start of a string.
+- **Caret** **^**: When placed _inside_ brackets `[^...]`, it acts as a negation (e.g., `[^A-Z]` matches anything that is _not_ an uppercase letter).
 - **Period** **.**: Matches any single character (e.g., `beg.n` matches "begin", "begun", etc.).
 - **Quantifiers**: Specify how many times the previous character/pattern should occur:
     - `*` : Zero or more occurrences.
