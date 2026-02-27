@@ -6,7 +6,7 @@
 **What is NLP?**
 
 - It is an interdisciplinary field concerned with the interactions between computers and natural human languages (speech or text).
-- It sits at the intersection of **Linguistics** (understanding language structure) and **Computer Science** (translating knowledge into programs via AI).
+- It sits at the intersection of **Linguistics** (understanding language structure) and **Computer Science** (translating linguistic knowledge into programs via AI).
 
 **Common Applications:**
 
@@ -30,7 +30,7 @@ To process language, NLP analyzes it through a taxonomy of six linguistic levels
 
 ### **3. The AI Perspective (Taxonomies)**
 
-**The AI Watch Taxonomy (2020):** The lecture references the European Union's "AI Watch" taxonomy to categorize AI subfields:
+**The AI Watch Taxonomy (2020):**  the European Union's "AI Watch" taxonomy  categorize AI subfields:
 
 - **Communication:** This is the branch where NLP resides.
 - **Related Fields:** Reasoning, Planning, Learning, Perception.
