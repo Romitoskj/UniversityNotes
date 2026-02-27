@@ -54,7 +54,7 @@ The course views NLP history through three main paradigms:
 
 - **Definition:** Algorithms that learn parameters by observing examples (input/output pairs).
 - **Key Concepts:**
-    - **Probabilistic Models:** The foundation of modern AI.
+	- **Probabilistic Models:** The foundation of modern AI.
     - **Feature Engineering:** Techniques like **Bag of Words** and **Part-of-Speech tagging** used to represent text.
     - **One-Hot Encoding:** An older method of representing text where words are vectors of 0s and 1s. This had huge memory issues and lacked semantic understanding.
 
