@@ -1,36 +1,31 @@
-**The Importance of Data Analysis**
+### The Importance of Data Analysis
 
-• **"Look at the Data":** The professor emphasized that the first step in any project is to visualize and inspect the data, rather than blindly trusting cleaning algorithms or summary statistics.
+- **"Look at the Data":** The first step in any project is to visualize and inspect the data, rather than blindly trusting cleaning algorithms or summary statistics.
 
-- **Examples of Failure:**
+	- **Examples of Failure:**
 	- **MNIST:** A past project failed on the MNIST dataset because the student did not look at the data to realize the images were rotated.
 	- **Audio Generation:** A generative model for electronic sounds failed to interpolate correctly because the training data was too sparse, leaving "empty space" between data points. Visualizing the distribution revealed the gap.
 
-• **The Trap of Summary Statistics:**
+-  **The Trap of Summary Statistics:**
+	-  **Anscombe's Quartet / Datasaurus:** Different datasets (e.g., a dinosaur shape, a star, a circle, or random noise) can share identical summary statistics (mean, variance, correlation) up to two decimal places.
 
-    ◦ **Anscombe's Quartet / Datasaurus:** Different datasets (e.g., a dinosaur shape, a star, a circle, or random noise) can share identical summary statistics (mean, variance, correlation) up to two decimal places.
+-  **Conclusion:** You cannot trust summary statistics alone; visualization is required. If data is too high-dimensional to visualize directly (e.g., earthquake signals), one must use dimensionality reduction techniques or consult domain experts.
 
-    ◦ **Conclusion:** You cannot trust summary statistics alone; visualization is required. If data is too high-dimensional to visualize directly (e.g., earthquake signals), one must use dimensionality reduction techniques or consult domain experts.
+### Defining Machine Learning & Deep Learning
 
-**Defining Machine Learning & Deep Learning**
+-  **The Inverse Problem:**
 
-• **The Inverse Problem:**
+	- **High School Math:** Given a function (y=ax+b) and parameters (a,b), find the unknown (x).
+	 -  **Machine Learning:** Given the data (x,y), find the unknown parameters (a,b) that explain the data.
+	 - **Deep Learning:** The same concept applies, but instead of two parameters (a,b), models have millions or billions of parameters.
 
-    ◦ **High School Math:** Given a function (y=ax+b) and parameters (a,b), find the unknown (x).
+- **Priors vs. Learning:**
 
-    ◦ **Machine Learning:** Given the data (x,y), find the unknown parameters (a,b) that explain the data.
+	- There is a debate on how much "prior knowledge" to force into a model.
+	- **Example:** If modeling a bicycle wheel, one could force the model to use a sine wave (periodic prior). This constrains the solution space but might prevent the model from learning unexpected phenomena (e.g., measurement errors).
+	- **Warning:** Imposing a view on the model can prevent breakthroughs; the model should ideally learn the structure itself.
 
-    ◦ **Deep Learning:** The same concept applies, but instead of two parameters (a,b), models have millions or billions of parameters.
-
-• **Priors vs. Learning:**
-
-    ◦ There is a debate on how much "prior knowledge" to force into a model.
-
-    ◦ **Example:** If modeling a bicycle wheel, one could force the model to use a sine wave (periodic prior). This constrains the solution space but might prevent the model from learning unexpected phenomena (e.g., measurement errors).
-
-    ◦ **Warning:** Imposing a view on the model can prevent breakthroughs; the model should ideally learn the structure itself.
-
-**Data Representation**
+### Data Representation
 
 • **Representation Matters:** The choice of how to represent data fundamentally changes the difficulty of the problem.
 
