@@ -41,15 +41,15 @@ A **basis** is a collection of vectors that are linearly independent and span th
 A linear map T is a function between two vector spaces ($T:V→W$) that preserves the vector space structure.
 
 - **Two Essential Conditions:** To prove a map is linear, one must check:
-    1. **Additivity:** T(u+v)=T(u)+T(v).
-    2. **Homogeneity:** T(λv)=λT(v).
+    1. **Additivity:** $T(u+v)=T(u)+T(v)$.
+    2. **Homogeneity:** $T(λv)=λT(v)$.
 - **Examples of Linear Maps:**
-    - **Differentiation:** T(f)=f′. The derivative of a sum is the sum of derivatives.
-    - **Integration:** T(f)=∫f(x)dx.
+    - **Differentiation:** $T(f)=f'$. The derivative of a sum is the sum of derivatives.
+    - **Integration:** $T(f)=∫f(x)dx$.
     - **Reflection:** Flipping a coordinate is linear.
     - **Rotation:** Rotating a vector is linear.
 - **Non-Examples (Important):**
-    - **Translation:** T(x)=x+b. This is **not** linear (it fails additivity). It is called an **Affine** map.
+    - **Translation:** $T(x)=ax+b$. This is **not** linear (it fails additivity). It is called an **Affine** map.
     - **Squaring:** T(x)=x2 is not linear.
     - **Confusion Warning:** A map can be linear with respect to one variable but not another. For example, y=x2f(x) is linear _with respect to the function_ f (rescaling), even though it involves an x2 term.
 - **Vector Space of Maps:** The set of all linear maps between two vector spaces is, itself, a vector space (you can sum maps S+T and scale them).
