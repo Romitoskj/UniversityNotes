@@ -50,17 +50,17 @@ A linear map T is a function between two vector spaces ($T:V→W$) that preserve
     - **Rotation:** Rotating a vector is linear.
 - **Non-Examples (Important):**
     - **Translation:** $T(x)=ax+b$. This is **not** linear (it fails additivity). It is called an **Affine** map.
-    - **Squaring:** T(x)=x2 is not linear.
-    - **Confusion Warning:** A map can be linear with respect to one variable but not another. For example, y=x2f(x) is linear _with respect to the function_ f (rescaling), even though it involves an x2 term.
-- **Vector Space of Maps:** The set of all linear maps between two vector spaces is, itself, a vector space (you can sum maps S+T and scale them).
+    - **Squaring:** $T(x)=x^2$ is not linear.
+    - **Confusion Warning:** A map can be linear with respect to one variable but not another. For example, $y=x^2f(x)$ is linear _with respect to the function_ f (rescaling), even though it involves an $xˆ2$ term.
+- **Vector Space of Maps:** The set of all linear maps between two vector spaces is, itself, a vector space (you can sum maps $S+T$ and scale them).
 
-**5. Matrices**
+### 5. Matrices
 
 A matrix is a **representation** of a linear map relative to specific bases.
 
 - **Construction of a Matrix:**
-    1. Take a basis vector from the input space (vj​).
-    2. Apply the linear map (T(vj​)).
+    1. Take a basis vector from the input space ($v_j$​).
+    2. Apply the linear map ($T(v_j​)$).
     3. Express the result as a linear combination of the output space's basis.
     4. These coefficients form the j-th **column** of the matrix.
 - **Dependency on Basis:** A single linear map can be represented by infinitely many different matrices, depending on the choice of basis for the domain and codomain. In Deep Learning, we usually assume the standard basis unless specified otherwise.
