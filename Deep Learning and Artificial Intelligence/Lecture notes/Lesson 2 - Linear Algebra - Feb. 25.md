@@ -23,7 +23,7 @@ A vector space $V$ is a set of objects (vectors) equipped with two operations: *
         - The set of points making up a 3D surface (like a rabbit mesh) is **not** a vector space. Summing two points on the surface might result in a point inside or outside the rabbit (closure is violated).
         - However, the set of **functions defined on the rabbit** (e.g., a heatmap or texture coloring) **is** a vector space.
 
-**3. Basis and Dimension**
+### 3. Basis and Dimension
 
 A **basis** is a collection of vectors that are linearly independent and span the vector space.
 
