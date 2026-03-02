@@ -36,9 +36,9 @@ A **basis** is a collection of vectors that are linearly independent and span th
     - **Finite Dimensional:** Digital images (discrete pixels), polynomials of degree n.
     - **Infinite Dimensional:** Continuous functions on a continuous domain (e.g., functions on a real line interval). This moves from Linear Algebra into **Functional Analysis**.
 
-**4. Linear Maps**
+### 4. Linear Maps
 
-A linear map T is a function between two vector spaces (T:V→W) that preserves the vector space structure.
+A linear map T is a function between two vector spaces ($T:V→W$) that preserves the vector space structure.
 
 - **Two Essential Conditions:** To prove a map is linear, one must check:
     1. **Additivity:** T(u+v)=T(u)+T(v).
