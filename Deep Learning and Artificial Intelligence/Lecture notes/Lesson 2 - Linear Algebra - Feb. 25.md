@@ -1,12 +1,12 @@
-**1. Philosophy of Linear Algebra**
+### 1. Philosophy of Linear Algebra
 
 - **Reframing the Subject:** Linear algebra is not merely the study of matrices and lists of numbers. It is formally the **study of linear maps on finite-dimensional vector spaces**.
-- **The Role of Matrices:** Matrices are tools used to _represent_ linear maps. As the lecturer notes, "Linear algebra is about matrices as much as astronomy is about telescopes".
-- **Mental Shift:** Students are encouraged to think in terms of maps and spaces first, and grids of numbers (matrices) second.
+- **The Role of Matrices:** Matrices are tools used to *represent* linear maps. As the lecturer notes, "Linear algebra is about matrices as much as astronomy is about telescopes".
+- **Mental Shift:** Think in terms of maps and spaces first, and grids of numbers (matrices) second.
 
-**2. Vector Spaces**
+### 2. Vector Spaces
 
-A vector space V is a set of objects (vectors) equipped with two operations: **addition** and **scalar multiplication**, satisfying specific axioms.
+A vector space $V$ is a set of objects (vectors) equipped with two operations: **addition** and **scalar multiplication**, satisfying specific axioms.
 
 - **Core Intuition:**
     - **Closure:** The most critical concept is "What happens in Vegas, stays in Vegas." If you sum two vectors or scale a vector, the result must remain within the same set.
