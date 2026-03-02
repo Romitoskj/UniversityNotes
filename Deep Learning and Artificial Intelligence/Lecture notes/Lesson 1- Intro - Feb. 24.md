@@ -37,6 +37,7 @@
 
 ### The Curse of Dimensionality
 
+- Happens when *features >> observations*
 - **Concept:** Increasing the resolution (dimension) of data requires an exponential increase in the amount of data to maintain the same density.
 	- **1D (1 pixel):** 100 photos might show a clear distribution on a line.
 	- **2D/3D (2-3 pixels):** The same 100 photos become sparse scattered points.
