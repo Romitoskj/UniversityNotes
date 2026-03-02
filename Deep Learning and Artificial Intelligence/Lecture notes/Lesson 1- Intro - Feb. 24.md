@@ -28,6 +28,7 @@
 
 ### Data Representation
 
+- **Key assumption:** Data as an underlying structure (not always true)
 - **Representation Matters:** The choice of how to represent data fundamentally changes the difficulty of the problem.
 - **Spiral Example:** A spiral shape cannot be represented as a function y=f(x) because it is not one-to-one. However, it can be easily represented using:
 	- **Parametric Curves:** x(t) and y(t) as functions of time.
