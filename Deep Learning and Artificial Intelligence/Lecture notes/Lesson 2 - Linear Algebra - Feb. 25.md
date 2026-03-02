@@ -28,7 +28,7 @@ A vector space $V$ is a set of objects (vectors) equipped with two operations: *
 A **basis** is a collection of vectors that are linearly independent and span the vector space.
 
 - **Spanning:** Any vector in the space can be expressed as a **linear combination** of the basis vectors ($v=\sum \alpha_i​v_i$​).
-- **Uniqueness:** There is only **one** unique way to express a specific vector using a given basis. If there are multiple ways, the set is "over-complete" and not a basis.
+- **Uniqueness:** There is only **one** unique way to express a specific vector using a given basis. If there are multiple ways, the set is "over-complete" and not a basis (basis vector must be linearly indipendent).
 - **The Standard Basis (Indicator Functions):**
     - In Rn, these are vectors like (1,0,…).
     - In function spaces (like images), these are "one-hot" functions—pixels that are 1 at a specific location and 0 everywhere else. Any image can be reconstructed by scaling and summing these pixel-functions.
