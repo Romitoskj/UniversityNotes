@@ -76,5 +76,5 @@ A matrix is a **representation** of a linear map relative to specific bases.
 - **Trace:** The sum of diagonal elements. The trace is a linear map from the space of square matrices to R.
 - **Rank-1 Matrices:** An outer product of two vectors (xyT) results in a rank-1 matrix. Its columns are all collinear (scaled versions of the same vector), so they span a 1D subspace.
 - **Inner vs. Outer Product:**
-    - **Inner (Dot) Product (**xTy**):** Results in a scalar.
-    - **Outer Product (**xyT**):** Results in a matrix (column × row).
+    - **Inner (Dot) Product ($x^Ty$):** Results in a scalar.
+    - **Outer Product ($xy^T$):** Results in a matrix (column × row).
