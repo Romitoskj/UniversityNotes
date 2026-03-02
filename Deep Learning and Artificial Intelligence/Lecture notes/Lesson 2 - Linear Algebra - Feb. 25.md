@@ -65,9 +65,9 @@ A matrix is a **representation** of a linear map relative to specific bases.
     4. These coefficients form the j-th **column** of the matrix.
 - **Dependency on Basis:** A single linear map can be represented by infinitely many different matrices, depending on the choice of basis for the domain and codomain. In Deep Learning, we usually assume the standard basis unless specified otherwise.
 - **Matrix Operations as Map Operations:**
-    - **Matrix-Vector Product (**Ax**):** Represents applying the linear map to a vector. It corresponds to a linear combination of the matrix columns weighted by the vector entries.
-    - **Matrix-Matrix Product (**AB**):** Represents the **composition of functions** (S∘T).
-    - **Non-Commutativity:** Matrix multiplication is generally not commutative (AB=BA) because function composition is generally not commutative.
+    - **Matrix-Vector Product ($Ax$):** Represents applying the linear map to a vector. It corresponds to a linear combination of the matrix columns weighted by the vector entries.
+    - **Matrix-Matrix Product ($AB$):** Represents the **composition of functions** ($S∘T$).
+    - **Non-Commutativity:** Matrix multiplication is generally not commutative ($AB\neq BA$) because function composition is generally not commutative.
 
 **6. Matrix Meta-Mechanics (Advanced Properties)**
 
