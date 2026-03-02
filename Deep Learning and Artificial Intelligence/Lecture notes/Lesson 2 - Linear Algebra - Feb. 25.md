@@ -71,8 +71,8 @@ A matrix is a **representation** of a linear map relative to specific bases.
 
 **6. Matrix Meta-Mechanics (Advanced Properties)**
 
-- **Symmetry:** A matrix is symmetric if A=AT.
-- **Orthogonal Matrix:** A matrix is orthogonal if ATA=I (or A−1=AT). Its columns are orthonormal vectors.
+- **Symmetry:** A matrix is symmetric if $A=A^T$.
+- **Orthogonal Matrix:** A matrix is orthogonal if $A^TA=I$ (or $A^{−1}=AT$). Its columns are orthonormal vectors.
 - **Trace:** The sum of diagonal elements. The trace is a linear map from the space of square matrices to R.
 - **Rank-1 Matrices:** An outer product of two vectors (xyT) results in a rank-1 matrix. Its columns are all collinear (scaled versions of the same vector), so they span a 1D subspace.
 - **Inner vs. Outer Product:**
