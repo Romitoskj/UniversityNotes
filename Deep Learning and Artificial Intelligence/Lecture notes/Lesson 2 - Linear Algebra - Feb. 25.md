@@ -27,7 +27,7 @@ A vector space $V$ is a set of objects (vectors) equipped with two operations: *
 
 A **basis** is a collection of vectors that are linearly independent and span the vector space.
 
-- **Spanning:** Any vector in the space can be expressed as a **linear combination** of the basis vectors (v=∑αi​vi​).
+- **Spanning:** Any vector in the space can be expressed as a **linear combination** of the basis vectors ($v=\sum \alpha_i​v_i$​).
 - **Uniqueness:** There is only **one** unique way to express a specific vector using a given basis. If there are multiple ways, the set is "over-complete" and not a basis.
 - **The Standard Basis (Indicator Functions):**
     - In Rn, these are vectors like (1,0,…).
