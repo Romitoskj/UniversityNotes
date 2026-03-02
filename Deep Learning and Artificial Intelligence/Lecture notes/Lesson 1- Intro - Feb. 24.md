@@ -8,6 +8,7 @@
 
 -  **The Trap of Summary Statistics:**
 	-  **Anscombe's Quartet / Datasaurus:** Different datasets (e.g., a dinosaur shape, a star, a circle, or random noise) can share identical summary statistics (mean, variance, correlation) up to two decimal places.
+		![](Images/Pasted%20image%2020260302161506.png)
 
 -  **Conclusion:** You cannot trust summary statistics alone; visualization is required. If data is too high-dimensional to visualize directly (e.g., earthquake signals), one must use dimensionality reduction techniques or consult domain experts.
 
