@@ -9,16 +9,16 @@
 A vector space $V$ is a set of objects (vectors) equipped with two operations: **addition** and **scalar multiplication**, satisfying specific axioms.
 
 - **Core Intuition:**
-    - **Closure:** The most critical concept is "What happens in Vegas, stays in Vegas." If you sum two vectors or scale a vector, the result must remain within the same set.
-    - **Axioms:** The operations must satisfy properties like commutativity, associativity, additive identity (zero vector), and distributivity.
+    - **Closure:** The most critical concept is "What happens in Vegas, stays in Vegas." If you sum two vectors or scale a vector, the result must remain within the same vector space.
+    - **Axioms:** The operations must satisfy properties like commutativity, associativity, additive identity (zero vector), additive inverse, multiplicative identity and distributivity.
     - **Non-Requirements:** A vector space does not strictly require a definition of length (norm), distance (metric), or multiplication between vectors. Adding those creates specific types of spaces (e.g., Hilbert spaces, Metric spaces).
 - **Examples & Non-Examples:**
-    - **Lists of Numbers (**Rn**):** The standard example. Rn is the set of sequences of n numbers. Addition is element-wise.
-    - **Function Spaces:** The set of all functions f:D→R forms a vector space.
+    - **Lists of Numbers ($\mathbb{R}^n$):** The standard example. $\mathbb{R}^n$ is the set of sequences of n numbers. Addition and scalar multiplication are element-wise.
+    - **Function Spaces:** The set of all functions $f:D\rightarrow R$ forms a vector space.
         - Sum: (f+g)(x)=f(x)+g(x).
         - Scaling: (λf)(x)=λ⋅f(x).
         - The zero vector is the function that is 0 everywhere.
-        - _Note:_ The domain D does not affect the vector space property. D can be an interval , a set of pixels, or a 3D surface.
+        - _Note:_ The domain D does not affect the vector space property. D can be an interval, a set of pixels, or a 3D surface.
     - **The "Rabbit" (Surface) Example:**
         - The set of points making up a 3D surface (like a rabbit mesh) is **not** a vector space. Summing two points on the surface might result in a point inside or outside the rabbit (closure is violated).
         - However, the set of **functions defined on the rabbit** (e.g., a heatmap or texture coloring) **is** a vector space.
