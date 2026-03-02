@@ -27,40 +27,25 @@
 
 ### Data Representation
 
-• **Representation Matters:** The choice of how to represent data fundamentally changes the difficulty of the problem.
+- **Representation Matters:** The choice of how to represent data fundamentally changes the difficulty of the problem.
+- **Spiral Example:** A spiral shape cannot be represented as a function y=f(x) because it is not one-to-one. However, it can be easily represented using:
+	- **Parametric Curves:** x(t) and y(t) as functions of time.
+	- **Polar Coordinates:** Expressing the radius as a function of the angle makes the spiral a linear problem.
+- **Takeaway:** Deep learning involves finding learned representations (embeddings) where complex data becomes easier to manipulate.
 
-• **Spiral Example:** A spiral shape cannot be represented as a function y=f(x) because it is not one-to-one. However, it can be easily represented using:
+### The Curse of Dimensionality
 
-    ◦ **Parametric Curves:** x(t) and y(t) as functions of time.
+- **Concept:** Increasing the resolution (dimension) of data requires an exponential increase in the amount of data to maintain the same density.
+	- **1D (1 pixel):** 100 photos might show a clear distribution on a line.
+	- **2D/3D (2-3 pixels):** The same 100 photos become sparse scattered points.
+	- **1 Megapixel:** The data points are effectively isolated in a million-dimensional space.
+- **Implication:** Better quality data "curses" us by requiring exponentially more samples to extract meaningful structure.
 
-    ◦ **Polar Coordinates:** Expressing the radius as a function of the angle makes the spiral a linear problem.
+### The Manifold Hypothesis
 
-• **Takeaway:** Deep learning involves finding learned representations (embeddings) where complex data becomes easier to manipulate.
+- **Definition:** While high-dimensional data (like photos) technically lives in a massive space (e.g., $\mathbb{R} ^{1,000,000}$), the "meaningful" data (e.g., realistic photos of volcanoes) lies on a lower-dimensional surface, or **manifold**, embedded within that space.
+- **Structure:** This hypothesis implies that despite the curse of dimensionality, there is a structured subspace where data is dense and meaningful. Random noise fills the ambient space, but valid data adheres to the manifold.
 
-**The Curse of Dimensionality**
 
-• **Concept:** Increasing the resolution (dimension) of data requires an exponential increase in the amount of data to maintain the same density.
-
-    ◦ **1D (1 pixel):** 100 photos might show a clear distribution on a line.
-
-    ◦ **2D/3D (2-3 pixels):** The same 100 photos become sparse scattered points.
-
-    ◦ **1 Megapixel:** The data points are effectively isolated in a million-dimensional space.
-
-• **Implication:** Better quality data "curses" us by requiring exponentially more samples to extract meaningful structure.
-
-**The Manifold Hypothesis**
-
-• **Definition:** While high-dimensional data (like photos) technically lives in a massive space (e.g., R1,000,000), the "meaningful" data (e.g., realistic photos of volcanoes) lies on a lower-dimensional surface, or **manifold**, embedded within that space.
-
-• **Structure:** This hypothesis implies that despite the curse of dimensionality, there is a structured subspace where data is dense and meaningful. Random noise fills the ambient space, but valid data adheres to the manifold.
-
-**Scientific Method & Bias (The Number Game)**
-
-• **The Experiment:** The professor played a game where students had to guess the rule for a sequence of numbers (2, 4, 8...) by proposing new numbers.
-
-• **Confirmation Bias:** Most students proposed numbers that confirmed their specific hypothesis (e.g., "16" to confirm powers of two).
-
-• **Falsification:** The scientific method requires trying to _falsify_ the hypothesis (e.g., proposing "7" or "9" to see if the rule is simply "increasing numbers").
-
-• **Occam’s Razor:** When multiple explanations fit the data, the simplest one is usually correct. Deep learning optimization algorithms act similarly: they try to find the simplest solution that fits the data. If the data is biased, the model learns the "cheat" rather than the complex truth.
+>[!quote] **Occam’s Razor:**
+>When multiple explanations fit the data, the simplest one is usually correct. Deep learning optimization algorithms act similarly: they try to find the simplest solution that fits the data. If the data is biased, the model learns the "cheat" rather than the complex truth.
