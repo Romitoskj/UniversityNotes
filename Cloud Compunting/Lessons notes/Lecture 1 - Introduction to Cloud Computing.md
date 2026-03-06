@@ -1,4 +1,6 @@
-**1. History & The Utility Computing Model**
+*March 03 2026*
+
+### 1. History & The Utility Computing Model
 
 - **Early Visions:** The concept of cloud computing dates back to 1961 when John McCarthy suggested that computing might someday be organized as a "public utility". In 1969, ARPANET pioneer Leonard Kleinrock echoed this, predicting the spread of "computer utilities" functioning similarly to electric or telephone utilities.
 - **Utility Computing:** This model means consumers pay only when they access computing services, require no upfront infrastructure investments, and can access services regardless of where they are hosted.
