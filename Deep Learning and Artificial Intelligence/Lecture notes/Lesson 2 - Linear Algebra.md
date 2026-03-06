@@ -1,3 +1,5 @@
+*Feb. 25 2026*
+
 ### 1. Philosophy of Linear Algebra
 
 - **Reframing the Subject:** Linear algebra is not merely the study of matrices and lists of numbers. It is formally the **study of linear maps on finite-dimensional vector spaces**.

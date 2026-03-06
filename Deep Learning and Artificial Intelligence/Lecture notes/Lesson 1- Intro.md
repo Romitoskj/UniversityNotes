@@ -1,3 +1,5 @@
+*Feb. 24 2026*
+
 ### The Importance of Data Analysis
 
 - **"Look at the Data":** The first step in any project is to visualize and inspect the data, rather than blindly trusting cleaning algorithms or summary statistics.
