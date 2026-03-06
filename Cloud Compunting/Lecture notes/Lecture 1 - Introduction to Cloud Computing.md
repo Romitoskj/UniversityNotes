@@ -37,9 +37,19 @@ To be considered a true cloud service, all five of these must be present:
 These models dictate the level of consumer control and the separation of security responsibilities:
 
 - **IaaS (Infrastructure as a Service):** Consumer controls the OS, storage, and deployed applications. The provider secures the physical data center, network infrastructure, and virtualization isolation.
+
 - **PaaS (Platform as a Service):** Consumer controls deployed applications and data. The provider manages the underlying infrastructure and OS.
+
 - **SaaS (Software as a Service):** Consumer only controls user-specific application settings. The provider manages the entire underlying infrastructure and application logic.
-- _Security Takeaway:_ Security is a shared responsibility. The cloud provider secures the infrastructure ("security _of_ the cloud"), while the customer secures their OS, apps, and data ("security _in_ the cloud").
+
+![](../../Pasted%20image%2020260306161724.png)
+
+_Moving from IaaS to SaaS:_ 
+- The control of the consumer on the resources decrease.
+- The expertise needed to manage the cloud service decrease.
+- The easy of use increase.
+
+_Security Takeaway:_ Security is a shared responsibility. The cloud provider secures the infrastructure ("security _of_ the cloud"), while the customer secures their OS, apps, and data ("security _in_ the cloud").
 
 #### C. Four Deployment Models
 
