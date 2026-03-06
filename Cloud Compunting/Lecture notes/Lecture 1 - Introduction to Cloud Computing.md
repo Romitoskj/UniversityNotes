@@ -20,11 +20,16 @@ The NIST definition is structured around **three main components**:
 To be considered a true cloud service, all five of these must be present:
 
 1. **On-demand self-service:** Consumers can provision computing capabilities automatically without requiring human interaction from the service provider, usually via web interfaces, dedicated shells, or APIs.
+
 2. **Broad network access:** Services are accessed over the network through standard mechanisms (e.g., mobile phones, tablets, laptops). Performance and security issues are typically concentrated in the network and at the edge.
+
 3. **Resource pooling (Multi-tenancy):** Provider resources are pooled to serve multiple consumers simultaneously. Physical and virtual resources are dynamically assigned.
     - _Multi-tenancy properties_ ensure that while users share application logic or hardware, they experience complete usage isolation, data security, transparent application upgrades, and independent recovery from failures.
+    - Each tenant has its own view of the application as a dedicated instance and is unaware of others ![](../../Pasted%20image%2020260306155538.png )
+
 4. **Rapid Elasticity:** The system can automatically scale resources up and down to match workload demands at any given time (e.g., an e-commerce site handling a Black Friday spike without crashing).
     - _Elasticity vs. Scalability:_ Scalability is the ability to add resources (horizontally via new VMs, or vertically via more CPUs), but elasticity requires the system to do this automatically and rapidly based on monitoring rules (e.g., autoscaling if CPU > 70%).
+
 5. **Measured Service:** Cloud systems automatically control and optimize resource use through metering capabilities. This is essential for billing (pay-per-use), SLA (Service Level Agreement) management, cost control, and improving system resiliency (e.g., automatically replacing a failed container or VM).
 
 #### B. Three Service Models
