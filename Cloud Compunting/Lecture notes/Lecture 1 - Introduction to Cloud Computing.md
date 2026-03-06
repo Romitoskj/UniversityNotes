@@ -54,8 +54,11 @@ _Security Takeaway:_ Security is a shared responsibility. The cloud provider sec
 #### C. Four Deployment Models
 
 - **Public Cloud:** Open to general public use (e.g., anyone can enter a credit card and use it).
+
 - **Private Cloud:** Dedicated entirely to a single organization. It can be physically on-premise or provisioned as a Virtual Private Cloud (VPC) providing logical isolation within a public provider's data center.
+
 - **Hybrid Cloud:** A combination of distinct public and private clouds bounded together (e.g., keeping critical data on a private cloud while running general web services on a public cloud).
+
 - **Community Cloud:** (Briefly mentioned as the fourth model in the NIST definition).
 
 ### 3. NIST SP 500-292: Cloud Computing Reference Architecture
