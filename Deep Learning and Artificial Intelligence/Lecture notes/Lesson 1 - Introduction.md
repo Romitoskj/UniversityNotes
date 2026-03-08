@@ -1,4 +1,4 @@
-*Feb. 24 2026*
+*February 24 2026*
 
 ### The Importance of Data Analysis
 

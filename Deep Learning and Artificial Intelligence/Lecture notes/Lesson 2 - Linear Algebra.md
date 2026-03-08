@@ -1,4 +1,4 @@
-*Feb. 25 2026*
+*February 25 2026*
 
 ### 1. Philosophy of Linear Algebra
 
