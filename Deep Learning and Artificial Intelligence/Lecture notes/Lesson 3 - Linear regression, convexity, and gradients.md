@@ -11,7 +11,7 @@
 ### 2. Linear Regression & The Loss Function
 
 Linear regression is the simplest non-trivial learning model, where the function $f$ is assumed to be linear in its parameters ($f=ax+b$). So we can write the model as:$$f_\Theta(x_i)=y_i$$
-Having $a$ and $b$ makes possible to construct a mapping such that given some new input we can apply the function learned and get some new output. 
+Having $a$ and $b$ makes possible to construct a mapping such that given some new input we can apply the function learned and get some new output. ![](Images/Pasted%20image%2020260308224432.png)
 
 - **The Loss Function ($\ell$):** To find the parameters $a$ and $b$, we must quantify the error between the model's predictions $f_\Theta(x)$ and the true labels $y$ to perform an optimization process of that function. 
 - **Mean Squared Error (MSE):** The most common choice for linear regression is the MSE, which computes the sum of the squared differences: 
@@ -22,15 +22,22 @@ Having $a$ and $b$ makes possible to construct a mapping such that given some ne
 
 ### 3. Convexity
 
-To find the parameters that minimize the loss, we rely on optimization. The easiest functions to minimize are convex functions.
+To find the parameters that minimize the loss, we rely on optimization. The easiest functions to minimize are convex functions, because there always exists a unique minimum in them.
 
 - **Jensen's Inequality:** A function is convex if $f(\alpha x+(1-\alpha)y) \leq \alpha f(x) + (1-\alpha)f(y), \forall x,y$ and $\alpha \in [0,1]$.
-- **Visual Intuition:** By using a parameter α between 0 and 1, we trace a straight line (a convex combination) between two points on the function. If the function is convex, this straight line will always lie strictly above the curve of the function.
-- **Global Minimum:** For a differentiable convex function, finding the minimum is straightforward: compute the derivative, set it to zero, and solve for the parameters.
+- **Visual Intuition:** By using a parameter α between 0 and 1, we trace a straight line (a convex combination) between two points on the function. If the function is convex, this straight line will always lie strictly above the curve of the function.![](Images/Pasted%20image%2020260308224154.png)
+- **Global Minimum:** For a differentiable convex function, finding the minimum is straightforward: *compute the derivative, set it to zero, and solve for the parameters* (the global minimizer $x$ is where $\frac{df(x)}{dx}=0$).
 
 ### 4. Gradients and Steepest Ascent
 
-Because the loss function has a high-dimensional domain (millions of parameters), we replace the standard 1D derivative with the **gradient**, denoted as ∇f.
+Because the loss function has a high-dimensional domain (millions of parameters), we replace the standard 1D derivative with the **gradient**, denoted as $\nabla f$:
+$$\nabla_x f(x) =
+\begin{pmatrix}
+\frac{\partial f}{\partial x_1} \\
+\vdots \\
+\frac{\partial f}{\partial x_n}
+\end{pmatrix}
+$$
 
 - **Definition:** The gradient is a column vector containing the partial derivatives of the function with respect to each parameter.
 - **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the direction of the **steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.
