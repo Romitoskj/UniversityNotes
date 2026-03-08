@@ -18,6 +18,7 @@ Having $a$ and $b$ makes possible to construct a mapping such that given some ne
 	$$\ell_\Theta(\{x_i,y_i\})=\sum_{i=1}^N\frac{1}{N}(y_i-f_\Theta(x_i))^2$$
 	- _Note on Constants:_ The 1/n averaging factor is often dropped because dividing by a constant does not change the location of the minimum parameters $\Theta$. This results in a similar function called **Sum of Squared Error (SSE)**.
 - **Domain and Codomain of the Loss:** It is crucial to distinguish the loss function from the network function. The loss function $\ell$ always takes the parameters as input (Domain: $\mathbb{R}^n$, where $n$ is the number of parameters) and outputs a single scalar score (Codomain: $\mathbb{R}$).
+- **Least-square approximation:** when $f$ is linear the problem of choosing the parameters $\Theta$ that minimize the MSE is called *least-squares approximation* problem:$$\epsilon=\min_\Theta\ell_\Theta(\{x_i,y_i\})$$
 
 ### 3. Convexity
 
