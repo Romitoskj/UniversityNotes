@@ -24,7 +24,7 @@ Having $a$ and $b$ makes possible to construct a mapping such that given some ne
 
 To find the parameters that minimize the loss, we rely on optimization. The easiest functions to minimize are convex functions.
 
-- **Jensen's Inequality:** A function is convex if f(αx+(1−α)y)≤αf(x)+(1−α)f(y) for all α∈.
+- **Jensen's Inequality:** A function is convex if $f(\alpha x+(1-\alpha)y) \leq \alpha f(x) + (1-\alpha)f(y), \forall x,y$ and $\alpha \in [0,1]$.
 - **Visual Intuition:** By using a parameter α between 0 and 1, we trace a straight line (a convex combination) between two points on the function. If the function is convex, this straight line will always lie strictly above the curve of the function.
 - **Global Minimum:** For a differentiable convex function, finding the minimum is straightforward: compute the derivative, set it to zero, and solve for the parameters.
 
