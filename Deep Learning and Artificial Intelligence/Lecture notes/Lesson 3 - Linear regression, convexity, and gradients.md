@@ -33,7 +33,7 @@ Because the loss function has a high-dimensional domain (millions of parameters)
 - **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the direction of the **steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.
 - **Stationary Points:** If the gradient is a vector of zeros, the function is not growing in any direction. For convex functions like the MSE, a zero-gradient guarantees that we have found the global minimum.
 
-### 5. Distances and** Lp​ **Norms
+### 5. Distances and $L_p$​ **Norms
 
 To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the Lp​ norm.
 
