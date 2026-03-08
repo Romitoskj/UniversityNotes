@@ -2,11 +2,11 @@
 
 ### 1. Parametric Models & Deep Learning
 
-- **Definition:** Neural networks are essentially highly parameterized models, denoted as fΘ​(x)=y, where Θ represents a massive set of parameters (weights and biases).
-- **Input/Output Spaces:** The domain and codomain of the network function f depend entirely on the task. The input x and output y can be high-dimensional vectors (e.g., an image x mapping to a probability distribution y).
+- **Definition:** Neural networks are essentially highly parameterized models, denoted as $$f_\Theta(x)=y$$where $\Theta$ represents a massive set of parameters (weights and biases).
+- **Input/Output Spaces:** The domain and codomain of the network function f depend entirely on the task. The input $x$ and output $y$ can be high-dimensional vectors (e.g., an image x mapping to a probability distribution y).
 - **Training vs. Testing:**
-    - **Training Time:** The data points X and Y are given and fixed. The goal is to solve for the unknown parameters Θ that best map X to Y.
-    - **Testing Time:** The parameters Θ are fixed, and the model is used to predict a new output y from a new, unseen input x.
+    - **Training Time:** The data points $X$ and $Y$ are given and fixed. The goal is to solve for the unknown parameters $\Theta$ that best map $X$ to $Y$.
+    - **Testing Time:** The parameters $\Theta$ are fixed, and the model is used to predict a new output $y$ from a new, unseen input $x$.
 
 ### 2. Linear Regression & The Loss Function
 
