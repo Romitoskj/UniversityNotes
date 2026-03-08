@@ -1,0 +1,54 @@
+*March 03 2026*
+
+### 1. Parametric Models & Deep Learning
+
+- **Definition:** Neural networks are essentially highly parameterized models, denoted as fΘ​(x)=y, where Θ represents a massive set of parameters (weights and biases).
+- **Input/Output Spaces:** The domain and codomain of the network function f depend entirely on the task. The input x and output y can be high-dimensional vectors (e.g., an image x mapping to a probability distribution y).
+- **Training vs. Testing:**
+    - **Training Time:** The data points X and Y are given and fixed. The goal is to solve for the unknown parameters Θ that best map X to Y.
+    - **Testing Time:** The parameters Θ are fixed, and the model is used to predict a new output y from a new, unseen input x.
+
+### 2. Linear Regression & The Loss Function
+
+Linear regression is the simplest non-trivial learning model, where the function f is assumed to be linear in its parameters.
+
+- **The Loss Function (**L**):** To find the optimal parameters, we must quantify the error between the model's predictions fΘ​(x) and the true labels y.
+- **Mean Squared Error (MSE):** The most common choice for linear regression is the MSE, which computes the sum of the squared differences: LΘ​({xi​,yi​})=∑i=1n​(yi​−fΘ​(xi​))2.
+    - _Note on Constants:_ The 1/n averaging factor is often dropped because dividing by a constant does not change the location of the minimum parameters Θ.
+- **Domain and Codomain of the Loss:** It is crucial to distinguish the loss function from the network function. The loss function L always takes the parameters as input (Domain: Rn, where n is the number of parameters) and outputs a single scalar score (Codomain: R).
+
+### 3. Convexity
+
+To find the parameters that minimize the loss, we rely on optimization. The easiest functions to minimize are convex functions.
+
+- **Jensen's Inequality:** A function is convex if f(αx+(1−α)y)≤αf(x)+(1−α)f(y) for all α∈.
+- **Visual Intuition:** By using a parameter α between 0 and 1, we trace a straight line (a convex combination) between two points on the function. If the function is convex, this straight line will always lie strictly above the curve of the function.
+- **Global Minimum:** For a differentiable convex function, finding the minimum is straightforward: compute the derivative, set it to zero, and solve for the parameters.
+
+### 4. Gradients and Steepest Ascent
+
+Because the loss function has a high-dimensional domain (millions of parameters), we replace the standard 1D derivative with the **gradient**, denoted as ∇f.
+
+- **Definition:** The gradient is a column vector containing the partial derivatives of the function with respect to each parameter.
+- **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the direction of the **steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.
+- **Stationary Points:** If the gradient is a vector of zeros, the function is not growing in any direction. For convex functions like the MSE, a zero-gradient guarantees that we have found the global minimum.
+
+### 5. Distances and** Lp​ **Norms
+
+To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the Lp​ norm.
+
+- **Formula:** d(x,y)=∥x−y∥p​=(∑i=1k​∣xi​−yi​∣p)1/p. The absolute value is crucial to prevent negative distances when using odd powers for p.
+- **Geometric Shapes of** Lp​ **"Circles":** The shape of points at a distance of 1 from the origin changes based on p:
+    - L2​ **(Euclidean):** Forms a standard round circle.
+    - L1​ **(Manhattan):** Forms a diamond or rhombus shape. For example, (0.5,0.5) has an L1​ distance of 1 from the origin (∣0.5∣+∣0.5∣=1).
+    - L∞​ **(Max norm):** As p→∞, the shape approaches a perfect square, mathematically equivalent to taking the maximum of the coordinates.
+
+### 6. Matrix Notation & The Pseudo-Inverse
+
+In Deep Learning, tracking individual equations is inefficient. We can compactly represent the linear regression model using matrix notation: Y=XΘ.
+
+- **MSE in Matrix Form:** The squared L2​ norm of the error vector can be written using matrix transposes: L(Θ)=∥Y−XΘ∥22​=(Y−XΘ)T(Y−XΘ).
+- **Expanding the Quadratic:** Expanding this product yields YTY−2YTXΘ+ΘTXTXΘ, which breaks down into a constant term, a linear term in Θ, and a quadratic term in Θ.
+- **Solving via Gradients:** Taking the gradient of this matrix expression with respect to Θ (dropping the constant, dropping Θ from the linear term, and reducing the quadratic term) yields −2XTY+2XTXΘ.
+- **The Closed-Form Solution:** Setting the gradient to the zero vector gives XTXΘ=XTY. Solving for Θ yields: Θ=(XTX)−1XTY The term (XTX)−1XT is known as the **pseudo-inverse**.
+- **Why the Pseudo-Inverse?** We cannot simply invert X because our dataset matrix X is usually rectangular (more data points than features/parameters). The matrix XTX is always square, allowing us to invert it to find the parameters that perfectly minimize the least-squares error.
