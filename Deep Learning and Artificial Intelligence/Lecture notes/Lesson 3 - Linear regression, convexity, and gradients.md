@@ -17,7 +17,7 @@ Having $a$ and $b$ makes possible to construct a mapping such that given some ne
 - **Mean Squared Error (MSE):** The most common choice for linear regression is the MSE, which computes the sum of the squared differences: 
 	$$\ell_\Theta(\{x_i,y_i\})=\sum_{i=1}^N\frac{1}{N}(y_i-f_\Theta(x_i))^2$$
 	- _Note on Constants:_ The 1/n averaging factor is often dropped because dividing by a constant does not change the location of the minimum parameters $\Theta$. This results in a similar function called **Sum of Squared Error (SSE)**.
-- **Domain and Codomain of the Loss:** It is crucial to distinguish the loss function from the network function. The loss function $\ell$ always takes the parameters as input (Domain: $\mathbb{R}^n$, where $n$ is the number of parameters) and outputs a single scalar score (Codomain: $\mathbb{R}$).
+- **Domain and Codomain of the Loss:** It is crucial to distinguish the loss function from the network function. The loss function $\ell:\mathbb{R}^n\rightarrow\mathbb{R}$ always takes the parameters as input (Domain: $\mathbb{R}^n$, where $n$ is the number of parameters) and outputs a single scalar score (Codomain: $\mathbb{R}$).
 - **Least-square approximation:** when $f$ is linear the problem of choosing the parameters $\Theta$ that minimize the MSE is called *least-squares approximation* problem:$$\epsilon=\min_\Theta\ell_\Theta(\{x_i,y_i\})$$
 
 ### 3. Convexity
@@ -30,18 +30,18 @@ To find the parameters that minimize the loss, we rely on optimization. The easi
 
 ### 4. Gradients and Steepest Ascent
 
-Because the loss function has a high-dimensional domain (millions of parameters), we replace the standard 1D derivative with the **gradient**, denoted as $\nabla f$:
-$$\nabla_x f(x) =
+Because the loss function has a high-dimensional domain (millions of parameters), we replace the standard 1D derivative with the **gradient**, denoted as $\nabla f$.
+
+- **Definition:** The gradient is a column vector containing the partial derivatives of the function with respect to each parameter:
+$$\nabla_X f(X) =
 \begin{pmatrix}
 \frac{\partial f}{\partial x_1} \\
 \vdots \\
 \frac{\partial f}{\partial x_n}
 \end{pmatrix}
 $$
-
-- **Definition:** The gradient is a column vector containing the partial derivatives of the function with respect to each parameter.
-- **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the direction of the **steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.
-- **Stationary Points:** If the gradient is a vector of zeros, the function is not growing in any direction. For convex functions like the MSE, a zero-gradient guarantees that we have found the global minimum.
+- **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the **direction of the steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.![](../../Pasted%20image%2020260308231712.png)
+- **Stationary Points:** If the gradient is a vector of zeros, the function is not growing in any direction. For convex functions like the MSE, a zero-gradient guarantees that we have found the global minimum: $\nabla_X f(X)=0$.
 
 ### 5. Distances and $L_p$​ **Norms
 
