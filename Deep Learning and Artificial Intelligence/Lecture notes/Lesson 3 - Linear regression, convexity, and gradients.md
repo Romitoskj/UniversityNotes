@@ -10,9 +10,9 @@
 
 ### 2. Linear Regression & The Loss Function
 
-Linear regression is the simplest non-trivial learning model, where the function f is assumed to be linear in its parameters.
+Linear regression is the simplest non-trivial learning model, where the function $f$ is assumed to be linear in its parameters.
 
-- **The Loss Function (**L**):** To find the optimal parameters, we must quantify the error between the model's predictions fΘ​(x) and the true labels y.
+- **The Loss Function :** To find the optimal parameters, we must quantify the error between the model's predictions fΘ​(x) and the true labels y.
 - **Mean Squared Error (MSE):** The most common choice for linear regression is the MSE, which computes the sum of the squared differences: LΘ​({xi​,yi​})=∑i=1n​(yi​−fΘ​(xi​))2.
     - _Note on Constants:_ The 1/n averaging factor is often dropped because dividing by a constant does not change the location of the minimum parameters Θ.
 - **Domain and Codomain of the Loss:** It is crucial to distinguish the loss function from the network function. The loss function L always takes the parameters as input (Domain: Rn, where n is the number of parameters) and outputs a single scalar score (Codomain: R).
