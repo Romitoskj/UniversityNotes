@@ -56,9 +56,9 @@ To measure the magnitude of errors or parameters, we use distance metrics. The s
 
 ![](../../Pasted%20image%2020260309120748.png)
 
-### 6. Matrix Notation & The Pseudo-Inverse
+### 6. Matrix Notation & The Closed-Form Solution
 
-In Deep Learning, tracking individual equations is inefficient. We can compactly represent all the equation ($y_i=ax_i+b$) at once using matrix notation: $Y=X\Theta$.
+In Deep Learning, tracking individual equations is inefficient. We can compactly represent all the equation ($y_i=ax_i+b$) at once using matrix notation: $\mathbf{y}=\mathbf{X}\Theta$.
 $$\underbrace{
 \begin{pmatrix}
 y_1 \\
@@ -82,8 +82,9 @@ a \\
 b
 \end{pmatrix}
 }_{\boldsymbol{\theta}}$$
-- **MSE in Matrix Form:** The MSE can be expressed as the squared $L_2$​ distance  using matrix transposes: $$\ell(\Theta)=||Y-X\Theta||_2^2$$L(Θ)=∥Y−XΘ∥22​=(Y−XΘ)T(Y−XΘ).
-- **Expanding the Quadratic:** Expanding this product yields YTY−2YTXΘ+ΘTXTXΘ, which breaks down into a constant term, a linear term in Θ, and a quadratic term in Θ.
-- **Solving via Gradients:** Taking the gradient of this matrix expression with respect to Θ (dropping the constant, dropping Θ from the linear term, and reducing the quadratic term) yields −2XTY+2XTXΘ.
-- **The Closed-Form Solution:** Setting the gradient to the zero vector gives XTXΘ=XTY. Solving for Θ yields: Θ=(XTX)−1XTY The term (XTX)−1XT is known as the **pseudo-inverse**.
-- **Why the Pseudo-Inverse?** We cannot simply invert X because our dataset matrix X is usually rectangular (more data points than features/parameters). The matrix XTX is always square, allowing us to invert it to find the parameters that perfectly minimize the least-squares error.
+- **MSE in Matrix Form:** Doing so the MSE can be expressed as the squared $L_2$​ distance  using matrix transposes: $$\ell(\theta)=||\mathbf{y}-\mathbf{X}\theta||_2^2=(\mathbf{y}-\mathbf{X}\theta)^\intercal(\mathbf{y}-\mathbf{X}\theta)$$
+- **Expanding the Quadratic:** Expanding this product yields $$\ell(\theta)=\mathbf{y}^\intercal\mathbf{y}-2\mathbf{y}^\intercal\mathbf{X}\theta+\theta^\intercal\mathbf{X}^\intercal\mathbf{X}\theta$$ which breaks down into a constant term, a linear term in $\theta$, and a quadratic term in $\theta$.
+- **Solving via Gradients:** Taking the gradient of this matrix expression with respect to $\theta$ (dropping the constant, dropping $\theta$ from the linear term, and reducing the quadratic term) and setting it to zero yields $$-2\mathbf{X}^\intercal\mathbf{y}+2\mathbf{X}^\intercal\mathbf{X}\theta$$
+- **The Closed-Form Solution:** Setting the gradient to the zero vector gives $$\mathbf{X}^\intercal\mathbf{X}\theta=\mathbf{X}^\intercal\mathbf{y}$$Solving for $\theta$ yields:$$\theta=(\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}$$ The term $(\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal$ is known as the **pseudo-inverse**.
+- **Why the Pseudo-Inverse?** We cannot simply invert $\mathbf{X}$ because our dataset matrix $\mathbf{X}$ is usually rectangular (more data points than features/parameters). The matrix $\mathbf{X}^\intercal\mathbf{X}$ is always square, allowing us to invert it to find the parameters that perfectly minimize the least-squares error.
+- **General Case with Higher Dimensional Datapoints:** In reality, training data inputs and outputs are rarely single numbers; they are high-dimensional vectors (e.g., xi​ might be a grid of pixels, and yi​ might be a one-hot vector for classification probabilities). In this general case, the linear model becomes yi​=Axi​+b. We can stack these multi-dimensional inputs and outputs into large matrices. For X⊺, we append a column of 1s to account for the bias vector b, and the parameter matrix Θ groups together both the weight matrix A and the biases. The MSE loss function is then calculated using the matrix trace operator: ℓ(Θ)=∣∣Y⊺−X⊺Θ∣∣22​=tr(Y⊺Y)−2tr(YX⊺Θ)+tr(Θ⊺XX⊺Θ). Despite this increase in dimensionality and complexity, the mathematical structure remains consistent, and the closed-form pseudo-inverse solution retains exactly the same formula as the one-dimensional case.
