@@ -45,9 +45,9 @@ $$
 
 ### 5. Distances and $L_p$​ **Norms
 
-To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the Lp​ norm.
+To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the $L_p$​ norm.
 
-- **Formula:** d(x,y)=∥x−y∥p​=(∑i=1k​∣xi​−yi​∣p)1/p. The absolute value is crucial to prevent negative distances when using odd powers for p.
+- **Formula:** $$d(x,y)=||x-y||_p\triangleq (\sum_{i=1}^{k}|x_i - y_i|^p)^\frac{1}{p}$$The absolute value is crucial to prevent negative distances when using odd powers for p.
 - **Geometric Shapes of** Lp​ **"Circles":** The shape of points at a distance of 1 from the origin changes based on p:
     - L2​ **(Euclidean):** Forms a standard round circle.
     - L1​ **(Manhattan):** Forms a diamond or rhombus shape. For example, (0.5,0.5) has an L1​ distance of 1 from the origin (∣0.5∣+∣0.5∣=1).
