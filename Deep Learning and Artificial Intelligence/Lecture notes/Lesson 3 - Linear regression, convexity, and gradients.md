@@ -33,7 +33,7 @@ To find the parameters that minimize the loss, we rely on optimization. The easi
 Because the loss function has a high-dimensional domain (millions of parameters), we replace the standard 1D derivative with the **gradient**, denoted as $\nabla f$.
 
 - **Definition:** The gradient is a column vector containing the partial derivatives of the function with respect to each parameter:
-$$\nabla_X f(X) =
+$$\nabla_\mathbf{x} f(\mathbf{x}) =
 \begin{pmatrix}
 \frac{\partial f}{\partial x_1} \\
 \vdots \\
@@ -45,10 +45,11 @@ $$
 
 ### 5. Distances and $L_p$​ Norms
 
-To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the $L_p$​ norm.
+To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the $L_p$​ distance.
 
 - **Formula:** $$d(x,y)=||x-y||_p\triangleq (\sum_{i=1}^{k}|x_i - y_i|^p)^\frac{1}{p}$$The absolute value is crucial to prevent negative distances when using odd powers for $p$.
-- **Geometric Shapes of** $L_p$​ **"Circles":** The shape of points at a distance of 1 from the origin changes based on $p$:
+- **Length or Norm:** the length or norm of a vector is simply its distance from the origin: $$||\mathbf{x} - O||_2=||\mathbf{x}||_2=\sqrt{\sum_{i=1}^k|x_i|^2}=\sqrt{\mathbf{x}^\intercal \mathbf{x}}$$
+- **Geometric Shapes of** $L_p$​ **"Circles":** The shape of points at a distance of $1$ from the origin changes based on $p$:
     - $L_2$​ **(Euclidean):** Forms a standard round circle.
     - $L_1$​ **(Manhattan):** Forms a diamond or rhombus shape. For example, $(0.5,0.5)$ has an $L_1$​ distance of $1$ from the origin ($∣0.5∣+∣0.5∣=1$).
     - $L_\infty$​ **(Max norm):** As $p\rightarrow\infty$, the shape approaches a perfect square, mathematically equivalent to taking the maximum of the coordinates.
