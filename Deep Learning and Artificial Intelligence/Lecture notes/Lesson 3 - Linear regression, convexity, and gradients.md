@@ -40,18 +40,20 @@ $$\nabla_X f(X) =
 \frac{\partial f}{\partial x_n}
 \end{pmatrix}
 $$
-- **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the **direction of the steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.![](../../Pasted%20image%2020260308231712.png)
+- **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the **direction of the steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.![](Images/Pasted%20image%2020260308231712.png)
 - **Stationary Points:** If the gradient is a vector of zeros, the function is not growing in any direction. For convex functions like the MSE, a zero-gradient guarantees that we have found the global minimum: $\nabla_X f(X)=0$.
 
 ### 5. Distances and $L_p$​ **Norms
 
 To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the $L_p$​ norm.
 
-- **Formula:** $$d(x,y)=||x-y||_p\triangleq (\sum_{i=1}^{k}|x_i - y_i|^p)^\frac{1}{p}$$The absolute value is crucial to prevent negative distances when using odd powers for p.
-- **Geometric Shapes of** Lp​ **"Circles":** The shape of points at a distance of 1 from the origin changes based on p:
-    - L2​ **(Euclidean):** Forms a standard round circle.
-    - L1​ **(Manhattan):** Forms a diamond or rhombus shape. For example, (0.5,0.5) has an L1​ distance of 1 from the origin (∣0.5∣+∣0.5∣=1).
-    - L∞​ **(Max norm):** As p→∞, the shape approaches a perfect square, mathematically equivalent to taking the maximum of the coordinates.
+- **Formula:** $$d(x,y)=||x-y||_p\triangleq (\sum_{i=1}^{k}|x_i - y_i|^p)^\frac{1}{p}$$The absolute value is crucial to prevent negative distances when using odd powers for $p$.
+- **Geometric Shapes of** $L_p$​ **"Circles":** The shape of points at a distance of 1 from the origin changes based on $p$:
+    - $L_2$​ **(Euclidean):** Forms a standard round circle.
+    - $L_1$​ **(Manhattan):** Forms a diamond or rhombus shape. For example, $(0.5,0.5)$ has an $L_1$​ distance of $1$ from the origin ($∣0.5∣+∣0.5∣=1$).
+    - $L_\infty$​ **(Max norm):** As $p\rightarrow\infty$, the shape approaches a perfect square, mathematically equivalent to taking the maximum of the coordinates.
+
+![](../../Pasted%20image%2020260309120748.png)
 
 ### 6. Matrix Notation & The Pseudo-Inverse
 
