@@ -58,9 +58,31 @@ To measure the magnitude of errors or parameters, we use distance metrics. The s
 
 ### 6. Matrix Notation & The Pseudo-Inverse
 
-In Deep Learning, tracking individual equations is inefficient. We can compactly represent the linear regression model using matrix notation: Y=XΘ.
-
-- **MSE in Matrix Form:** The squared L2​ norm of the error vector can be written using matrix transposes: L(Θ)=∥Y−XΘ∥22​=(Y−XΘ)T(Y−XΘ).
+In Deep Learning, tracking individual equations is inefficient. We can compactly represent all the equation ($y_i=ax_i+b$) at once using matrix notation: $Y=X\Theta$.
+$$\underbrace{
+\begin{pmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{pmatrix}
+}_{\mathbf{y}}
+=
+\underbrace{
+\begin{pmatrix}
+x_1 & 1 \\
+x_2 & 1 \\
+\vdots & \vdots \\
+x_n & 1
+\end{pmatrix}
+}_{\mathbf{X}}
+\underbrace{
+\begin{pmatrix}
+a \\
+b
+\end{pmatrix}
+}_{\boldsymbol{\theta}}$$
+- **MSE in Matrix Form:** The MSE can be expressed as the squared $L_2$​ distance  using matrix transposes: $$\ell(\Theta)=||Y-X\Theta||_2^2$$L(Θ)=∥Y−XΘ∥22​=(Y−XΘ)T(Y−XΘ).
 - **Expanding the Quadratic:** Expanding this product yields YTY−2YTXΘ+ΘTXTXΘ, which breaks down into a constant term, a linear term in Θ, and a quadratic term in Θ.
 - **Solving via Gradients:** Taking the gradient of this matrix expression with respect to Θ (dropping the constant, dropping Θ from the linear term, and reducing the quadratic term) yields −2XTY+2XTXΘ.
 - **The Closed-Form Solution:** Setting the gradient to the zero vector gives XTXΘ=XTY. Solving for Θ yields: Θ=(XTX)−1XTY The term (XTX)−1XT is known as the **pseudo-inverse**.
