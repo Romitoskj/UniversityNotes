@@ -54,7 +54,7 @@ To measure the magnitude of errors or parameters, we use distance metrics. The s
     - $L_1$​ **(Manhattan):** Forms a diamond or rhombus shape. For example, $(0.5,0.5)$ has an $L_1$​ distance of $1$ from the origin ($∣0.5∣+∣0.5∣=1$).
     - $L_\infty$​ **(Max norm):** As $p\rightarrow\infty$, the shape approaches a perfect square, mathematically equivalent to taking the maximum of the coordinates.
 
-![](../../Pasted%20image%2020260309120748.png)
+![](Images/Pasted%20image%2020260309120748.png)
 
 ### 6. Matrix Notation & The Closed-Form Solution
 
