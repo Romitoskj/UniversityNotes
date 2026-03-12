@@ -25,7 +25,7 @@ To be considered a true cloud service, all five of these must be present:
 
 3. **Resource pooling (Multi-tenancy):** Provider resources are pooled to serve multiple consumers simultaneously. Physical and virtual resources are dynamically assigned.
     - _Multi-tenancy properties_ ensure that while users share application logic or hardware, they experience complete usage isolation, data security, transparent application upgrades, and independent recovery from failures.
-    - Each tenant has its own view of the application as a dedicated instance and is unaware of others ![](Images/Pasted%20image%2020260306155538.png )
+    - Each tenant has its own view of the application as a dedicated instance and is unaware of others ![638](Images/Pasted%20image%2020260306155538.png )
 
 4. **Rapid [Elasticity](Elasticity%20in%20Cloud%20Computing%20-%20What%20It%20Is,%20and%20What%20It%20Is%20Not.md):** The system can automatically scale resources up and down to match workload demands at any given time (e.g., an e-commerce site handling a Black Friday spike without crashing).
     - _Elasticity vs. Scalability:_ Scalability is the ability to add resources (horizontally via new VMs, or vertically via more CPUs), but elasticity requires the system to do this automatically and rapidly based on monitoring rules (e.g., autoscaling if CPU > 70%).
@@ -42,7 +42,7 @@ These models dictate the level of consumer control and the separation of securit
 
 - **SaaS (Software as a Service):** Consumer only controls user-specific application settings. The provider manages the entire underlying infrastructure and application logic.
 
-![](Images/Pasted%20image%2020260306161724.png)
+![697](Images/Pasted%20image%2020260306161724.png)
 
 _Moving from IaaS to SaaS:_ 
 - The control of the consumer on the resources decrease.

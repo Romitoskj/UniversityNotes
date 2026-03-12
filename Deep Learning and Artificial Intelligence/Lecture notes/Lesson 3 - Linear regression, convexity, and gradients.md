@@ -11,7 +11,7 @@
 ### 2. Linear Regression & The Loss Function
 
 Linear regression is the simplest non-trivial learning model, where the function $f$ is assumed to be linear in its parameters ($f=ax+b$). So we can write the model as:$$f_\Theta(x_i)=y_i$$
-Having $a$ and $b$ makes possible to construct a mapping such that given some new input we can apply the function learned and get some new output. ![](Images/Pasted%20image%2020260308224432.png)
+Having $a$ and $b$ makes possible to construct a mapping such that given some new input we can apply the function learned and get some new output. ![697](Images/Pasted%20image%2020260308224432.png)
 
 - **The Loss Function ($\ell$):** To find the parameters $a$ and $b$, we must quantify the error between the model's predictions $f_\Theta(x)$ and the true labels $y$ to perform an optimization process of that function. 
 - **Mean Squared Error (MSE):** The most common choice for linear regression is the MSE, which computes the sum of the squared differences: 
@@ -25,7 +25,7 @@ Having $a$ and $b$ makes possible to construct a mapping such that given some ne
 To find the parameters that minimize the loss, we rely on optimization. The easiest functions to minimize are convex functions, because there always exists a unique minimum in them.
 
 - **Jensen's Inequality:** A function is convex if $f(\alpha x+(1-\alpha)y) \leq \alpha f(x) + (1-\alpha)f(y), \forall x,y$ and $\alpha \in [0,1]$.
-- **Visual Intuition:** By using a parameter α between 0 and 1, we trace a straight line (a convex combination) between two points on the function. If the function is convex, this straight line will always lie strictly above the curve of the function.![](Images/Pasted%20image%2020260308224154.png)
+- **Visual Intuition:** By using a parameter α between 0 and 1, we trace a straight line (a convex combination) between two points on the function. If the function is convex, this straight line will always lie strictly above the curve of the function.![674](Images/Pasted%20image%2020260308224154.png)
 - **Global Minimum:** For a differentiable convex function, finding the minimum is straightforward: *compute the derivative, set it to zero, and solve for the parameters* (the global minimizer $x$ is where $\frac{df(x)}{dx}=0$).
 
 ### 4. Gradients and Steepest Ascent
@@ -40,7 +40,7 @@ $$\nabla_\mathbf{x} f(\mathbf{x}) =
 \frac{\partial f}{\partial x_n}
 \end{pmatrix}
 $$
-- **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the **direction of the steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.![](Images/Pasted%20image%2020260308231712.png)
+- **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the **direction of the steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.![674](Images/Pasted%20image%2020260308231712.png)
 - **Stationary Points:** If the gradient is a vector of zeros, the function is not growing in any direction. For convex functions like the MSE, a zero-gradient guarantees that we have found the global minimum: $\nabla_X f(X)=0$.
 
 ### 5. Distances and $L_p$​ Norms
@@ -54,7 +54,7 @@ To measure the magnitude of errors or parameters, we use distance metrics. The s
     - $L_1$​ **(Manhattan):** Forms a diamond or rhombus shape. For example, $(0.5,0.5)$ has an $L_1$​ distance of $1$ from the origin ($∣0.5∣+∣0.5∣=1$).
     - $L_\infty$​ **(Max norm):** As $p\rightarrow\infty$, the shape approaches a perfect square, mathematically equivalent to taking the maximum of the coordinates.
 
-![](Images/Pasted%20image%2020260309120748.png)
+![697](Images/Pasted%20image%2020260309120748.png)
 
 ### 6. Matrix Notation & The Closed-Form Solution
 
