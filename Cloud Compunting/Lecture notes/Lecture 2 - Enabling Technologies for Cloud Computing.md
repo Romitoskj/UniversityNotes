@@ -64,7 +64,7 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
     - **Decoupled Services:** Applications are structured as a collection of highly maintainable, loosely coupled, and independently deployable services that are organized around specific business capabilities (e.g., a dedicated service just for orders or delivery).
     - **Private Data:** Unlike a monolith, each microservice manages its own private data and does not share its database with other services.
     - **Functional Scaling:** Organizations can utilize Y-axis scaling (functional decomposition) to replicate and scale only the specific services experiencing high load, rather than duplicating the entire application.
-    - **Independent Teams:** Small, autonomous teams manage their own services using independent source code repositories and continuous integration (CI) deployment pipelines, removing the massive coordination overhead required by monolithic systems.
+    - **Production:** Small, autonomous teams manage their own services using independent source code repositories and continuous integration (CI) deployment pipelines, removing the massive coordination overhead required by monolithic systems.
 
 ### 5. SOA vs. Microservices: Key Differences
 
