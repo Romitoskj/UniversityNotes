@@ -54,6 +54,17 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
     - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).![](../../Pasted%20image%2020260313235658.png)
     - _Z-axis:_ Data partitioning (sharding data based on user ID).![](../../Pasted%20image%2020260313235720.png)
     - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).![](../../Pasted%20image%2020260313235740.png)
+#### Monolithic Architecture vs. Microservices:
+- **Monolithic Architecture:**
+    - **Initial Simplicity:** They are initially simple to develop, and straightforward to test and deploy because all functionalities are bundled into a single unified codebase.
+    - **Shared Data:** The entire application typically interacts with a single shared database.
+    - **Scaling Limitations:** Scaling is generally restricted to horizontal duplication (replicating the entire application across servers). This can be bottlenecked by the shared database and is highly inefficient if only one specific function needs more resources.
+    - **Complexity Issues:** As the application grows in complexity or as technologies evolve, it becomes significantly more difficult to maintain, test, update, and scale the system.
+- **Microservices Architecture:**
+    - **Decoupled Services:** Applications are structured as a collection of highly maintainable, loosely coupled, and independently deployable services that are organized around specific business capabilities (e.g., a dedicated service just for orders or delivery).
+    - **Private Data:** Unlike a monolith, each microservice manages its own private data and does not share its database with other services.
+    - **Functional Scaling:** Organizations can utilize Y-axis scaling (functional decomposition) to replicate and scale only the specific services experiencing high load, rather than duplicating the entire application.
+    - **Independent Teams:** Small, autonomous teams manage their own services using independent source code repositories and continuous integration (CI) deployment pipelines, removing the massive coordination overhead required by monolithic systems.
 
 ### 5. SOA vs. Microservices: Key Differences
 
