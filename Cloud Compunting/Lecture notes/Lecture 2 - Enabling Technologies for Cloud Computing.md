@@ -26,8 +26,9 @@ An architectural style serves as a blueprint or pattern for organizing a system.
 
 ### 3. Service Oriented Architecture (SOA)
 
-SOA is an architectural style based on "service orientation," where applications are built by aggregating services rather than writing monolithic functions. A service is a logical representation of a repeatable business activity that has a specified outcome(e.g., checking a credit card). **Four Characteristics of a Service:**
+SOA is an architectural style based on "service orientation," where applications are built by aggregating services rather than writing monolithic functions. A service is a logical representation of a repeatable business activity that has a specified outcome(e.g., checking a credit card). 
 
+#### Four Characteristics of a Service:
 1. **Explicit Boundaries:** Interfaces are kept minimal to foster reuse and simplify interaction.
 2. **Autonomous:** Services handle failures and operate independently, acting as a "black box" to the consumer.
 3. **Shared Schema and Contracts:** They share strict contracts defining message structures.
@@ -44,15 +45,15 @@ SOA is an architectural style based on "service orientation," where applications
 
 ### 4. Microservices Architecture
 
-Microservices emerged as an evolution of SOA to solve the problem of SOA services becoming too large and monolithic. It structures applications as collections of very small, single-purpose services. 
+Microservices emerged as an evolution of SOA to solve the problem of SOA services becoming too large and monolithic. It is an architectural style that structures applications as collections of very small, single-purpose services. 
 
 #### Key Features:
 - **Highly maintainable and testable:** Because the codebases are small.
 - **Loosely coupled and independently deployable:** Managed by small, autonomous teams with their own continuous integration (CI) pipelines and source code repositories.
 - **The Scale Cube:** Microservices enable scaling along three axes.
-    - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).
-    - _Z-axis:_ Data partitioning (sharding data based on user ID).
-    - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).
+    - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).![](../../Pasted%20image%2020260313235658.png)
+    - _Z-axis:_ Data partitioning (sharding data based on user ID).![](../../Pasted%20image%2020260313235720.png)
+    - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).![](../../Pasted%20image%2020260313235740.png)
 
 ### 5. SOA vs. Microservices: Key Differences
 
