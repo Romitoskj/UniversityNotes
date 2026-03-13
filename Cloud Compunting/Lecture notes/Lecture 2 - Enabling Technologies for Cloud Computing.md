@@ -2,20 +2,26 @@
 ### 1. Distributed Systems vs. Distributed Computing
 
 - **Distributed System:** A collection of independent, networked computers that communicate and coordinate via message passing, but appear to the end-user as a single, coherent system. It focuses on the physical components and hiding the underlying network complexity.
+
 - **Distributed Computing:** A computational model where a single task is broken down into smaller units executed concurrently across different computing elements (e.g., different cores, processors, or networked machines).
-- **Cloud Computing as a Distributed System:** Cloud computing is a specialized form of distributed computing designed to provision scalable and measured resources. The layers of a traditional distributed system map directly to cloud models: the physical hardware and OS form the Cloud Infrastructure, the Distributed Computing Middleware maps to Platform as a Service (PaaS), and the Distributed Applications map to Software as a Service (SaaS).
+
+- **Cloud Computing as a Distributed System:** Cloud computing is a specialized form of distributed computing designed to provision scalable and measured resources. The layers of a traditional distributed system map directly to cloud models: the physical hardware and OS form the Cloud Infrastructure, the Distributed Computing Middleware maps to Platform as a Service (PaaS), and the Distributed Applications map to Software as a Service (SaaS).![](Images/Pasted%20image%2020260313173544.png)![532](Images/Pasted%20image%2020260313173602.png)
 
 ### 2. Architectural Styles
 
 An architectural style serves as a blueprint or pattern for organizing a system. It defines the vocabulary of the components, their roles, how they are distributed across machines, the communication mechanisms (connectors) they use, and constraints on how they can be combined. Key styles include:
 
 - **Call and Return:** Components call sub-programs or lower layers, which eventually return results (e.g., the TCP/IP stack or standard C programming libraries).
+
 - **Pipe and Filter (Data Flow):** A chain of processing stages where the output of one becomes the input of the next. A classic example is the **MapReduce** paradigm (e.g., word count applications).
+
 - **Client/Server:** Features presentation, application logic, and data storage tiers.
     - _Thin-client:_ Client handles only presentation; server does logic and storage.
     - _Fat-client:_ Client handles presentation and logic; server does storage.
     - _Multi-tiered (N-tier):_ Distributes tiers across multiple servers to isolate performance bottlenecks and allow independent scaling.
+
 - **Peer-to-Peer (P2P):** A symmetric, highly decentralized architecture where all nodes (peers) act as both clients and servers. This scales very well and is commonly used for distributed storage (e.g., Cassandra, Amazon Dynamo).
+
 - **Independent Components:** Components have independent lifecycles and interact either through **communicating processes** (using RPC, REST, Web Services) or **event-based systems** (publish/subscribe via a message broker).
 
 ### 3. Service Oriented Architecture (SOA)
