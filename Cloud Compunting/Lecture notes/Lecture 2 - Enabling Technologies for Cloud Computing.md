@@ -34,20 +34,19 @@ SOA is an architectural style based on "service orientation," where applications
 4. **Policy-driven:** Semantic compatibility is determined by defined policies.
 
 #### SOA Roles:
-
 - **Service Provider:** Maintains and publishes the service.
 - **Service Registry:** A central directory storing service metadata, contracts, and binding information.
 - **Service Consumer:** Queries the registry to discover services and develop the client componente to bind and use the service.
 
 #### Coordination in SOA:
-
 - **Orchestration:** A centralized approach where a single executable business process (the orchestrator) invokes and combines services sequentially (e.g., a travel planner booking flights, then hotels, then cars).
 - **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).![](Images/Pasted%20image%2020260313175617.png)
 
 ### 4. Microservices Architecture
 
-Microservices emerged as an evolution of SOA to solve the problem of SOA services becoming too large and monolithic. It structures applications as collections of very small, single-purpose services. **Key Features:**
+Microservices emerged as an evolution of SOA to solve the problem of SOA services becoming too large and monolithic. It structures applications as collections of very small, single-purpose services. 
 
+#### Key Features:
 - **Highly maintainable and testable:** Because the codebases are small.
 - **Loosely coupled and independently deployable:** Managed by small, autonomous teams with their own continuous integration (CI) pipelines and source code repositories.
 - **The Scale Cube:** Microservices enable scaling along three axes.
