@@ -42,9 +42,9 @@ SOA is an architectural style based on "service orientation," where applications
 #### Coordination in SOA:
 
 - **Orchestration:** A centralized approach where a single executable business process (the orchestrator) invokes and combines services sequentially (e.g., a travel planner booking flights, then hotels, then cars).
-- **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).![](../../Pasted%20image%2020260313175617.png)
+- **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).![](Images/Pasted%20image%2020260313175617.png)
 
-### 4. Microservices Architecture**
+### 4. Microservices Architecture
 
 Microservices emerged as an evolution of SOA to solve the problem of SOA services becoming too large and monolithic. It structures applications as collections of very small, single-purpose services. **Key Features:**
 
