@@ -4,8 +4,8 @@ The primary motivation behind autonomic computing is the looming software comple
 
 - **Self-Management in Practice (Self-CHOP):**
     - **Self-configuration:** Automated configuration of components following high-level policies (e.g., seamlessly integrating new resources).
-    - **Self-healing:** Detecting, diagnosing, and repairing localized software and hardware problems. _Example: An Autonomic Manager monitoring health states and automatically spinning up new application instances when the number of healthy instances drops below a threshold__._
-    - **Self-optimization:** Continually seeking opportunities to improve performance and efficiency. _Example: Dynamically adding or removing Virtual Machines to meet Service Level Objectives (SLOs) like response time and availability while minimizing costs__._
+    - **Self-healing:** Detecting, diagnosing, and repairing localized software and hardware problems. _Example: An Autonomic Manager monitoring health states and automatically spinning up new application instances when the number of healthy instances drops below a threshold._
+    - **Self-optimization:** Continually seeking opportunities to improve performance and efficiency. _Example: Dynamically adding or removing Virtual Machines to meet Service Level Objectives (SLOs) like response time and availability while minimizing costs_
     - **Self-protection:** Automatically defending against malicious attacks and cascading failures.
 
 ### 2. Foundations and Inspirations (Chapter 3 AC)
