@@ -13,12 +13,12 @@ An architectural style serves as a blueprint or pattern for organizing a system.
 
 - **Call and Return:** Components call sub-programs or lower layers, which eventually return results (e.g., the TCP/IP stack or standard C programming libraries).
 
-- **Pipe and Filter (Data Flow):** A chain of processing stages where the output of one becomes the input of the next. A classic example is the **MapReduce** paradigm (e.g., word count applications).
+- **Pipe and Filter (Data Flow):** A chain of processing stages where the output of one becomes the input of the next. A classic example is the **MapReduce** paradigm (e.g., word count applications).![](Images/Pasted%20image%2020260313174122.png)
 
 - **Client/Server:** Features presentation, application logic, and data storage tiers.
     - _Thin-client:_ Client handles only presentation; server does logic and storage.
     - _Fat-client:_ Client handles presentation and logic; server does storage.
-    - _Multi-tiered (N-tier):_ Distributes tiers across multiple servers to isolate performance bottlenecks and allow independent scaling.
+    - _Multi-tiered (N-tier):_ Distributes tiers across multiple servers to isolate performance bottlenecks and allow independent scaling.![](Images/Pasted%20image%2020260313174247.png)
 
 - **Peer-to-Peer (P2P):** A symmetric, highly decentralized architecture where all nodes (peers) act as both clients and servers. This scales very well and is commonly used for distributed storage (e.g., Cassandra, Amazon Dynamo).
 
@@ -26,23 +26,23 @@ An architectural style serves as a blueprint or pattern for organizing a system.
 
 ### 3. Service Oriented Architecture (SOA)
 
-SOA is an architectural style based on "service orientation," where applications are built by aggregating services rather than writing monolithic functions. A service is a logical representation of a repeatable business activity (e.g., checking a credit card). **Four Characteristics of a Service:**
+SOA is an architectural style based on "service orientation," where applications are built by aggregating services rather than writing monolithic functions. A service is a logical representation of a repeatable business activity that has a specified outcome(e.g., checking a credit card). **Four Characteristics of a Service:**
 
-1. **Explicit Boundaries:** Interfaces are kept minimal to foster reuse.
+1. **Explicit Boundaries:** Interfaces are kept minimal to foster reuse and simplify interaction.
 2. **Autonomous:** Services handle failures and operate independently, acting as a "black box" to the consumer.
 3. **Shared Schema and Contracts:** They share strict contracts defining message structures.
 4. **Policy-driven:** Semantic compatibility is determined by defined policies.
 
-**SOA Roles:**
+#### SOA Roles:
 
 - **Service Provider:** Maintains and publishes the service.
 - **Service Registry:** A central directory storing service metadata, contracts, and binding information.
-- **Service Consumer:** Queries the registry to discover services and bind to the provider.
+- **Service Consumer:** Queries the registry to discover services and develop the client componente to bind and use the service.
 
-**Coordination in SOA:**
+#### Coordination in SOA:
 
 - **Orchestration:** A centralized approach where a single executable business process (the orchestrator) invokes and combines services sequentially (e.g., a travel planner booking flights, then hotels, then cars).
-- **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).
+- **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).![](../../Pasted%20image%2020260313175617.png)
 
 ### 4. Microservices Architecture**
 
