@@ -51,9 +51,9 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
 - **Highly maintainable and testable:** Because the codebases are small.
 - **Loosely coupled and independently deployable:** Managed by small, autonomous teams with their own continuous integration (CI) pipelines and source code repositories.
 - **The Scale Cube:** Microservices enable scaling along three axes.
-    - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).![](../../Pasted%20image%2020260313235658.png)
-    - _Z-axis:_ Data partitioning (sharding data based on user ID).![](../../Pasted%20image%2020260313235720.png)
-    - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).![](../../Pasted%20image%2020260313235740.png)
+    - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).![](Images/Pasted%20image%2020260313235658.png)
+    - _Z-axis:_ Data partitioning (sharding data based on user ID).![](Images/Pasted%20image%2020260313235720.png)
+    - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).![](Images/Pasted%20image%2020260313235740.png)
 #### Monolithic Architecture vs. Microservices:
 - **Monolithic Architecture:**
     - **Initial Simplicity:** They are initially simple to develop, and straightforward to test and deploy because all functionalities are bundled into a single unified codebase.
@@ -70,10 +70,13 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
 
 While both use services, their implementations differ significantly:
 
-- **Taxonomy & Middleware:** SOA relies heavily on **messaging middleware (Enterprise Service Bus)** to handle routing, transformation, and protocol conversion between layers (Business, Enterprise, Application). Microservices eliminate middleware, placing an **API layer/Gateway** in front of direct, point-to-point service calls.
+- **Taxonomy & Middleware:** SOA relies heavily on **messaging middleware (integration Bus)** to coordinate service calla, handle routing, message transformation, and protocol conversion between layers (Business, Enterprise, Application). Microservices eliminate middleware, placing an **API layer/Gateway** in front of direct, point-to-point service calls, allowing to ignore the actual location of the service endpoints and also to change the granularity level of a service withour impacting service consumer.
 - **Granularity:** SOA services can range from small to massive enterprise subsystems. Microservices are strictly single-purpose and fine-grained.
 - **Transactions:** SOA can easily guarantee ACID transactions because services often share a central data storage. Microservices struggle with distributed transactions because each service manages its own isolated database.
 - **Component Sharing:** SOA is a **"share-as-much-as-possible"** architecture to prevent duplicate code, leading to tight coupling. Microservices is a **"share-as-little-as-possible"** architecture using "bounded contexts," meaning a service and its data are completely self-contained, even if it violates the DRY (Don't Repeat Yourself) principle.
+- **Service Choreography and Orchestration**: Microservices favor choreography because architecture topology lacks a centralized middleware component, while SOA relies on both service orchestration and choreography.
 - **Team Coordination:** SOA requires high coordination across teams (business users, developers, infrastructure). Microservices require almost zero coordination because small teams own everything for their specific service.
 - **Heterogeneous Interoperability:** SOA handles high heterogeneity, easily translating different protocols and languages via its middleware. Microservices prefer standardized, simple remote-access protocols like REST and JSON.
-- **Application Scope:** SOA is best for large, complex, enterprise-wide legacy systems. Microservices are ideal for well-partitioned, highly scalable web-based systems.
+- **Application Scope:** SOA is best for large, complex, enterprise-wide legacy systems that require integration with many heterogeneous applications and services. Microservices are ideal for well-partitioned, highly scalable web-based systems.
+
+![](Images/Pasted%20image%2020260314003155.png)
