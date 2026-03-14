@@ -1,5 +1,6 @@
-*March 10 2026*
-### 1. Distributed Systems vs. Distributed Computing
+# Enabling Technologies for Cloud Computing
+
+## 1. Distributed Systems vs. Distributed Computing
 
 - **Distributed System:** A collection of independent, networked computers that communicate and coordinate via message passing, but appear to the end-user as a single, coherent system. It focuses on the physical components and hiding the underlying network complexity.
 
@@ -7,7 +8,7 @@
 
 - **Cloud Computing as a Distributed System:** Cloud computing is a specialized form of distributed computing designed to provision scalable and measured resources. The layers of a traditional distributed system map directly to cloud models: the physical hardware and OS form the Cloud Infrastructure, the Distributed Computing Middleware maps to Platform as a Service (PaaS), and the Distributed Applications map to Software as a Service (SaaS).![](Images/Pasted%20image%2020260313173544.png)![532](Images/Pasted%20image%2020260313173602.png)
 
-### 2. Architectural Styles
+## 2. Architectural Styles
 
 An architectural style serves as a blueprint or pattern for organizing a system. It defines the vocabulary of the components, their roles, how they are distributed across machines, the communication mechanisms (connectors) they use, and constraints on how they can be combined. Key styles include:
 
@@ -24,37 +25,37 @@ An architectural style serves as a blueprint or pattern for organizing a system.
 
 - **Independent Components:** Components have independent lifecycles and interact either through **communicating processes** (using RPC, REST, Web Services) or **event-based systems** (publish/subscribe via a message broker).
 
-### 3. Service Oriented Architecture (SOA)
+## 3. Service Oriented Architecture (SOA)
 
 SOA is an architectural style based on "service orientation," where applications are built by aggregating services rather than writing monolithic functions. A service is a logical representation of a repeatable business activity that has a specified outcome(e.g., checking a credit card). 
 
-#### Four Characteristics of a Service:
+### Four Characteristics of a Service:
 1. **Explicit Boundaries:** Interfaces are kept minimal to foster reuse and simplify interaction.
 2. **Autonomous:** Services handle failures and operate independently, acting as a "black box" to the consumer.
 3. **Shared Schema and Contracts:** They share strict contracts defining message structures.
 4. **Policy-driven:** Semantic compatibility is determined by defined policies.
 
-#### SOA Roles:
+### SOA Roles:
 - **Service Provider:** Maintains and publishes the service.
 - **Service Registry:** A central directory storing service metadata, contracts, and binding information.
 - **Service Consumer:** Queries the registry to discover services and develop the client componente to bind and use the service.
 
-#### Coordination in SOA:
+### Coordination in SOA:
 - **Orchestration:** A centralized approach where a single executable business process (the orchestrator) invokes and combines services sequentially (e.g., a travel planner booking flights, then hotels, then cars).
 - **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).![](Images/Pasted%20image%2020260313175617.png)
 
-### 4. Microservices Architecture
+## 4. Microservices Architecture
 
 Microservices emerged as an evolution of SOA to solve the problem of SOA services becoming too large and monolithic. It is an architectural style that structures applications as collections of very small, single-purpose services. 
 
-#### Key Features:
+### Key Features:
 - **Highly maintainable and testable:** Because the codebases are small.
 - **Loosely coupled and independently deployable:** Managed by small, autonomous teams with their own continuous integration (CI) pipelines and source code repositories.
 - **The Scale Cube:** Microservices enable scaling along three axes.
     - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).![](Images/Pasted%20image%2020260313235658.png)
     - _Z-axis:_ Data partitioning (sharding data based on user ID).![](Images/Pasted%20image%2020260313235720.png)
     - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).![](Images/Pasted%20image%2020260313235740.png)
-#### Monolithic Architecture vs. Microservices:
+### Monolithic Architecture vs. Microservices:
 - **Monolithic Architecture:**
     - **Initial Simplicity:** They are initially simple to develop, and straightforward to test and deploy because all functionalities are bundled into a single unified codebase.
     - **Shared Data:** The entire application typically interacts with a single shared database.
@@ -66,7 +67,7 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
     - **Functional Scaling:** Organizations can utilize Y-axis scaling (functional decomposition) to replicate and scale only the specific services experiencing high load, rather than duplicating the entire application.
     - **Production:** Small, autonomous teams manage their own services using independent source code repositories and continuous integration (CI) deployment pipelines, removing the massive coordination overhead required by monolithic systems.
 
-### 5. SOA vs. Microservices: Key Differences
+## 5. SOA vs. Microservices: Key Differences
 
 While both use services, their implementations differ significantly:
 

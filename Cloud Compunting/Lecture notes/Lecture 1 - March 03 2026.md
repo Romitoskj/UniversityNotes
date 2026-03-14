@@ -1,12 +1,12 @@
-*March 03 2026*
+# Introduction to Cloud Computing
 
-### 1. History & The Utility Computing Model
+## 1. History & The Utility Computing Model
 
 - **Early Visions:** The concept of cloud computing dates back to 1961 when John McCarthy suggested that computing might someday be organized as a "public utility". In 1969, ARPANET pioneer Leonard Kleinrock echoed this, predicting the spread of "computer utilities" functioning similarly to electric or telephone utilities.
 - **Utility Computing:** This model means consumers pay only when they access computing services, require no upfront infrastructure investments, and can access services regardless of where they are hosted.
 - **Modern Era:** This evolution from mainframes and grid computing culminated in 2005/2006 when Amazon (AWS) launched Elastic Compute Cloud (EC2) and Simple Storage Service (S3), treating server time and storage as a utility.
 
-### 2. NIST SP 800-145: Definition of Cloud Computing
+## 2. NIST SP 800-145: Definition of Cloud Computing
 
 > [!important] Cloud Computing definition
 > A model enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources that can be rapidly provisioned with minimal management effort or service provider interaction.
@@ -15,7 +15,7 @@
 
 The NIST definition is structured around **three main components**:
 
-#### A. Five Essential Characteristics
+### A. Five Essential Characteristics
 
 To be considered a true cloud service, all five of these must be present:
 
@@ -27,12 +27,12 @@ To be considered a true cloud service, all five of these must be present:
     - _Multi-tenancy properties_ ensure that while users share application logic or hardware, they experience complete usage isolation, data security, transparent application upgrades, and independent recovery from failures.
     - Each tenant has its own view of the application as a dedicated instance and is unaware of others ![638](Images/Pasted%20image%2020260306155538.png )
 
-4. **Rapid [Elasticity](FC1%20-%20Elasticity%20in%20Cloud%20Computing%20-%20What%20It%20Is,%20and%20What%20It%20Is%20Not.md):** The system can automatically scale resources up and down to match workload demands at any given time (e.g., an e-commerce site handling a Black Friday spike without crashing).
+4. **Rapid [Elasticity](Flipped%20Classroom%201%20-%20March%205%202026.md):** The system can automatically scale resources up and down to match workload demands at any given time (e.g., an e-commerce site handling a Black Friday spike without crashing).
     - _Elasticity vs. Scalability:_ Scalability is the ability to add resources (horizontally via new VMs, or vertically via more CPUs), but elasticity requires the system to do this automatically and rapidly based on monitoring rules (e.g., autoscaling if CPU > 70%).
 
 5. **Measured Service:** Cloud systems automatically control and optimize resource use through metering capabilities. This is essential for billing (pay-per-use), SLA (Service Level Agreement) management, cost control, and improving system resiliency (the ability to provide and maintain an acceptable level of service in the face of faults and challenges to normal operation, e.g., automatically replacing a failed container or VM).
 
-#### B. Three Service Models
+### B. Three Service Models
 
 These models dictate the level of consumer control and the separation of security responsibilities:
 
@@ -51,7 +51,7 @@ _Moving from IaaS to SaaS:_
 
 _Security Takeaway:_ Security is a shared responsibility. The cloud provider secures the infrastructure ("security _of_ the cloud"), while the customer secures their OS, apps, and data ("security _in_ the cloud").
 
-#### C. Four Deployment Models
+### C. Four Deployment Models
 
 - **Public Cloud:** Open to general public use (e.g., anyone can enter a credit card and use it).
 
@@ -61,7 +61,7 @@ _Security Takeaway:_ Security is a shared responsibility. The cloud provider sec
 
 - **Community Cloud:** (Briefly mentioned as the fourth model in the NIST definition).
 
-### 3. NIST SP 500-292: Cloud Computing Reference Architecture
+## 3. NIST SP 500-292: Cloud Computing Reference Architecture
 
 This architecture defines the interactions between the five major actors in cloud computing:
 
