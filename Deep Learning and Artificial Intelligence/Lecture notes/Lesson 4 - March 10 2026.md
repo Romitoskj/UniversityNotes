@@ -65,14 +65,15 @@ Finding the right model complexity (e.g., the degree of a polynomial regression)
 
 Standard polynomial or linear regression fails for classification tasks (e.g., identifying a tumor as malignant or benign ). Regression models output continuous numbers, whereas classification requires discrete categorical outputs or bounded probabilities.
 
-- **The Logistic Sigmoid ($\sigma$):** To constrain predictions, we apply a non-linear activation function called the logistic sigmoid: $$\sigma(x)=\frac{1}{1+e^{-x}}$$This "squashes" any real-numbered output of the linear model ($ax+b$) into a range between $0$ and $1$, making it interpretable as a probability.![](../../Pasted%20image%2020260314235926.png)
+- **The Logistic Sigmoid ($\sigma$):** To constrain predictions, we apply a non-linear activation function called the logistic sigmoid: $$\sigma(x)=\frac{1}{1+e^{-x}}$$This "squashes" any real-numbered output of the linear model ($ax+b$) into a range between $0$ and $1$, making it interpretable as a probability.
 
-- **The Classification Model and Prediction Formula:** For a binary classification task where the true labels yi​∈{0,1}, the base linear model is defined as f^​(xi​)=axi​+b. To actually make a categorical prediction y^​i​, the model applies a threshold to the sigmoid output:
-    - It predicts 1 **(Positive class) if** σ(axi​+b)>0.5.
-    - It predicts 0 **(Negative class) if** σ(axi​+b)≤0.5.
+  ![](../../Pasted%20image%2020260314235926.png)
 
-- **The New MSE with Sigmoid:** To train this classification model, we initially attempt to adapt the standard Mean Squared Error (MSE) loss function by placing the sigmoid transformation directly inside it. This yields the new loss formula: ℓΘ​({xi​,yi​})=∑i=1n​(yi​−σ(axi​+b))2.
+- **The Classification Model and Prediction Formula:** For a binary classification task where the true labels $y_i\in\{0,1\}$, the base linear model is defined as $\hat{f}​(x_i​)=ax_i​+b$. To actually make a categorical prediction $\hat{y_i}$​, the model applies a threshold to the sigmoid output:
+    - It predicts $1$ **(Positive class) if** $\sigma(ax_i​+b)>0.5$.
+    - It predicts $0$ **(Negative class) if** $\sigma(ax_i​+b)≤0.5$.
 
+- **The New MSE with Sigmoid:** To train this classification model, we initially attempt to adapt the standard Mean Squared Error (MSE) loss function by placing the sigmoid transformation directly inside it. This yields the new loss formula: $$\ell_\Theta(\{x_i,y_i\})=\sum_{i=1}^n(y_i-\sigma(ax_i+b))^2$$
 - **The Problem with MSE:** If we use the Mean Squared Error loss with the non-linear sigmoid function, the resulting loss landscape becomes **non-convex**. This destroys our ability to easily find a global minimum.
 
 ## 4. Cross-Entropy Loss (Log-Loss)
