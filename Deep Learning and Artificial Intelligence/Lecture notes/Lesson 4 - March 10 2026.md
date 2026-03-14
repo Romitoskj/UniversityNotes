@@ -76,14 +76,21 @@ Standard polynomial or linear regression fails for classification tasks (e.g., i
 - **The New MSE with Sigmoid:** To train this classification model, we initially attempt to adapt the standard Mean Squared Error (MSE) loss function by placing the sigmoid transformation directly inside it. This yields the new loss formula: $$\ell_\Theta(\{x_i,y_i\})=\sum_{i=1}^n(y_i-\sigma(ax_i+b))^2$$
 - **The Problem with MSE:** If we use the Mean Squared Error loss with the non-linear sigmoid function, the resulting loss landscape becomes **non-convex**. This destroys our ability to easily find a global minimum.
 
-## 4. Cross-Entropy Loss (Log-Loss)
+## 4. Cross-Entropy Loss (Negative Log Likelihood)
 
 To restore convexity and heavily penalize wrong, confident predictions, we replace MSE with the Binary Cross-Entropy loss.
 
-- **Piecewise Definition:** For a single data point, the loss is defined as −ln(σ(axi​+b)) if the true label is 1, and −ln(1−σ(axi​+b)) if the true label is 0.
-    - If the true class is 1 and the model predicts 1, −log(1)=0 (no penalty).
-    - If the true class is 1 but the model predicts 0, −log(0)→∞ (massive penalty).
+- **Piecewise Definition:** For a single data point, the loss is defined as$$c(x_i, y_i) = 
+\begin{cases} 
+-\ln(\sigma(ax_i + b)), & y_i = 1 \\ 
+-\ln(1 - \sigma(ax_i + b)), & y_i = 0 
+\end{cases}$$
+    - If the true class is $1$ and the model predicts $1$, $−\ln(1)=0$ (no penalty).
+    - If the true class is $1$ but the model predicts $0$, $−\ln(0)\rightarrow\infty$ (massive penalty).
+    - This remains the same for true class equal to $0$
+
 - **Unified Expression:** Since the ground truth y is strictly 0 or 1, we can combine the pieces mathematically using a convex combination: −yln(p)−(1−y)ln(1−p), where p is the model's predicted probability.
+
 - **Multi-Class Generalization (Log-Probabilities):** The loss can be interpreted as the inner product between the ground truth distribution (a "one-hot" vector where the correct class is 1 and all others are 0) and the predicted log-probabilities of the model. Because the one-hot vector zeros out everything except the correct class, the model only minimizes the loss for the correct answer, largely ignoring the distribution of uncertainty among the incorrect classes.
 
 ## 5. Optimization Challenges
