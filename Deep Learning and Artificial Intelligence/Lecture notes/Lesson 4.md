@@ -1,3 +1,4 @@
+# Overfitting and going nonlinear
 *March 10 2026*
 
 ### 1. Moving to Nonlinear Models: Polynomial Regression

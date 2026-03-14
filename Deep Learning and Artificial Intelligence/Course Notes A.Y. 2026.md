@@ -10,7 +10,7 @@
 
 ---
 
-![Lesson 4 - Overfitting and going nonlinear](Lecture%20notes/Lesson%204%20-%20Overfitting%20and%20going%20nonlinear.md)
+![Lesson 4](Lecture%20notes/Lesson%204.md)
 
 ---
 
