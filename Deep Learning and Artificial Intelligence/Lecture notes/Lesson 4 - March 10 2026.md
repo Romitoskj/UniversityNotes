@@ -43,7 +43,7 @@ This theorem states that any continuous function on a compact (closed) interval 
 Finding the right model complexity (e.g., the degree of a polynomial regression) is an ongoing challenge in deep learning, as models must generalize to unseen data rather than just memorizing the training set.
 
 >[!example] Fit data with different polynomial degrees
->![|650](../../Pasted%20image%2020260314140250.png)
+>![|650](Images/Pasted%20image%2020260314140250.png)
 
 - **Underfitting:** Occurs when a model is too simple (e.g., fitting a line to a curved distribution). It results in a large Mean Squared Error (MSE), which represents the vertical distance from the data points to the prediction. Underfitting yields high errors on both training and validation sets.
 
@@ -57,28 +57,25 @@ Finding the right model complexity (e.g., the degree of a polynomial regression)
 >[!Important] **K-Fold Cross-Validation:**
 >A practical defense against overfitting the validation set itself. The training data is split into k subsets; the model is trained on k−1 subsets and validated on the remaining one, rotating through all combinations and averaging the errors.
 >
->![|650](../../Pasted%20image%2020260314143339.png)
+>![|650](Images/Pasted%20image%2020260314143339.png)
 >
 >It can be used to tune *hyperparameters*, e.g., k-fold cross-validation in polynomial regression with different degree and choose the run with the smallest MSE.
 
+## 3. Classification and Logistic Regression
 
-## 3. Regularization (Preview)
+Standard polynomial or linear regression fails for classification tasks (e.g., identifying a tumor as malignant or benign ). Regression models output continuous numbers, whereas classification requires discrete categorical outputs or bounded probabilities.
 
-Regularization encompasses techniques intended to reduce the generalization error without explicitly reducing the training error, often by controlling model complexity.
+- **The Logistic Sigmoid ($\sigma$):** To constrain predictions, we apply a non-linear activation function called the logistic sigmoid: $$\sigma(x)=\frac{1}{1+e^{-x}}$$This "squashes" any real-numbered output of the linear model ($ax+b$) into a range between $0$ and $1$, making it interpretable as a probability.![](../../Pasted%20image%2020260314235926.png)
 
-- Instead of manually lowering a polynomial's degree, we can add a penalty to the loss function to constrain the parameters' growth.
-- **L2 Regularization (Weight Decay/Ridge):** Adds the squared Frobenius norm of the parameters (λ∣∣Θ∣∣F2​) to the loss. It shrinks large weights proportionally, distributing the penalty smoothly.
-- **L1 Regularization (Lasso):** Adds an absolute value penalty (λ∣Θ∣1​). This applies a constant push toward zero, forcing many parameters exactly to zero, which induces **sparsity** (effectively selecting only the most important features).
-- Both L1​ and L2​ norms are convex, meaning adding them to a convex loss like MSE preserves the mathematical guarantees of finding a global optimum.
+- **The Classification Model and Prediction Formula:** For a binary classification task where the true labels yi​∈{0,1}, the base linear model is defined as f^​(xi​)=axi​+b. To actually make a categorical prediction y^​i​, the model applies a threshold to the sigmoid output:
+    - It predicts 1 **(Positive class) if** σ(axi​+b)>0.5.
+    - It predicts 0 **(Negative class) if** σ(axi​+b)≤0.5.
 
-## 4. Classification and Logistic Regression
+- **The New MSE with Sigmoid:** To train this classification model, we initially attempt to adapt the standard Mean Squared Error (MSE) loss function by placing the sigmoid transformation directly inside it. This yields the new loss formula: ℓΘ​({xi​,yi​})=∑i=1n​(yi​−σ(axi​+b))2.
 
-Standard polynomial or linear regression fails for classification tasks (e.g., identifying a tumor as malignant or benign ). Regression models output continuous numbers (like 42.5), whereas classification requires discrete categorical outputs or bounded probabilities.
-
-- **The Logistic Sigmoid (**σ**):** To constrain predictions, we apply a non-linear activation function called the logistic sigmoid: σ(x)=1+e−x1​. This "squashes" any real-numbered output of the linear model (ax+b) into a range between 0 and 1, making it interpretable as a probability.
 - **The Problem with MSE:** If we use the Mean Squared Error loss with the non-linear sigmoid function, the resulting loss landscape becomes **non-convex**. This destroys our ability to easily find a global minimum.
 
-## 5. Cross-Entropy Loss (Log-Loss)
+## 4. Cross-Entropy Loss (Log-Loss)
 
 To restore convexity and heavily penalize wrong, confident predictions, we replace MSE with the Binary Cross-Entropy loss.
 
@@ -88,7 +85,7 @@ To restore convexity and heavily penalize wrong, confident predictions, we repla
 - **Unified Expression:** Since the ground truth y is strictly 0 or 1, we can combine the pieces mathematically using a convex combination: −yln(p)−(1−y)ln(1−p), where p is the model's predicted probability.
 - **Multi-Class Generalization (Log-Probabilities):** The loss can be interpreted as the inner product between the ground truth distribution (a "one-hot" vector where the correct class is 1 and all others are 0) and the predicted log-probabilities of the model. Because the one-hot vector zeros out everything except the correct class, the model only minimizes the loss for the correct answer, largely ignoring the distribution of uncertainty among the incorrect classes.
 
-## 6. Optimization Challenges
+## 5. Optimization Challenges
 
 Because logistic regression utilizes the sigmoid and logarithmic functions, the model parameters enter the gradient equations in a highly nonlinear way.
 
