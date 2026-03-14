@@ -1,13 +1,12 @@
 # Overfitting and going nonlinear
-*March 10 2026*
 
-### 1. Moving to Nonlinear Models: Polynomial Regression
+## 1. Moving to Nonlinear Models: Polynomial Regression
 
-- **Linearity in Parameters vs. Data:** While simple linear regression fits a straight line, we often encounter data that requires a non-linear hypothesis. Polynomial regression introduces non-linearity by using polynomial features of the data (e.g., x2,x3). However, it is crucial to understand that this model is still **linear in its parameters** (the weights are just multiplied by these new features).
+- **Linearity in Parameters vs. Data:** While simple linear regression fits a straight line, we often encounter data that requires a non-linear hypothesis. Polynomial regression introduces non-linearity by using polynomial features of the data (e.g., $x^2$,$x^3$ ). However, it is crucial to understand that this model is still **linear in its parameters** (the weights are just multiplied by these new features).
 - **Features:** The concept of evaluating data through mathematical transformations before applying weights introduces the term **"features"**—a foundational concept in deep learning where data points are stacked into a matrix of transformed coordinates.
 - **The Stone-Weierstrass Theorem:** This theorem states that any continuous function on a compact (closed) interval can be approximated arbitrarily well by a polynomial of some order. This might suggest polynomial regression is all we ever need, but in practice, it suffers from severe limitations regarding generalization, regularization, and categorical predictions.
 
-### 2. Underfitting, Overfitting, and Generalization
+## 2. Underfitting, Overfitting, and Generalization
 
 Finding the right model complexity is an ongoing challenge in deep learning, as models must generalize to unseen data rather than just memorizing the training set.
 
@@ -19,7 +18,7 @@ Finding the right model complexity is an ongoing challenge in deep learning, as 
     3. **Test set:** Unseen data used only at the very end to evaluate true generalization. You must assume you have no access to it during training.
 - **k-Fold Cross-Validation:** A practical defense against overfitting the validation set itself. The training data is split into k subsets; the model is trained on k−1 subsets and validated on the remaining one, rotating through all combinations and averaging the errors.
 
-### 3. Regularization (Preview)
+## 3. Regularization (Preview)
 
 Regularization encompasses techniques intended to reduce the generalization error without explicitly reducing the training error, often by controlling model complexity.
 
@@ -28,14 +27,14 @@ Regularization encompasses techniques intended to reduce the generalization erro
 - **L1 Regularization (Lasso):** Adds an absolute value penalty (λ∣Θ∣1​). This applies a constant push toward zero, forcing many parameters exactly to zero, which induces **sparsity** (effectively selecting only the most important features).
 - Both L1​ and L2​ norms are convex, meaning adding them to a convex loss like MSE preserves the mathematical guarantees of finding a global optimum.
 
-### 4. Classification and Logistic Regression
+## 4. Classification and Logistic Regression
 
 Standard polynomial or linear regression fails for classification tasks (e.g., identifying a tumor as malignant or benign ). Regression models output continuous numbers (like 42.5), whereas classification requires discrete categorical outputs or bounded probabilities.
 
 - **The Logistic Sigmoid (**σ**):** To constrain predictions, we apply a non-linear activation function called the logistic sigmoid: σ(x)=1+e−x1​. This "squashes" any real-numbered output of the linear model (ax+b) into a range between 0 and 1, making it interpretable as a probability.
 - **The Problem with MSE:** If we use the Mean Squared Error loss with the non-linear sigmoid function, the resulting loss landscape becomes **non-convex**. This destroys our ability to easily find a global minimum.
 
-### 5. Cross-Entropy Loss (Log-Loss)
+## 5. Cross-Entropy Loss (Log-Loss)
 
 To restore convexity and heavily penalize wrong, confident predictions, we replace MSE with the Binary Cross-Entropy loss.
 
@@ -45,7 +44,7 @@ To restore convexity and heavily penalize wrong, confident predictions, we repla
 - **Unified Expression:** Since the ground truth y is strictly 0 or 1, we can combine the pieces mathematically using a convex combination: −yln(p)−(1−y)ln(1−p), where p is the model's predicted probability.
 - **Multi-Class Generalization (Log-Probabilities):** The loss can be interpreted as the inner product between the ground truth distribution (a "one-hot" vector where the correct class is 1 and all others are 0) and the predicted log-probabilities of the model. Because the one-hot vector zeros out everything except the correct class, the model only minimizes the loss for the correct answer, largely ignoring the distribution of uncertainty among the incorrect classes.
 
-### 6. Optimization Challenges
+## 6. Optimization Challenges
 
 Because logistic regression utilizes the sigmoid and logarithmic functions, the model parameters enter the gradient equations in a highly nonlinear way.
 

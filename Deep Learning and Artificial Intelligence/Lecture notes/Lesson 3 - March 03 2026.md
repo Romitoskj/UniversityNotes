@@ -1,5 +1,4 @@
 # Linear regression, convexity, and gradients
-*March 03 2026*
 
 ## 1. Parametric Models & Deep Learning
 
