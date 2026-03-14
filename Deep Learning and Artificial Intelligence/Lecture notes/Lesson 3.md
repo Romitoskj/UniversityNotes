@@ -1,6 +1,7 @@
+# Linear regression, convexity, and gradients
 *March 03 2026*
 
-### 1. Parametric Models & Deep Learning
+## 1. Parametric Models & Deep Learning
 
 - **Definition:** Neural networks are essentially highly parameterized models, denoted as $$f_\Theta(x)=y$$where $\Theta$ represents a massive set of parameters (weights and biases).
 - **Input/Output Spaces:** The domain and codomain of the network function f depend entirely on the task. The input $x$ and output $y$ can be high-dimensional vectors (e.g., an image x mapping to a probability distribution y).
@@ -8,7 +9,7 @@
     - **Training Time:** The data points $X$ and $Y$ are given and fixed. The goal is to solve for the unknown parameters $\Theta$ that best map $X$ to $Y$.
     - **Testing Time:** The parameters $\Theta$ are fixed, and the model is used to predict a new output $y$ from a new, unseen input $x$.
 
-### 2. Linear Regression & The Loss Function
+## 2. Linear Regression & The Loss Function
 
 Linear regression is the simplest non-trivial learning model, where the function $f$ is assumed to be linear in its parameters ($f=ax+b$). So we can write the model as:$$f_\Theta(x_i)=y_i$$
 Having $a$ and $b$ makes possible to construct a mapping such that given some new input we can apply the function learned and get some new output. ![697](Images/Pasted%20image%2020260308224432.png)
@@ -20,7 +21,7 @@ Having $a$ and $b$ makes possible to construct a mapping such that given some ne
 - **Domain and Codomain of the Loss:** It is crucial to distinguish the loss function from the network function. The loss function $\ell:\mathbb{R}^n\rightarrow\mathbb{R}$ always takes the parameters as input (Domain: $\mathbb{R}^n$, where $n$ is the number of parameters) and outputs a single scalar score (Codomain: $\mathbb{R}$).
 - **Least-square approximation:** To find the model we need to minimize the loss function: $$\epsilon=\min_\Theta\ell_\Theta(\{x_i,y_i\})$$In particular we are interested in finding the parameters $\Theta$ (minimizers) that makes the error reach the minimum value:$$\Theta^*=\arg\min_{\Theta \in \mathbb{R}}\ell(\Theta)$$When $f$ is linear the problem of choosing the parameters $\Theta$ that minimize the MSE is called *least-squares approximation* problem.
 
-### 3. Convexity
+## 3. Convexity
 
 To find the parameters that minimize the loss, we rely on optimization. The easiest functions to minimize are convex functions, because there always exists a unique minimum in them.
 
@@ -28,7 +29,7 @@ To find the parameters that minimize the loss, we rely on optimization. The easi
 - **Visual Intuition:** By using a parameter α between 0 and 1, we trace a straight line (a convex combination) between two points on the function. If the function is convex, this straight line will always lie strictly above the curve of the function.![674](Images/Pasted%20image%2020260308224154.png)
 - **Global Minimum:** For a differentiable convex function, finding the minimum is straightforward: *compute the derivative, set it to zero, and solve for the parameters* (the global minimizer $x$ is where $\frac{df(x)}{dx}=0$).
 
-### 4. Gradients and Steepest Ascent
+## 4. Gradients and Steepest Ascent
 
 Because the loss function has a high-dimensional domain (millions of parameters), we replace the standard 1D derivative with the **gradient**, denoted as $\nabla f$.
 
@@ -43,7 +44,7 @@ $$
 - **Geometric Intuition:** While a 1D derivative tells you whether to move left or right on the x-axis, the gradient operates in a multi-dimensional domain. It acts as an arrow pointing in the **direction of the steepest ascent** (where the function increases the most). The length (norm) of the gradient vector indicates how steep that increase is.![674](Images/Pasted%20image%2020260308231712.png)
 - **Stationary Points:** If the gradient is a vector of zeros, the function is not growing in any direction. For convex functions like the MSE, a zero-gradient guarantees that we have found the global minimum: $\nabla_X f(X)=0$.
 
-### 5. Distances and $L_p$​ Norms
+## 5. Distances and $L_p$​ Norms
 
 To measure the magnitude of errors or parameters, we use distance metrics. The standard Euclidean distance is generalized as the $L_p$​ distance.
 
@@ -56,7 +57,7 @@ To measure the magnitude of errors or parameters, we use distance metrics. The s
 
 ![697](Images/Pasted%20image%2020260309120748.png)
 
-### 6. Matrix Notation & The Closed-Form Solution
+## 6. Matrix Notation & The Closed-Form Solution
 
 In Deep Learning, tracking individual equations is inefficient. We can compactly represent all the equation ($y_i=ax_i+b$) at once using matrix notation: $\mathbf{y}=\mathbf{X}\Theta$.
 $$\underbrace{

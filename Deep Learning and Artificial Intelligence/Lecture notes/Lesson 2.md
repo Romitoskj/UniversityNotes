@@ -1,12 +1,13 @@
+# Linear Algebra
 *February 25 2026*
 
-### 1. Philosophy of Linear Algebra
+## 1. Philosophy of Linear Algebra
 
 - **Reframing the Subject:** Linear algebra is not merely the study of matrices and lists of numbers. It is formally the **study of linear maps on finite-dimensional vector spaces**.
 - **The Role of Matrices:** Matrices are tools used to *represent* linear maps. As the lecturer notes, "Linear algebra is about matrices as much as astronomy is about telescopes".
 - **Mental Shift:** Think in terms of maps and spaces first, and grids of numbers (matrices) second.
 
-### 2. Vector Spaces
+## 2. Vector Spaces
 
 A vector space $V$ is a set of objects (vectors) equipped with two operations: **addition** and **scalar multiplication**, satisfying specific axioms.
 
@@ -25,7 +26,7 @@ A vector space $V$ is a set of objects (vectors) equipped with two operations: *
         - The set of points making up a 3D surface (like a rabbit mesh) is **not** a vector space. Summing two points on the surface might result in a point inside or outside the rabbit (closure is violated).
         - However, the set of **functions defined on the rabbit** (e.g., a heatmap or texture coloring) **is** a vector space.
 
-### 3. Basis and Dimension
+## 3. Basis and Dimension
 
 A **basis** is a collection of vectors that are linearly independent and span the vector space.
 
@@ -38,7 +39,7 @@ A **basis** is a collection of vectors that are linearly independent and span th
     - **Finite Dimensional:** Digital images (discrete pixels), polynomials of degree n.
     - **Infinite Dimensional:** Continuous functions on a continuous domain (e.g., functions on a real line interval). This moves from Linear Algebra into **Functional Analysis**.
 
-### 4. Linear Maps
+## 4. Linear Maps
 
 A linear map T is a function between two vector spaces ($T:V→W$) that preserves the vector space structure.
 
@@ -56,7 +57,7 @@ A linear map T is a function between two vector spaces ($T:V→W$) that preserve
     - **Confusion Warning:** A map can be linear with respect to one variable but not another. For example, $y=x^2f(x)$ is linear _with respect to the function_ f (rescaling), even though it involves an $xˆ2$ term.
 - **Vector Space of Maps:** The set of all linear maps between two vector spaces is, itself, a vector space (you can sum maps $S+T$ and scale them).
 
-### 5. Matrices
+## 5. Matrices
 
 A matrix is a **representation** of a linear map relative to specific bases.
 
@@ -71,7 +72,7 @@ A matrix is a **representation** of a linear map relative to specific bases.
     - **Matrix-Matrix Product ($AB$):** Represents the **composition of functions** ($S∘T$).
     - **Non-Commutativity:** Matrix multiplication is generally not commutative ($AB\neq BA$) because function composition is generally not commutative.
 
-**6. Matrix Meta-Mechanics (Advanced Properties)**
+### Matrix Meta-Mechanics (Advanced Properties)
 
 - **Symmetry:** A matrix is symmetric if $A=A^T$.
 - **Orthogonal Matrix:** A matrix is orthogonal if $A^TA=I$ (or $A^{−1}=AT$). Its columns are orthonormal vectors.

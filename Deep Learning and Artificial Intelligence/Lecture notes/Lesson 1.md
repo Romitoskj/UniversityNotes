@@ -2,7 +2,7 @@
 # Introduction
 *February 24 2026*
 
-### The Importance of Data Analysis
+## The Importance of Data Analysis
 
 - **"Look at the Data":** The first step in any project is to visualize and inspect the data, rather than blindly trusting cleaning algorithms or summary statistics.
 
@@ -16,7 +16,7 @@
 
 -  **Conclusion:** You cannot trust summary statistics alone; visualization is required. If data is too high-dimensional to visualize directly (e.g., earthquake signals), one must use dimensionality reduction techniques or consult domain experts.
 
-### Defining Machine Learning & Deep Learning
+## Defining Machine Learning & Deep Learning
 
 -  **The Inverse Problem:**
 
@@ -30,7 +30,7 @@
 	- **Example:** If modeling a bicycle wheel, one could force the model to use a sine wave (periodic prior). This constrains the solution space but might prevent the model from learning unexpected phenomena (e.g., measurement errors).
 	- **Warning:** Imposing a view on the model can prevent breakthroughs; the model should ideally learn the structure itself.
 
-### Data Representation
+## Data Representation
 
 - **Key assumption:** Data as an underlying structure (not always true)
 - **Representation Matters:** The choice of how to represent data fundamentally changes the difficulty of the problem.
@@ -39,7 +39,7 @@
 	- **Polar Coordinates:** Expressing the radius as a function of the angle makes the spiral a linear problem.
 - **Takeaway:** Deep learning involves finding learned representations (embeddings) where complex data becomes easier to manipulate.
 
-### The Curse of Dimensionality
+## The Curse of Dimensionality
 
 - Happens when *features >> observations*
 - **Concept:** Increasing the resolution (dimension) of data requires an exponential increase in the amount of data to maintain the same density.
@@ -48,7 +48,7 @@
 	- **1 Megapixel:** The data points are effectively isolated in a million-dimensional space.
 - **Implication:** Better quality data "curses" us by requiring exponentially more samples to extract meaningful structure.
 
-### The Manifold Hypothesis
+## The Manifold Hypothesis
 
 - **Definition:** While high-dimensional data (like photos) technically lives in a massive space (e.g., $\mathbb{R} ^{1,000,000}$), the "meaningful" data (e.g., realistic photos of volcanoes) lies on a lower-dimensional surface, or **manifold**, embedded within that space.
 - **Structure:** This hypothesis implies that despite the curse of dimensionality, there is a structured subspace where data is dense and meaningful. Random noise fills the ambient space, but valid data adheres to the manifold.
