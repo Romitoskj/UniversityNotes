@@ -42,12 +42,12 @@ This theorem states that any continuous function on a compact (closed) interval 
 
 Finding the right model complexity (e.g., the degree of a polynomial regression) is an ongoing challenge in deep learning, as models must generalize to unseen data rather than just memorizing the training set.
 
->[!info] Fit data with different polynomial degrees
->![](../../Pasted%20image%2020260314140250.png)
+>[!example] Fit data with different polynomial degrees
+>![|650](../../Pasted%20image%2020260314140250.png)
 
 - **Underfitting:** Occurs when a model is too simple (e.g., fitting a line to a curved distribution). It results in a large Mean Squared Error (MSE), which represents the vertical distance from the data points to the prediction. Underfitting yields high errors on both training and validation sets.
 
-- **Overfitting:** Occurs when a model is too complex (e.g., a degree-15 polynomial for simple data). The model perfectly memorizes the training data—including the observation noise—driving the training error to near zero, but fails completely on new data.
+- **Overfitting:** Occurs when a model is too complex (e.g., a degree-15 polynomial for simple data). The model perfectly memorizes the training data—including the observation noise—driving the training error to near zero, but fails completely on new data. Adding complexity to a model is not necessarily a good thing.
 
 - **Data Splits:** To detect these phenomena, data is strictly divided into three sets:
     1. **Training set:** Used to fit the model parameters.
