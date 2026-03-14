@@ -91,7 +91,7 @@ To restore convexity and heavily penalize wrong, confident predictions, we repla
 
 - **Unified Expression:** Since the ground truth y is strictly $0$ or $1$, we can combine the pieces mathematically using a convex combination: $$c(x_i,y_i)=-y_i\ln(\sigma(ax_i+b))-(1-y_i)\ln(1-\sigma(ax_i+b))$$
 - **Binary Cross-Entropy Loss:** So we obtain the final loss summing each point loss value $$\ell_\Theta(\{x_i,y_i\})=\sum_{i=1}^n(-y_i\ln(\sigma(ax_i+b))-(1-y_i)\ln(1-\sigma(ax_i+b)))$$
-- **Multi-Class Generalization (Log-Probabilities):** The loss can be interpreted as the inner product between the ground truth distribution $y$ vector (a "one-hot" vector where the correct class is 1 and all others are 0) and the predicted log-probabilities of the model. Because the one-hot vector zeros out everything except the correct class, the model only minimizes the loss for the correct answer, largely ignoring the distribution of uncertainty among the incorrect classes.
+- **Multi-Class Generalization (Log-Probabilities):** The loss can be interpreted as the inner product between the ground truth distribution $\mathbf{Y}$ vector (a "one-hot" vector where the correct class is 1 and all others are 0) and the predicted log-probabilities of the model:$$\ell_\Theta(\{x_i,\mathbf{Y}_i\})=\sum_{i=1}^n(-\mathbf{Y}_i\ln(\mathbf{P}))$$Where $\mathbf{P}$ is the predicted probability distribution. Because the one-hot vector zeros out everything except the correct class, the model only minimizes the loss for the correct answer, largely ignoring the distribution of uncertainty among the incorrect classes.
 
 ## 5. Optimization Challenges
 
