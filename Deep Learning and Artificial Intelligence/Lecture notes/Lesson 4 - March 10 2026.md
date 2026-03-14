@@ -54,7 +54,13 @@ Finding the right model complexity (e.g., the degree of a polynomial regression)
     2. **Validation set:** Used to tune choices (like polynomial degree) and check for overfitting.
     3. **Test set:** Unseen data used only at the very end to evaluate true generalization. You must assume you have no access to it during training.
 
-- **k-Fold Cross-Validation:** A practical defense against overfitting the validation set itself. The training data is split into k subsets; the model is trained on k−1 subsets and validated on the remaining one, rotating through all combinations and averaging the errors.
+>[!Important] **K-Fold Cross-Validation:**
+>A practical defense against overfitting the validation set itself. The training data is split into k subsets; the model is trained on k−1 subsets and validated on the remaining one, rotating through all combinations and averaging the errors.
+>
+>![|650](../../Pasted%20image%2020260314143339.png)
+>
+>It can be used to tune *hyperparameters*, e.g., k-fold cross-validation in polynomial regression with different degree and choose the run with the smallest MSE.
+
 
 ## 3. Regularization (Preview)
 
