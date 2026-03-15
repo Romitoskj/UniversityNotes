@@ -1,4 +1,3 @@
-
 # Introduction
 
 ## The Importance of Data Analysis

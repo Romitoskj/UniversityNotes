@@ -67,7 +67,7 @@ Standard polynomial or linear regression fails for classification tasks (e.g., i
 
 - **The Logistic Sigmoid ($\sigma$):** To constrain predictions, we apply a non-linear activation function called the logistic sigmoid: $$\sigma(x)=\frac{1}{1+e^{-x}}$$This "squashes" any real-numbered output of the linear model ($ax+b$) into a range between $0$ and $1$, making it interpretable as a probability.
 
-  ![](../../Pasted%20image%2020260314235926.png)
+  ![](Images/Pasted%20image%2020260314235926.png)
 
 - **The Classification Model and Prediction Formula:** For a binary classification task where the true labels $y_i\in\{0,1\}$, the base linear model is defined as $\hat{f}​(x_i​)=ax_i​+b$. To actually make a categorical prediction $\hat{y_i}$​, the model applies a threshold to the sigmoid output:
     - It predicts $1$ **(Positive class) if** $\sigma(ax_i​+b)>0.5$.
@@ -98,4 +98,4 @@ To restore convexity and heavily penalize wrong, confident predictions, we repla
 Because logistic regression utilizes the sigmoid and logarithmic functions, the model parameters enter the gradient equations in a highly nonlinear way.
 
 - **The Chain Rule:** Computing the gradient of the cross-entropy loss requires rigorously applying the chain rule (differentiating the log, then the sigmoid, then the linear component).
-- **No Closed-Form Solution:** The resulting derivatives form a nonlinear system of **transcendental equations**. Unlike linear regression, which can be solved analytically with the pseudo-inverse, logistic regression requires iterative **nonlinear optimization** techniques, setting the stage for algorithms like Stochastic Gradient Descent.
+- **No Closed-Form Solution:** Setting the resulting derivatives to zero form a nonlinear system of **transcendental equations**. Unlike linear regression, which can be solved analytically with the pseudo-inverse, logistic regression requires iterative **nonlinear optimization** techniques, setting the stage for algorithms like Stochastic Gradient Descent.
