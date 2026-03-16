@@ -2,13 +2,15 @@
 
 ## 1. Network Layering Models & Encapsulation
 
-- **Packet-Switched Networks:** The internet was designed as a packet-switched network during the Cold War to survive node failures. Every packet is independent, meaning packets from the same connection can take different routes to their destination.
+- **Packet-Switched Networks:** The internet was designed as a packet-switched network to survive node failures. Every packet is independent, meaning packets from the same connection can take different routes to their destination.
 
 - **Architectural Models:**
     - **OSI Model:** A 7-layer reference model (Application, Presentation, Session, Transport, Network, Data Link, Physical).
     - **TCP/IP Model:** A simpler 4-layer model (Application, Transport, Internet, Network Access) created by the IETF.
 
 - **Encapsulation (The "Matryoshka" Concept):** As data moves down the layers from the application to the physical layer, each protocol adds its own header (control information) to the data.
+
+- **Decapsulation:** The physical layer in the destination sends the data up the stack where each protocol reads its own information and forwards the data to the layer above.
 
 - **Layer Terminology:** Data is referred to differently depending on its current layer:
     - **Application:** Data / Payload.
