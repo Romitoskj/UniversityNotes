@@ -17,13 +17,16 @@
 
 - Protocols specify the rules for network communication, including message formats, syntax, semantics, flow control, and timing.
 
-- Network architectures use **modularization (layers)** to hide implementation details, making system updates, maintenance, and development much easier.
+- Network architectures use **modularization (layers)** to hide implementation details (encapsulation), making system updates, maintenance, and development much easier.
 
 ## 3. The Access Layer & Ethernet (Physical Addressing)
 
 - The access layer provides connectivity among end-points under the same local management (LANs).
+
 - **Ethernet (IEEE 802.3)** is the standard protocol for this layer.
+
 - **MAC Addresses:** Every Network Interface Card (NIC) has a fixed, **48-bit (6-byte) physical MAC address** that uniquely identifies "who" the host is.
+
 - **Switches & Broadcast Domains:** An Ethernet network forms a broadcast domain. **Switches** help segment this network by learning source MAC addresses and storing them in **CAM tables**. Switches only replicate traffic to the specific segment where the destination MAC resides, limiting unnecessary packet explosion (broadcast messages are an exception and get replicated to all).
 
 **4. Distribution/Core Layers & IP (Logical Addressing)**
