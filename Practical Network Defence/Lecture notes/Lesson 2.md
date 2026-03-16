@@ -44,7 +44,7 @@ Each layer utilizes a different addressing mechanism to route information:
 - **TCP (Transmission Control Protocol):** Connection-oriented and highly reliable. It guarantees the correct sequence and delivery of packets.
     - Features a complex header (Sequence Number, Acknowledgement Number, Window Size, Flags).
     - Establishes connections via a **3-way handshake:** SYN -> SYN+ACK -> ACK.
-    - Uses: HTTP (80), HTTPS/SSL (443), SSH (22), FTP (20/21).
+    - Used by: HTTP (80), HTTPS/SSL (443), SSH (22), FTP (20/21).
 
 - **UDP (User Datagram Protocol):** Connectionless and unreliable. It does not control data exchange flow or guarantee delivery, making it faster.
     - Features a very simple header (Source Port, Destination Port, Length, Checksum).
