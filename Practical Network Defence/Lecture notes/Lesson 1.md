@@ -52,8 +52,8 @@
     - **Classful:** Historically divided into Classes A, B, C (standard hosts), D (multicast), and E (reserved). This resulted in poor flexibility and wasted addresses.
     - **Classless Inter-Domain Routing (CIDR):** Introduced **Variable Length Subnet Masks (VLSM)** (e.g., `/24`, `/26`). This notation tells you exactly how many bits specify the network address.
 
-- **Calculating Hosts:** In any CIDR network, the first address is reserved for the network, and the last address is reserved for the broadcast. The formula for usable hosts is **2^(32 - netmask bits) - 2**.
+- **Calculating Hosts:** In any network, the first address is reserved for the network, and the last address is reserved for the broadcast. The formula for usable hosts is **2^(32 - netmask bits) - 2**.
 
 - **Conserving IP Addresses:** To avoid wasting IPv4 addresses, strategies include using `/31` masks for point-to-point links (RFC 3021), NAT, and transitioning to IPv6.
 
-- **Routeable vs. Non-Routeable (Private):** Non-routeable IPs cannot be routed on the public internet. These include RFC1918 private networks (10.x.x.x, 172.16.x.x, 192.168.x.x), loopback addresses (127.0.0.0/8), and link-local addresses.
+- **Routeable vs. Non-Routeable (Private):** Non-routeable IPs cannot be routed on the public internet. These include RFC1918 private networks (10.x.x.x/8, 172.16.x.x/12, 192.168.x.x/16), loopback addresses (127.0.0.0/8), and link-local addresses.
