@@ -2,7 +2,7 @@
 
 ## 1. The Transition to IPv6
 
-- **The Address Space:** IPv6 was developed in the 1990s to solve IPv4 exhaustion. It uses **128-bit addresses**, meaning there are 340 undecillion addresses available—enough to assign an IPv6 address to every atom on Earth.
+- **The Address Space:** IPv6 was developed in the 1990s to solve IPv4 exhaustion. It uses **128-bit addresses**, meaning there are 340 undecillion addresses available.
 
 - **End-to-End Reachability:** Because of the vast address space, IPv6 eliminates the need for Network Address Translation (NAT). NAT is historically a workaround to conserve IPv4 addresses, not a security feature; in IPv6, firewalls handle security, allowing for true end-to-end connectivity.
 
