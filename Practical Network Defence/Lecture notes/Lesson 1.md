@@ -13,12 +13,13 @@
 
 - **Standards:** Maintained by the **IETF** (Internet Engineering Task Force) through **RFCs** (Request for Comments).
 
-**2. Network Protocols**
+## 2. Network Protocols
 
 - Protocols specify the rules for network communication, including message formats, syntax, semantics, flow control, and timing.
+
 - Network architectures use **modularization (layers)** to hide implementation details, making system updates, maintenance, and development much easier.
 
-**3. The Access Layer & Ethernet (Physical Addressing)**
+## 3. The Access Layer & Ethernet (Physical Addressing)
 
 - The access layer provides connectivity among end-points under the same local management (LANs).
 - **Ethernet (IEEE 802.3)** is the standard protocol for this layer.
