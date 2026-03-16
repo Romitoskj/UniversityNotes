@@ -12,19 +12,22 @@
 
 ## 2. IPv6 Address Types
 
+![](images/Pasted%20image%2020260316184211.png)
+
 IPv6 eliminates broadcast addresses entirely, replacing them with Multicast.
 
-- **Global Unicast Addresses (GUA):** Public, globally routable addresses on the internet. They currently start with the `2000::/3` prefix (spanning `2000` to `3FFF`).
+- **Global Unicast Addresses (GUA):** Public, globally routable addresses on the internet. They currently start with the `2000::/3` prefix (spanning `2000` to `3FFF`). All end users will have a GUA address
 
-- **Link-Local Addresses:** Unique and valid _only_ on a specific physical link (local network segment). They cannot be routed off the link. They start with the **FE80::/10** prefix. Every IPv6 device must have at least one link-local address, and they are critical for routing protocol messages and auto-configuration.
+- **Link-Local Addresses:** Unique and valid _only_ on a specific physical link (local network segment). They cannot be routed off the link. They start with the **FE80::/10** prefix. Every IPv6 device must have at least one link-local address that have to be unique on the link, and they are critical for routing protocol messages and auto-configuration.
 
 - **Unique Local Addresses (ULA):** The IPv6 equivalent of IPv4 private IP addresses (like `10.x.x.x`). They start with `FC00::/7` and can be routed internally within an organization, but not on the public internet.
 
-- **Anycast:** Shares the same IP address across multiple hosts in different geographic locations. Often used by CDNs (like Cloudflare) to mitigate DDoS attacks by diluting the attack traffic toward multiple regional black holes.
+- **Anycast:** Shares the same IP address across multiple hosts in different geographic locations. Often used by CDNs (like Cloudflare) to mitigate DDoS attacks by diluting the attack traffic toward multiple regional servers and perform load balancing.
 
 ## 3. IPv6 Subnetting & Interface IDs
 
 - **The "3-1-4" Rule:** Instead of Variable Length Subnet Masks, IPv6 standardizes a `/64` prefix length for most physical networks. A typical address features 3 hexets for the Global Routing Prefix, 1 hexet for the Subnet ID, and 4 hexets for the **Interface ID** (the host portion).
+  ![](../../Pasted%20image%2020260316184705.png)
 
 - **Generating the Interface ID:**
     - **EUI-64:** Deterministic method. It splits the host's 48-bit MAC address, inserts `FFFE` in the middle to make it 64 bits, and flips the 7th bit. This is ideal for static servers but bad for privacy since your MAC address is embedded in your IP.
