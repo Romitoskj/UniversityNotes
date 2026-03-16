@@ -48,6 +48,9 @@ IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IP
 Router Advertisements contain flags (`M` for Managed, `O` for Other Configuration) that tell the host how to get its IP.
 
 - **Stateless (SLAAC):** Host gets prefix and gateway from the router, generating its own IP.
+
 - **Stateless + DHCPv6:** Host uses SLAAC for its IP and gateway, but queries a DHCPv6 server to get DNS domain info.
+
 - **Stateful DHCPv6:** Host asks the DHCPv6 server for an IP address lease, exactly like traditional IPv4 DHCP.
+
 - **DHCPv6 Prefix Delegation:** Instead of handing out a single public IP to a home router and forcing the use of NAT, ISPs use Prefix Delegation to dynamically give the home router an entire network prefix (e.g., a `/56`). The router then distributes `/64` subnets directly to the internal network devices.
