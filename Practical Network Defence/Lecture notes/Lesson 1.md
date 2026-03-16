@@ -1,13 +1,16 @@
 # Networking 101
 
-**1. Internet Architecture & Infrastructure**
+## 1. Internet Architecture & Infrastructure
 
 - **The Internet** is an interconnected "network of networks" operating on a hierarchical structure.
+
 - **Network Hierarchy:**
     - **Network Edge:** End hosts (clients, servers, P2P) and applications (HTTP, email, etc.).
     - **Access Networks:** Wired or wireless links connecting hosts to the edge router.
     - **Network Core:** A mesh of routers and optical fiber links that determine the most efficient path for packets. It is managed by global (Tier-1) and regional (Tier-2) ISPs.
+
 - **Peering:** Tier-1 ISPs connect their backbones at global access points called **Internet eXchange Points (IXPs)** to directly exchange internet traffic.
+
 - **Standards:** Maintained by the **IETF** (Internet Engineering Task Force) through **RFCs** (Request for Comments).
 
 **2. Network Protocols**
