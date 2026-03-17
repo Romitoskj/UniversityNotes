@@ -27,7 +27,7 @@ IPv6 eliminates broadcast addresses entirely, replacing them with Multicast.
 ## 3. IPv6 Subnetting & Interface IDs
 
 - **The "3-1-4" Rule:** Instead of Variable Length Subnet Masks, IPv6 standardizes a `/64` prefix length for most physical networks. A typical address features 3 hexets for the Global Routing Prefix, 1 hexet for the Subnet ID, and 4 hexets for the **Interface ID** (the host portion).
-  ![](../../Pasted%20image%2020260316184705.png)
+  ![](images/Pasted%20image%2020260316184705.png)
 
 - **Generating the Interface ID:**
     - **EUI-64:** Deterministic method. It splits the host's 48-bit MAC address, inserts `FFFE` in the middle to make it 64 bits, and flips the 7th bit. This is ideal for static servers but bad for privacy since your MAC address is embedded in your IP.
@@ -45,6 +45,7 @@ IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IP
     - The device generates its own Interface ID (via EUI-64 or randomly) and appends it to the prefix.
 
 - **Duplicate Address Detection (DAD):** To avoid IP collisions in SLAAC, the host sends a Neighbor Solicitation for its own freshly generated IP. If nobody answers, the host claims the address.
+![](images/Pasted%20image%2020260317012021.png)
 
 ## 5. DHCPv6 & Prefix Delegation
 
@@ -54,6 +55,6 @@ Router Advertisements contain flags (`M` for Managed, `O` for Other Configuratio
 
 - **Stateless + DHCPv6:** Host uses SLAAC for its IP and gateway, but queries a DHCPv6 server to get DNS domain info.
 
-- **Stateful DHCPv6:** Host asks the DHCPv6 server for an IP address lease, exactly like traditional IPv4 DHCP.
+- **Stateful DHCPv6:** Host receives only the default gateway from the router advertise then asks the DHCPv6 server for an IP address lease, exactly like traditional IPv4 DHCP.
 
-- **DHCPv6 Prefix Delegation:** Instead of handing out a single public IP to a home router and forcing the use of NAT, ISPs use Prefix Delegation to dynamically give the home router an entire network prefix (e.g., a `/56`). The router then distributes `/64` subnets directly to the internal network devices.
+- **DHCPv6 Prefix Delegation:** Instead of handing out a single public IP to a home router and forcing the use of NAT, ISPs use Prefix Delegation to dynamically give the home router an entire network prefix. The router then distributes subnets directly to the internal network devices.
