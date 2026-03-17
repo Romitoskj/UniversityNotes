@@ -14,3 +14,7 @@
 ![Flipped Classroom 2 - March 12 2026](Lecture%20notes/Flipped%20Classroom%202%20-%20March%2012%202026.md)
 
 ---
+
+![[Cloud Compunting/Lecture notes/Lecture 3 - March 17 2026]]
+
+---
