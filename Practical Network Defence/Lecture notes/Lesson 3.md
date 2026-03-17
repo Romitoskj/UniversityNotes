@@ -39,7 +39,7 @@ IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IP
 
 - **NDP (Replacing ARP):** To find the MAC address for a known IP, a host sends an ICMPv6 _Neighbor Solicitation_ and receives a _Neighbor Advertisement_. Instead of broadcasting to the whole network, this utilizes a highly efficient **Solicited-Node Multicast** address.
 
-- **SLAAC (Stateless Address Auto-Configuration):** Allows a device to assign itself an IP address without needing a central DHCP server.
+- **SLAAC (Stateless Address Auto-Configuration):** Allows a device to assign itself an IP address without needing a central DHCP server (that maintains the network addresses state).
     - When a device joins a network, it uses its Link-Local address to send a **Router Solicitation**.
     - The router replies with a **Router Advertisement (RA)** containing the network prefix and the default gateway.
     - The device generates its own Interface ID (via EUI-64 or randomly) and appends it to the prefix.
