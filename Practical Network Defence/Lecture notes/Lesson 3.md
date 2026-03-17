@@ -44,7 +44,7 @@ IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IP
     - The router replies with a **Router Advertisement (RA)** containing the network prefix and the default gateway.
     - The device generates its own Interface ID (via EUI-64 or randomly) and appends it to the prefix.
 
-- **Duplicate Address Detection (DAD):** To avoid IP collisions in SLAAC, the host sends a Neighbor Solicitation for its freshly generated IP. If nobody answers, the host claims the address.
+- **Duplicate Address Detection (DAD):** To avoid IP collisions in SLAAC, the host sends a Neighbor Solicitation for its own freshly generated IP. If nobody answers, the host claims the address.
 
 ## 5. DHCPv6 & Prefix Delegation
 
