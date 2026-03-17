@@ -33,7 +33,7 @@ IPv6 eliminates broadcast addresses entirely, replacing them with Multicast.
     - **EUI-64:** Deterministic method. It splits the host's 48-bit MAC address, inserts `FFFE` in the middle to make it 64 bits, and flips the 7th bit. This is ideal for static servers but bad for privacy since your MAC address is embedded in your IP.
     - **Privacy Extensions (Random):** Randomly generates the Interface ID. Used as temporary, "disposable" addresses to ensure user anonymity online. In Linux, this is controlled via `sysctl` parameters like `addr_gen_mode` and `use_tempaddr`.
 
-## 4. ICMPv6 & Auto-Configuration
+## 4. ICMPv6 & Dynamic Configuration
 
 IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IPv4's ARP with the **Neighbor Discovery Protocol (NDP)**.
 
