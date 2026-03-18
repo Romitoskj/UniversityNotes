@@ -1,4 +1,4 @@
-# IPv6
+# IPv6 Addressing
 
 ## 1. The Transition to IPv6
 
