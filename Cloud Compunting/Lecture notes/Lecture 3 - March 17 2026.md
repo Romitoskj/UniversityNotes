@@ -62,7 +62,7 @@ Docker is a Client/Server application designed to create and manage containers.
     - **Container:** A runnable instance of an image. When an image is run, Docker adds a thin, ephemeral **read/write layer** on top of the image stack. They run directly within host machine's kernel.
 
 > [!info] Layers Concept
-> ![](../../Pasted%20image%2020260320162036.png)
+> ![](Images/Pasted%20image%2020260320162036.png)
 >
 ## 4. Docker Storage Options
 
