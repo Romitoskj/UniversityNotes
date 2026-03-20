@@ -24,7 +24,7 @@ Namespaces wrap a global system resource in an abstraction, isolating processes 
 - They are managed using system calls like `clone()` (to create a process in a new or existing namespace), `setns()`, and `unshare()`.
 
 ### B. Cgroups (Control Groups) ("How much you can use")
-While namespaces control what a process sees, Cgroups control how much of the system's resources a process can consume, preventing a single container from monopolizing the host.
+While namespaces control what a process sees, **Cgroups** control how much of the system's resources a process can consume, preventing a single container from monopolizing the host.
 
 - They allow processes to be organized hierarchically and provide resource limiting, prioritization, accounting, and controlling.
 - Cgroups can limit CPU time, memory usage, I/O bandwidth, and PIDs. They are managed through a pseudo-filesystem called `cgroupfs`.
