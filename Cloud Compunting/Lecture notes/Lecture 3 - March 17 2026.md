@@ -1,5 +1,4 @@
-
-# Lecture Notes: Containerization & Enabling Technologies
+# Containerization & Enabling Technologies
 
 ## 1. Introduction to Containerization
 
