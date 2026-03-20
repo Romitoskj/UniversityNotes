@@ -6,7 +6,7 @@ Containerization is an Operating System (OS) level virtualization technique that
 
 - **Containers vs. Virtual Machines:** Unlike system virtualization, containers do not require a hypervisor or a full replica of a guest operating system. Instead, they share the same host OS kernel and use a container manager to isolate applications, making them much more lightweight and less resource-consuming.
 	
-	![570](../../Pasted%20image%2020260320122059.png)
+	![570](Images/Pasted%20image%2020260320122059.png)
 
 - **Types of Containers:**
     - **Application Containers:** Designed to distribute and run a single application or microservice, using a layered file system.
@@ -53,12 +53,17 @@ I am botanically a fruit.
 
 Docker is a Client/Server application designed to create and manage containers.
 
+![](Images/Pasted%20image%2020260320161656.png)
+
 - **Components:** It consists of a **Client** (Command Line Interface) that interacts with the **Docker Daemon** (server) via a REST API.
 - **Registry:** A remote storage location (like Docker Hub) where images can be stored and downloaded by the daemon.
 - **Images vs. Containers:**
     - **Image:** A read-only template built from instructions in a Dockerfile. It is made of multiple read-only layers stacked via UnionFS.
-    - **Container:** A runnable instance of an image. When an image is run, Docker adds a thin, ephemeral **read/write layer** on top of the image stack.
+    - **Container:** A runnable instance of an image. When an image is run, Docker adds a thin, ephemeral **read/write layer** on top of the image stack. They run directly within host machine's kernel.
 
+> [!info] Layers Concept
+> ![](../../Pasted%20image%2020260320162036.png)
+>
 ## 4. Docker Storage Options
 
 By default, data created inside a container is stored in its ephemeral read/write layer. When the container stops, this data is lost. To achieve data persistence, Docker provides three options:
