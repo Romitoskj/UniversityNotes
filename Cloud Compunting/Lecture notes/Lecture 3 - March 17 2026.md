@@ -6,7 +6,7 @@ Containerization is an Operating System (OS) level virtualization technique that
 
 - **Containers vs. Virtual Machines:** Unlike system virtualization, containers do not require a hypervisor or a full replica of a guest operating system. Instead, they share the same host OS kernel and use a container manager to isolate applications, making them much more lightweight and less resource-consuming.
 	
-	![](../../Pasted%20image%2020260320122059.png)
+	![570](../../Pasted%20image%2020260320122059.png)
 
 - **Types of Containers:**
     - **Application Containers:** Designed to distribute and run a single application or microservice, using a layered file system.
@@ -34,6 +34,8 @@ UnionFS allows administrators to logically merge multiple separate physical dire
 
 - **Precedence:** If two files have the same name in different branches, the file in the branch with higher precedence overrides the lower one.
 - **Copy-on-Write (CoW):** UnionFS mixes read-only and read-write branches. If a process tries to modify a file from a read-only branch, UnionFS automatically copies the file to a higher-priority read-write branch, modifies the copy, and hides the original. This is the foundational concept behind Docker image layers.
+
+	![576](../../Pasted%20image%2020260320153722.png)
 
 ## 3. Docker Architecture
 
