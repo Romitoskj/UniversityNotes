@@ -32,10 +32,22 @@ While namespaces control what a process sees, **Cgroups** control how much of th
 ### C. Union File System (UnionFS)
 UnionFS allows administrators to logically merge multiple separate physical directories (called branches) into a single unified view.
 
-- **Precedence:** If two files have the same name in different branches, the file in the branch with higher precedence overrides the lower one.
+- **Precedence:** If two files have the same name in different branches, the file in the branch with higher precedence overrides the lower one. If two directories have the same name the contents and attributes are merged
 - **Copy-on-Write (CoW):** UnionFS mixes read-only and read-write branches. If a process tries to modify a file from a read-only branch, UnionFS automatically copies the file to a higher-priority read-write branch, modifies the copy, and hides the original. This is the foundational concept behind Docker image layers.
 
-	![576](../../Pasted%20image%2020260320153722.png)
+> [!example]-
+> ```sh
+$ ls /Fruits Apple Tomato 
+$ ls /Vegetables Carrots Tomato
+$ cat /Fruits/Tomato
+I am botanically a fruit.
+$ cat /Vegetables/Tomato I am horticulturally a vegetable. 
+$ mount -t unionfs -o dirs=/Fruits:/Vegetables none /mnt/healthy # here Fruits has higher priority than Vegatables 
+$ ls /mnt/healthy
+Apple Carrots Tomato
+$ cat /mnt/healthy/Tomato
+I am botanically a fruit.
+> ```
 
 ## 3. Docker Architecture
 
