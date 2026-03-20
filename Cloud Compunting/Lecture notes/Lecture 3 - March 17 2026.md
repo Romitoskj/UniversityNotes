@@ -1,10 +1,13 @@
-# Containerization & Enabling Technologies
+# Containerization
 
 ## 1. Introduction to Containerization
 
 Containerization is an Operating System (OS) level virtualization technique that leverages multiprogramming features of Unix/Linux systems.
 
 - **Containers vs. Virtual Machines:** Unlike system virtualization, containers do not require a hypervisor or a full replica of a guest operating system. Instead, they share the same host OS kernel and use a container manager to isolate applications, making them much more lightweight and less resource-consuming.
+	
+	![](../../Pasted%20image%2020260320122059.png)
+
 - **Types of Containers:**
     - **Application Containers:** Designed to distribute and run a single application or microservice, using a layered file system.
     - **System Containers:** Function like lightweight virtual machines containing an entire OS, providing the underlying infrastructure to run auxiliary services (e.g., LXC/LXD).
