@@ -10,7 +10,7 @@ Containerization is an Operating System (OS) level virtualization technique that
 
 - **Types of Containers:**
     - **Application Containers:** Designed to distribute and run a single application or microservice, using a layered file system.
-    - **System Containers:** Function like lightweight virtual machines containing an entire OS, providing the underlying infrastructure to run auxiliary services (e.g., LXC/LXD).
+    - **System Containers:** Function like lightweight virtual machines containing an entire OS, providing the underlying infrastructure (e.g., LXC/LXD).
 
 ## 2. Fundamental Linux Technologies Behind Containers
 

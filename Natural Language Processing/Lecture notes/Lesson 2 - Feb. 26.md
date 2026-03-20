@@ -1,6 +1,6 @@
-**Part 1: NLP Research Progress & The #BenderRule**
+**Part 1: NLP Research Progress & The BenderRule**
 
-**The #BenderRule (Ethics and Inclusion in NLP)**
+**The BenderRule (Ethics and Inclusion in NLP)**
 
 - Proposed by Emily M. Bender in 2019, this rule emphasizes that **"English is neither synonymous with nor representative of natural language"**.
 - It highlights a historical bias in the NLP community, which has traditionally focused heavily on "high-resource languages" (like English) while neglecting "low-resource languages" (like many African languages).

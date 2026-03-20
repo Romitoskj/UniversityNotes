@@ -5,5 +5,7 @@
   ],
   "nativeMenus": false,
   "cssTheme": "",
-  "accentColor": ""
+  "accentColor": "",
+  "showViewHeader": true,
+  "translucency": true
 }
