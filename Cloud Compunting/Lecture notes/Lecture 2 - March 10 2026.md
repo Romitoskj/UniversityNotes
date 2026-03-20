@@ -71,25 +71,14 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
 
 ## 5. SOA vs. Microservices: Key Differences
 
-While both use services, their implementations differ significantly:
-
-- **Taxonomy & Middleware:** SOA relies heavily on **messaging middleware (integration Bus)** to coordinate service calla, handle routing, message transformation, and protocol conversion between layers (Business, Enterprise, Application). Microservices eliminate middleware, placing an **API layer/Gateway** in front of direct, point-to-point service calls, allowing to ignore the actual location of the service endpoints and also to change the granularity level of a service withour impacting service consumer.
-- **Granularity:** SOA services can range from small to massive enterprise subsystems. Microservices are strictly single-purpose and fine-grained.
-- **Transactions:** SOA can easily guarantee ACID transactions because services often share a central data storage. Microservices struggle with distributed transactions because each service manages its own isolated database.
-- **Component Sharing:** SOA is a **"share-as-much-as-possible"** architecture to prevent duplicate code, leading to tight coupling. Microservices is a **"share-as-little-as-possible"** architecture using "bounded contexts," meaning a service and its data are completely self-contained, even if it violates the DRY (Don't Repeat Yourself) principle.
-- **Service Choreography and Orchestration**: Microservices favor choreography because architecture topology lacks a centralized middleware component, while SOA relies on both service orchestration and choreography.
-- **Team Coordination:** SOA requires high coordination across teams (business users, developers, infrastructure). Microservices require almost zero coordination because small teams own everything for their specific service.
-- **Heterogeneous Interoperability:** SOA handles high heterogeneity, easily translating different protocols and languages via its middleware. Microservices prefer standardized, simple remote-access protocols like REST and JSON.
-- **Application Scope:** SOA is best for large, complex, enterprise-wide legacy systems that require integration with many heterogeneous applications and services. Microservices are ideal for well-partitioned, highly scalable web-based systems.
-
-|**Feature / Category**|**SOA (Service-Oriented Architecture)**|**Microservices**|
-|---|---|---|
-|**Taxonomy & Middleware**|Relies heavily on messaging middleware (Integration Bus) for routing, transformation, and protocol conversion.|Eliminates middleware; uses an API Gateway for direct point-to-point calls, hiding endpoint locations.|
-|**Granularity**|Ranges from small services to massive enterprise subsystems.|Strictly single-purpose and fine-grained.|
-|**Transactions**|Easily guarantees ACID transactions due to shared central data storage.|Struggles with distributed transactions; each service manages an isolated database.|
-|**Component Sharing**|"Share-as-much-as-possible" to prevent duplicate code, leading to tight coupling.|"Share-as-little-as-possible" (bounded contexts); self-contained even if it violates the DRY principle.|
-|**Choreography & Orchestration**|Relies on both service orchestration and choreography.|Favors choreography due to the lack of centralized middleware.|
-|**Team Coordination**|Requires high coordination across varied teams (business, developers, infrastructure).|Requires minimal coordination; small, autonomous teams own everything for their service.|
-|**Heterogeneous Interoperability**|Handles high heterogeneity by translating protocols and languages via middleware.|Prefers standardized, simple remote-access protocols like REST and JSON.|
-|**Application Scope**|Best for large, complex, enterprise-wide legacy systems needing broad integration.|Ideal for well-partitioned, highly scalable web-based systems.|
+| **Feature / Category**             | **SOA (Service-Oriented Architecture)**                                                                        | **Microservices**                                                                                                               |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Taxonomy & Middleware**          | Relies heavily on messaging middleware (Integration Bus) for routing, transformation, and protocol conversion. | Eliminates middleware; uses an API Gateway for direct point-to-point calls, hiding endpoint locations.                          |
+| **Granularity**                    | Ranges from small services to massive enterprise subsystems.                                                   | Strictly single-purpose and fine-grained.                                                                                       |
+| **Transactions**                   | Easily guarantees ACID transactions due to shared central data storage.                                        | Struggles with distributed transactions; each service manages an isolated database.                                             |
+| **Component Sharing**              | "Share-as-much-as-possible" to prevent duplicate code, leading to tight coupling.                              | "Share-as-little-as-possible" (bounded contexts); self-contained even if it violates the DRY (Don't Repeat Yourself) principle. |
+| **Choreography & Orchestration**   | Relies on both service orchestration and choreography.                                                         | Favors choreography due to the lack of centralized middleware.                                                                  |
+| **Team Coordination**              | Requires high coordination across varied teams (business, developers, infrastructure).                         | Requires minimal coordination; small, autonomous teams own everything for their service.                                        |
+| **Heterogeneous Interoperability** | Handles high heterogeneity by translating protocols and languages via middleware.                              | Prefers standardized, simple remote-access protocols like REST and JSON.                                                        |
+| **Application Scope**              | Best for large, complex, enterprise-wide legacy systems needing broad integration.                             | Ideal for well-partitioned, highly scalable web-based systems.                                                                  |
 ![](Images/Pasted%20image%2020260314003155.png)
