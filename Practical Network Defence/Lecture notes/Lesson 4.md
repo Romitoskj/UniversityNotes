@@ -10,13 +10,20 @@
 IPv6 entirely eliminates the "broadcast" address, replacing it with Multicast (one-to-many communication).
 
 - **Formatting:** All IPv6 multicast addresses use the prefix **FF00::/8**.
+
 - **Structure:** After the prefix, the address contains a 4-bit **Flag**, a 4-bit **Scope**, and a 112-bit **Group ID**.
     - **Flag:** A value of `0` indicates a permanent, well-known multicast address assigned by IANA, while `1` indicates a dynamically assigned address.
     - **Scope:** Defines the range of the packet. Common values include `1` (Interface-Local), `2` (Link-Local), `5` (Site-Local), `8` (Organization-Local), and `E` (Global).
-- **Key Predefined Groups (Link-Local Scope** **FF02****):**
+	
+		![](images/Pasted%20image%2020260323173749.png)
+
+- **Key Predefined Groups (Link-Local Scope FF02):**
     - **FF02::1** **(All IPv6 Devices):** Every IPv6 device on the link listens to this address. It is used, for instance, by routers sending Router Advertisements.
     - **FF02::2** **(All IPv6 Routers):** All routers on the link listen to this group. Hosts use this to send Router Solicitations.
+
 - **DHCPv6 Relay Agents:** If a DHCPv6 server is on a different network than the clients, a router can act as a Relay Agent. It listens for client solicitations and forwards them to the remote DHCPv6 server.
+	
+	![](images/Pasted%20image%2020260323174141.png)
 
 ## 3. IPv6 Header vs. IPv4 Header
 
