@@ -33,18 +33,27 @@ The IPv6 header was heavily simplified to improve processing speed and take adva
     - **Internet Header Length (IHL):** Removed because the IPv6 header size is fixed at 40 bytes.
     - **Header Checksum:** Removed entirely. IPv6 relies on upper-layer protocols (like TCP and UDP) to perform checksums, making the UDP checksum mandatory in IPv6.
     - **Options & Padding:** Removed from the main header and relocated to "Extension Headers".
+    - **Identification, Flags, Fragment offset:** removed because fragmentation is handled by the source using an extension header.
 - **Renamed & New Fields:**
     - **Traffic Class:** Replaces the IPv4 "Type of Service" field, used to prioritize traffic (QoS).
     - **Flow Label:** A new 20-bit field used to identify packets belonging to a common stream or TCP session so they can be treated identically by routers.
     - **Payload Length:** Replaces "Total Length." It represents the size of the payload (including extension headers) _excluding_ the main 40-byte IPv6 header.
     - **Hop Limit:** Replaces "Time to Live" (TTL). Every router decrements this value by 1; if it reaches 0, the packet is dropped.
+    - **Next Header**: used to know what type of extension header is the first in the payload if present.
 
 ## 4. Fragmentation in IPv6
 
-A major difference from IPv4 is that **intermediate IPv6 routers do not fragment packets**. Router fragmentation was removed because it slows down packet processing and risks Denial of Service (DoS) attacks.
+A major difference from IPv4 is that **intermediate IPv6 routers do not fragment packets**. 
+
+![](../../Pasted%20image%2020260323204923.png)
+
+Router fragmentation was removed because it slows down packet processing and risks Denial of Service (DoS) attacks.
 
 - **How it works:** If a router receives an IPv6 packet larger than the outgoing link's Maximum Transmission Unit (MTU), **the router drops the packet** and sends an **"ICMPv6 Packet Too Big"** message back to the source, indicating the MTU size it should use.
 - **Path MTU Discovery:** The source host must handle any necessary fragmentation using a specialized Extension Header before sending the packets. IPv6 requires every link to have a minimum MTU of 1280 bytes.
+
+![](../../Pasted%20image%2020260323205005.png)
+
 
 ## 5. IPv6 Extension Headers (EHs)
 
