@@ -41,18 +41,20 @@ The IPv6 header was heavily simplified to improve processing speed and take adva
     - **Hop Limit:** Replaces "Time to Live" (TTL). Every router decrements this value by 1; if it reaches 0, the packet is dropped.
     - **Next Header**: used to know what type of extension header is the first in the payload if present.
 
+![](images/Pasted%20image%2020260323205412.png)
+
 ## 4. Fragmentation in IPv6
 
 A major difference from IPv4 is that **intermediate IPv6 routers do not fragment packets**. 
 
-![](../../Pasted%20image%2020260323204923.png)
+![](images/Pasted%20image%2020260323204923.png)
 
 Router fragmentation was removed because it slows down packet processing and risks Denial of Service (DoS) attacks.
 
 - **How it works:** If a router receives an IPv6 packet larger than the outgoing link's Maximum Transmission Unit (MTU), **the router drops the packet** and sends an **"ICMPv6 Packet Too Big"** message back to the source, indicating the MTU size it should use.
 - **Path MTU Discovery:** The source host must handle any necessary fragmentation using a specialized Extension Header before sending the packets. IPv6 requires every link to have a minimum MTU of 1280 bytes.
 
-![](../../Pasted%20image%2020260323205005.png)
+![](images/Pasted%20image%2020260323205005.png)
 
 
 ## 5. IPv6 Extension Headers (EHs)
@@ -60,9 +62,12 @@ Router fragmentation was removed because it slows down packet processing and ris
 Instead of cramming optional data into the main IP header, IPv6 introduces a highly flexible modular system called Extension Headers.
 
 - **The "Next Header" Chain:** The `Next Header` field in the IPv6 main header indicates what follows. It can point to an upper-layer protocol (like TCP `6`, UDP `17`, or ICMPv6 `58`) or to an Extension Header. Multiple Extension Headers can be daisy-chained together.
-- **Edge Processing:** To maximize efficiency, Extension Headers (except for "Hop-by-Hop") are **only processed by the final destination endpoint**, not by the intermediate routers.
+	
+	![](images/Pasted%20image%2020260323205646.png)
+	
+- **Edge Processing:** To maximize efficiency, Extension Headers (except for "Hop-by-Hop") are **only processed by the final destination endpoint**, not by the intermediate routers as in IPv4.
 - **Types & Strict Ordering:** There is a fixed set of Extension Headers, and they must follow a specific order. Common headers include:
     - **0:** Hop-by-Hop Options (The _only_ header examined by every router on the path).
-    - **43:** Routing (Specifies the path/routers to be crossed).
+    - **43:** Routing (allows source to specify the path/routers to be crossed).
     - **44:** Fragment (Used by the source to handle oversized payloads).
     - **50 & 51:** ESP (Encapsulating Security Payload) and AH (Authentication Header) for IPsec, providing end-to-end encryption and authentication.
