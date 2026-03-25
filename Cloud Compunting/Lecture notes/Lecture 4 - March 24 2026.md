@@ -8,7 +8,7 @@ Virtualization environments provide three main benefits:
 
 - **Managed Execution:** Virtualization allows for flexible resource management, such as sharing a single physical machine among multiple virtual ones completely separating them (isolation), or aggregating distributed resources to look like a single centralized system (e.g., Cassandra distributed data store). It also allows for the emulation of older processors so legacy software can continue to run on modern hardware.
 	
-	![697](../../Pasted%20image%2020260325221953.png)
+	![697](Images/Pasted%20image%2020260325221953.png)
 
 - **Portability:** The ability to easily transfer and use data/applications across different computing platforms. Just as a Java application runs anywhere with a JVM, a Virtual Machine (VM) can be easily migrated because it boots from a disk image file (e.g., .vmdk, .vdi, .ami) that can be moved or converted to different formats.
 
@@ -16,7 +16,7 @@ Virtualization environments provide three main benefits:
 
 To understand how virtualization techniques work, it is essential to understand the underlying computer architecture, specifically the Instruction Set Architecture (ISA).
 
-![](../../Pasted%20image%2020260325223359.png)
+![](Images/Pasted%20image%2020260325223359.png)
 
 Instructions are divided into distinct categories:
 
@@ -40,7 +40,7 @@ According to Popek and Goldberg (1974), a VMM must satisfy three fundamental pro
 - **Type 1 (Native/Bare Metal):** Runs directly on the host's hardware. They can be built as a _Microkernel_ (e.g., Xen, Microsoft Hyper-V), which handles memory and CPU but leaves device drivers to the host OS, or a _Monolithic_ architecture (e.g., VMware ESX), which includes all drivers internally.
 - **Type 2 (Hosted):** Runs as an application on top of a conventional host operating system (e.g., VMware Workstation, VirtualBox).
 
-![697](../../Pasted%20image%2020260325224759.png)
+![697](Images/Pasted%20image%2020260325224759.png)
 
 ## 4. Virtualization Techniques and Challenges
 
@@ -59,11 +59,16 @@ To handle sensitive instructions, hypervisors use different techniques:
 ### A. Full Virtualization (using Binary Translation)
 
 - The guest OS is completely unaware that it is being virtualized.
-- The VMM scans the instruction stream. Noncritical instructions run directly on the hardware.
-- When a sensitive instruction is detected, the VMM replaces the sensitive instructions with a call to a hypervisor procedure that safely emulates the hardware's behavior.
-- This is highly efficient because translated blocks are cached for future use, and user-level processes do not require translation.
 
-- **Binary Translation**: is a specific technique in which the VMM translates the binary instruction code of a VM into instructions that the underlying hardware can understand. This process allows for the emulation of the behavior of critical instructions without requiring modifications to the guest operating system. the hypervisor rewrites the guest's code one "basic block" at a time prior to execution. A basic block is a short sequence of instructions ending with a branch.
+- The VMM scans the instruction stream. Noncritical instructions run directly on the hardware.
+
+- When a sensitive instruction is detected by an hardware trap, the VMM replaces the sensitive instructions with a call to a hypervisor procedure that safely emulates the hardware's behavior using binary translation.
+
+- **Binary Translation**: is a specific technique in which the VMM translates the binary instruction code of a VM into instructions that the underlying hardware can understand. This process allows for the emulation of the behavior of critical instructions without requiring modifications to the guest operating system. The hypervisor rewrites the guest's code one "basic block" at a time prior to execution. A basic block is a short sequence of instructions ending with a branch.
+	
+	![470](Images/Pasted%20image%2020260325235533.png)
+	
+- This is highly efficient because translated blocks are cached for future use, and user-level processes do not require translation.
 
 ### B. Paravirtualization
 
@@ -72,4 +77,6 @@ To handle sensitive instructions, hypervisors use different techniques:
 - This approach avoids the massive performance overhead caused by continuous hardware traps.
 - Paravirtualization is much easier to implement on systems utilizing a Microkernel architecture, as fewer OS modules need to be modified. Examples include Xen and KVM.
 
-![](../../Pasted%20image%2020260325234345.png)
+![](Images/Pasted%20image%2020260325234345.png)
+
+### C. Hardware-assisted Virtualization
