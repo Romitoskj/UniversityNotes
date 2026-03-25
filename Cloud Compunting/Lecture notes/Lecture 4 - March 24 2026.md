@@ -62,7 +62,7 @@ To handle sensitive instructions, hypervisors use different techniques:
 	
 	![470](Images/Pasted%20image%2020260325235533.png)
 	
-- This is highly efficient because translated blocks are cached for future use, and user-level processes do not require translation.
+- This is highly efficient because translated blocks are cached for future use, and user-level instructions (that are the majority) do not require translation.
 
 ### B. Paravirtualization
 
@@ -74,3 +74,13 @@ To handle sensitive instructions, hypervisors use different techniques:
 ![](Images/Pasted%20image%2020260325234345.png)
 
 ### C. Hardware-assisted Virtualization
+
+**Hardware-assisted virtualization** is a technology introduced by hardware manufacturers, such as Intel (with VT-x) and AMD (with AMD-V), to natively support and improve the performance of virtualized environments directly at the processor level.
+
+To understand its value, it is essential to look at the historical challenge it solved. Early x86 architectures were incredibly difficult to virtualize because 17 sensitive instructions could be executed in user mode without generating a hardware trap to alert the hypervisor. This broke the isolation between guest operating systems and forced hypervisors to rely on heavy, software-based "binary translation"—a process of constantly scanning and rewriting the guest's code on the fly to intercept these uncooperative instructions.
+
+Hardware-assisted virtualization solved this by completely redesigning the processor's instruction set architecture. Its key mechanisms and benefits include:
+
+- **Sensitive Instructions Become Privileged:** The redesigned architecture ensures that all sensitive instructions effectively behave as privileged instructions. Consequently, if a guest operating system attempts to execute a sensitive instruction, the hardware guarantees that a trap is successfully generated, transferring control safely to the hypervisor.
+- **Direct Hardware Execution:** Because the hardware now natively guarantees that sensitive operations will be trapped, both privileged and non-privileged instructions can run directly on the bare-metal hardware.
+- **Reduced Performance Penalties:** By eliminating the need for continuous binary translation, the system avoids severe performance overhead. Furthermore, because only specific operations (like I/O instructions) generate traps, the total volume of traps the hypervisor must process is significantly reduced.
