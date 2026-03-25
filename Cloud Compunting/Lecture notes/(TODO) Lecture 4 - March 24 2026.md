@@ -6,7 +6,7 @@ Virtualization environments provide three main benefits:
 
 - **Increased Security:** The Virtual Machine Manager (VMM) controls and filters all guest activity, preventing the execution of harmful operations. It hides the host's physical resources from the guest, providing isolation and protecting sensitive information without needing complex security policies. _Examples: Java Virtual Machine (JVM) sandboxing, or hardware virtualization completely separating the guest's file system from the host's_.
 
-- **Managed Execution:** Virtualization allows for flexible resource management, such as sharing a single physical machine among multiple virtual ones (isolation), or aggregating distributed resources to look like a single centralized system (e.g., Cassandra distributed data store). It also allows for the emulation of older processors so legacy software can continue to run on modern hardware.
+- **Managed Execution:** Virtualization allows for flexible resource management, such as sharing a single physical machine among multiple virtual ones completely separating them (isolation), or aggregating distributed resources to look like a single centralized system (e.g., Cassandra distributed data store). It also allows for the emulation of older processors so legacy software can continue to run on modern hardware.
 
 	![](../../Pasted%20image%2020260325221953.png)
 
