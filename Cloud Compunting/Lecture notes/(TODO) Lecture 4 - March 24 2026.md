@@ -44,7 +44,15 @@ According to Popek and Goldberg (1974), a VMM must satisfy three fundamental pro
 
 ## 4. Virtualization Techniques and Challenges
 
-A major historical challenge was that the original x86 architecture was not natively virtualizable because some sensitive instructions could be executed in user mode without triggering a trap, breaking isolation. Hardware manufacturers solved this by introducing **Hardware-supported Virtualization (Intel VT-x and AMD-V)**, which redesigned the instruction set so that all sensitive instructions automatically generate a hardware trap to the hypervisor.
+#### The Trap Mechanism in Virtualization
+
+- A "trap" is a hardware mechanism used by the Virtual Machine Manager (VMM) or hypervisor to intercept and take control of sensitive operations attempted by a guest Operating System (OS).
+- When a guest OS or user program attempts to execute a privileged instruction that is only allowed in kernel mode, the hardware generates a trap, transferring control directly to the hypervisor.
+
+**How the Hypervisor Handles a Trap** Once a trap is triggered, the hypervisor inspects the instruction and determines its origin:
+
+- **From the Guest OS:** If the instruction legitimately comes from the guest OS, the hypervisor arranges for the instruction to be safely carried out on the guest's behalf.
+- **From a User Program:** If a user-level program attempts the instruction, the hypervisor emulates the exact behaviour that the real physical hardware would exhibit when confronted with a sensitive instruction in user mode.
 
 To handle sensitive instructions, hypervisors use different techniques:
 
