@@ -3,7 +3,7 @@
 
 ## Automation
 
-### 1. IT Automation vs. Autonomic Computing**
+### 1. IT Automation vs. Autonomic Computing
 
 While both disciplines address the management of IT systems, there is a fundamental difference in their execution cycles and the role of the human administrator:
 
