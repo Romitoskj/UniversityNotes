@@ -60,8 +60,10 @@ To handle sensitive instructions, hypervisors use different techniques:
 
 - The guest OS is completely unaware that it is being virtualized.
 - The VMM scans the instruction stream. Noncritical instructions run directly on the hardware.
-- When a sensitive instruction is detected, the VMM uses **Binary Translation**: it rewrites the guest's code one "basic block" at a time prior to execution. A basic block is a short sequence of instructions ending with a branch. The VMM replaces the sensitive instructions with a call to a hypervisor procedure that safely emulates the hardware's behavior.
+- When a sensitive instruction is detected, the VMM replaces the sensitive instructions with a call to a hypervisor procedure that safely emulates the hardware's behavior.
 - This is highly efficient because translated blocks are cached for future use, and user-level processes do not require translation.
+
+- **Binary Translation**: is a specific technique in which the VMM translates the binary instruction code of a VM into instructions that the underlying hardware can understand. This process allows for the emulation of the behavior of critical instructions without requiring modifications to the guest operating system. the hypervisor rewrites the guest's code one "basic block" at a time prior to execution. A basic block is a short sequence of instructions ending with a branch.
 
 ### B. Paravirtualization
 
