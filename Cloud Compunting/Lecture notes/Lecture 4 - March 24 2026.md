@@ -44,19 +44,13 @@ According to Popek and Goldberg (1974), a VMM must satisfy three fundamental pro
 
 ## 4. Virtualization Techniques and Challenges
 
-#### The Trap Mechanism in Virtualization
-
-- A "trap" is a hardware mechanism used by the Virtual Machine Manager (VMM) or hypervisor to intercept and take control of sensitive operations attempted by a guest Operating System (OS).
-- When a guest OS or user program attempts to execute a privileged instruction that is only allowed in kernel mode, the hardware generates a trap, transferring control directly to the hypervisor.
-
-**How the Hypervisor Handles a Trap** Once a trap is triggered, the hypervisor inspects the instruction and determines its origin:
-
-- **From the Guest OS:** If the instruction legitimately comes from the guest OS, the hypervisor arranges for the instruction to be safely carried out on the guest's behalf.
-- **From a User Program:** If a user-level program attempts the instruction, the hypervisor emulates the exact behaviour that the real physical hardware would exhibit when confronted with a sensitive instruction in user mode.
-
 To handle sensitive instructions, hypervisors use different techniques:
 
 ### A. Full Virtualization (using Binary Translation)
+
+>[!info] The Trap Mechanism 
+>- A "trap" is a hardware mechanism used by the Virtual Machine Manager (VMM) or hypervisor to intercept and take control of sensitive operations attempted by a guest Operating System (in user mode).
+>- When a guest OS or user program attempts to execute a privileged instruction that is only allowed in kernel mode, the hardware generates a trap, transferring control directly to the hypervisor.
 
 - The guest OS is completely unaware that it is being virtualized.
 
