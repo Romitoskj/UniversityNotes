@@ -71,3 +71,5 @@ To handle sensitive instructions, hypervisors use different techniques:
 - An intelligent compiler replaces non-virtualizable or sensitive OS instructions with direct API calls to the hypervisor, known as **hypercalls**.
 - This approach avoids the massive performance overhead caused by continuous hardware traps.
 - Paravirtualization is much easier to implement on systems utilizing a Microkernel architecture, as fewer OS modules need to be modified. Examples include Xen and KVM.
+
+![](../../Pasted%20image%2020260325234345.png)
