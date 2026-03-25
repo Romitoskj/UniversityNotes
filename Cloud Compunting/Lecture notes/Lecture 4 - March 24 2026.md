@@ -25,6 +25,8 @@ Instructions are divided into distinct categories:
     - _Behavior-sensitive instructions:_ Operate on I/O devices or memory.
     - _Control-sensitive instructions:_ Alter the state of the CPU registers.
 
+![](Images/Pasted%20image%2020260326003506.png)
+
 ## 3. The Hypervisor / Virtual Machine Manager (VMM)
 
 The VMM (or hypervisor) sits above the hardware to mediate between the user mode and the supervisor (kernel) mode, typically running directly in supervisor mode (Ring 0).
