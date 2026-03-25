@@ -31,7 +31,7 @@ The VMM (or hypervisor) sits above the hardware to mediate between the user mode
 
 According to Popek and Goldberg (1974), a VMM must satisfy three fundamental properties:
 
-1. **Equivalence:** A guest OS must behave exactly as it would if it were executing directly on the physical bare-metal hardware.
+1. **Equivalence:** A guest OS must behave exactly as it would if it were executing directly on the physical host.
 2. **Resource Control:** The VMM must be in complete control of all virtualized system resources.
 3. **Efficiency:** A statistically dominant fraction of machine instructions must be executed directly on the hardware without the VMM's intervention.
 
@@ -39,6 +39,8 @@ According to Popek and Goldberg (1974), a VMM must satisfy three fundamental pro
 
 - **Type 1 (Native/Bare Metal):** Runs directly on the host's hardware. They can be built as a _Microkernel_ (e.g., Xen, Microsoft Hyper-V), which handles memory and CPU but leaves device drivers to the host OS, or a _Monolithic_ architecture (e.g., VMware ESX), which includes all drivers internally.
 - **Type 2 (Hosted):** Runs as an application on top of a conventional host operating system (e.g., VMware Workstation, VirtualBox).
+
+![697](../../Pasted%20image%2020260325224759.png)
 
 ## 4. Virtualization Techniques and Challenges
 
