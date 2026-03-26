@@ -48,14 +48,20 @@ According to Popek and Goldberg (1974), a VMM must satisfy three fundamental pro
 
 To handle sensitive instructions, hypervisors use different techniques:
 
-### A. Full Virtualization (using Binary Translation)
+### A. Full Virtualization
 
->[!info] The Trap Mechanism 
->- A "trap" is a hardware mechanism used by the Virtual Machine Manager (VMM) or hypervisor to intercept and take control of sensitive operations attempted by a guest Operating System (in user mode).
->- When a guest OS or user program attempts to execute a privileged instruction that is only allowed in kernel mode, the hardware generates a trap, transferring control directly to the hypervisor.
+The guest OS is completely unaware that it is being virtualized.
 
-- The guest OS is completely unaware that it is being virtualized.
+#### Trap Mechanism 
+- **Trap** is a hardware-based mechanism used by a Virtual Machine Manager (VMM) or hypervisor to intercept and take control of privileged instructions.
+- When a guest operating system attempts to execute an instruction that is only allowed in kernel mode, the hardware automatically generates a trap, transferring control to the hypervisor.
+- The hypervisor then inspects the instruction:
+	- if it legitimately originated from the guest OS, it carries out the action on the guest's behalf;
+	- if it came from a user program, it emulates the hardware's expected behavior. 
+- Historically, older x86 architectures were difficult to virtualize because certain sensitive instructions could execute in user mode without triggering a trap, breaking system isolation. Modern hardware-assisted virtualization (like Intel VT-x and AMD-V) solved this by redesigning the architecture so that these sensitive operations successfully trigger hardware traps.
 
+#### Binary Translation
+**Binary Translation** is a software-based technique used in full virtualization to overcome the limitations of systems where sensitive instructions do not naturally trap to the hypervisor. Instead of relying entirely on hardware alerts, the VMM proactively scans the guest's instruction stream. While noncritical instructions are allowed to run directly on the hardware, the VMM identifies control- and behavior-sensitive instructions and rewrites their binary code prior to execution. This is done one "basic block" (a short, straight-line sequence of instructions ending in a branch) at a time, replacing the sensitive instructions with calls to safe hypervisor procedures. While this process is computationally costly, especially for I/O operations, hypervisors mitigate the performance hit by caching the translated blocks for future use.
 - The VMM scans the instruction stream. Noncritical instructions run directly on the hardware.
 
 - When a sensitive instruction is detected by an hardware trap, the VMM replaces the sensitive instructions with a call to a hypervisor procedure that safely emulates the hardware's behavior using binary translation.
