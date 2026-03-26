@@ -8,7 +8,7 @@ Virtualization environments provide three main benefits:
 
 - **Managed Execution:** Virtualization allows for flexible resource management, such as sharing a single physical machine among multiple virtual ones completely separating them (isolation), or aggregating distributed resources to look like a single centralized system (e.g., Cassandra distributed data store). It also allows for the emulation of older processors so legacy software can continue to run on modern hardware.
 	
-	![697](Images/Pasted%20image%2020260325221953.png)
+	![661](Images/Pasted%20image%2020260325221953.png)
 
 - **Portability:** The ability to easily transfer and use data/applications across different computing platforms. Just as a Java application runs anywhere with a JVM, a Virtual Machine (VM) can be easily migrated because it boots from a disk image file (e.g., .vmdk, .vdi, .ami) that can be moved or converted to different formats.
 
