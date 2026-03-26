@@ -61,16 +61,12 @@ The guest OS is completely unaware that it is being virtualized.
 - Historically, older x86 architectures were difficult to virtualize because certain sensitive instructions could execute in user mode without triggering a trap, breaking system isolation. Modern hardware-assisted virtualization (like Intel VT-x and AMD-V) solved this by redesigning the architecture so that these sensitive operations successfully trigger hardware traps.
 
 #### Binary Translation
-**Binary Translation** is a software-based technique used in full virtualization to overcome the limitations of systems where sensitive instructions do not naturally trap to the hypervisor. Instead of relying entirely on hardware alerts, the VMM proactively scans the guest's instruction stream. While noncritical instructions are allowed to run directly on the hardware, the VMM identifies control- and behavior-sensitive instructions and rewrites their binary code prior to execution. This is done one "basic block" (a short, straight-line sequence of instructions ending in a branch) at a time, replacing the sensitive instructions with calls to safe hypervisor procedures. While this process is computationally costly, especially for I/O operations, hypervisors mitigate the performance hit by caching the translated blocks for future use.
-- The VMM scans the instruction stream. Noncritical instructions run directly on the hardware.
-
-- When a sensitive instruction is detected by an hardware trap, the VMM replaces the sensitive instructions with a call to a hypervisor procedure that safely emulates the hardware's behavior using binary translation.
-
-- **Binary Translation**: is a specific technique in which the VMM translates the binary instruction code of a VM into instructions that the underlying hardware can understand. This process allows for the emulation of the behavior of critical instructions without requiring modifications to the guest operating system. The hypervisor rewrites the guest's code one "basic block" at a time prior to execution. A basic block is a short sequence of instructions ending with a branch.
+- **Binary Translation** is a software-based technique used in to overcome the limitations of systems where sensitive instructions do not naturally trap to the hypervisor.
+- Instead of relying entirely on hardware alerts, the VMM proactively scans the guest's instruction stream. 
+	- Noncritical instructions are allowed to run directly on the hardware
+	- VMM identifies control- and behavior-sensitive instructions and rewrites their binary code prior to execution. This is done one "basic block" (a short, straight-line sequence of instructions ending in a branch) at a time, replacing the sensitive instructions with calls to safe hypervisor procedures. While this process is computationally costly, especially for I/O operations, hypervisors mitigate the performance hit by caching the translated blocks for future use.
 	
 	![470](Images/Pasted%20image%2020260325235533.png)
-	
-- This is highly efficient because translated blocks are cached for future use, and user-level instructions (that are the majority) do not require translation.
 
 ### B. Paravirtualization
 
