@@ -19,6 +19,6 @@
 
 ---
 
-![(TODO) Lesson 5 - March 24](Deep%20Learning%20and%20Artificial%20Intelligence/Lecture%20notes/(TODO)%20Lesson%205%20-%20March%2024.md)
+![(TODO) Lesson 6 - March 24](Deep%20Learning%20and%20Artificial%20Intelligence/Lecture%20notes/(TODO)%20Lesson%206%20-%20March%2024.md)
 
 ---
