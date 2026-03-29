@@ -46,6 +46,7 @@ Ansible can be used to orchestrate complex operations, such as a rolling update 
 4. Telling the load balancer to stop routing traffic to the targeted servers.
 5. Stopping the application, deploying the updated code, and starting the server.
 6. Running tests, adding the server back to the load balancer pool, and resuming monitoring alerts. This is repeated across all application servers, and then moved down to the database tiers.
+7. Sending email reports and logging as desired when updates are complete
 
 ## 3. The Link Between Automation and Autonomic Computing
 
