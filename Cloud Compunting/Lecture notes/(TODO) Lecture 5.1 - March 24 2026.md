@@ -4,8 +4,11 @@
 
 While both disciplines address the management of IT systems, there is a fundamental difference in their execution cycles and the role of the human administrator:
 
-- **Autonomic Computing:** The goal is to completely remove humans from the loop. The human simply provides high-level objectives, and the system continuously manages itself across its entire lifecycle using the MAPE (Monitor, Analyze, Plan, Execute) loop.
-- **IT Automation:** The goal is to reduce human interaction and manual processes for repetitive tasks, but it does not replace the human. There is no continuous autonomous cycle; instead, a human defines a well-defined plan (a set of instructions) and "clicks a button" to trigger the execution.
+- **Autonomic Computing:** The goal is to completely *remove* humans from the loop. The human simply provides high-level objectives, and the system continuously manages itself across its entire lifecycle using the MAPE (Monitor, Analyze, Plan, Execute) loop.
+- **IT Automation:** The goal is to *reduce* human interaction and manual processes for repetitive tasks, but it does not replace the human. There is no continuous autonomous cycle; instead, a human defines a well-defined plan (a set of instructions) and "clicks a button" to trigger the execution. The benefits are:
+	- Improved efficiency and productivity by reducing time and effort required for manual tasks.
+	- Reduced human error.
+	- Saved time and costs.
 - **Applying them to Data Center Challenges:**
     - _Server Consolidation:_ This requires Autonomic Computing because it relies on continuously monitoring the data center to optimize resources and minimize energy consumption over time.
     - _Bug Fixes and Updates:_ These are typically handled via Automation, as they require pushing new code or configurations when a patch is released.
