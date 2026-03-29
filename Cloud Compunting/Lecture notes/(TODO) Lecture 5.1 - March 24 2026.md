@@ -21,6 +21,8 @@ Ansible is presented as a practical example of an IT automation tool used to man
 - **The Push Model:** Because there are no agents, the Ansible control server stores the code and "pushes" instructions directly to the target nodes. It leverages native, standard operating system remote management tools—specifically **SSH** for Linux/UNIX and **WinRM** for Windows. This ensures stability and requires no extra setup on the target node.
 - **Exception for Network Appliances:** Network devices (like small routers or access points) generally cannot execute pushed code. For these devices, the automation tool runs the script locally on the control server and interacts with the appliance via its API endpoints.
 
+![697](../../Pasted%20image%2020260329120340.png)
+
 ## 3. Playbooks, Modules, and the "Desired State"
 
 Ansible automates execution using **Playbooks**, which are written in YAML syntax and act as repeatable, reusable scripts for configuration management and deployment.
