@@ -29,7 +29,7 @@ Ansible is presented as a practical example of an IT automation tool used to man
 
 Ansible automates execution using **Playbooks**, which are written in YAML syntax and act as repeatable, reusable scripts for configuration management and deployment.
 
-- **Inventory, Plays, and Tasks:** A playbook acts on a set of target nodes known as the **inventory**. A playbook is partitioned into "plays," and each play contains multiple "tasks".
+- **Inventory, Plays, and Tasks:** A playbook acts on a set of target nodes known as the **inventory**. A playbook is partitioned into "plays" that define automation across a set of hosts and each play contains multiple "tasks" that can target one, many or all of the host in the inventory.
 - **Modules:** Each task calls a specific module that is a small piece of code designed for a specific action. Examples of core modules include:
     - `ansible.builtin.yum`: To ensure software (like httpd or PostgreSQL) is at the latest version.
     - `ansible.builtin.template`: To copy a configuration file from a source to a destination.
