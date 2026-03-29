@@ -13,7 +13,9 @@ While both disciplines address the management of IT systems, there is a fundamen
     - _Server Consolidation:_ This requires Autonomic Computing because it relies on continuously monitoring the data center to optimize resources and minimize energy consumption over time.
     - _Bug Fixes and Updates:_ These are typically handled via Automation, as they require pushing new code or configurations when a patch is released.
 
-## 2. Ansible and the Agentless "Push" Model
+## 2. Ansible
+
+### A. The Agentless "Push" Model
 
 Ansible is presented as a practical example of an IT automation tool used to manage operations and infrastructure.
 
@@ -23,7 +25,7 @@ Ansible is presented as a practical example of an IT automation tool used to man
 
 ![697](../../Pasted%20image%2020260329120340.png)
 
-## 3. Playbooks, Modules, and the "Desired State"
+### B. Playbooks, Modules, and the "Desired State"
 
 Ansible automates execution using **Playbooks**, which are written in YAML syntax and act as repeatable, reusable scripts for configuration management and deployment.
 
@@ -34,7 +36,7 @@ Ansible automates execution using **Playbooks**, which are written in YAML synta
     - `ansible.builtin.service`: To bring a service into a specific state (e.g., starting it).
 - **Desired State and Idempotence:** This is a crucial concept in Ansible. Instead of just blindly running commands, tasks declare a "desired state". Before executing an action, the system checks if the node is already in that state (e.g., checking if the Apache server is already running). If the desired state is already met, the action is skipped. This makes playbooks **idempotent**, meaning if a script fails halfway through, you can safely rerun the entire playbook without causing duplicate errors or side effects.
 
-## 4. Practical Example: Rolling Updates**
+### C. Practical Example: Rolling Updates
 
 Ansible can be used to orchestrate complex operations, such as a rolling update on a traditional three-tier web application (Web Servers, App Servers, Database Servers). The process involves automating a sequence of steps for a subset of servers at a time:
 
@@ -45,7 +47,7 @@ Ansible can be used to orchestrate complex operations, such as a rolling update 
 5. Stopping the application, deploying the updated code, and starting the server.
 6. Running tests, adding the server back to the load balancer pool, and resuming monitoring alerts. This is repeated across all application servers, and then moved down to the database tiers.
 
-## 5. The Link Between Automation and Autonomic Computing**
+## 3. The Link Between Automation and Autonomic Computing
 
 While distinct, Automation and Autonomic Computing are directly connected: automation tools essentially serve as the **"Execute" phase** of the autonomic MAPE loop. Once an autonomic manager has monitored, analyzed, and planned a change, it can use an automation script (like an Ansible playbook) to execute it.
 
