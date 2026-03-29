@@ -23,7 +23,7 @@ Ansible is presented as a practical example of an IT automation tool used to man
 - **The Push Model:** Because there are no agents, the Ansible control server stores the code and "pushes" instructions directly to the target nodes. It leverages native, standard operating system remote management tools—specifically **SSH** for Linux/UNIX and **WinRM** for Windows. This ensures stability and requires no extra setup on the target node.
 - **Exception for Network Appliances:** Network devices (like small routers or access points) generally cannot execute pushed code. For these devices, the automation tool runs the script locally on the control server and interacts with the appliance via its API endpoints.
 
-![697](../../Pasted%20image%2020260329120340.png)
+![697](Images/Pasted%20image%2020260329120340.png)
 
 ### B. Playbooks, Modules, and the "Desired State"
 
@@ -51,6 +51,8 @@ Ansible can be used to orchestrate complex operations, such as a rolling update 
 ## 3. The Link Between Automation and Autonomic Computing
 
 While distinct, Automation and Autonomic Computing are directly connected: automation tools essentially serve as the **"Execute" phase** of the autonomic MAPE loop. Once an autonomic manager has monitored, analyzed, and planned a change, it can use an automation script (like an Ansible playbook) to execute it.
+
+![](Images/Pasted%20image%2020260329124135.png)
 
 - **Self-configuration:** Deploying a newly generated configuration playbook.
 - **Self-optimization:** Executing a playbook to provision and add new servers to a cluster.
