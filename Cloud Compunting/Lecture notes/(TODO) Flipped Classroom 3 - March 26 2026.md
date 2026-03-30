@@ -2,12 +2,19 @@
 
 ## 1. The Auto-Scaling Process
 
+Autoscaling refers to the capability of automatically adjusting the number of computational resources (such as VMs, containers, etc.) allocated to an application, based on the current workload.
+
 Auto-scaling systems continuously manage cloud resources by following the **MAPE loop** from autonomic computing:
 
 - **Monitoring (M):** Collects data about user demands, application status, and SLA compliance. Because obtaining detailed application-level metrics is difficult, auto-scalers often rely on **proxy metrics**, such as hypervisor-level CPU utilization, to approximate the real workload.
 - **Analysis (A):** Evaluates the collected data to estimate current utilization or predict future resource demands.
 - **Planning (P):** Determines the appropriate scaling adjustments (e.g., adding or removing Virtual Machines).
 - **Execution (E):** The service provider carries out the decided adjustments.
+
+#### Vertical vs. Horizontal Scaling
+
+- **Vertical Scaling** Adjusting the resources CPU, memory) within a single instance.
+- **Horizontal Scaling** Adding or removing instances to handle the load, also known as scale-out/in. 
 
 #### Reactive vs. Proactive Auto-scaling:
 
