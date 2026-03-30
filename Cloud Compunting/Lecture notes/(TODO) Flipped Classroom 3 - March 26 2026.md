@@ -9,7 +9,7 @@ Auto-scaling systems continuously manage cloud resources by following the **MAPE
 - **Planning (P):** Determines the appropriate scaling adjustments (e.g., adding or removing Virtual Machines).
 - **Execution (E):** The service provider carries out the decided adjustments.
 
-### Reactive vs. Proactive Auto-scaling:
+#### Reactive vs. Proactive Auto-scaling:
 
 - **Reactive:** Responds to changes only _after_ they are detected. Because it takes time to boot up and configure a new Virtual Machine (VM), reactive systems often suffer from delayed responses, leading to temporary SLA violations during sudden traffic bursts.
 - **Proactive:** Anticipates future demands to provision resources in advance, which is crucial for handling sudden bursts effectively.
