@@ -21,7 +21,27 @@ Kubernetes is a widely used orchestration platform for managing containerized wo
 - **Self-Healing:** Automatically restarting, replacing, or killing containers that are no longer healthy.
 - **Secret and Configuration Management:** Handling and deploy sensitive information such as keys along with configuration files.
 
-## 3. K8s Cluster Architecture: Control Plane vs. Nodes
+## 3. Three Core Kubernetes Concepts
+
+### 1. Objects:
+Persistent entities used to represent the state of the cluster (e.g., deployments, nodes). They act as a "record of intent"—once created, K8s constantly works to ensure the object exists in its target state. Objects rely on two fields:
+
+- **spec****:** Defines the _desired state_ (e.g., "I want 3 replicas of this application").
+- **status****:** Describes the _current state_ (e.g., "Currently, 2 instances are running"). K8s monitors the difference between the two and takes action to match the status to the spec.
+
+### 2. Pods:
+The smallest deployable unit in Kubernetes. A Pod is a "logical host" representing a boundary around one or more tightly coupled containers.
+
+- Containers within a Pod share storage, network resources, Linux namespaces, and cgroups.
+- They are strictly co-located and co-scheduled, meaning all containers in a Pod are always executed together on the exact same physical node.
+
+### 3. Nodes:
+The physical or virtual machines that execute the Pods.
+
+- Nodes join the cluster either via `kubelet` self-registration or by a human manually adding a Node object.
+- **Node Status:** Defined by its Address, Capacity (available CPU/memory), Allocable resources, and **Conditions**. Conditions indicate the node's health, such as _Ready_, _DiskPressure_, _MemoryPressure_, or _NetworkUnavailable_. If a condition fails (e.g., the node is unresponsive), the node controller will evict and reschedule the Pods running on it.
+
+## 4. K8s Cluster Architecture: Control Plane vs. Nodes
 
 A Kubernetes architecture is divided into two main sections: the **Control Plane** (the managing entity) and a **Cluster of Nodes** (where the workloads are actually executed).
 
@@ -41,28 +61,8 @@ A Kubernetes architecture is divided into two main sections: the **Control Plane
 ### B. Node Components
 
 - **kubelet:** The primary agent running on each node that self-registers the node to the API server and ensures that the containers described in a Pod specification are running and healthy.
-- **kube-proxy:** Maintains the network rules that allow for proper communication and connectivity to the cluster's Pods.
+- **kube-proxy:** a network proxy that maintains the network rules that allow for proper communication and connectivity to the cluster's Pods inside and outside from the cluster.
 - **Container runtime:** The underlying software (like Docker) required to actually run the containers.
-
-## 4. Three Core Kubernetes Concepts
-
-### 1. Objects:
-Persistent entities used to represent the state of the cluster (e.g., deployments, nodes). They act as a "record of intent"—once created, K8s constantly works to ensure the object exists in its target state. Objects rely on two fields:
-
-- **spec****:** Defines the _desired state_ (e.g., "I want 3 replicas of this application").
-- **status****:** Describes the _current state_ (e.g., "Currently, 2 instances are running"). K8s monitors the difference between the two and takes action to match the status to the spec.
-
-### 2. Pods:
-The smallest deployable unit in Kubernetes. A Pod is a "logical host" representing a boundary around one or more tightly coupled containers.
-
-- Containers within a Pod share storage, network resources, Linux namespaces, and cgroups.
-- They are strictly co-located and co-scheduled, meaning all containers in a Pod are always executed together on the exact same physical node.
-
-### 3. Nodes:
-The physical or virtual machines that execute the Pods.
-
-- Nodes join the cluster either via `kubelet` self-registration or by a human manually adding a Node object.
-- **Node Status:** Defined by its Address, Capacity (available CPU/memory), Allocable resources, and **Conditions**. Conditions indicate the node's health, such as _Ready_, _DiskPressure_, _MemoryPressure_, or _NetworkUnavailable_. If a condition fails (e.g., the node is unresponsive), the node controller will evict and reschedule the Pods running on it.
 
 ## 5. Controllers and Autoscaling
 
