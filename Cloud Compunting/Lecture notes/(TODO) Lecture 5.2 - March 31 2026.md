@@ -42,10 +42,16 @@ The smallest deployable unit in Kubernetes. A Pod is a "logical host" representi
 - Run in a shared context: a set of Linux namespaces and cgroups (individual application may have further isolations applied), shared filesystem volumes.
 
 ### 3. Nodes:
-The physical or virtual machines that execute the Pods.
+The physical or virtual machines that execute the Pods managed by the control plane.
 
-- Nodes join the cluster either via `kubelet` self-registration or by a human manually adding a Node object.
-- **Node Status:** Defined by its Address, Capacity (available CPU/memory), Allocable resources, and **Conditions**. Conditions indicate the node's health, such as _Ready_, _DiskPressure_, _MemoryPressure_, or _NetworkUnavailable_. If a condition fails (e.g., the node is unresponsive), the node controller will evict and reschedule the Pods running on it.
+- Nodes join the cluster either via `kubelet` self-registration or by a human manually adding a Node object. Both of them by adding a node object via the API-server.
+- Once a node object is created the control plane checks if it is valid (all the services are running) and if so it could run a pod.
+- **Node Status:** Defined by its 
+	- Address (hostname and IP)
+	- Capacity (available CPU/memory and maximum number of pods that can be scheduled onto the node)
+	- Allocable resources (usable portion of those resources that can be used by a pod)
+	- Info (general information such as kernel version, kubernetes version, containers runtime details, OS)
+	- **Conditions**. Conditions indicate the node's health, such as _Ready_ (to accept pods), _DiskPressure_, _MemoryPressure_, or _NetworkUnavailable_. If a condition fails (e.g., the node is unresponsive), the node controller will evict and reschedule the Pods running on it.
 
 ## 4. K8s Cluster Architecture: Control Plane vs. Nodes
 
