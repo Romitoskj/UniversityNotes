@@ -37,8 +37,9 @@ They act as a "record of intent": once created, K8s constantly works to ensure t
 ### 2. Pods:
 The smallest deployable unit in Kubernetes. A Pod is a "logical host" representing a boundary around one or more tightly coupled containers.
 
-- Containers within a Pod share storage, network resources, Linux namespaces, and cgroups.
-- They are strictly co-located and co-scheduled, meaning all containers in a Pod are always executed together on the exact same physical node.
+- Containers within a Pod share storage, network resources, specification for how to run the containers
+- They are strictly co-located and co-scheduled, meaning all containers in a Pod are always executed together on the exact same node.
+- Run in a shared context: a set of Linux namespaces and cgroups (individual application may have further isolations applied), shared filesystem volumes.
 
 ### 3. Nodes:
 The physical or virtual machines that execute the Pods.
