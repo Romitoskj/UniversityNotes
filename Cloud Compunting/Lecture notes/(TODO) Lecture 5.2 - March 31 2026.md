@@ -31,13 +31,17 @@ A Kubernetes architecture is divided into two main sections: the **Control Plane
 - **kube-apiserver:** The front-end entry point that allows the control plane to communicate with the cluster of nodes. It receives state information and pushes actions, scaling horizontally to handle requests.
 - **etcd:** A highly available key-value store used to hold all the configuration data for the cluster.
 - **kube-scheduler:** Responsible for assigning newly created Pods to the most appropriate physical or virtual Node.
-- **kube-controller-manager:** Runs continuous control loops (like the node controller, job controller, endpoint slice controller, and service account controller) to maintain the cluster's desired state.
+- **kube-controller-manager:** Runs continuous control loops to maintain the cluster's desired state:
+	- Node controller for noticing and responding when nodes go down,
+	- Job controller that watches for job objects that represent one-off tasks then creates pods to run those tasks,
+	- Endpoint slice controller for populating EndpointSlice objects that provide link between services and pods,
+	- Service account controller that creates default service accounts for new namespaces.
 - **cloud-controller-manager:** Allows the local cluster to interact with external cloud provider APIs, such as extending the cluster using remote virtual machines.
 
 ### B. Node Components
 
-- **kubelet****:** The primary agent running on each node that self-registers the node to the API server and ensures that the containers described in a Pod specification are running and healthy.
-- **kube-proxy****:** Maintains the network rules that allow for proper communication and connectivity to the cluster's Pods.
+- **kubelet:** The primary agent running on each node that self-registers the node to the API server and ensures that the containers described in a Pod specification are running and healthy.
+- **kube-proxy:** Maintains the network rules that allow for proper communication and connectivity to the cluster's Pods.
 - **Container runtime:** The underlying software (like Docker) required to actually run the containers.
 
 ## 4. Three Core Kubernetes Concepts
