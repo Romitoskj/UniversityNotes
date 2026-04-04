@@ -80,8 +80,11 @@ A Kubernetes architecture is divided into two main sections: the **Control Plane
 
 Controllers are continuous autonomic loops that watch a specific resource (like nodes or jobs). They compare the `status` against the `spec` and send messages to the `kube-apiserver` to enact changes.
 
-- **Example (Job Controller):** Watches for new Job objects, requests the API server to create the necessary Pods, monitors them until the task is successfully finished, and then marks the job as completed.
-- **Autoscaling:** K8s supports both **Cluster Autoscaling** (adding/removing physical nodes by communicating with external cloud resources) and **Horizontal Pod Autoscaling** (dynamically calculating the ratio of current utilization to target utilization to add or remove Pod replicas).
+- **Example (Job Controller):** Watches for new Job objects, requests the API server to create the necessary Pods, monitors them until the task is successfully finished, then marks the job as completed and request the API server to remove the Pods.
+- **Example (Autoscaling):** to make sure that there are enough nodes in a cluster K8s supports both 
+	- **Cluster Autoscaling** (adding/removing physical nodes by communicating with external cloud resources) and 
+	- **Horizontal Pod Autoscaling** (dynamically calculating the ratio of current utilization to target utilization to add or remove Pod replicas).
+- 
 
 ## 6. The Scheduling Process
 
