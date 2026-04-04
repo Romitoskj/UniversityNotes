@@ -24,10 +24,15 @@ Kubernetes is a widely used orchestration platform for managing containerized wo
 ## 3. Three Core Kubernetes Concepts
 
 ### 1. Objects:
-Persistent entities used to represent the state of the cluster (e.g., deployments, nodes). They act as a "record of intent"—once created, K8s constantly works to ensure the object exists in its target state. Objects rely on two fields:
+Persistent entities used to represent the state of the cluster (e.g., pods, deployments, nodes). They can describe:
+- What containerized applications are running
+- The resources avilable to those applications
+- The policies around how those applications behave (restart policies, upgrade, fault-tolerance)
 
-- **spec****:** Defines the _desired state_ (e.g., "I want 3 replicas of this application").
-- **status****:** Describes the _current state_ (e.g., "Currently, 2 instances are running"). K8s monitors the difference between the two and takes action to match the status to the spec.
+They act as a "record of intent": once created, K8s constantly works to ensure the object exists in its target state. Objects rely on two fields:
+
+- **spec:** Defines the _desired state_ (e.g., "I want 3 replicas of this application").
+- **status:** Describes the _current state_ (e.g., "Currently, 2 instances are running"). K8s monitors the difference between the two and takes action to match the status to the spec.
 
 ### 2. Pods:
 The smallest deployable unit in Kubernetes. A Pod is a "logical host" representing a boundary around one or more tightly coupled containers.
