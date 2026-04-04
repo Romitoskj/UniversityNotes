@@ -87,10 +87,11 @@ Controllers are continuous autonomic loops that watch a specific resource (like 
 
 ## 6. The Scheduling Process
 
-The `kube-scheduler` assigns unscheduled Pods to Nodes through a two-step process:
+In K8s, scheduling refers to making sure that Pods are matched to Nodes so that Kublet can run them. The default scheduler (`kube-scheduler`) assigns unscheduled Pods to Nodes through a three-step process:
 
 1. **Filtering:** The scheduler finds all "feasible nodes" that satisfy the Pod's resource requirements. To save time in massive clusters, the scheduler often samples a subset of nodes rather than checking every single machine.
-2. **Scoring:** The scheduler runs a scoring function (configured via Scheduling Profiles) to rank the feasible nodes. For instance, it might select the node with the lowest CPU load, or alternatively, pack workloads tightly onto nodes with the highest number of running pods to conserve resources.
+2. **Scoring:** The scheduler runs a set of scoring functions (configured via Scheduling Profiles) to rank the feasible nodes. For instance, it might select the node with the lowest CPU load, or alternatively, pack workloads tightly onto nodes with the highest number of running pods to conserve resources.
+3. **Binding:** Pick a node with the highest score tu run the Pod and notifies the API server about the decision
 
 ### Affinity and Anti-Affinity Rules:
 
