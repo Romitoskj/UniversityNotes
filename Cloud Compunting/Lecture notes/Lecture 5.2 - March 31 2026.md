@@ -98,4 +98,4 @@ In K8s, scheduling refers to making sure that Pods are matched to Nodes so that 
 The scheduler's decisions are heavily influenced by affinity rules, which rely on node labels:
 
 - **Node Affinity:** Rules preferring certain nodes. Used for optimizing network latency, routing HPC workloads to specialized hardware, or ensuring compliance with data sovereignty laws (e.g., keeping processing in a specific geographic area).
-- **Node Anti-Affinity:** Rules preventing Pods from being scheduled on certain nodes. Highly useful for keeping instances separated for high availability (preventing a single point of failure) or separating workloads that might cause performance interference.
+- **Node Anti-Affinity:** Rules preventing Pods from being scheduled on certain nodes. Highly useful for keeping instances separated for high availability (preventing a single point of failure) or separating workloads that might cause performance or security interference.
