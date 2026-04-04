@@ -25,11 +25,11 @@ Kubernetes is a widely used orchestration platform for managing containerized wo
 
 A Kubernetes architecture is divided into two main sections: the **Control Plane** (the managing entity) and a **Cluster of Nodes** (where the workloads are actually executed).
 
-![](Images/Pasted%20image%2020260403212851.png)
+![697](Images/Pasted%20image%2020260403212851.png)
 ### A. Control Plane Components
 
 - **kube-apiserver:** The front-end entry point that allows the control plane to communicate with the cluster of nodes. It receives state information and pushes actions, scaling horizontally to handle requests.
-- **etcd****:** A highly available key-value store used to hold all the configuration data for the cluster.
+- **etcd:** A highly available key-value store used to hold all the configuration data for the cluster.
 - **kube-scheduler:** Responsible for assigning newly created Pods to the most appropriate physical or virtual Node.
 - **kube-controller-manager:** Runs continuous control loops (like the node controller, job controller, endpoint slice controller, and service account controller) to maintain the cluster's desired state.
 - **cloud-controller-manager:** Allows the local cluster to interact with external cloud provider APIs, such as extending the cluster using remote virtual machines.
