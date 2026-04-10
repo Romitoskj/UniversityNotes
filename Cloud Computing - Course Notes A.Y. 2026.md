@@ -3,7 +3,7 @@
 
 ---
 
-![(TODO) Flipped Classroom 1 - March 5 2026](Cloud%20Compunting/Lecture%20notes/(TODO)%20Flipped%20Classroom%201%20-%20March%205%202026.md)
+![Flipped Classroom 1 - March 5 2026](Cloud%20Compunting/Lecture%20notes/Flipped%20Classroom%201%20-%20March%205%202026.md)
 
 ---
 

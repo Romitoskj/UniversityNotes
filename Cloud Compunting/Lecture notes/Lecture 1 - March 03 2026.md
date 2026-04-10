@@ -27,7 +27,7 @@ To be considered a true cloud service, all five of these must be present:
     - _Multi-tenancy properties_ ensure that while users share application logic or hardware, they experience complete usage isolation, data security, transparent application upgrades, and independent recovery from failures.
     - Each tenant has its own view of the application as a dedicated instance and is unaware of others ![638](Images/Pasted%20image%2020260306155538.png )
 
-4. **Rapid [Elasticity]((TODO)%20Flipped%20Classroom%201%20-%20March%205%202026.md):** The system can automatically scale resources up and down to match workload demands at any given time (e.g., an e-commerce site handling a Black Friday spike without crashing).
+4. **Rapid [Elasticity](Flipped%20Classroom%201%20-%20March%205%202026.md):** The system can automatically scale resources up and down to match workload demands at any given time (e.g., an e-commerce site handling a Black Friday spike without crashing).
     - _Elasticity vs. Scalability:_ Scalability is the ability to add resources (horizontally via new VMs, or vertically via more CPUs), but elasticity requires the system to do this automatically and rapidly based on monitoring rules (e.g., autoscaling if CPU > 70%).
 
 5. **Measured Service:** Cloud systems automatically control and optimize resource use through metering capabilities. This is essential for billing (pay-per-use), SLA (Service Level Agreement) management, cost control, and improving system resiliency (the ability to provide and maintain an acceptable level of service in the face of faults and challenges to normal operation, e.g., automatically replacing a failed container or VM).
