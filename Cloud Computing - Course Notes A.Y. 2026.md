@@ -1,20 +1,20 @@
 
-![Lecture 1 - March 03 2026](Lecture%20notes/Lecture%201%20-%20March%2003%202026.md)
+![03-03 Lecture 1](Cloud%20Compunting/Lecture%20notes/03-03%20Lecture%201.md)
 
 ---
 
-![Flipped Classroom 1 - March 5 2026](Cloud%20Compunting/Lecture%20notes/Flipped%20Classroom%201%20-%20March%205%202026.md)
+![03-5 Flipped Classroom 1](Cloud%20Compunting/Lecture%20notes/03-5%20Flipped%20Classroom%201.md)
 
 ---
 
-![Lecture 2 - March 10 2026](Lecture%20notes/Lecture%202%20-%20March%2010%202026.md)
+![03-10 Lecture 2](Cloud%20Compunting/Lecture%20notes/03-10%20Lecture%202.md)
 
 ---
 
-![Flipped Classroom 2 - March 12 2026](Lecture%20notes/Flipped%20Classroom%202%20-%20March%2012%202026.md)
+![03-12 Flipped Classroom 2](Cloud%20Compunting/Lecture%20notes/03-12%20Flipped%20Classroom%202.md)
 
 ---
 
-![[Cloud Compunting/Lecture notes/Lecture 3 - March 17 2026]]
+![[Cloud Compunting/Lecture notes/03-17 Lecture 3]]
 
 ---
