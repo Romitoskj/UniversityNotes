@@ -6,7 +6,7 @@
 
 - **The Intuition:** The loss function $\ell_\Theta:\mathbb{R}^n\rightarrow\mathbb{R}$ can be visualized as a mountainous landscape or surface  (if $n=2$), where the domain is the parameter space and the height is the loss value. Optimizing is like a skier or a ball trying to roll down to the lowest point as fast as possible, in fact optimization process is represented as a trajectory on the loss function:
 
-![](../../Pasted%20image%2020260416113837.png)
+![](Images/Pasted%20image%2020260416113837.png)
 
 - **Algorithm:** 
 	1. Start from some point $\Theta^{(0)}\in\mathbb{R}^n$
