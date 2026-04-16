@@ -3,8 +3,10 @@
 ## 1. Gradient Descent & Loss Landscapes
 
 - **The Goal:** In deep learning, finding optimal parameters to train a network means minimizing a loss function. Because models like logistic regression and multi-layer perceptrons are non-convex and lack closed-form solutions, we must use iterative, first-order optimization algorithms like Gradient Descent (GD).
-- **The Intuition:** The loss function $\ell_\Theta:\mathbf{R}^n\rightarrow\mathbf{R}$ can be visualized as a mountainous landscape or surface  (if $n=2$), where the domain is the parameter space and the height is the loss value. Optimizing is like a skier or a ball trying to roll down to the lowest point as fast as possible.
-- **Overall Idea:** 
+- **The Intuition:** The loss function $\ell_\Theta:\mathbb{R}^n\rightarrow\mathbb{R}$ can be visualized as a mountainous landscape or surface  (if $n=2$), where the domain is the parameter space and the height is the loss value. Optimizing is like a skier or a ball trying to roll down to the lowest point as fast as possible.
+- **Algorithm:** 
+	1. Start from some point $\Theta^{(0)}\in\mathbb{R}^n$
+	2. Iteratively compute (update step)
 - **Stopping Criteria & Overfitting:** We stop the algorithm when we reach a compute budget or a satisfactory low loss. Finding the exact global minimum (a loss of exactly zero) is actually undesirable, as it usually means the model has memorized the training noise and will overfit.
 
 ![](../../Pasted%20image%2020260416113837.png)
