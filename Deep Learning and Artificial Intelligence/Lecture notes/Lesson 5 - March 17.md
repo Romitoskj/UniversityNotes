@@ -4,10 +4,10 @@
 
 - **The Goal:** In deep learning, finding optimal parameters to train a network means minimizing a loss function. Because models like logistic regression and multi-layer perceptrons are non-convex and lack closed-form solutions, we must use iterative, first-order optimization algorithms like Gradient Descent (GD).
 - **The Intuition:** The loss function can be visualized as a mountainous landscape or surface, where the domain is the parameter space and the height is the loss value. Optimizing is like a skier or a ball trying to roll down to the lowest point as fast as possible.
-- **Iso-contours (Level Curves):** Instead of a 3D surface, we often view the loss from above using iso-contours—lines representing regions where the loss has a constant value,.
-- **Orthogonality of the Gradient:** The gradient vector, which points in the direction of steepest ascent, is **strictly orthogonal (perpendicular)** to the iso-contours,.
-    - _Proof:_ The directional derivative along an iso-contour is zero (because the function value doesn't change). Since the directional derivative is the inner product of the gradient and the direction vector, an inner product of zero implies the vectors are orthogonal,.
-- **Stopping Criteria & Overfitting:** We stop the algorithm when we reach a compute budget or a satisfactory low loss,. Finding the exact global minimum (a loss of exactly zero) is actually undesirable, as it usually means the model has memorized the training noise and will overfit,,.
+- **Iso-contours (Level Curves):** Instead of a 3D surface, we often view the loss from above using iso-contours—lines representing regions where the loss has a constant value.
+- **Orthogonality of the Gradient:** The gradient vector, which points in the direction of steepest ascent, is **strictly orthogonal (perpendicular)** to the iso-contours.
+    - _Proof:_ The directional derivative along an iso-contour is zero (because the function value doesn't change). Since the directional derivative is the inner product of the gradient and the direction vector, an inner product of zero implies the vectors are orthogonal.
+- **Stopping Criteria & Overfitting:** We stop the algorithm when we reach a compute budget or a satisfactory low loss. Finding the exact global minimum (a loss of exactly zero) is actually undesirable, as it usually means the model has memorized the training noise and will overfit.
 
 ## 2. Differentiability & Stationary Points
 
