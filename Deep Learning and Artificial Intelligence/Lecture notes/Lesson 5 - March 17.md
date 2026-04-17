@@ -35,7 +35,7 @@ Gradient Descent requires the function to be differentiable (smooth without brea
 
 ### C. Stationary Points
 
-These are points where the gradient vanishes (becomes exactly zero), which causes standard Gradient Descent to get stuck,. They include local minima, local maxima, and saddle points,.
+These are points where the gradient vanishes (becomes exactly zero), which causes standard Gradient Descent to get stuck:$$\mathbf{x}^{(t+1)} = \mathbf{x}^{(t)} - \alpha \cancelto{0}{\nabla f(\mathbf{x}^{(t)})}$$ They include local minima, local maxima, and saddle points. The more parameter are there, the more this is unlike to happen (all the partial derivatives must became 0).
 
 ## 3. The Learning Rate (**α**) & Schedules
 
