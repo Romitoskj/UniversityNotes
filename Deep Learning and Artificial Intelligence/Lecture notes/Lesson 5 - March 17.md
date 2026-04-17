@@ -48,9 +48,7 @@ These are points where the gradient vanishes (becomes exactly zero), which cause
 ![](Images/Pasted%20image%2020260417152409.png)
 
 ### Schedules and Decay
-The learning rate can be *adaptive* or follow a *schedule* 
-- In deep learning, we manually tune how $\alpha$ changes over time. Common schedules include:
-    - 
+The learning rate can be *adaptive* or follow a *schedule*, by decreasing $\alpha$ according to a **decay** parameter $\rho$
 
 ## 4. Momentum: Escaping Local Minima
 
