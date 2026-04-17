@@ -6,7 +6,7 @@
 
 - **The Intuition:** The loss function $\ell_\Theta:\mathbb{R}^n\rightarrow\mathbb{R}$ can be visualized as a mountainous landscape or surface  (if $n=2$), where the domain is the parameter space and the height is the loss value. Optimizing is like a skier or a ball trying to roll down to the lowest point as fast as possible, in fact optimization process is represented as a trajectory on the loss function:
 
-![](Images/Pasted%20image%2020260417124817.png)
+![689](Images/Pasted%20image%2020260417124817.png)
 
 - **Algorithm:** 
 	1. Start from some point $\Theta^{(0)}\in\mathbb{R}^n$
@@ -17,12 +17,18 @@
 
 ## 2. Gradient properties
 
-**Iso-contours (Level Curves):** Instead of a 3D surface, we often view the loss from above using iso-contours—lines representing regions where the loss has a constant value.
+#### Iso-contours (Level Curves):
+
+Instead of a 3D surface, we often view the loss from above using iso-contours—lines representing regions where the loss has a constant value. This means that taking the directional derivative of the function, in a point on the curve along a direction $\mathbf{v}$ tangent to the curve , will result in the value of zero, since locally the function is not changing in that direction.
+
+![689](Images/Pasted%20image%2020260417130506.png)
 
 ### A. Orthogonality
 
 The gradient vector, which points in the direction of steepest ascent, is **strictly orthogonal (perpendicular)** to the iso-contours.
 - _Proof:_ The directional derivative along an iso-contour is zero (because the function value doesn't change). Since the directional derivative is the inner product of the gradient and the direction vector, an inner product of zero implies the vectors are orthogonal.
+
+![689](Images/Pasted%20image%2020260417130705.png)
 ### B. Differentiability
 
 Gradient Descent requires the function to be differentiable (smooth without breaks). Deep learning loss functions often have singularities (like the non-differentiable "kink" in the ReLU activation function). However, because these singular points are sparse, GD continues to work in practice.
