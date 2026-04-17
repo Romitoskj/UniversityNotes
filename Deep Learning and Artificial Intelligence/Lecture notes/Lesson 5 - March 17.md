@@ -42,7 +42,11 @@ These are points where the gradient vanishes (becomes exactly zero), which cause
 - **Definition:** The learning rate is a hyperparameter that scales the gradient, dictating the length of the step taken in the parameter space.
     - **Small $\alpha$:** Safe, but convergence is agonizingly slow.
     - **Large $\alpha$:** Causes the trajectory to **overshoot** the minimum, violently bouncing back and forth or diverging.
-- **Line Search:** For strictly convex functions, algorithms can dynamically calculate the perfect step length at each iteration,.
+
+- **Line Search:** For strictly convex functions, algorithms can dynamically calculate the perfect step length at each iteration.
+
+![](Images/Pasted%20image%2020260417152409.png)
+
 - **Learning Rate Schedules:** In deep learning, we manually tune how $\alpha$ changes over time. Common schedules include:
     - **Exponential Decay:** Starts with a large step to make rapid progress, then exponentially decays to settle carefully into the minimum,.
     - **Cosine Annealing:** A highly popular schedule that smoothly varies the learning rate following a cosine curve (famously used to successfully train models like LLaMA).
