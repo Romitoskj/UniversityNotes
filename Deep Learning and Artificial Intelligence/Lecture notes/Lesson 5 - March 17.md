@@ -37,11 +37,11 @@ Gradient Descent requires the function to be differentiable (smooth without brea
 
 These are points where the gradient vanishes (becomes exactly zero), which causes standard Gradient Descent to get stuck:$$\mathbf{x}^{(t+1)} = \mathbf{x}^{(t)} - \alpha \cancelto{0}{\nabla f(\mathbf{x}^{(t)})}$$ They include local minima, local maxima, and saddle points. The more parameter are there, the more this is unlike to happen (all the partial derivatives must became 0).
 
-## 3. The Learning Rate (**α**) & Schedules
+## 3. The Learning Rate ($\alpha$) & Schedules
 
-- **Definition:** The learning rate is a hyperparameter that scales the gradient, dictating the length of the step taken in the parameter space,.
-    - **Small** α**:** Safe, but convergence is agonizingly slow,.
-    - **Large** α**:** Causes the trajectory to **overshoot** the minimum, violently bouncing back and forth or diverging,.
+- **Definition:** The learning rate is a hyperparameter that scales the gradient, dictating the length of the step taken in the parameter space.
+    - **Small $\alpha$:** Safe, but convergence is agonizingly slow.
+    - **Large $\alpha$:** Causes the trajectory to **overshoot** the minimum, violently bouncing back and forth or diverging,.
 - **Line Search:** For strictly convex functions, algorithms can dynamically calculate the perfect step length at each iteration,.
 - **Learning Rate Schedules:** In deep learning, we manually tune how α changes over time. Common schedules include:
     - **Exponential Decay:** Starts with a large step to make rapid progress, then exponentially decays to settle carefully into the minimum,.
