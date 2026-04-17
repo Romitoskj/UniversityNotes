@@ -48,7 +48,8 @@ These are points where the gradient vanishes (becomes exactly zero), which cause
 ![](Images/Pasted%20image%2020260417152409.png)
 
 ### Schedules and Decay
-The learning rate can be *adaptive* or follow a *schedule*, by decreasing $\alpha$ according to a **decay** parameter $\rho$
+The learning rate can be *adaptive* or follow a *schedule*, by decreasing $\alpha$ according to a **decay** parameter $\rho$. This is motivated by the idea that initially we need large steps to swiftly progress in the general direction of the minimum and, later on once we get closer and closer to the point, we need smaller steps to reach convergence. This are example of schedules:
+
 
 ## 4. Momentum: Escaping Local Minima
 
