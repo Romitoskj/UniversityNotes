@@ -48,15 +48,20 @@ These are points where the gradient vanishes (becomes exactly zero), which cause
 ![](Images/Pasted%20image%2020260417152409.png)
 
 ### Schedules and Decay
-The learning rate can be *adaptive* or follow a *schedule*, by decreasing $\alpha$ according to a **decay** parameter $\rho$. This is motivated by the idea that initially we need large steps to swiftly progress in the general direction of the minimum and, later on once we get closer and closer to the point, we need smaller steps to reach convergence. This are example of schedules:
+The learning rate can be *adaptive* or follow a *schedule*, by decreasing $\alpha$ according to a **decay** parameter $\rho$. This is motivated by the idea that initially we need large steps to swiftly progress in the general direction of the minimum and, later on once we get closer and closer to the point, we need smaller steps to reach convergence. These are example of schedules:
+
+- Convex combination $$\alpha^{(t+1)} = \left( 1 - \frac{t}{\rho} \right) \alpha^{(0)} + \frac{t}{\rho} \alpha^{(\rho)}$$
+- Hyperbolical $$\alpha^{(t+1)} = \frac{\alpha^{(t)}}{1 + \rho t}$$
+- Exponential $$\alpha^{(t+1)} = \alpha^{(0)} e^{-\rho t}$$
 
 
 ## 4. Momentum: Escaping Local Minima
 
-- **The Physics Analogy:** Standard GD is "memoryless." Momentum adds a memory mechanism, similar to a physical ball accumulating velocity and mass as it rolls down a hill,.
-- **How it Works:** The step update v(t+1) becomes a combination of the current gradient and the previous step, scaled by a friction/decay parameter λ (e.g., 0.9),.
-    - **Constructive Accumulation:** If subsequent gradients point in the same direction, momentum builds up, amplifying the step size up to 10× faster,.
-    - **Overshooting as a Feature:** This built-up velocity allows the optimizer to intentionally overshoot small, suboptimal local minima (pitfalls) and escape saddle points,.
+- **The Physics Analogy:** Standard GD is "memoryless." Momentum adds a memory mechanism, similar to a physical ball accumulating velocity and mass as it rolls down a hill.
+
+- **How it Works:** The step update v(t+1) becomes a combination of the current gradient and the previous step, scaled by a friction parameter λ (e.g., 0.9).
+    - **Constructive Accumulation:** If subsequent gradients point in the same direction, momentum builds up, amplifying the step size up to 10× faster.
+    - **Overshooting as a Feature:** This built-up velocity allows the optimizer to intentionally overshoot small, suboptimal local minima (pitfalls) and escape saddle points.
 - **Unrolled Equation:** Expanding the momentum formula reveals that the current step is actually a sum of all past gradients, with older gradients having exponentially less influence,.
 
 ## 5. Stochastic Gradient Descent (SGD) & Mini-batches
