@@ -47,9 +47,10 @@ These are points where the gradient vanishes (becomes exactly zero), which cause
 
 ![](Images/Pasted%20image%2020260417152409.png)
 
-- **Learning Rate Schedules:** In deep learning, we manually tune how $\alpha$ changes over time. Common schedules include:
-    - **Exponential Decay:** Starts with a large step to make rapid progress, then exponentially decays to settle carefully into the minimum,.
-    - **Cosine Annealing:** A highly popular schedule that smoothly varies the learning rate following a cosine curve (famously used to successfully train models like LLaMA).
+### Schedules and Decay
+The learning rate can be *adaptive* or follow a *schedule* 
+- In deep learning, we manually tune how $\alpha$ changes over time. Common schedules include:
+    - 
 
 ## 4. Momentum: Escaping Local Minima
 
