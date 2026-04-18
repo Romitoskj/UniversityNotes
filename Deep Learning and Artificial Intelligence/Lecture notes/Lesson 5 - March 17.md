@@ -70,12 +70,12 @@ $$
 
 ![](Images/Pasted%20image%2020260418115435.png)
 
-- **Unrolled Equation:** Expanding the momentum formula reveals that the current step is actually a sum of all past gradients, with older gradients having exponentially less influence:$$\mathbf{x}^{(t+1)} = \mathbf{x}^{(0)} + \alpha \sum_{i=1}^{t} \frac{1 - \lambda^{t+1-i}}{1 - \lambda} \nabla f(\mathbf{x}^{(i)})$$
+- **Unrolled Equation:** Expanding the momentum formula reveals that the current step is actually a sum of all past gradients, with older gradients having exponentially less (since $0\leq\lambda\lt1$) influence:$$\mathbf{x}^{(t+1)} = \mathbf{x}^{(0)} + \alpha \sum_{i=1}^{t} \frac{1 - \lambda^{t+1-i}}{1 - \lambda} \nabla f(\mathbf{x}^{(i)})$$
 
 ## 5. Stochastic Gradient Descent (SGD) & Mini-batches
 
-- **The Computational Bottleneck:** To compute the true, exact gradient, one must compute the derivative for _every single data point_ in the dataset (n),. In deep learning, where n can be in the millions, a single GD step is computationally infeasible,.
-- **The Mini-Batch Approximation:** SGD solves this by computing the gradient on a tiny, random subset of data called a **mini-batch** (e.g., 32 or 64 examples),. The data must be shuffled before sampling to ensure the mini-batch is an unbiased representation of the dataset (e.g., to avoid a batch entirely made of "dogs"),.
-- **Epochs:** Because data is evaluated in small batches, training time is measured in "epochs." One epoch is completed when the model has processed enough mini-batches to cover the entire dataset one time,.
-- **The "Unreasonable Effectiveness" of SGD:** Because SGD uses an approximated gradient, its trajectory oscillates and has no guarantee of going strictly downwards,. However, it is fundamentally successful: it is vastly faster than standard GD, and the noise introduced by the mini-batch sampling acts as an implicit regularizer, preventing the model from overfitting to the training data,,.
+- **The Computational Bottleneck:** To compute the true, exact gradient, one must compute the derivative for _every single data point_ in the dataset ($n$). In deep learning, where $n$ can be in the millions, a single GD step is computationally infeasible.
+- **The Mini-Batch Approximation:** SGD solves this by computing the gradient on a tiny, random subset of data called a **mini-batch** (e.g., 32 or 64 examples). The data must be shuffled before sampling to ensure the mini-batch is an unbiased representation of the dataset (e.g., to avoid a batch entirely made of "dogs").
+- **Epochs:** Because data is evaluated in small batches, training time is measured in "epochs." One epoch is completed when the model has processed enough mini-batches to cover the entire dataset one time.
+- **The "Unreasonable Effectiveness" of SGD:** Because SGD uses an approximated gradient, its trajectory oscillates and has no guarantee of going strictly downwards. However, it is fundamentally successful: it is vastly faster than standard GD, and the noise introduced by the mini-batch sampling acts as an implicit regularizer, preventing the model from overfitting to the training data.
 - **Crucial Distinction:** Using SGD or choosing different batch sizes **does not change the mathematical landscape of the loss function**. The surface of the loss function is defined entirely by the data and the network architecture. SGD is simply a "broken" or approximated compass used to navigate that exact same landscape.
