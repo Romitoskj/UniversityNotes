@@ -68,7 +68,9 @@ $$
     - **Constructive Accumulation:** If subsequent gradients point in the same direction, momentum builds up, amplifying the step size.
     - **Overshooting as a Feature:** This built-up velocity allows the optimizer to intentionally overshoot small, suboptimal local minima (pitfalls) and escape saddle points.
 
-- **Unrolled Equation:** Expanding the momentum formula reveals that the current step is actually a sum of all past gradients, with older gradients having exponentially less influence,.
+![](Images/Pasted%20image%2020260418115435.png)
+
+- **Unrolled Equation:** Expanding the momentum formula reveals that the current step is actually a sum of all past gradients, with older gradients having exponentially less influence:$$\mathbf{x}^{(t+1)} = \mathbf{x}^{(0)} + \alpha \sum_{i=1}^{t} \frac{1 - \lambda^{t+1-i}}{1 - \lambda} \nabla f(\mathbf{x}^{(i)})$$
 
 ## 5. Stochastic Gradient Descent (SGD) & Mini-batches
 
