@@ -90,4 +90,4 @@ $$
 
 ![](Images/Pasted%20image%2020260419220131.png)
 
-- **Crucial Distinction:** Using SGD or choosing different batch sizes **does not change the mathematical landscape of the loss function**. The surface of the loss function is defined entirely by the data and the network architecture. SGD is simply a "broken" or approximated compass used to navigate that exact same landscape.
+- **Crucial Distinction:** Using SGD or choosing different batch sizes **does not change the mathematical landscape of the loss function**. The surface of the loss function is defined entirely by the data and the network architecture. SGD simply navigates an approximation of that exact same landscape.
