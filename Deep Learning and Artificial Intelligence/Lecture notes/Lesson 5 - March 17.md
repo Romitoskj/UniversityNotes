@@ -86,6 +86,8 @@ $$
 
 - **Epochs:** Because data is evaluated in small batches, training time is measured in "epochs." One epoch is completed when the model has processed enough mini-batches to cover the entire dataset one time.
 
-- **The "Unreasonable Effectiveness" of SGD:** Because SGD uses an approximated gradient, its trajectory oscillates and has no guarantee of going strictly downwards. However, it is fundamentally successful: it is vastly faster than standard GD, and the noise introduced by the mini-batch sampling acts as an implicit regularizer, preventing the model from overfitting to the training data.
+- **The "Unreasonable Effectiveness" of SGD:** Because SGD uses an approximated gradient, its trajectory oscillates and has no guarantee of going strictly downwards. However, it is fundamentally successful: it is vastly faster than standard GD, and the noise introduced by the mini-batch sampling acts as an implicit regularizer, preventing the model from overfitting to the training data. Also each mini-batch can be processed in parallel.
+
+![](Images/Pasted%20image%2020260419220131.png)
 
 - **Crucial Distinction:** Using SGD or choosing different batch sizes **does not change the mathematical landscape of the loss function**. The surface of the loss function is defined entirely by the data and the network architecture. SGD is simply a "broken" or approximated compass used to navigate that exact same landscape.
