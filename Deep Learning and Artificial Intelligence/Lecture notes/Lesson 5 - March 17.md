@@ -75,7 +75,17 @@ $$
 ## 5. Stochastic Gradient Descent (SGD) & Mini-batches
 
 - **The Computational Bottleneck:** To compute the true, exact gradient, one must compute the derivative for _every single data point_ in the dataset ($n$). In deep learning, where $n$ can be in the millions, a single GD step is computationally infeasible.
-- **The Mini-Batch Approximation:** SGD solves this by computing the gradient on a tiny, random subset of data called a **mini-batch** (e.g., 32 or 64 examples). The data must be shuffled before sampling to ensure the mini-batch is an unbiased representation of the dataset (e.g., to avoid a batch entirely made of "dogs").
+
+- **The Mini-Batch Approximation:** SGD solves this by computing the gradient on a tiny, *random* subset of dataset ($\mathcal{T}$) called a **mini-batch** ($\mathcal{B}$) of $m\ll n$ examples. The data must be shuffled before sampling to ensure the mini-batch is an unbiased representation of the dataset (e.g., to avoid a batch entirely made of "dogs").$$\frac{1}{m} \sum_{i=1}^{m} \nabla \hat{\ell}_{\Theta}(\mathcal{B}) \approx \frac{1}{n} \sum_{i=1}^{n} \nabla \hat{\ell}_{\Theta}(\mathcal{T})$$
+- **Algorithm:**
+	- Initialize $\Theta$
+	- Pick a mini-batch $\mathcal{B}$
+	- Update with the downhill step:$$\Theta^{(t+1)}=\Theta^{(t)}-\alpha\nabla\ell_{\Theta^{(t)}}(\mathcal{B})$$
+	- Go back to step 2.
+	- **Remark:** The update cost is **constant** regardless of $|\mathcal{T}|$.
+
 - **Epochs:** Because data is evaluated in small batches, training time is measured in "epochs." One epoch is completed when the model has processed enough mini-batches to cover the entire dataset one time.
+
 - **The "Unreasonable Effectiveness" of SGD:** Because SGD uses an approximated gradient, its trajectory oscillates and has no guarantee of going strictly downwards. However, it is fundamentally successful: it is vastly faster than standard GD, and the noise introduced by the mini-batch sampling acts as an implicit regularizer, preventing the model from overfitting to the training data.
+
 - **Crucial Distinction:** Using SGD or choosing different batch sizes **does not change the mathematical landscape of the loss function**. The surface of the loss function is defined entirely by the data and the network architecture. SGD is simply a "broken" or approximated compass used to navigate that exact same landscape.
