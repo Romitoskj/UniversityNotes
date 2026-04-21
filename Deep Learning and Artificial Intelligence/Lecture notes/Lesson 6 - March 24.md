@@ -2,12 +2,15 @@
 
 ## 1. Multi-Layer Perceptrons (MLPs) & Deep Networks
 
-- **Deep Composition:** A deep neural network, specifically a Multi-Layer Perceptron (or feed-forward neural network), is built by stacking simple blocks one after another. Each block consists of a linear transformation (a fine map) followed by a non-linear activation function (σ).
+- **Deep Composition:** A deep neural network, specifically a Multi-Layer Perceptron (or feed-forward neural network), is built by stacking simple blocks one after another. Each block consists of a linear transformation (a fine map) followed by a non-linear activation function ($\sigma$).
+
 - **Why Non-Linearity?** Concatenating purely linear models results in another linear model, which does not increase the computational capacity or complexity of the model. Introducing non-linearities like the Logistic Sigmoid or Rectified Linear Unit (ReLU) allows the network to represent highly non-linear functions.
+
 - **Network Architecture Terminology:**
     - **Layers:** The blocks are called layers. The one closest to the input is the input layer, the last one is the output layer, and the intermediate ones produce **hidden representations**. Note: Some practitioners confusingly refer to hidden representations as "activations".
     - **Neurons:** A neuron is mathematically defined as a single row of the linear map matrix within a block. Thus, a linear layer can be viewed as a collection of neurons operating in parallel, mapping inputs to a scalar via an inner product.
     - **Graph Illustrations:** In network diagrams, **nodes represent dimensions** of the input or output, and **edges represent the weights** of the linear map. If a layer is "fully connected," every input dimension connects to every output dimension. Missing edges imply weights that are exactly zero (sparsity).
+
 - **The Output Layer & Co-domain:** The overall co-domain (output space) of the network is entirely determined by its very last transformation. For example, ending a network with a sigmoid function forces the output into a (0,1) range, which is ideal for classification. _Practical Tip:_ You can often repurpose a pre-trained generative model for classification simply by replacing and re-training (fine-tuning) its final layer.
 
 ## 2. Deep ReLU Networks & Universality
