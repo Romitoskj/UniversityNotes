@@ -1,6 +1,6 @@
 # Quantization
 
-### **1. The Compute vs. Memory Bottleneck**
+## 1. The Compute vs. Memory Bottleneck
 
 To understand why we compress neural networks, we must first understand how hardware processes them.
 
@@ -11,14 +11,14 @@ To understand why we compress neural networks, we must first understand how hard
 - **The Real Cost (Data Movement):** While computational operations (the actual math) are incredibly cheap, **moving the data from the memory (DRAM) to the processor core (SRAM/Registers) is extremely expensive**—often costing roughly 200 times more time and energy than the calculation itself.
 - **The Goal of Compression:** Because data movement is the bottleneck, we intentionally spend a little bit of cheap compute power to compress the data, making it much more affordable to move around.
 
-### **2. The Two Levers of Compression**
+## 2. The Two Levers of Compression
 
 The "cost" of storing and moving a network is determined by a simple formula: **$\text{Cost} = \text{Number of Values} \times \text{Number of Bits per Value}$**. To compress a model, we can pull two different historical levers:
 
 1. **Reduce the number of values:** The **Pruning** era (dominant up to 2018).
 2. **Reduce the bits per value:** The **Quantization** era (dominant from 2018 onward).
 
-### **3. Pruning (Reducing the Number of Values)**
+## 3. Pruning (Reducing the Number of Values)
 
 Pruning removes redundant weights entirely from the network.
 
@@ -34,7 +34,7 @@ Pruning removes redundant weights entirely from the network.
 
 ![](Images/Pasted%20image%2020260503185454.png)
 
-### **4. K-Means Quantization (Storage Compression)**
+## 4. K-Means Quantization (Storage Compression)
 
 Quantization fundamentally means mapping a large continuous space (like 32-bit real numbers) down to a discrete, smaller set of values (like integers), which inherently introduces a small **quantization error**. The first major approach was K-Means Quantization (Han et al., 2016).
 
@@ -44,7 +44,7 @@ Quantization fundamentally means mapping a large continuous space (like 32-bit r
 
 ![](Images/Pasted%20image%2020260503185936.png)
 
-### **5. Linear Affine Quantization (Compute Compression)**
+## 5. Linear Affine Quantization (Compute Compression)
 
 To truly speed up a neural network, we must compress the computation itself by executing operations entirely in integer math (Jacob et al., 2018).
 
