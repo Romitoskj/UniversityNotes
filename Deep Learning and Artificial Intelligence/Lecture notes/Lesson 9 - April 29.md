@@ -27,7 +27,15 @@ Adds the absolute value of the parameters to the loss.
 
 ## **2. Early Stopping and Double Descent**
 
-- **Early Stopping:** Typically, as training progresses, training error continually decreases, but validation error eventually starts to rise (forming a U-shape) as the model begins memorizing noise. Early stopping halts training as soon as this validation error increases. This limits the model to simpler hypotheses by restricting the volume of the parameter space it can reach from its initialization.
+- **Early Stopping:** Typically, as training progresses, training error continually decreases, but validation error eventually starts to rise (forming a U-shape) as the model begins memorizing noise. Early stopping halts training as soon as this validation error increases to prevent overfitting. 
+	
+	![](../../Pasted%20image%2020260503231322.png)
+	
+	- It is important to say that it is not always true that more parameters lead to overfitting (like for polynomial regression).
+	 ![](../../Pasted%20image%2020260503232032.png)
+	 
+	- *Patience:* The number of steps (or epoch) we allow the validation to increase, since it can grow because of noise. If after such interval the validation loss has not decreased by some some amount $\Delta\ell$, we stop training.
+
 - **Double Descent:** A highly surprising phenomenon where increasing the capacity of the network (or training time) eventually causes the validation error to drop again _after_ the initial overfitting peak.
     - _The "Handwaving" Explanation:_ As you add parameters, you increase the size of the function class the network can represent. Eventually, the capacity becomes so large that it is guaranteed to contain the ideal, true function that generalizes perfectly.
     - _Epoch-wise Double Descent:_ Research has shown this double U-shape occurs not just when scaling the number of parameters (capacity), but also when extending the training time (epochs).
