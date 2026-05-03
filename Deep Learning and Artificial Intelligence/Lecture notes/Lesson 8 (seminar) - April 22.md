@@ -22,7 +22,13 @@ The "cost" of storing and moving a network is determined by a simple formula: **
 
 Pruning removes redundant weights entirely from the network.
 
-- **The Pipeline (Han et al., 2015):** The standard process is to (1) Train the network from scratch, (2) Apply a threshold and zero-out any weights that fall below it, (3) Freeze those zeroed-out connections so gradients don't pass through them, and (4) **Retrain (fine-tune) the remaining weights**.
+![](../../Pasted%20image%2020260503183956.png)
+
+- **The Pipeline (Han et al., 2015):** The standard process is to 
+	1) Train the network from scratch
+	2) Apply a threshold and zero-out any weights that fall below it
+	3) Freeze those zeroed-out connections so gradients don't pass through them
+	4) **Retrain (fine-tune) the remaining weights**.
 - **Network Co-adaptation:** If you prune 90% of a network's weights, the accuracy drops severely. However, by fine-tuning the remaining 10%, the network's remaining weights **co-adapt** to the damage, remarkably restoring the accuracy back to near-original levels.
 - **Denoising Effect:** In some cases, light pruning actually improves the baseline accuracy. By restricting the network's capacity, pruning inadvertently acts as a regularizer, discarding noise.
 
