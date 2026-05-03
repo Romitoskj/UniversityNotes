@@ -6,8 +6,7 @@ Regularization encompasses techniques intended to reduce a model's generalizatio
 
 Therefore, many regularization techniques are aimed at reducing the number of free parameters of a model, to limit its representational power. This is done by constraining the parameters of the model to behave in a specified way, limiting their freedom.
 
-One explicit way to regularize is by adding a penalty term to the loss function.
-
+One explicit way to regularize is by adding a penalty term to the loss function:$$\underbrace{\ell(\boldsymbol{\Theta})}_{\text{loss}} + \lambda \underbrace{\rho(\boldsymbol{\Theta})}_{\text{regularizer}}$$
 ### $L_2$ Penalty (Tikhonov / Shrinkage):
 
 Adds the squared magnitude of the parameters to the loss.
