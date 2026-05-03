@@ -42,6 +42,8 @@ Quantization fundamentally means mapping a large continuous space (like 32-bit r
 - **Training the Centroids:** During backpropagation, the gradients are grouped by their cluster assignments and reduced (e.g., summed) to fine-tune the 32-bit centroids.
 - **The Limitation:** While this provides immense **storage compression** (sometimes shrinking models by 40x when combined with pruning), it **does not compress the compute**. The processor must still look up the 32-bit float centroid and perform an expensive floating-point multiplication.
 
+![](Images/Pasted%20image%2020260503185936.png)
+
 ### **5. Linear Affine Quantization (Compute Compression)**
 
 To truly speed up a neural network, we must compress the computation itself by executing operations entirely in integer math (Jacob et al., 2018).
