@@ -17,14 +17,14 @@ Adds the absolute value of the parameters to the loss.
 - _Effect:_ It encourages a highly **sparse solution**, driving a large percentage of parameter values exactly to zero.
 - _Benefits:_ Sparsity is excellent for compressing the model, improving interpretability, and performing automatic feature selection (an idea leveraged in modern "sparse encoders").
 
-### **2. Early Stopping and Double Descent**
+## **2. Early Stopping and Double Descent**
 
 - **Early Stopping:** Typically, as training progresses, training error continually decreases, but validation error eventually starts to rise (forming a U-shape) as the model begins memorizing noise. Early stopping halts training as soon as this validation error increases. This limits the model to simpler hypotheses by restricting the volume of the parameter space it can reach from its initialization.
 - **Double Descent:** A highly surprising phenomenon where increasing the capacity of the network (or training time) eventually causes the validation error to drop again _after_ the initial overfitting peak.
     - _The "Handwaving" Explanation:_ As you add parameters, you increase the size of the function class the network can represent. Eventually, the capacity becomes so large that it is guaranteed to contain the ideal, true function that generalizes perfectly.
     - _Epoch-wise Double Descent:_ Research has shown this double U-shape occurs not just when scaling the number of parameters (capacity), but also when extending the training time (epochs).
 
-### **3. Batch Normalization**
+## **3. Batch Normalization**
 
 Deep networks suffer from **internal covariate shift**: as parameters update during training, the statistical distribution of the inputs to each subsequent layer continuously changes, making training noisy and difficult.
 
@@ -34,7 +34,7 @@ Deep networks suffer from **internal covariate shift**: as parameters update dur
 - **Inference Time:** During inference, you typically process one image, not a batch. To handle this, the network records an **exponential moving average** of the mini-batch means and variances during training and uses these fixed statistics at test time.
 - _Note:_ Other variants exist, such as Layer Normalization (which computes statistics across the channels of a single sample instead of across a batch), which is famously used in Transformers where the concept of batches doesn't apply well.
 
-### **4. Dropout**
+## **4. Dropout**
 
 Dropout brings the power of **ensemble learning** (like Random Forests) to deep learning in a computationally feasible way.
 
