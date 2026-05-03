@@ -4,7 +4,7 @@
 
 To understand why we compress neural networks, we must first understand how hardware processes them.
 
-![](../../Pasted%20image%2020260503181528.png)
+![](Images/Pasted%20image%2020260503181528.png)
 
 - **Matrix Multiplication (Matmul) & MACs:** A neural network's forward pass is overwhelmingly dominated by matrix multiplications. At the hardware level, these are broken down into **Multiply and Accumulate (MAC)** operations (a scalar multiplication followed by a scalar addition).
 - **CPUs vs. GPUs:** CPUs can only process these dot products sequentially or with very limited parallelization. GPUs are fundamentally faster because they feature thousands of CUDA cores (and modern Tensor Cores) that compute tens of thousands of MAC operations simultaneously.
@@ -22,7 +22,7 @@ The "cost" of storing and moving a network is determined by a simple formula: **
 
 Pruning removes redundant weights entirely from the network.
 
-![](../../Pasted%20image%2020260503183956.png)
+![](Images/Pasted%20image%2020260503183956.png)
 
 - **The Pipeline (Han et al., 2015):** The standard process is to 
 	1) Train the network from scratch
@@ -31,6 +31,8 @@ Pruning removes redundant weights entirely from the network.
 	4) **Retrain (fine-tune) the remaining weights**.
 - **Network Co-adaptation:** If you prune 90% of a network's weights, the accuracy drops severely. However, by fine-tuning the remaining 10%, the network's remaining weights **co-adapt** to the damage, remarkably restoring the accuracy back to near-original levels.
 - **Denoising Effect:** In some cases, light pruning actually improves the baseline accuracy. By restricting the network's capacity, pruning inadvertently acts as a regularizer, discarding noise.
+
+![](Images/Pasted%20image%2020260503185454.png)
 
 ### **4. K-Means Quantization (Storage Compression)**
 
