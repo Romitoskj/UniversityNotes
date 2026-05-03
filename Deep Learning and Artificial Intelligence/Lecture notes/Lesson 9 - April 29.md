@@ -29,10 +29,10 @@ Adds the absolute value of the parameters to the loss.
 
 - **Early Stopping:** Typically, as training progresses, training error continually decreases, but validation error eventually starts to rise (forming a U-shape) as the model begins memorizing noise. Early stopping halts training as soon as this validation error increases to prevent overfitting. 
 	
-	![](../../Pasted%20image%2020260503231322.png)
+	![](Images/Pasted%20image%2020260503231322.png)
 	
 	- It is important to say that it is not always true that more parameters lead to overfitting (like for polynomial regression).
-	 ![](../../Pasted%20image%2020260503232032.png)
+	 ![](Images/Pasted%20image%2020260503232032.png)
 	 
 	- *Patience:* The number of steps (or epoch) we allow the validation to increase, since it can grow because of noise. If after such interval the validation loss has not decreased by some some amount $\Delta\ell$, we stop training.
 
