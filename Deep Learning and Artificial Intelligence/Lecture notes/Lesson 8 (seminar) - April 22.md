@@ -4,6 +4,8 @@
 
 To understand why we compress neural networks, we must first understand how hardware processes them.
 
+![](../../Pasted%20image%2020260503181528.png)
+
 - **Matrix Multiplication (Matmul) & MACs:** A neural network's forward pass is overwhelmingly dominated by matrix multiplications. At the hardware level, these are broken down into **Multiply and Accumulate (MAC)** operations (a scalar multiplication followed by a scalar addition).
 - **CPUs vs. GPUs:** CPUs can only process these dot products sequentially or with very limited parallelization. GPUs are fundamentally faster because they feature thousands of CUDA cores (and modern Tensor Cores) that compute tens of thousands of MAC operations simultaneously.
 - **The Real Cost (Data Movement):** While computational operations (the actual math) are incredibly cheap, **moving the data from the memory (DRAM) to the processor core (SRAM/Registers) is extremely expensive**—often costing roughly 200 times more time and energy than the calculation itself.
