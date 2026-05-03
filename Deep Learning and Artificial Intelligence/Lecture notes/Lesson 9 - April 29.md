@@ -15,7 +15,7 @@ Adds the squared magnitude of the parameters to the loss.
 Adds the absolute value of the parameters to the loss.
 - _Mechanism:_ It applies a constant proportional penalty to all weights regardless of their size.
 - _Effect:_ It encourages a highly **sparse solution**, driving a large percentage of parameter values exactly to zero.
-- _Benefits:_ The audio lecture emphasizes that sparsity is excellent for compressing the model, improving interpretability, and performing automatic feature selection (an idea leveraged in modern "sparse encoders").
+- _Benefits:_ Sparsity is excellent for compressing the model, improving interpretability, and performing automatic feature selection (an idea leveraged in modern "sparse encoders").
 
 ### **2. Early Stopping and Double Descent**
 
