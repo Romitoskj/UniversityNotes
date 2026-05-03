@@ -2,7 +2,11 @@
 
 ## 1. Regularization Fundamentals: $L_1$ and $L_2$ Penalties
 
-Regularization encompasses techniques intended to reduce a model's generalization error on unseen data, without necessarily reducing its training error. This prevents **overfitting**, which occurs when a model has excessive representational capacity compared to the training examples. One explicit way to regularize is by adding a penalty term to the loss function.
+Regularization encompasses techniques intended to reduce a model's generalization error on unseen data, without necessarily reducing its training error. This prevents **overfitting**, which occurs when a model has excessive representational capacity compared to the training examples.
+
+Therefore, many regularization techniques are aimed at reducing the number of free parameters of a model, to limit its representational power. This is done by constraining the parameters of the model to behave in a specified way, limiting their freedom.
+
+One explicit way to regularize is by adding a penalty term to the loss function.
 
 ### $L_2$ Penalty (Tikhonov / Shrinkage):
 
