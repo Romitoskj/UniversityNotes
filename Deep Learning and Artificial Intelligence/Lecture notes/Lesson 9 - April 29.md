@@ -38,13 +38,16 @@ Adds the absolute value of the parameters to the loss.
 
 - **Double Descent:** A highly surprising phenomenon where increasing the capacity (number of parameters $\rightarrow$ the set of function the network can represent well) of the network (or training time) eventually causes the validation error to drop again _after_ the initial overfitting peak.
 	
-    - _The "Handwaving" Explanation:_ As you add parameters, you increase the size of the function class the network can represent.
-	    - At some point, the capacity is so large that there exists a function that perfectly describes the data, so the training error goes to zero, leading to overfitting. 
-	    - The *sweet spot* is were the capacity of the model is optimal, meaning it contains functions that describes both the training and validation data well enough.
-	    - If we keep increasing the capacity the validation error will start decreasing again.
-	     ![](../../Pasted%20image%2020260504163330.png)
+    - As you add parameters, you increase the size of the function class the network can represent.
+	- At some point, the capacity is so large that there exists a function that perfectly describes the data, so the training error goes to zero, leading to overfitting. 
+	- The *sweet spot* is were the capacity of the model is optimal, meaning it contains functions that describes both the training and validation data well enough.
+	- If we keep increasing the capacity the validation error will start decreasing again (**double descent**).
+	 ![](../../Pasted%20image%2020260504163330.png)
 	
-    - _Epoch-wise Double Descent:_ Research has shown this double U-shape occurs not just when scaling the number of parameters (capacity), but also when extending the training time (epochs).
+	- It starts to happen where training loss reaches $0$ and eventually the capacity will become so large that will also fit the validation data perfectly.
+	
+    - _Epoch-wise Double Descent:_ Research has shown this double U-shape occurs not just when scaling the number of parameters (capacity), but also when extending the training time (epochs):
+ ![](../../Pasted%20image%2020260504164919.png)
 
 ## **3. Batch Normalization**
 
