@@ -29,12 +29,14 @@ Adds the absolute value of the parameters to the loss.
 
 - **Early Stopping:** Typically, as training progresses, training error continually decreases, but validation error eventually starts to rise (forming a U-shape) as the model begins memorizing noise. Early stopping halts training as soon as this validation error increases to prevent overfitting. 
 	
-	![](Images/Pasted%20image%2020260503231322.png)
+	![516](Images/Pasted%20image%2020260503231322.png)
 	
 	- It is important to say that it is not always true that more parameters lead to overfitting (like for polynomial regression).
 	 ![](Images/Pasted%20image%2020260503232032.png)
 	 
 	- *Patience:* The number of steps (or epoch) we allow the validation to increase, since it can grow because of noise. Every time the validation loss is smaller, we save the weights. Instead, if the validation loss has not decreased by some some amount $\Delta\ell$ after as many epoch as defined by patience, we stop training and we will used the last saved weights.
+	 
+	- _Early stopping as regularizer:_ Training starts with small weights that grow larger, by strictly cutting off the training time, early stopping is cutting off the optimizer's ability to inflate the weights. It forces the network to settle for the smaller, simpler weights it had halfway through the process and act similar to $L_2$ regularization.
 
 - **Double Descent:** A highly surprising phenomenon where increasing the capacity (number of parameters $\rightarrow$ the set of function the network can represent well) of the network (or training time) eventually causes the validation error to drop again _after_ the initial overfitting peak.
 	
