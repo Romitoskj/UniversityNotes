@@ -44,12 +44,12 @@ Adds the absolute value of the parameters to the loss.
 	- At some point, the capacity is so large that there exists a function that perfectly describes the data, so the training error goes to zero, leading to overfitting. 
 	- The *sweet spot* is were the capacity of the model is optimal, meaning it contains functions that describes both the training and validation data well enough.
 	- If we keep increasing the capacity the validation error will start decreasing again (**double descent**).
-	 ![](../../Pasted%20image%2020260504163330.png)
+	 ![](Images/Pasted%20image%2020260504163330.png)
 	
 	- It starts to happen where training loss reaches $0$ and eventually the capacity will become so large that will also fit the validation data perfectly.
 	
     - _Epoch-wise Double Descent:_ Research has shown this double U-shape occurs not just when scaling the number of parameters (capacity), but also when extending the training time (epochs):
- ![](../../Pasted%20image%2020260504164919.png)
+ ![](Images/Pasted%20image%2020260504164919.png)
 
 ## **3. Batch Normalization**
 
