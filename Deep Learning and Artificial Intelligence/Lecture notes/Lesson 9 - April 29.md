@@ -34,7 +34,7 @@ Adds the absolute value of the parameters to the loss.
 	- It is important to say that it is not always true that more parameters lead to overfitting (like for polynomial regression).
 	 ![](Images/Pasted%20image%2020260503232032.png)
 	 
-	- *Patience:* The number of steps (or epoch) we allow the validation to increase, since it can grow because of noise. If after such interval the validation loss has not decreased by some some amount $\Delta\ell$, we stop training.
+	- *Patience:* The number of steps (or epoch) we allow the validation to increase, since it can grow because of noise. Every time the validation loss is smaller, we save the weights. Instead, if the validation loss has not decreased by some some amount $\Delta\ell$ after as many epoch as defined by patience, we stop training and we will used the last saved weights.
 
 - **Double Descent:** A highly surprising phenomenon where increasing the capacity of the network (or training time) eventually causes the validation error to drop again _after_ the initial overfitting peak.
     - _The "Handwaving" Explanation:_ As you add parameters, you increase the size of the function class the network can represent. Eventually, the capacity becomes so large that it is guaranteed to contain the ideal, true function that generalizes perfectly.
