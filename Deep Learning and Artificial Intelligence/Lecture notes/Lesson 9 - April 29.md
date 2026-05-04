@@ -55,10 +55,14 @@ Adds the absolute value of the parameters to the loss.
 
 Deep networks suffer from **internal covariate shift**: as parameters update during training, the statistical distribution of the inputs to each subsequent layer continuously changes, making training noisy and difficult.
 
-- **The Operation:** Batch Normalization fixes this by standardizing the inputs at each layer. For every mini-batch, it computes the mean and standard deviation of the features across the batch, subtracts the mean, and divides by the standard deviation. A small constant ($10^{-5}$) is added to the variance to prevent division by zero.
-- **Learnable Parameters ($\gamma$ and $\beta$):** Normalization might accidentally limit the network by removing its ability to represent the identity function. To fix this, two trainable weights—scale ($\gamma$) and shift ($\beta$)—are introduced to restore the network's representational power. Since $\beta$ acts as a shift, standard bias terms in the preceding linear layer become redundant and are usually removed.
+- **The Operation:** Batch Normalization fixes this by standardizing the inputs *at each layer*, in order to obtain a mean of $0$ and variance of $1$. For every mini-batch, it computes the mean and standard deviation of the features across the batch, subtracts the mean, and divides by the standard deviation:$$\mathbf{x} \mapsto \frac{\mathbf{x} - \mathrm{E}[\mathcal{X}]}{\sigma(\mathcal{X})}$$A small constant ($10^{-5}$) is added to the variance to prevent division by zero.
+
+- **Learnable Parameters ($\gamma$ and $\beta$):** Normalization might accidentally limit the network by removing its ability to represent the identity function. To fix this, two trainable weights (scale $\gamma$ and shift $\beta$) are introduced to restore the network's representational power, by cancel out normalization: $$\mathbf{x} = \gamma \left( \frac{\mathbf{x} - \mathrm{E}[\mathcal{X}]}{\sigma(\mathcal{X})} \right) + \beta$$Since $\beta$ acts as a shift, standard bias terms in the preceding linear layer become redundant and are usually removed.
+
 - **Regularization Effect:** Because a sample might end up in a different mini-batch in every epoch, its normalization shifts slightly based on the other images in the batch. This stochastic uncertainty acts as a built-in regularizer.
+
 - **Inference Time:** During inference, you typically process one image, not a batch. To handle this, the network records an **exponential moving average** of the mini-batch means and variances during training and uses these fixed statistics at test time.
+
 - _Note:_ Other variants exist, such as Layer Normalization (which computes statistics across the channels of a single sample instead of across a batch), which is famously used in Transformers where the concept of batches doesn't apply well.
 
 ## **4. Dropout**
