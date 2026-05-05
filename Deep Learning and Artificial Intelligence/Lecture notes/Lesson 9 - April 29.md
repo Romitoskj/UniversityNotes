@@ -70,6 +70,9 @@ Deep networks suffer from **internal covariate shift**: as parameters update dur
 Dropout brings the power of **ensemble learning** (like Random Forests) to deep learning in a computationally feasible way.
 
 - **Mechanism:** During training, random portions of the network are temporarily removed ("dropped out") for each mini-batch. This means the model visits a vast amount of different subnetworks, approximating a massive ensemble. Because all these subnetworks are part of the same base architecture, it effectively combines "bagging" with **weight sharing**.
+	
+	![](../../Pasted%20image%2020260505133807.png)
+	
 - **Reducing Co-adaptation:** By making neurons randomly disappear, the network cannot rely too heavily on any single neuron to fix the mistakes of previous ones. This breaks co-adaptation and forces the network to learn robust, generalized features.
 - **Inference Time:** At test time, no neurons are dropped. Instead, the output of a neuron is scaled down by the probability $p$ that it was dropped during training, compensating for the fact that all neurons are suddenly active.
 - **Theory vs. Practice (PyTorch Implementation):** The audio lecture points out a crucial conflict between the original research paper and actual software implementation. While the theory dictates zeroing out entire _rows_ of the linear layer's weight matrix (effectively removing a node), PyTorch explicitly performs the full matrix multiplication and instead zeroes out random dimensions in the **output representation** (the resulting feature map) because it is vastly more computationally efficient.
