@@ -4,19 +4,27 @@
 
 Performance evaluation assesses how efficiently a computer system utilizes its underlying resources, such as CPU, memory, and storage, to achieve desired outputs. While there are multiple techniques (like analytical or simulation modeling), cloud computing primarily relies on **empirical or testbed analysis**, which involves monitoring metrics and conducting tests on a deployed system. This evaluation helps identify bottlenecks, optimizing resource utilization, ensure business continuity, improving scalability and flexibility, and verify that Service Level Agreements (SLAs) are met.
 
-### Key Performance Metrics
+## Key Performance Metrics
 
 Metrics are categorized into two main perspectives:
 
-- **System-oriented (Server-side):** Focuses on infrastructure efficiency. Key metrics include **Throughput** (e.g., transactions, read/write blocks, or requests processed per second), **Resource Utilization** (CPU, memory, disk usage), and **Scalability**.
-- **User-oriented (Client-side):** Focuses on the quality of service perceived by the end-user. Key metrics include **End-to-End Response Time** (the total time from sending a request to receiving the result over the network), **Availability**, and **Error Rate**.
+- **System-oriented (Server-side):** Focuses on infrastructure efficiency. Key metrics include:
+	- **Throughput:** The amount of data or work a system can process within a given timeframe (e.g., transactions, read/write blocks, or requests processed per second),
+	- **Resource Utilization** (CPU, memory, disk usage),
+	- **Scalability:** The ability of the system to handle increasing workloads or demands without compromising performance.
+- **User-oriented (Client-side):** Focuses on the quality of service perceived by the end-user. Key metrics include:
+	- **End-to-End Response Time:** The total time from sending a request to receiving the result over the network,
+	- **Availability:** The percentage of time a service is operational and accessible to users. ,
+	- **Error Rate:** The frequency of errors or failures within the system.
 
-**Performance Testing Techniques** To test system behavior, researchers generate different workload conditions:
+## Performance Testing Techniques 
+
+To test system behavior, researchers generate different workload conditions:
 
 - **Load Testing:** Evaluates system performance under normal operating conditions.
 - **Stress Testing:** Exposes the system to continuous extreme loads to identify capacity limits and weaknesses.
 - **Spike Testing:** Simulates sudden, unpredictable bursts of activity to evaluate the system's reaction to load spikes.
-- **Endurance Testing:** Runs the system over an extended period to identify issues that manifest over time, such as memory leaks.
+- **Endurance Testing:** Runs the system over an extended period to identify issues that manifest over time.
 
 ## **The 7-Step Evaluation Methodology**
 
