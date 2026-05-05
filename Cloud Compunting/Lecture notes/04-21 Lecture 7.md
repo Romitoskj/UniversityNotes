@@ -2,7 +2,7 @@
 
 ## Overview
 
-Performance evaluation assesses how efficiently a computer system utilizes its underlying resources, such as CPU, memory, and storage, to achieve desired outputs. While there are multiple techniques (like analytical or simulation modeling), cloud computing primarily relies on **empirical or testbed analysis**, which involves monitoring metrics and conducting tests on a deployed system. This evaluation helps identify bottlenecks, ensure business continuity, and verify that Service Level Agreements (SLAs) are met.
+Performance evaluation assesses how efficiently a computer system utilizes its underlying resources, such as CPU, memory, and storage, to achieve desired outputs. While there are multiple techniques (like analytical or simulation modeling), cloud computing primarily relies on **empirical or testbed analysis**, which involves monitoring metrics and conducting tests on a deployed system. This evaluation helps identify bottlenecks, optimizing resource utilization, ensure business continuity, improving scalability and flexibility, and verify that Service Level Agreements (SLAs) are met.
 
 ### Key Performance Metrics
 
