@@ -1,4 +1,4 @@
-# PCA and VAE
+# PCA and VAEs
 
 ## **1. Dimensionality Reduction and PCA**
 
