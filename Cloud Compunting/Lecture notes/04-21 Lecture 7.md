@@ -32,7 +32,7 @@ When evaluating cloud services, a rigorous seven-step procedure is standard:
 
 **1. Specify Purpose and Scope** Determine the exact goal (e.g., identifying bottlenecks, verifying auto-scaling) and the perspective you are taking (user vs. service provider).
 
-**2. Identify Cloud Features to Evaluate** Modern cloud architectures have many layers (e.g., front-end web servers, app logic, data stores, API gateways). You must isolate the specific components under test to determine the appropriate workload to generate. _Note: Analyzing the scalability of database layers is often avoided in simple tests because it requires generating extremely intensive workloads_.
+**2. Identify Cloud Features to Evaluate** Modern cloud architectures have many features (e.g., front-end web servers, app logic, data stores, API gateways). A performance study can focus on all, few or one isolated specific component. That allows to determine the appropriate workload to generate and the relative performance metrics to collect.
 
 **3. Determine Performance Metrics** Select the exact metrics to track. Cloud providers offer built-in tools (like AWS CloudWatch) that track server-side metrics:
 
