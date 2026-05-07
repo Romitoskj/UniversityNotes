@@ -47,7 +47,7 @@ User-oriented metrics (like end-to-end latency) cannot be measured internally an
 - **ApacheBench (ab):** A simple command-line tool, but limited to sending a single type of static request.
 - **JMeter or Artillery:** Highly sophisticated tools that allow you to define testing durations, mix different request types, and evaluate complex web applications.
 
-**5. Design Performance Experiments** Your experiment must explicitly define the workload type (CPU, disk, memory, or network intensive) and its intensity.
+**5. Design Performance Evaluation Experiments** Each experiment must explicitly define the workload type (CPU, disk, memory, or network intensive) and its intensity, the duration and the number of time a single experiment is executed.
 
 - **Workload Shape:** For continuous scaling tests, the load should transition smoothly through four phases: a **Warm-up (WU)** period to activate components, a **Ramp-up (RU)** period to increase load gradually, a **Steady (S)** period at maximum load, and a **Ramp-down (RD)** period to observe scale-in.
 - **Repetition:** You cannot rely on a single experimental outcome due to network variances. In theory, experiments should be repeated 20 times; in practice, running them 3 to 10 times is acceptable to calculate an accurate average.
