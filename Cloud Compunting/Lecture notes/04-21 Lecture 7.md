@@ -38,7 +38,9 @@ When evaluating cloud services, a rigorous seven-step procedure is standard:
 
 - **EC2 Instances:** `CPUUtilization`, `NetworkIn`/`NetworkOut`, `DiskReadOps`.
 - **Auto-Scaling Groups:** `GroupInServiceInstances`, `GroupPendingInstances`.
-- **AWS Lambda:** `ConcurrentExecutions`, `Duration`, `Invocations`. User-oriented metrics (like end-to-end latency) cannot be measured internally and must be collected on the client side by the workload generator.
+- **AWS Lambda:** `ConcurrentExecutions`, `Duration`, `Invocations`. 
+
+User-oriented metrics (like end-to-end latency) cannot be measured internally and must be collected on the client side by the workload generator. These metrics are also influenced by everything between the client and the server.
 
 **4. Select the Appropriate Tool** Choose a workload generator based on the complexity of your system.
 
