@@ -28,7 +28,7 @@ To implement these atomicity properties, different storage models are used:
 
 ## 3. Eventual Consistency and the Paxos Consensus Protocol
 
-Unlike traditional relational databases that rigidly enforce ACID properties, NoSQL distributed systems often relax consistency to improve scalability, leading to **"eventual consistency"**. To manage this, they use **consensus protocols** to agree on a single proposed value across multiple replicas.
+Unlike traditional relational databases that rigidly enforce ACID properties, NoSQL distributed systems often relax consistency to improve availability and scalability, leading to **"eventual consistency"**. To manage this, they use **consensus protocols** to agree on a single proposed value across multiple replicas.
 
 ### The Paxos Algorithm:
 
