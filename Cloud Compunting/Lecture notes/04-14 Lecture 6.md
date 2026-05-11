@@ -1,5 +1,11 @@
 # Cloud Storage Introduction
 
+### Goals of Data Storage in the Cloud
+
+- Massive scaling on demand
+- High availability
+- Simplified application development and deployment
+
 ## 1. Atomicity in Cloud Storage
 
 A transaction is a multi-step operation that should complete without interruption. Achieving this requires hardware support, such as non-interruptible instruction set operations (e.g., test-and-set, compare-and-swap) and mechanisms to create critical sections. There are two main types of atomicity:
