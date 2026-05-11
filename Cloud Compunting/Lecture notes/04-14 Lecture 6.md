@@ -8,10 +8,15 @@
 
 ## 1. Atomicity in Cloud Storage
 
-A transaction is a multi-step operation that should complete without interruption. Achieving this requires hardware support, such as non-interruptible instruction set operations (e.g., test-and-set, compare-and-swap) and mechanisms to create critical sections. There are two main types of atomicity:
+A transaction is a multi-step operation that should complete without interruption. Achieving this requires hardware support, such as non-interruptible instruction set operations (e.g., test-and-set, compare-and-swap) and mechanisms to create critical sections (e.g., locks, semaphores, monitors). There are two main types of atomicity:
 
-- **All-or-Nothing Atomicity:** The transaction is executed completely, or aborted entirely. It requires two phases: a pre-commit phase (to gather necessary resources) and a commit point. If the transaction fails before committing, it is aborted. Systems maintain a log of committed transactions to recover from failures and guarantee consistency.
+- **All-or-Nothing Atomicity:** The transaction is executed completely, or aborted entirely. It requires two phases: a pre-commit phase (to gather necessary resources) and a post-commit (irreversible actions), the transition is called commit point. If the transaction fails before committing, it is aborted. Systems maintain a log of committed transactions to recover from failures and guarantee consistency.
+	
+	![](Images/Pasted%20image%2020260511165724.png)
+	
 - **Before-or-After Atomicity:** A weaker form of atomicity where the result of concurrent read and write operations is identical to the result if they were executed sequentially.
+	
+	![558](../../Pasted%20image%2020260511165840.png)
 
 ## 2. Storage Models
 
