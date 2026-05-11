@@ -60,7 +60,9 @@ User-oriented metrics (like end-to-end latency) cannot be measured internally an
 
 **7. Run and Analyze** Once tests complete, **download the raw datapoints** for your metrics, calculate the averages across all runs, and plot them manually to show the correlation between workload intensity and system response. **Do not rely on screenshots of the AWS CloudWatch dashboard.** Screenshots are poor practice because they only reflect a single run, the graphs are hard to read, and AWS automatically deletes the data after a few months.
 
+![472](Images/Pasted%20image%2020260511162102.png)
+
 **Setting Thresholds and Testing Availability**
 
-- **Auto-Scaling Thresholds:** Setting metric thresholds is largely a heuristic process. A strong rule of thumb is to set your scaling threshold at **66% of the system's maximum capacity** (e.g., if max capacity limits your CPU to 50% utilization, the threshold should be ~35%).
+- **Auto-Scaling Thresholds:** Setting metric thresholds is largely a heuristic process. A strong rule of thumb is to set your scaling threshold at **66% of the system's maximum capacity** (e.g., if max load that the test generates  to the CPU is 50% utilization, the threshold can be set to ~35% for the project). Another way it is setting an adaptive threshold.
 - **Availability Testing:** To test system resilience, you should generate random failures manually by killing active services or forcefully stopping running VMs/containers.
