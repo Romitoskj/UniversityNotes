@@ -23,7 +23,8 @@ A transaction is a multi-step operation that should complete without interruptio
 To implement these atomicity properties, different storage models are used:
 
 - **Cell Storage Model:** Simulates the physical structure of a disk (sectors/blocks) by using cells of the same size. This model naturally guarantees **read/write coherence** and **before-or-after atomicity**. However, it **does not guarantee all-or-nothing atomicity** because there is no native way to reserve a cell and undo an action if a failure occurs.
-- **Journal Storage Model:** Combines a cell storage area with a "manager" and a version history/log. Before altering a cell, the intended change is written to the log. This model **guarantees all-or-nothing atomicity** because the log allows the system to undo partial transactions and recover from failures.
+- **Journal Storage Model:** Combines a cell storage area with a "manager" and a version history/log. Before altering a cell, the intended change is written to the log that maintains the history of all variables in the cell store. This model **guarantees all-or-nothing atomicity** because the log allows the system to undo partial transactions and recover from failures.
+	![](../../Pasted%20image%2020260511171242.png)
 
 ## 3. Eventual Consistency and the Paxos Consensus Protocol
 
