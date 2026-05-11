@@ -44,5 +44,33 @@ Similar to GFS, HDFS is a master/slave system designed for big data, though it i
 
 Object stores differ fundamentally from file systems like GFS or HDFS. In an object store, **you cannot append to or randomly write inside a file**. You interact with the storage via APIs to retrieve or store the entire object at once. If you need to modify an object, you must download it, alter it in your application, and overwrite the existing file entirely.
 
+- **Data Model (Buckets and Objects):** Data is stored as opaque "objects" grouped inside "buckets". Buckets must be explicitly created, have globally unique names, and use Access Control Lists (ACLs) to manage permissions. Objects are byte strings (up to 5 GB) identified by a unique key and a URI path, and they are stored or retrieved via HTTP `PUT` and `GET` requests.
+- **Failure and Error Handling:** The system relies on the client application to handle read/write failures by retrying requests. To guarantee data integrity, S3 computes an MD5 checksum for every object, returning it in a field called the `ETag`. Clients compare this `ETag` with their own MD5 computation to verify the object was not corrupted during transmission.
+- **Consistency Model:** S3 provides **strong read-after-write consistency** for `PUT` and `DELETE` requests of objects, meaning updates to a single key are atomic. However, if concurrent writers attempt to update the same key, S3 uses a **"last-writer-wins"** semantic; it does not natively support object locking. Furthermore, bucket configurations operate on an **eventual consistency** model (e.g., a deleted bucket might temporarily still appear in a list of buckets).
 
-REMEMBER TO ADD THE PART NOT IN THE AUDIO
+### **7. NoSQL Data Stores (Overview)**
+
+For many cloud applications, traditional Relational Database Management Systems (RDBMS) are insufficient because they cannot scale efficiently to handle massive amounts of data under tight latency constraints.
+
+- **Dropping ACID Properties:** To achieve high availability and scalability, NoSQL databases drop strict ACID (Atomicity, Consistency, Isolation, Durability) guarantees.
+- **Eventual Consistency:** They use a "soft-state" approach where data is partitioned and replicated across multiple servers. Data may be temporarily inconsistent but becomes "eventually consistent" over time.
+
+### **8. Google BigTable**
+
+BigTable is a distributed storage system built to handle structured data across thousands of commodity servers with a highly flexible data model.
+
+- **Data Model:** It is a sparse, distributed, persistent multidimensional sorted map. Data is indexed by three parameters: a **row key**, a **column key**, and a **timestamp**.
+    - **Rows:** Row keys are arbitrary strings ordered lexicographically. Row ranges are dynamically partitioned into units called **tablets**, which serve as the basis for load balancing.
+    - **Columns:** Column keys are grouped into sets called **column families**. Access control and memory accounting are managed at the column family level, and data within a family is of the same type.
+    - **Timestamps:** BigTable stores multiple versions of the same cell data, ordered by decreasing timestamps (so the most recent version is read first). Older versions are automatically garbage-collected based on configured rules (e.g., keeping only the last $n$ versions).
+- **Building Blocks & Architecture:** BigTable utilizes a single **Master server** (to assign tablets and balance loads) and many **Tablet servers** (to handle read/write operations). It is built on top of the **Google File System (GFS)** and stores data in **SSTables** (a persistent, immutable map of keys to values optimized for single disk seeks). It also heavily relies on **Chubby**, a distributed lock service, to elect the master and manage metadata.
+
+### **9. Amazon Dynamo**
+
+Dynamo is a highly available, decentralized key-value store designed to manage the state of Amazon's most critical services, such as shopping carts, where outages have direct financial consequences.
+
+- **Prioritizing Availability:** Dynamo explicitly trades strict consistency for high availability. It uses optimistic replication to remain **"always writable,"** meaning updates are never rejected, even during network failures.
+- **Conflict Resolution:** Because it is always writable, divergent data versions can emerge. Dynamo pushes the complexity of conflict resolution to the read phase. Conflicts are ultimately reconciled by the client application itself (e.g., merging two versions of a shopping cart).
+- **Partitioning via Consistent Hashing:** To scale incrementally, Dynamo distributes data across nodes using a consistent hashing ring. To prevent unbalanced loads and account for heterogeneous hardware, it assigns multiple **virtual nodes** to each physical machine on the ring.
+- **Replication Strategy:** A data item is replicated across $N$ hosts. The system hashes the key to find the coordinator node on the ring, which stores the data locally and also replicates it to the next $N-1$ clockwise successor nodes.
+- **Data Versioning:** Every modification is treated as a new, immutable version. Dynamo uses **vector clocks** (a list of node and counter pairs) to track causality between versions and identify conflicts when a `Get()` operation is called.
