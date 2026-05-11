@@ -47,10 +47,10 @@ User-oriented metrics (like end-to-end latency) cannot be measured internally an
 - **ApacheBench (ab):** A simple command-line tool, but limited to sending a single type of static request.
 - **JMeter or Artillery:** Highly sophisticated tools that allow you to define testing durations, mix different request types, and evaluate complex web applications.
 
-**5. Design Performance Evaluation Experiments** Each experiment must explicitly define the workload type (CPU, disk, memory, or network intensive) and its intensity, the duration and the number of time a single experiment is executed.
+**5. Design Performance Evaluation Experiments** Each experiment must explicitly define the **workload type** (CPU, disk, memory, or network intensive) and its **intensity**, the **duration** and the **number of time** a single experiment is executed (cannot rely on a single outcome).
 
 - **Workload Shape:** For continuous scaling tests, the load should transition smoothly through four phases: a **Warm-up (WU)** period to activate components, a **Ramp-up (RU)** period to increase load gradually, a **Steady (S)** period at maximum load, and a **Ramp-down (RD)** period to observe scale-in.
-- **Repetition:** You cannot rely on a single experimental outcome due to network variances. In theory, experiments should be repeated 20 times; in practice, running them 3 to 10 times is acceptable to calculate an accurate average.
+- **Repetition:** You cannot rely on a single experimental outcome due to network variances. In theory, experiments should be repeated 20 times; in practice, running them 3 to 10 times is acceptable to calculate an accurate average for the project.
 - **Common Mistake:** When testing scale-out policies, do not use simple CPU stress tools that only run on the first instance. When a new instance scales out, the tool must automatically run on the new instance as well, or the average CPU load will drop artificially.
 
 **6. Setup the Experimental Environment** To avoid having your cloud provider classify your intensive testing as a malicious attack and ban your account, **run your workload generation tools from virtual machines inside the AWS perimeter**. While this prevents you from measuring real-world internet latency, it ensures the test executes without network blocking. Be careful not to generate load that exceeds platform maximums (e.g., AWS Lambda's default concurrency limits).
