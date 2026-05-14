@@ -206,13 +206,13 @@ Il framework del distributed learning affronta l'addestramento collaborativo di 
 
 La condivisione dei parametri in scenari di Federated Learning si rivela impraticabile quando i nodi periferici possiedono architetture neurali eterogenee (Model-Heterogeneous). Il paradigma recente "FedRE" (Federated Representation Entanglement) introduce la possibilità di condividere esclusivamente rappresentazioni latenti offuscate ed "entangled". Il progetto in questione modella la traduzione di questo framework per le interfacce BCI (Brain-Computer Interfaces) o per sensori bioacustici. I nodi client elaboreranno i segnali sonori localmente con reti asimmetriche, estraendo codici latenti che saranno poi aggrovigliati (entangled) tramite permutazioni controllate. Il server globale non apprenderà una rete, ma uno spazio metrico globale ottimizzando i prototipi latenti. Si analizzerà come il meccanismo di entanglement preservi la differenziabilità garantendo simultaneamente difese crittografiche intrinseche contro gli attacchi avversari di ricostruzione.
 
-|**Parametro**|**Descrizione Dettagliata**|
-|---|---|
-|**Area di Afferenza**|Distributed learning|
-|**Riassunto**|Trasferimento del framework FedRE su architetture eterogenee per l'elaborazione bioacustica, permettendo aggregazione latente senza scambio di pesi.|
-|**Input / Output**|**Input:** Codici latenti provenienti da estrattori locali asimmetrici. **Output:** Prototipi di classificazione distribuiti e resistenti alle inversioni avversarie.|
-|**Costo Computazionale**|Basso per il server (operante solo su vettori latenti corti), variabile e scalabile per i singoli nodi client.|
-|**Dataset**|Dataset pubblici di bioacustica partizionati artificialmente con skew elevati.|
+| **Parametro**            | **Descrizione Dettagliata**                                                                                                                                           |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Area di Afferenza**    | Distributed learning                                                                                                                                                  |
+| **Riassunto**            | Trasferimento del framework FedRE su architetture eterogenee per l'elaborazione bioacustica, permettendo aggregazione latente senza scambio di pesi.                  |
+| **Input / Output**       | **Input:** Codici latenti provenienti da estrattori locali asimmetrici. **Output:** Prototipi di classificazione distribuiti e resistenti alle inversioni avversarie. |
+| **Costo Computazionale** | Basso per il server (operante solo su vettori latenti corti), variabile e scalabile per i singoli nodi client.                                                        |
+| **Dataset**              | Dataset pubblici di bioacustica partizionati artificialmente con skew elevati.                                                                                        |
 
 ### PRJ-16: Stabilizzazione Proximal (PEARL-Prox) per Apprendimento Distribuito Quantizzato
 
