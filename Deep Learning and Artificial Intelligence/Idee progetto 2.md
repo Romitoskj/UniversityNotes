@@ -34,13 +34,13 @@ La maggior parte dei modelli generativi audio opera nel dominio del tempo (sinte
 
 Le tecniche di "Model Merging" interpolano tipicamente tra due checkpoint neurali usando la Spherical Linear Interpolation (SLERP) per evitare interferenze distruttive. Questo progetto estende il concetto al caso di $n>2$ modelli. L'obiettivo è formulare e implementare un approccio basato sui baricentri sferici per trovare una media ponderata di molteplici reti sull'ipersfera, esplorando modi per garantire la "cycle consistency" (la fusione lungo percorsi diversi nello spazio dei modelli produce risultati coerenti).
 
-|**Parametro**|**Descrizione Dettagliata**|
-|---|---|
-|**Aree di Afferenza**|Model merging, Deep learning theory, Optimization for deep learning|
-|**Riassunto**|Generalizzazione dell'interpolazione sferica (SLERP) per combinare simultaneamente i pesi di oltre due modelli senza perdere le capacità originali.|
-|**Input / Output**|**Input:** Matrici dei pesi di $n$ reti neurali addestrate indipendentemente. **Output:** Un singolo modello fuso e ottimizzato sull'ipersfera.|
-|**Costo Computazionale**|Basso. Le operazioni matriciali per il calcolo del baricentro sferico si eseguono offline sui pesi senza richiedere cicli di addestramento e backpropagation.|
-|**Dataset**|Checkpoint pre-addestrati scaricati liberamente. Nessun dato grezzo necessario.|
+| **Parametro**            | **Descrizione Dettagliata**                                                                                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Aree di Afferenza**    | Model merging, Deep learning theory, Optimization for deep learning                                                                                           |
+| **Riassunto**            | Generalizzazione dell'interpolazione sferica (SLERP) per combinare simultaneamente i pesi di oltre due modelli senza perdere le capacità originali.           |
+| **Input / Output**       | **Input:** Matrici dei pesi di $n$ reti neurali addestrate indipendentemente. **Output:** Un singolo modello fuso e ottimizzato sull'ipersfera.               |
+| **Costo Computazionale** | Basso. Le operazioni matriciali per il calcolo del baricentro sferico si eseguono offline sui pesi senza richiedere cicli di addestramento e backpropagation. |
+| **Dataset**              | Checkpoint pre-addestrati scaricati liberamente. Nessun dato grezzo necessario.                                                                               |
 
 ### PRJ-04: Re-Basin Ortogonale Oltre le Permutazioni Discrete
 
