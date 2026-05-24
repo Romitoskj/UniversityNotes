@@ -14,7 +14,7 @@ Metrics are categorized into two main perspectives:
 	- **Scalability:** The ability of the system to handle increasing workloads or demands without compromising performance.
 - **User-oriented (Client-side):** Focuses on the quality of service perceived by the end-user. Key metrics include:
 	- **End-to-End Response Time:** The total time from sending a request to receiving the result over the network,
-	- **Availability:** The percentage of time a service is operational and accessible to users. ,
+	- **Availability:** The percentage of time a service is operational and accessible to users,
 	- **Error Rate:** The frequency of errors or failures within the system.
 
 ## Performance Testing Techniques 
