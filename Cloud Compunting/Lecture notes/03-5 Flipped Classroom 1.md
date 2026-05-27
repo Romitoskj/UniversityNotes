@@ -40,9 +40,7 @@ Different types of workload patterns stress different elasticity metrics:
 
 ---
 
-# Elasticity in Cloud Computing: What It Is, and What It Is Not
-
-**The Problem with "Elasticity"** Despite being a central concept in cloud computing, the term "elasticity" is often used inconsistently as a marketing buzzword and lacks a precise definition. The authors point out that existing definitions—including those from NIST, IBM, and others—often confuse elasticity with related concepts like scalability and efficiency, and fail to provide ways to actually quantify it.
+# Elasticity in Cloud Computing:
 
 **A New, Precise Definition** To solve this, the authors propose a new definition: **Elasticity is the degree to which a system can automatically adapt to workload changes by provisioning and de-provisioning resources, ensuring that the available resources** **match** **the current demand as closely as possible at any given time**.
 
