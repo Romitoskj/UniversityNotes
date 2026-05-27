@@ -6,7 +6,7 @@
 
 - **Distributed Computing:** A computational model where a single task is broken down into smaller units executed concurrently across different computing elements (e.g., different cores, processors, or networked machines).
 
-- **Cloud Computing as a Distributed System:** Cloud computing is a specialized form of distributed computing designed to provision scalable and measured resources. The layers of a traditional distributed system map directly to cloud models: the physical hardware and OS form the Cloud Infrastructure, the Distributed Computing Middleware maps to Platform as a Service (PaaS), and the Distributed Applications map to Software as a Service (SaaS).
+- **Cloud Computing as a Distributed System:** Cloud computing is a specialized form of distributed computing designed to provision scalable and measured resources. The layers of a traditional distributed system map directly to cloud models: the physical hardware and OS form the Infrastructure as a Service, the Distributed Computing Middleware maps to Platform as a Service (PaaS), and the Distributed Applications map to Software as a Service (SaaS).
    
 ![Lecture 2 - enabling technologies - part 1](../Slides/Lecture%202%20-%20enabling%20technologies%20-%20part%201.pdf#page=6)
 
