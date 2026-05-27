@@ -34,9 +34,9 @@ To be considered a true cloud service, all five of these must be present:
 
 ### B. Three Service Models
 
-These models dictate the level of consumer control and the separation of security responsibilities:
+These models dictate the level of consumer control and the separation of security and provisioning responsibilities:
 
-- **IaaS (Infrastructure as a Service):** Consumer controls the OS, storage, and deployed applications. The provider secures the physical data center, network infrastructure, and virtualization isolation.
+- **IaaS (Infrastructure as a Service):** Consumer controls the OS, data, and deployed applications. The provider secures the physical data center, network infrastructure, and virtualization isolation.
 
 - **PaaS (Platform as a Service):** Consumer controls deployed applications and data. The provider manages the underlying infrastructure and OS.
 
