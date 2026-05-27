@@ -24,7 +24,7 @@ To be considered a true cloud service, all five of these must be present:
 2. **Broad network access:** Services are accessed over the network through standard mechanisms (e.g., mobile phones, tablets, laptops). Performance and security issues are typically concentrated in the network and at the edge.
 
 3. **Resource pooling (Multi-tenancy):** Provider resources are pooled to serve multiple consumers simultaneously. Physical and virtual resources are dynamically assigned.
-    - _Multi-tenancy properties_ ensure that while users share application logic or hardware, they experience complete usage isolation, data security, transparent application upgrades, and independent recovery from failures.
+    - _Multi-tenancy properties_ ensure that while users (tenants) share application or infrastructure, they experience complete usage isolation, data security, transparent application upgrades, and independent recovery from failures.
     - Each tenant has its own view of the application as a dedicated instance and is unaware of others ![638](Images/Pasted%20image%2020260306155538.png )
 
 4. **Rapid [Elasticity](03-5%20Flipped%20Classroom%201.md):** The system can automatically scale resources up and down to match workload demands at any given time (e.g., an e-commerce site handling a Black Friday spike without crashing).
