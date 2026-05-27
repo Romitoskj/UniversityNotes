@@ -1,6 +1,6 @@
 
 # Cloud Computing Definition and Architecture
-### **1. Deconstructing the Prerequisites: Scalability vs. Elasticity**
+## **1. Deconstructing the Prerequisites: Scalability vs. Elasticity**
 
 - **The Difference:** While scalability is the ability of a system to handle increasing workloads by adding resources, it does not consider how well resource demands are matched by provisioned resources at any specific point in time. Scalability is a prerequisite for elasticity, but it lacks a temporal dimension.
 - **Temporal Aspects:** Elasticity distinguishes itself by introducing temporal aspects, specifically determining "how fast, how often, and at what granularity" scaling actions occur. A scalable system is not inherently elastic if it requires manual intervention or takes hours to adapt, failing to match demand continuously. Some industry definitions, like the NIST definition of "Rapid Elasticity," have been critiqued for blurring these lines by stating scaling can be "in some cases automatically" and portraying an idealistic scenario of unlimited resources.
