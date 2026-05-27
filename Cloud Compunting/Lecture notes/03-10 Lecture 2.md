@@ -29,7 +29,7 @@ An architectural style serves as a blueprint or pattern for organizing a system.
 
 ## 3. Service Oriented Architecture (SOA)
 
-SOA is an architectural style based on "service orientation," where applications are built by aggregating services rather than writing monolithic functions. A service is a logical representation of a repeatable business activity that has a specified outcome(e.g., checking a credit card). 
+SOA is an architectural style based on "service orientation," where applications are built by aggregating services rather than writing monolithic functions. A service is a logical representation of a repeatable business activity that has a specified outcome (e.g., checking a credit card). 
 
 ### Four Characteristics of a Service:
 1. **Explicit Boundaries:** Interfaces are kept minimal to foster reuse and simplify interaction.
