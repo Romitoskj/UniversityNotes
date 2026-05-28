@@ -7,5 +7,6 @@
   "cssTheme": "",
   "accentColor": "",
   "showViewHeader": true,
-  "translucency": true
+  "translucency": true,
+  "theme": "obsidian"
 }
