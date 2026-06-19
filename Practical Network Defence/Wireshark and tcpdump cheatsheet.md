@@ -113,7 +113,7 @@ Cercare indirizzi sorgenti con porta sorgente tcp o udp 22:
 
 ***********************
 
-tcpdump
+# tcpdump
 
 opzioni:
 -i: specifica interfaccia dal quale ascoltare
@@ -135,46 +135,46 @@ Catturare pacchetti dall'interfaccia eth0 e salvarli in file.pcap
 `tcpdump -i eth0 -w file.pcap
 
 Catturare pacchetti riguardanti l'host 10.10.2.1
-tcpdump host 10.10.2.1
+`tcpdump host 10.10.2.1
 
 Catturare pacchetti provenienti dalla subnet 10.0.2.2/24
-tcpdump net 10.0.2.2/24
+`tcpdump net 10.0.2.2/24
 
 Catturare pacchetti che hanno come sorgente 10.10.2.1
-tcpdump src 10.10.2.1
+`tcpdump src 10.10.2.1
 
 Catturare pacchetti che hanno come destinazione 10.10.2.1
-tcpdump dst 10.10.2.1
+`tcpdump dst 10.10.2.1
 
 Catturare i pacchetti che hanno come sorgente o destinazione la porta 443
-tcpdump port 443
+`tcpdump port 443
 
 Catturare pacchetti che hanno come porta sorgente 22
-tcpdump src port 22
+`tcpdump src port 22
 
 Catturare pacchetti che hanno come porta destinazione 22
-tcpdump dst port 22
+`tcpdump dst port 22
 
 Catturare pacchetti che hanno come porta tcp 43:
-tcpdump tcp port 43
+`tcpdump tcp port 43
 
 Catturare pacchetti che coinvolgono www.google.com
-tcpdump host "www.google.com"
+`tcpdump host "www.google.com"
 
 Catturare i pacchetti che hanno come sorgente www.google.com
-tcpdump src "www.google.com"
+`tcpdump src "www.google.com"
 
 Catturare i pacchetti che hanno come destinazione www.google.com
-tcpdump dst "www.google.com"
+`tcpdump dst "www.google.com"
 
 Catturare traffico ip6
-tcpdump ip6
+`tcpdump ip6
 
 Catturare traffico icmp
-tcpdump icmp
+`tcpdump icmp
 
 Catturare traffico udp
-tcpdump udp
+`tcpdump udp
 
 Catturare traffico tcp:
-tcpdump proto \\tcp
+`tcpdump proto \\tcp
