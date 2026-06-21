@@ -37,6 +37,9 @@ IPv6 eliminates broadcast addresses entirely, replacing them with Multicast.
 IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IPv4's ARP with the **Neighbor Discovery Protocol (NDP)**.
 
 - **NDP (Replacing ARP):** To find the MAC address for a known IP, a host sends an ICMPv6 _Neighbor Solicitation_ and receives a _Neighbor Advertisement_. Instead of broadcasting to the whole network, this utilizes a highly efficient **Solicited-Node Multicast** address.
+	
+	![](images/Pasted%20image%2020260621165906.png)
+
 
 - **SLAAC (Stateless Address Auto-Configuration):** Allows a device to assign itself an IP address without needing a central DHCP server (that maintains the network addresses state).
     - When a device joins a network, it uses its Link-Local address to send a **Router Solicitation**.
@@ -44,6 +47,7 @@ IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IP
     - The device generates its own Interface ID (via EUI-64 or randomly) and appends it to the prefix.
 
 - **Duplicate Address Detection (DAD):** To avoid IP collisions in SLAAC, the host sends a Neighbor Solicitation for its own freshly generated IP. If nobody answers, the host claims the address.
+
 ![](images/Pasted%20image%2020260317012021.png)
 
 ## 5. DHCPv6 & Prefix Delegation
