@@ -1,5 +1,3 @@
-# IPv6 Protocol
-
 ## 1. SLAAC and Temporary Addresses
 
 - **Privacy Extensions:** When using Stateless Address Auto-Configuration (SLAAC), hosts can generate a random 64-bit Interface ID instead of using the deterministic EUI-64 process.

@@ -1,4 +1,3 @@
-# Firewall
 
 **1. Traffic Regulation: Philosophy & Architecture**
 

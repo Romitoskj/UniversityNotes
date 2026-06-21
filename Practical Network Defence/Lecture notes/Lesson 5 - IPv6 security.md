@@ -1,5 +1,3 @@
-# IPv6 security
-
 ## 1. IPv6 Security Myths vs. Reality
 
 - **Myth: No NAT means no security.** _Reality:_ While IPv6 emphasizes end-to-end reachability without NAT, this simply means network administrators must rely on proper filtering and firewalls to block unwanted inbound traffic.

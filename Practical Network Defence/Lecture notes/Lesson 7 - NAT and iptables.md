@@ -1,5 +1,3 @@
-# NAT and iptables
-
 ## 1. Network Address Translation (NAT) Fundamentals
 
 - **The Addressing Problem:** NAT was originally introduced to combat the exhaustion of IPv4 addresses by allowing many private addresses to share a few public addresses.
