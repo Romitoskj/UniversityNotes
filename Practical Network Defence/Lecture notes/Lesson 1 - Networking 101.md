@@ -1,5 +1,3 @@
-# Networking 101
-
 ## 1. Internet Architecture & Infrastructure
 
 - **The Internet** is an interconnected "network of networks" operating on a hierarchical structure.
