@@ -1,4 +1,3 @@
-# Traffic Monitoring
 
 ## 1. Network Layering Models & Encapsulation
 
