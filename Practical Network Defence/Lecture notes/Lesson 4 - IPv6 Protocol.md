@@ -22,6 +22,8 @@ IPv6 entirely eliminates the "broadcast" address, replacing it with Multicast (o
 - **Key Predefined Groups (Link-Local Scope FF02):**
     - **FF02::1** **(All IPv6 Devices):** Every IPv6 device on the link listens to this address. It is used, for instance, by routers sending Router Advertisements.
     - **FF02::2** **(All IPv6 Routers):** All routers on the link listen to this group. Hosts use this to send Router Solicitations.
+      
+      ![](images/Pasted%20image%2020260621184603.png)
 
 - **DHCPv6 Relay Agents:** If a DHCPv6 server is on a different network than the clients, a router can act as a Relay Agent. It listens for client solicitations and forwards them to the remote DHCPv6 server.
 	
