@@ -42,15 +42,15 @@ IPv6 relies heavily on **ICMPv6** to manage the network, completely replacing IP
 
 
 - **SLAAC (Stateless Address Auto-Configuration):** Allows a device to assign itself an IP address without needing a central DHCP server (that maintains the network addresses state).
-    - When a device joins a network, it uses its Link-Local address to send a **Router Solicitation**.
-    - The router replies with a **Router Advertisement (RA)** containing the network prefix and the default gateway.
+    - When a device joins a network, it uses its Link-Local address to send a **Router Solicitation** (to a special multicast address for routers).
+    - The router replies with a **Router Advertisement (RA)** containing the network prefix and the default gateway (to a special multicast address for all IPv6 devices).
     - The device generates its own Interface ID (via EUI-64 or randomly) and appends it to the prefix.
 
-- **Duplicate Address Detection (DAD):** To avoid IP collisions in SLAAC, the host sends a Neighbor Solicitation for its own freshly generated IP. If nobody answers, the host claims the address.
-
-![](images/Pasted%20image%2020260317012021.png)
+- **Duplicate Address Detection (DAD):** To avoid IP collisions in SLAAC, the host sends a Neighbor Solicitation for its own freshly generated IP. If nobody answers, the host claims the address, if somebody answer with a Neighbor Advertisement the address is duplicated.
 
 ## 5. DHCPv6 & Prefix Delegation
+
+![](images/Pasted%20image%2020260317012021.png)
 
 Router Advertisements contain flags (`M` for Managed, `O` for Other Configuration) that tell the host how to get its IP.
 
