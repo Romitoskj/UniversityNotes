@@ -16,6 +16,8 @@
 IPv6 eliminates broadcast addresses entirely, replacing them with Multicast.
 
 - **Global Unicast Addresses (GUA):** Public, globally routable addresses on the internet. They currently start with the `2000::/3` prefix (spanning `2000` to `3FFF`). All end users will have a GUA address
+	
+	![](images/Pasted%20image%2020260621132502.png)
 
 - **Link-Local Addresses:** Unique and valid _only_ on a specific physical link (local network segment). They cannot be routed off the link. They start with the **FE80::/10** prefix. Every IPv6 device must have at least one link-local address that have to be unique on the link, and they are critical for routing protocol messages and auto-configuration.
 
