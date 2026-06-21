@@ -15,7 +15,7 @@
 
 IPv6 eliminates broadcast addresses entirely, replacing them with Multicast.
 
-- **Global Unicast Addresses (GUA):** Public, globally routable addresses on the internet. They currently start with the `2000::/3` prefix (spanning `2000` to `3FFF`). All end users will have a GUA address
+- **Global Unicast Addresses (GUA):** Public, globally routable addresses on the internet. They currently start with the `2000::/3` prefix (spanning `2000` to `3FFF`). All end users will have a GUA address. 3-1-4 rule:
 	
 	![](images/Pasted%20image%2020260621132502.png)
 
