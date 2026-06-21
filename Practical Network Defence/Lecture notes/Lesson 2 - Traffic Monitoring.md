@@ -32,7 +32,7 @@ Each layer utilizes a different addressing mechanism to route information:
 
 ## 3. Deep Dive: Network Layer & IP
 
-- **Unreliability:** IP is a completely unreliable protocol ("like the pigeon of protocols"). It sends packets without guaranteeing delivery, expecting the upper layers to handle reliability if needed.
+- **Unreliability:** IP is a completely unreliable protocol (best-effort delivery). It sends packets without guaranteeing delivery, expecting the upper layers to handle reliability if needed.
 
 - **Time to Live (TTL):** To prevent packets from circulating infinitely in routing loops, the IP header includes a TTL field. Every router that forwards the packet decrements the TTL by 1. If it reaches 0, the packet is dropped, and an **ICMP Time Exceeded** message is sent back to the source (this mechanism is how `traceroute` maps network paths).
 
