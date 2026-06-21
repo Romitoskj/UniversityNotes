@@ -10,9 +10,11 @@ IPv6 entirely eliminates the "broadcast" address, replacing it with Multicast (o
 - **Formatting:** All IPv6 multicast addresses use the prefix **FF00::/8**.
 
 - **Structure:** After the prefix, the address contains a 4-bit **Flag**, a 4-bit **Scope**, and a 112-bit **Group ID**.
-    - **Flag:** A value of `0` indicates a permanent, well-known multicast address assigned by IANA, while `1` indicates a dynamically assigned address.
-    - **Scope:** Defines the range of the packet. Common values include `1` (Interface-Local), `2` (Link-Local), `5` (Site-Local), `8` (Organization-Local), and `E` (Global).
 	
+    - **Flag:** A value of `0` indicates a permanent, well-known multicast address assigned by IANA, while `1` indicates a dynamically assigned address.
+	
+    - **Scope:** Defines the range of the packet. Common values include `1` (Interface-Local), `2` (Link-Local), `5` (Site-Local), `8` (Organization-Local), and `E` (Global).
+		
 		![](images/Pasted%20image%2020260323173749.png)
 
 - **Key Predefined Groups (Link-Local Scope FF02):**
