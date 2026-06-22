@@ -7,7 +7,7 @@ While a router’s primary job is to ask "where should this packet go?" by check
 - **Defense in Depth:** Security should rely on overlapping systems. Instead of a single firewall, modern networks use multiple layers of protection (e.g., an external screening router, a perimeter network, an internal firewall, and individual host-based firewalls).
 - **The DMZ (Demilitarized Zone):** A secure, neutral sub-network placed between the public internet and the private internal network. The DMZ hosts systems that need to be publicly accessible (like Web or Mail servers) on hardened machines called **Bastion Hosts**. If a Bastion Host in the DMZ is compromised, the attacker still faces another internal firewall before they can reach the private network.
 
-**2. Stateless Packet Filtering (The "Basic" Firewall)**
+## 2. Stateless Packet Filtering (The "Basic" Firewall)
 
 Stateless packet filters (often implemented as Access Control Lists, or ACLs, on screening routers) evaluate every single packet entirely independently, with no memory of what happened before. They filter purely based on the Network and Transport layer headers: Source/Destination IP, Source/Destination Port, and TCP Flags.
 
@@ -16,7 +16,7 @@ Stateless packet filters (often implemented as Access Control Lists, or ACLs, on
 - **The Direction/Port Problem:** If you write a rule to allow internal hosts to receive responses from external servers (which typically use high-numbered ports >1023), a clever attacker can spoof their source port to match an allowed service (e.g., port 25) and freely push traffic into your internal network. To fix this, rules must strictly check for the `ACK` flag (indicating an established connection), but even this is flawed.
 - **IP Fragmentation Attacks:** Attackers can bypass stateless filters by intentionally fragmenting packets in abnormal ways. By manipulating the "fragment offset," an attacker can send overlapping fragments. The firewall might allow the first fragment because it looks harmless, but the second fragment mathematically overwrites the TCP header of the first fragment upon reassembly at the target host (e.g., maliciously inserting a `SYN` flag to establish a forbidden connection).
 
-**3. Stateful Packet Inspection (Dynamic Packet Filters)**
+## 3. Stateful Packet Inspection (Dynamic Packet Filters)
 
 Stateful firewalls solve the context problem by tracking the **state of connections**. Instead of evaluating every packet blindly, they maintain a real-time table of active sessions.
 
