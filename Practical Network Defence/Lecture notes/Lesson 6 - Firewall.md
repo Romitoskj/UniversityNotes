@@ -23,7 +23,7 @@ Stateful firewalls solve the context problem by tracking the **state of connecti
 - **TCP Tracking:** The firewall actively monitors the TCP 3-way handshake. When an internal host sends a `SYN` packet, the firewall logs a `NEW` state. When the external server replies with `SYN/ACK`, the state upgrades to `ESTABLISHED`. Only packets matching an established state are allowed back in. The firewall then monitors for the `FIN` and `ACK` flags to tear down the connection state.
 - **UDP "Statefulness":** How do you track state for a connectionless protocol like UDP or ICMP? When an internal host sends an outbound UDP request, the firewall dynamically "opens a hole" in its ruleset, anticipating a response from that specific external IP and port. It assigns a temporary timer to this expected session. If the response comes before the timer expires, it is allowed in; if not, the temporary rule vanishes.
 
-**4. Advanced Firewalls: Application & Circuit Gateways**
+## 4. Advanced Firewalls: Application & Circuit Gateways
 
 If you need to inspect the actual payload of the traffic, you must step up the OSI model to gateways (Proxies).
 
@@ -35,6 +35,6 @@ If you need to inspect the actual payload of the traffic, you must step up the O
 
 - **SOCKS Protocol:** The standard for this is SOCKS (used often with SSH tunneling or Tor). An internal client connects to the proxy, and the proxy connects to the external server on the client's behalf. To the external server, the traffic appears to be coming entirely from the proxy's IP address. This is highly useful for hiding internal network structures or bypassing geographic IP blocks.
 
-**5. Next-Generation Firewalls (NGFW)**
+## 5. Next-Generation Firewalls (NGFW)
 
 Modern enterprise systems (such as OPNsense, which will be used in course labs) consolidate all these features into a single device. An NGFW acts as a traditional stateful firewall while simultaneously functioning as an Intrusion Detection System (e.g., Suricata), a VPN terminator (IPsec, WireGuard), and a traffic shaping tool to prioritize bandwidth for critical services.
