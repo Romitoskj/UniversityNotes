@@ -36,7 +36,7 @@ The IPv6 header was heavily simplified to improve processing speed and take adva
     - **Internet Header Length (IHL):** Removed because the IPv6 header size is fixed at 40 bytes.
     - **Header Checksum:** Removed entirely. IPv6 relies on upper-layer protocols (like TCP and UDP) to perform checksums, making the UDP checksum mandatory in IPv6.
     - **Options & Padding:** Removed from the main header and relocated to "Extension Headers".
-    - **Identification, Flags, Fragment offset:** removed because fragmentation is handled by the source using an extension header.
+    - **Identification, Flags, Fragment offset:** removed because fragmentation is handled by the source (no fragmentation by intermediate devices) using an extension header.
 - **Renamed & New Fields:**
     - **Traffic Class:** Replaces the IPv4 "Type of Service" field, used to prioritize traffic (QoS).
     - **Flow Label:** A new 20-bit field used to identify packets belonging to a common stream or TCP session so they can be treated identically by routers.
