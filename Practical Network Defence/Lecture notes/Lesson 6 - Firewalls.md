@@ -4,7 +4,7 @@ While a router’s primary job is to ask "where should this packet go?" by check
 
 - **Choke Points:** You must force all traffic through a single, heavily monitored access point to ensure no traffic bypasses the firewall via "backdoors".
 
-- **Access Control List:** List the rights for accessing the networks, distinguishing between incoming and outgoing traffic per interface/port. It is *stateless*.
+- **Access Control List:** List the rights for accessing the networks, distinguishing between incoming and outgoing traffic per interface/port. It is *stateless*, every packet treated independently.
 
 - **Bastion Host:** Hardened computer used to deal with all traffic coming to a protected network from outside. Suitable for use as Application Proxy Gateways.
 
@@ -47,6 +47,8 @@ And to apply security in depth:
 ## 2. Stateless Packet Filtering (The "Basic" Firewall)
 
 Stateless packet filters (often implemented as Access Control Lists, or ACLs, on screening routers) evaluate every single packet entirely independently, with no memory of what happened before. They filter purely based on the Network and Transport layer headers: Source/Destination IP, Source/Destination Port, and TCP Flags.
+
+
 
 **Deep Dive: Vulnerabilities of Stateless Filters** Because stateless filters lack context, their rules are often too rigid or dangerously broad:
 
