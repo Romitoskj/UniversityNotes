@@ -68,7 +68,7 @@ Instead of cramming optional data into the main IP header, IPv6 introduces a hig
 	
 	![](images/Pasted%20image%2020260323205646.png)
 	
-- **Edge Processing:** To maximize efficiency, Extension Headers (except for "Hop-by-Hop") are **only processed by the final destination endpoint**, not by the intermediate routers as in IPv4.
+- **Edge Processing:** To maximize efficiency, Extension Headers (except for "Hop-by-Hop" and "Routing") are **only processed by the final destination endpoint**, not by the intermediate routers as in IPv4.
 - **Types & Strict Ordering:** There is a fixed set of Extension Headers, and they must follow a specific order. Common headers include:
     - **0:** Hop-by-Hop Options (The _only_ header examined by every router on the path).
     - **43:** Routing (allows source to specify the path/routers to be crossed).
