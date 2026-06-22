@@ -48,11 +48,30 @@ And to apply security in depth:
 
 Stateless packet filters (often implemented as Access Control Lists, or ACLs, on screening routers) evaluate every single packet entirely independently, with no memory of what happened before. They filter purely based on the Network and Transport layer headers: Source/Destination IP, Source/Destination Port, and TCP Flags.
 
+### 2.1 Three Step Process to Enforce a Policy:
 
+1. Know your policy
+2. Translate it in formal language
+3. Rewrite it in terms of the firewall syntax
 
-**Deep Dive: Vulnerabilities of Stateless Filters** Because stateless filters lack context, their rules are often too rigid or dangerously broad:
+- Rules are evaluated from top to bottom
+- The first matching rule is applied
+- One implicit rule is assumed if no matching (block/allow everything)
 
-- **The Direction/Port Problem:** If you write a rule to allow internal hosts to receive responses from external servers (which typically use high-numbered ports >1023), a clever attacker can spoof their source port to match an allowed service (e.g., port 25) and freely push traffic into your internal network. To fix this, rules must strictly check for the `ACK` flag (indicating an established connection), but even this is flawed.
+### 2.2 Vulnerabilities of Stateless Filters
+
+Because stateless filters lack context, their rules are often too rigid or dangerously broad:
+
+- **The Direction/Port Problem:** If you write a rule to allow internal hosts to receive responses from external servers, a clever attacker can spoof their source port to match an allowed service (e.g., port 25) and freely push traffic into your internal network. To fix this, rules must strictly check for the `ACK` flag (indicating an established connection), but even this is flawed.
+  
+  ![](../../Pasted%20image%2020260622173608.png)
+
+| **Action** | **SRC**     | **Port** | **Dest** | **Port** | **Flags** | Comment                  |
+| ---------- | ----------- | -------- | -------- | -------- | --------- | ------------------------ |
+| allow      | {our hosts} | *        | *        | 25       | *         | Connection to their SMTP |
+| allow      | *           | 25       | *        | *        | ACK       | Their replies            |
+| block      | *           | *        | *        | *        |           | Default                  |
+  
 - **IP Fragmentation Attacks:** Attackers can bypass stateless filters by intentionally fragmenting packets in abnormal ways. By manipulating the "fragment offset," an attacker can send overlapping fragments. The firewall might allow the first fragment because it looks harmless, but the second fragment mathematically overwrites the TCP header of the first fragment upon reassembly at the target host (e.g., maliciously inserting a `SYN` flag to establish a forbidden connection).
 
 ## 3. Stateful Packet Inspection (Dynamic Packet Filters)
