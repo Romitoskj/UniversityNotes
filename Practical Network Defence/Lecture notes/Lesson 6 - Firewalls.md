@@ -1,11 +1,48 @@
-
 ## 1. Traffic Regulation: Philosophy & Architecture
 
 While a router’s primary job is to ask "where should this packet go?" by checking routing tables against the destination IP, a firewall adds a crucial second question: **"Is this packet allowed to go there?"**. To enforce this, network administrators design architectures based on key security principles:
 
 - **Choke Points:** You must force all traffic through a single, heavily monitored access point to ensure no traffic bypasses the firewall via "backdoors".
-- **Defense in Depth:** Security should rely on overlapping systems. Instead of a single firewall, modern networks use multiple layers of protection (e.g., an external screening router, a perimeter network, an internal firewall, and individual host-based firewalls).
-- **The DMZ (Demilitarized Zone):** A secure, neutral sub-network placed between the public internet and the private internal network. The DMZ hosts systems that need to be publicly accessible (like Web or Mail servers) on hardened machines called **Bastion Hosts**. If a Bastion Host in the DMZ is compromised, the attacker still faces another internal firewall before they can reach the private network.
+
+- **Access Control List:** List the rights for accessing the networks, distinguishing between incoming and outgoing traffic per interface/port. It is *stateless*.
+
+- **Bastion Host:** Hardened computer used to deal with all traffic coming to a protected network from outside. Suitable for use as Application Proxy Gateways.
+
+- **Defense in Depth:** Security should rely on overlapping systems. Instead of a single firewall, modern networks use multiple layers of protection (e.g., an external screening router, a perimeter network, an internal firewall, and individual host-based firewalls). This add redundancy to the defensive measures, aim to remove single point of failure and find the right balance between complexity and multiplicity of defense measure.
+
+>[!info]- Hardening
+>Hardening is the task of reducing or removing vulnerabilities in a computer system:
+>- Shutting down unused or dangerous services
+>- Strengthening access controls on vital files
+>- Removing unnecessary accounts and permissions
+
+### 1.2 Firewall placement
+
+- **Host Based Packet Filter:** disciplines packets in a single host, specifing what can be received or sent
+
+- **Screening Router (ACL-based)**
+   ![](images/Pasted%20image%2020260622142002.png)
+   
+- **Dual-homed Host**
+  ![](images/Pasted%20image%2020260622142106.png)
+
+### 1.3 The DMZ (Demilitarized Zone)
+
+A secure, neutral sub-network placed between the public internet and the private internal network. The DMZ hosts systems that need to be publicly accessible (like Web or Mail servers) on hardened machines called **Bastion Hosts**. If a Bastion Host in the DMZ is compromised, the attacker still faces another internal firewall before they can reach the private network.
+
+The DMZ can be arranged in multiple ways: 
+
+![](../../Pasted%20image%2020260622143448.png)
+
+![](../../Pasted%20image%2020260622143535.png)
+
+Can be used also to segment the network:
+
+![](../../Pasted%20image%2020260622143645.png)
+
+And to apply security in depth:
+
+![](../../Pasted%20image%2020260622143840.png)
 
 ## 2. Stateless Packet Filtering (The "Basic" Firewall)
 
