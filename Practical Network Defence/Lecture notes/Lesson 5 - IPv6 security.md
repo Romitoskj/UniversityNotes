@@ -18,6 +18,7 @@
     - **Atomic Fragments:** Sending a packet with a fragment header that indicates no further fragments are coming. This pushes the TCP header further down the packet, often causing poorly configured firewalls to miss the TCP filtering rules entirely.
 
 ## 4. ICMPv6 and Neighbor Discovery Protocol (NDP) Threats
+
 IPv6 relies heavily on ICMPv6 and NDP for network operation (replacing IPv4 ARP), making them prime targets for attack.
 
 - **Smurf Attacks (ICMPv6):** An attacker sends an Echo Request to a multicast group using a spoofed source IP (the victim's IP). Every host on the network replies to the victim, flooding them with traffic. Multicast Echo Requests should be filtered.
