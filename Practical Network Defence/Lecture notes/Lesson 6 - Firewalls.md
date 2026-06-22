@@ -71,7 +71,15 @@ Because stateless filters lack context, their rules are often too rigid or dange
 | allow      | {our hosts} | *        | *        | 25       | *         | Connection to their SMTP |
 | allow      | *           | 25       | *        | *        | ACK       | Their replies            |
 | block      | *           | *        | *        | *        |           | Default                  |
+
+- **Filter Rules for Network Firewalls (Complex Topologies):** When scaling up to a more complex network topology global stateless rules become inadequate. To properly enforce security, administrators must adapt their filtering approach:
   
+  ![](../../Pasted%20image%2020260622175752.png)
+	
+	- **Interface-Specific Rules:** You cannot rely on a single global list. Rules must be written and separated into different tables for each specific physical interface on the firewall (e.g., Internet-facing, Internal Net 1, Internal Net 2).
+	- **Ingress vs. Egress Filtering:** It is not enough to only consider where a packet is going (destination/egress). The rules must strictly verify where a packet is arriving from (source/ingress).
+	- **Anti-Spoofing Defenses:** Applying rules per-interface is the primary way to block IP spoofing. For example, the external Internet-facing interface must contain explicit rules to block any incoming traffic that fraudulently claims to have a source IP address belonging to your internal networks.
+
 - **IP Fragmentation Attacks:** Attackers can bypass stateless filters by intentionally fragmenting packets in abnormal ways. By manipulating the "fragment offset," an attacker can send overlapping fragments. The firewall might allow the first fragment because it looks harmless, but the second fragment mathematically overwrites the TCP header of the first fragment upon reassembly at the target host (e.g., maliciously inserting a `SYN` flag to establish a forbidden connection).
 
 ## 3. Stateful Packet Inspection (Dynamic Packet Filters)
