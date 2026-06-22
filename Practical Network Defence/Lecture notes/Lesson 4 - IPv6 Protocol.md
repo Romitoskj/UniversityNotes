@@ -74,3 +74,9 @@ Instead of cramming optional data into the main IP header, IPv6 introduces a hig
     - **43:** Routing (allows source to specify the path/routers to be crossed).
     - **44:** Fragment (Used by the source to handle oversized payloads).
     - **50 & 51:** ESP (Encapsulating Security Payload) and AH (Authentication Header) for IPsec, providing end-to-end encryption and authentication.
+
+#### Extension Headers Properties:
+- **Flexible** (use is optional)
+- **Only appear once** (except destination options)
+- **Fixed** (types and order)
+- **Processed only at endpoints** (except Hop-by-Hop and Routing)
