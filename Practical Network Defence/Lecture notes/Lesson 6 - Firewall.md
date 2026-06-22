@@ -1,5 +1,5 @@
 
-**1. Traffic Regulation: Philosophy & Architecture**
+## 1. Traffic Regulation: Philosophy & Architecture
 
 While a router’s primary job is to ask "where should this packet go?" by checking routing tables against the destination IP, a firewall adds a crucial second question: **"Is this packet allowed to go there?"**. To enforce this, network administrators design architectures based on key security principles:
 
