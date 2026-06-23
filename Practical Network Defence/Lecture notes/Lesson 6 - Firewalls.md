@@ -88,11 +88,11 @@ Stateful firewalls solve the context problem by tracking the **state of connecti
 
 - **TCP Tracking:** The firewall actively monitors the TCP 3-way handshake. When an internal host sends a `SYN` packet, the firewall logs a `NEW` state. When the external server replies with `SYN/ACK`, the state upgrades to `ESTABLISHED`. Only packets matching an established state are allowed back in. The firewall then monitors for the `FIN` and `ACK` flags (from both parties) to tear down the connection state.
   
-  ![](../../Pasted%20image%2020260623114950.png)
+  ![](images/Pasted%20image%2020260623114950.png)
 
 - **UDP "Statefulness":** How do you track state for a connectionless protocol like UDP or ICMP? When an internal host sends an outbound UDP request, the firewall dynamically "opens a hole" in its ruleset, anticipating a response from that specific external IP and port. It assigns a temporary timer to this expected session. If the response comes before the timer expires, it is allowed in; if not, the temporary rule vanishes.
   
-  ![](../../Pasted%20image%2020260623115505.png)
+  ![](images/Pasted%20image%2020260623115505.png)
 
 ## 4. Advanced Firewalls: Application & Circuit Gateways
 
@@ -110,13 +110,13 @@ If you need to inspect the actual payload of the traffic (big overhead), you mus
 		- Application-specific
 		- Not always transparent
 	
-	- _The TLS Encryption Problem:_ Today, 95% of web traffic is encrypted via TLS. If the payload is encrypted, the proxy cannot read it. To perform Deep Packet Inspection, the proxy must operate as an intentional **Man-in-the-Middle (MitM)**. It dynamically generates a fake certificate for the destination website, decrypts the user's traffic locally, inspects it for viruses or policy violations, and then re-encrypts it with the external server's actual key to send it on its way. This causes massive processing overhead.
+	- _The TLS Encryption Problem:_ Today, 95% of web traffic is encrypted via TLS. If the payload is encrypted, the proxy cannot read it. To perform **Deep Packet Inspection (DPI)**, the proxy must operate as an intentional **Man-in-the-Middle (MitM)**. It dynamically generates a fake certificate for the destination website, decrypts the user's traffic locally, inspects it for viruses or policy violations, and then re-encrypts it with the external server's actual key to send it on its way. This causes massive processing overhead.
 
 - **Circuit-Level Gateways (TCP Relays)** Operating at Layer 5 (Session Layer), these proxies do not care about the application content (no DPI overhead). Instead, they simply relay TCP connections.
 
-	- **SOCKS Protocol:** The standard for this is SOCKS (used often with SSH tunneling or Tor). An internal client connects to the proxy, and the proxy connects to the external server on the client's behalf. To the external server, the traffic appears to be coming entirely from the proxy's IP address. This is highly useful for hiding internal network structures or bypassing geographic IP blocks.
+	- **SOCKS Protocol:** The standard for this is SOCKS (used often with SSH tunneling or Tor). An internal client connects to a circuit of proxies, and the last proxy connects to the external server on the client's behalf. To the external server, the traffic appears to be coming entirely from the proxy's IP address. This is highly useful for hiding internal network structures or bypassing geographic IP blocks.
 
-- **Next-Generation Firewalls (NGFW)** Modern enterprise systems (such as OPNsense, which will be used in course labs) consolidate all these features into a single device. An NGFW acts as a traditional stateful firewall while simultaneously functioning as an Intrusion Detection System (e.g., Suricata), a VPN terminator (IPsec, WireGuard), and a traffic shaping tool to prioritize bandwidth for critical services.
+- **Next-Generation Firewalls (NGFW)** Modern enterprise systems (such as OPNsense) consolidate all these features into a single device. An NGFW acts as a traditional stateful firewall while simultaneously functioning as an Intrusion Detection System (e.g., Suricata), a VPN gateway (IPsec, WireGuard), and a traffic shaping tool to prioritize bandwidth for critical services while performing deep packet inpection.
 
 ## Summary of Firewall Types
 
