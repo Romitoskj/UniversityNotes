@@ -32,17 +32,17 @@ A secure, neutral sub-network placed between the public internet and the private
 
 The DMZ can be arranged in multiple ways: 
 
-![](../../Pasted%20image%2020260622143448.png)
+![](images/Pasted%20image%2020260622143448.png)
 
-![](../../Pasted%20image%2020260622143535.png)
+![](images/Pasted%20image%2020260622143535.png)
 
 Can be used also to segment the network:
 
-![](../../Pasted%20image%2020260622143645.png)
+![](images/Pasted%20image%2020260622143645.png)
 
 And to apply security in depth:
 
-![](../../Pasted%20image%2020260622143840.png)
+![](images/Pasted%20image%2020260622143840.png)
 
 ## 2. Stateless Packet Filtering (The "Basic" Firewall)
 
@@ -64,7 +64,7 @@ Because stateless filters lack context, their rules are often too rigid or dange
 
 - **The Direction/Port Problem:** If you write a rule to allow internal hosts to receive responses from external servers, a clever attacker can spoof their source port to match an allowed service (e.g., port 25) and freely push traffic into your internal network. To fix this, rules must strictly check for the `ACK` flag (indicating an established connection), but even this is flawed.
   
-  ![](../../Pasted%20image%2020260622173608.png)
+  ![](images/Pasted%20image%2020260622173608.png)
 
 | **Action** | **SRC**     | **Port** | **Dest** | **Port** | **Flags** | Comment                  |
 | ---------- | ----------- | -------- | -------- | -------- | --------- | ------------------------ |
@@ -74,7 +74,7 @@ Because stateless filters lack context, their rules are often too rigid or dange
 
 - **Filter Rules for Network Firewalls (Complex Topologies):** When scaling up to a more complex network topology global stateless rules become inadequate. To properly enforce security, administrators must adapt their filtering approach:
   
-  ![](../../Pasted%20image%2020260622175752.png)
+  ![](images/Pasted%20image%2020260622175752.png)
 	
 	- **Interface-Specific Rules:** You cannot rely on a single global list. Rules must be written and separated into different tables for each specific physical interface on the firewall (e.g., Internet-facing, Internal Net 1, Internal Net 2).
 	- **Ingress vs. Egress Filtering:** It is not enough to only consider where a packet is going (destination/egress). The rules must strictly verify where a packet is arriving from (source/ingress).
