@@ -91,6 +91,8 @@ Stateful firewalls solve the context problem by tracking the **state of connecti
   ![](../../Pasted%20image%2020260623114950.png)
 
 - **UDP "Statefulness":** How do you track state for a connectionless protocol like UDP or ICMP? When an internal host sends an outbound UDP request, the firewall dynamically "opens a hole" in its ruleset, anticipating a response from that specific external IP and port. It assigns a temporary timer to this expected session. If the response comes before the timer expires, it is allowed in; if not, the temporary rule vanishes.
+  
+  ![](../../Pasted%20image%2020260623115505.png)
 
 ## 4. Advanced Firewalls: Application & Circuit Gateways
 
