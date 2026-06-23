@@ -39,7 +39,7 @@ Administrators can build rules using various switches to match specific packet c
 
 ## **4. Stateful Inspection Modules**
 
-To avoid writing rigid, stateless rules, `iptables` can use extension modules like `conntrack` (`-m state --state`).
+To avoid writing rigid, stateless rules, `iptables` can use extension modules like `conntrack` (`-m state --state`) to track tcp connections.
 
 - **Connection States:**
     - **NEW:** The packet is the start of a brand-new connection.
