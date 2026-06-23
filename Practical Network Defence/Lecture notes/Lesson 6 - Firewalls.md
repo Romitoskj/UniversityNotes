@@ -84,7 +84,7 @@ Because stateless filters lack context, their rules are often too rigid or dange
 
 ## 3. Stateful Packet Inspection (Dynamic Packet Filters)
 
-Stateful firewalls solve the context problem by tracking the **state of connections**. Instead of evaluating every packet blindly, they maintain a real-time table of active sessions.
+Stateful firewalls solve the context problem by tracking the **state of connections**. Instead of evaluating every packet blindly, they maintain a real-time table of active sessions. Solve one major problem of simple packet filters, since they can check that incoming traffic for a high-numbered port is a genuine response to a previous outgoing request to set up a connection.
 
 - **TCP Tracking:** The firewall actively monitors the TCP 3-way handshake. When an internal host sends a `SYN` packet, the firewall logs a `NEW` state. When the external server replies with `SYN/ACK`, the state upgrades to `ESTABLISHED`. Only packets matching an established state are allowed back in. The firewall then monitors for the `FIN` and `ACK` flags to tear down the connection state.
 - **UDP "Statefulness":** How do you track state for a connectionless protocol like UDP or ICMP? When an internal host sends an outbound UDP request, the firewall dynamically "opens a hole" in its ruleset, anticipating a response from that specific external IP and port. It assigns a temporary timer to this expected session. If the response comes before the timer expires, it is allowed in; if not, the temporary rule vanishes.
