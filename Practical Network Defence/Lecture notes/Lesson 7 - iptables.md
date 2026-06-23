@@ -35,7 +35,7 @@ Administrators can build rules using various switches to match specific packet c
     - **LOG:** A **"non-terminating target"**. It sends packet information to the syslog daemon and then continues processing the next rule in the chain. It is customizable via `--log-level` and `--log-prefix`. _Note: You cannot log and drop a packet in a single rule; you must write a LOG rule followed immediately by a DROP rule_.
 - **Rule Management:** Rules can be written into bash scripts, or managed using built-in kernel commands like `iptables-save > file.bk` and `iptables-restore < file.bk`.
 
-### **4. Stateful Inspection Modules**
+## **4. Stateful Inspection Modules**
 
 To avoid writing rigid, stateless rules, `iptables` can use extension modules like `conntrack` (`-m state --state`).
 
@@ -48,7 +48,7 @@ To avoid writing rigid, stateless rules, `iptables` can use extension modules li
 - **Mitigating Attacks:** By enforcing that inbound traffic is only allowed if the state is `ESTABLISHED`, firewalls can mitigate "half-open" attacks, which attempt to consume a server's TCP stack memory by leaving sessions waiting in a pseudo-connected state.
 - _(Other Modules):_ The `-m multiport` module enables the specification of several distinct ports in a single rule.
 
-### **5. NAT Targets and Implementation**
+## **5. NAT Targets and Implementation**
 
 NAT allows a local area network (LAN) using private, un-routable addresses to connect to the public internet without exposing internal LAN hosts to external port scans.
 
@@ -58,7 +58,7 @@ NAT allows a local area network (LAN) using private, un-routable addresses to co
 - **REDIRECT:** A specialized target that redirects the packet entirely to the firewall machine itself.
 - **NAPT Challenges:** NAPT blocks all incoming ports by default, which can break certain applications. Methods to handle these traversal issues include Application Level Gateways (ALGs), Universal Plug and Play (UPnP), and Traversal Using Relays around NAT (TURN).
 
-### **6. OPNsense Overview**
+## **6. OPNsense Overview**
 
 **OPNsense** is introduced as a robust, open-source router-firewall alternative to raw command-line `iptables`.
 
