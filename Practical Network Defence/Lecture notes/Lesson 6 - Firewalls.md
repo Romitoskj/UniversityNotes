@@ -96,16 +96,14 @@ Stateful firewalls solve the context problem by tracking the **state of connecti
 
 ## 4. Advanced Firewalls: Application & Circuit Gateways
 
-If you need to inspect the actual payload of the traffic, you must step up the OSI model to gateways (Proxies).
+If you need to inspect the actual payload of the traffic (big overhead), you must step up the OSI model to gateways (Proxies).
 
-**Application-Level Gateways (Proxies)** These firewalls understand specific application protocols (HTTP, FTP, SMTP). A Web Application Firewall (WAF), for instance, can inspect an HTTP `GET` or `POST` request to block malicious payloads like SQL injections.
+- **Application-Level Gateways (Proxies)** These firewalls understand specific application protocols (HTTP, FTP, SMTP). A Web Application Firewall (WAF), for instance, can inspect an HTTP `GET` or `POST` request to block malicious payloads like SQL injections.
 
-- _The TLS Encryption Problem:_ Today, 95% of web traffic is encrypted via TLS. If the payload is encrypted, the proxy cannot read it. To perform Deep Packet Inspection, the proxy must operate as an intentional **Man-in-the-Middle (MitM)**. It dynamically generates a fake certificate for the destination website, decrypts the user's traffic locally, inspects it for viruses or policy violations, and then re-encrypts it with the external server's actual key to send it on its way. This causes massive processing overhead.
+	- _The TLS Encryption Problem:_ Today, 95% of web traffic is encrypted via TLS. If the payload is encrypted, the proxy cannot read it. To perform Deep Packet Inspection, the proxy must operate as an intentional **Man-in-the-Middle (MitM)**. It dynamically generates a fake certificate for the destination website, decrypts the user's traffic locally, inspects it for viruses or policy violations, and then re-encrypts it with the external server's actual key to send it on its way. This causes massive processing overhead.
 
-**Circuit-Level Gateways (TCP Relays)** Operating at Layer 5 (Session Layer), these proxies do not care about the application content (no DPI overhead). Instead, they simply relay TCP connections.
+- **Circuit-Level Gateways (TCP Relays)** Operating at Layer 5 (Session Layer), these proxies do not care about the application content (no DPI overhead). Instead, they simply relay TCP connections.
 
-- **SOCKS Protocol:** The standard for this is SOCKS (used often with SSH tunneling or Tor). An internal client connects to the proxy, and the proxy connects to the external server on the client's behalf. To the external server, the traffic appears to be coming entirely from the proxy's IP address. This is highly useful for hiding internal network structures or bypassing geographic IP blocks.
+	- **SOCKS Protocol:** The standard for this is SOCKS (used often with SSH tunneling or Tor). An internal client connects to the proxy, and the proxy connects to the external server on the client's behalf. To the external server, the traffic appears to be coming entirely from the proxy's IP address. This is highly useful for hiding internal network structures or bypassing geographic IP blocks.
 
-## 5. Next-Generation Firewalls (NGFW)
-
-Modern enterprise systems (such as OPNsense, which will be used in course labs) consolidate all these features into a single device. An NGFW acts as a traditional stateful firewall while simultaneously functioning as an Intrusion Detection System (e.g., Suricata), a VPN terminator (IPsec, WireGuard), and a traffic shaping tool to prioritize bandwidth for critical services.
+- **Next-Generation Firewalls (NGFW)** Modern enterprise systems (such as OPNsense, which will be used in course labs) consolidate all these features into a single device. An NGFW acts as a traditional stateful firewall while simultaneously functioning as an Intrusion Detection System (e.g., Suricata), a VPN terminator (IPsec, WireGuard), and a traffic shaping tool to prioritize bandwidth for critical services.
