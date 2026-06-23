@@ -7,12 +7,14 @@
 
 The `iptables` framework regulates traffic using a highly structured hierarchy of **Tables** (categories of operations) and **Chains** (stages of the routing process).
 
-**The Four Built-In Tables (In Order of Priority: RAW > MANGLE > NAT > FILTER):**
+**The Four Built-In Tables (In Order of Priority: MANGLE > NAT > FILTER > RAW):**
 
-1. **RAW:** Has the highest priority and is used to create exceptions to connection tracking. It is only used during the PREROUTING and OUTPUT chains and is not loaded by default.
-2. **MANGLE:** Used specifically to manipulate bits within the TCP/IP headers.
-3. **NAT:** Dedicated entirely to Network Address Translation (modifying source or destination IPs). Crucially, **only the first packet in a stream will hit this table**; subsequent packets in the connection automatically receive the same action.
-4. **FILTER:** The default table used for standard packet filtering and security policies.
+1. **MANGLE:** Used specifically to manipulate bits within the TCP/IP headers.
+2. **NAT:** Dedicated entirely to Network Address Translation (modifying source or destination IPs). Crucially, **only the first packet in a stream will hit this table**; subsequent packets in the connection automatically receive the same action.
+3. **FILTER:** The default table used for standard packet filtering and security policies.
+4. **RAW:** Has the highest priority and is used to create exceptions to connection tracking. It is only used during the PREROUTING and OUTPUT chains and is not loaded by default.
+
+![](../../Pasted%20image%2020260623184413.png)
 
 **Filter Table Chains:**
 
@@ -52,7 +54,9 @@ To avoid writing rigid, stateless rules, `iptables` can use extension modules li
 
 ## **5. NAT Targets and Implementation**
 
-NAT allows a local area network (LAN) using private, un-routable addresses to connect to the public internet without exposing internal LAN hosts to external port scans.
+NAT allows a local area network (LAN) using private, un-routable addresses to connect to the public internet without exposing internal LAN hosts to external port scans. 
+
+**Targets (Packet Fates):**
 
 - **SNAT (Source NAT):** Translates the source IP of outgoing packets, typically done one-to-one or many-to-one. It is performed in the **POSTROUTING** chain.
 - **MASQUERADE:** A dynamic form of SNAT used when the firewall's WAN-facing IP address is dynamically assigned.
