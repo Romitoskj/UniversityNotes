@@ -47,11 +47,13 @@ Deciding where to place the VPN terminator (the device that encrypts/decrypts th
   
   ![](images/Pasted%20image%2020260624175130.png)
   
-- **Single-Interface VPN Device in the DMZ:** The VPN device sits in the Demilitarized Zone. Unencrypted traffic leaving the VPN must pass back through the internal firewall to reach internal hosts, allowing the firewall and Intrusion Detection Systems (IDS) to analyze it. The downside is that it requires opening numerous firewall ports between the DMZ and the internal network.
+- **Single-Interface VPN Device in the DMZ:** The VPN device sits in the Demilitarized Zone. Unencrypted traffic leaving the VPN must pass back through the internal firewall to reach internal hosts, allowing the firewall and Intrusion Detection Systems (IDS) to analyze it. The downside is that it requires opening numerous firewall ports between the DMZ and the internal network and decrypted traffic from device of the internal network must be sent through DMZ.
   
   ![](images/Pasted%20image%2020260624175441.png)
   
-- **Dual-Interface VPN Device in the DMZ:** The VPN device has one interface facing the internet/DMZ and a second interface wired directly to the internal network. This protects decrypted traffic from other hosts in the DMZ, but it introduces significant routing complexity.
+- **Dual-Interface VPN Device in the DMZ:** The VPN device has one interface facing the internet/DMZ and a second interface wired directly to the internal network. This protects decrypted traffic of internal hosts from other hosts in the DMZ, but it introduces significant routing complexity.
+  
+  ![](images/Pasted%20image%2020260624175859.png)
 
 ## 5. SSL / TLS Tunneling
 
