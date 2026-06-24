@@ -15,7 +15,7 @@
 	- **Network Address Port Translation (NAPT):** The most common form of SNAT multiplexes traffic of a number of private host into a single public IP address by translating transport-level identifiers (TCP/UDP source ports). The router maintains a **NAT table** to map which internal host/port initiated the request to a unique external port, ensuring returning traffic reaches the right device. By default block all incoming requests.
 	  ![](images/Pasted%20image%2020260624112531.png)
 	  
-- **Destination NAT (DNAT):** Also known as Port Forwarding or a Virtual Server, this enables external clients to access servers located inside the private LAN. The firewall intercepts requests addressed to its public IP and translates the destination IP to the internal server's private address. This process allows for port multiplexing, forwarding different ports to entirely different internal machines.
+- **Destination NAT (DNAT):** Also known as *Port Forwarding* or a Virtual Server, this enables external clients to access servers located inside the private LAN. The firewall intercepts requests addressed to its public IP and translates the destination IP to the internal server's private address. This process allows for port multiplexing, forwarding different ports to entirely different internal machines.
 	
 	![](../../Pasted%20image%2020260624114340.png)
 
