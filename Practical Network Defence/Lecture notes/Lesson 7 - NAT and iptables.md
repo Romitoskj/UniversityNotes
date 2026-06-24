@@ -5,7 +5,7 @@
 - **Address Types:** 
 	- **Routable (public) addresses** must be globally unique on the internet
 	- **Non-routable (private) addresses** (such as `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`) are reserved by RFC 1918 and cannot be routed over the public internet, allowing any organization to use them internally.
-- **Key Benefits:** Beyond conserving addresses, NAT hides the internal network topology from the outside world, allows organizations to dynamically alter their internal IP scheme without external impact, and makes it simple to switch Internet Service Providers (ISPs) without changing private IP addresses.
+- **Key Benefits:** Beyond conserving addresses, NAT hides the internal network topology from the outside world, allows organizations to dynamically alter their internal IP scheme without external impact, and makes it simple to switch Internet Service Providers (ISPs) without changing private IP addresses. As a side effect, it also protect LANs because it is needed to establish a state from the inside before anything gets through from the outsidez
 
 ## 2. Core Types of NAT
 
@@ -17,7 +17,7 @@
 	  
 - **Destination NAT (DNAT):** Also known as *Port Forwarding* or a Virtual Server, this enables external clients to access servers located inside the private LAN. The firewall intercepts requests addressed to its public IP and translates the destination IP to the internal server's private address. This process allows for port multiplexing, forwarding different ports to entirely different internal machines.
 	
-	![](../../Pasted%20image%2020260624114340.png)
+	![](images/Pasted%20image%2020260624114340.png)
 
 ## 3. Limitations of NAT & Mitigation
 
