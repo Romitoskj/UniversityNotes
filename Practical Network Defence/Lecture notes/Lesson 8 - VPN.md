@@ -59,12 +59,16 @@ Deciding where to place the VPN terminator (the device that encrypts/decrypts th
 
 SSL (Secure Sockets Layer) and its modern successor TLS (Transport Layer Security) operate at the Transport layer to provide a secure byte stream for TCP-based protocols.
 
-- **Protocol Architecture:**
-    - **Record Protocol:** Handles the basic encryption, compression, and Message Authentication Code (MAC) integrity checks of the application data.
-    - **Handshake Protocol:** A 4-phase process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session.
-- **SSL VPN Architectures:**
-    - **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
-    - **SSL Tunnel VPN:** The VPN acts as a true network extension, allowing broader access to internal network services.
+### 5.1 Protocol Architecture
+- **Record Protocol:** Handles the basic encryption, compression, and Message Authentication Code (MAC) integrity checks of the application data.
+
+### 5.2 Handshake Protocol
+A 4-phase process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session.
+
+### 5.3 SSL VPN Architectures
+- **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
+- **SSL Tunnel VPN:** The VPN acts as a true network extension, allowing broader access to internal network services.
+
 - **The Heartbleed Bug:** TLS includes a "Heartbeat" extension (RFC 6520) to keep idle sessions alive. The infamous "Heartbleed" vulnerability occurred because the OpenSSL library failed to verify the payload length specified by the sender. An attacker could send a tiny payload but declare it as the maximum size, forcing the server's memory buffer to return up to 64KB of adjacent memory, leaking private keys and passwords.
 
 ## **6. IPsec (IP Security)**
