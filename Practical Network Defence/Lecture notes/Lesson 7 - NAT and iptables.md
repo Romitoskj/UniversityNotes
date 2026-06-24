@@ -61,13 +61,19 @@ The framework structures operations into **Tables** (categories of operations) a
     - `REJECT`: Blocks the packet but actively sends an ICMP error message to the sender.
     - `LOG`: A **non-terminating target** that sends packet info to the syslog daemon (customizable via `--log-level` and `--log-prefix`) and continues processing the next rule. To log and drop, you must write a `LOG` rule immediately followed by a `DROP` rule.
 
-### 4.3 Stateful Inspection & Connection Tracking**
+### 4.3 Stateful Inspection & Connection Tracking
 
-To avoid rigid, stateless setups, administrators use the `conntrack` module (`-m state --state`).
+To avoid rigid, stateless setups, administrators use the `conntrack` module (`-m state --state`) to track TCP connections.
 
-- **Connection States:** Include **NEW** (start of a connection), **ESTABLISHED** (part of an existing connection), **RELATED** (new connection related to an existing one), and **INVALID** (unidentifiable packet).
-- **Mechanics:** Using internal logic, iptables tracks "connections" even for connectionless protocols like UDP and ICMP. By enforcing that inbound traffic is only allowed if the state is `ESTABLISHED`, firewalls can also mitigate "half-open" attacks that attempt to consume a server's TCP stack memory.
-
+- **Connection States:**
+    - **NEW:** The packet is the start of a brand-new connection.
+    - **ESTABLISHED:** The packet is part of an already established connection.
+    - **RELATED:** The packet starts a new connection related to an existing one (e.g., FTP data channels).
+    - **INVALID:** The packet could not be identified.
+- **Connectionless Tracking:** Using clever internal logic, the state machine can track "connections" even for connectionless protocols like UDP and ICMP.
+- **Mitigating Attacks:** By enforcing that inbound traffic is only allowed if the state is `ESTABLISHED`, firewalls can mitigate "half-open" attacks, which attempt to consume a server's TCP stack memory by leaving sessions waiting in a pseudo-connected state.
+- _(Other Modules):_ The `-m multiport` module enables the specification of several distinct ports in a single rule.
+  
 ### 4.4 NAT Mechanics & Targets in iptables
 
 - **The "First Packet" Rule:** In the NAT table, **only the very first packet in a stream is evaluated** against the rules. Once translated, a state is created, and all subsequent packets in that connection automatically receive the identical action.
