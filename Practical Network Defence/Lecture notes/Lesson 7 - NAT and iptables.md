@@ -36,17 +36,20 @@ The Linux kernel regulates network traffic using `iptables`, a packet filtering 
 ### 4.1**Architecture: Tables and Chains**
 The framework structures operations into **Tables** (categories of operations) and **Chains** (stages in the routing process). Packets are evaluated against rules from top to bottom, and the packet's fate is dictated by the **first matching rule**. If the packet reaches the end of the chain without a match, the chain's default policy (e.g., DROP or ACCEPT) applies.
 
+- **Understanding Chains & Packet Flow**
+	- **PREROUTING:** Applied immediately when a packet arrives, _before_ a routing decision is made. **DNAT** occurs here because the destination IP must change before the router decides where to send it.
+	- **INPUT / FORWARD / OUTPUT (Filter Chains):** Packets destined for the host machine itself are evaluated by `INPUT`, packets passing through the machine to another network are evaluated by `FORWARD`, and packets generated internally by the machine are evaluated by `OUTPUT`.
+	- **POSTROUTING:** Applied _after_ a routing decision, right before the packet exits the interface. **SNAT** is performed here to assign the correct outgoing public IP.
+	
+	  ![](images/Pasted%20image%2020260623181116.png)
+
 - **The Four Tables (In Priority Order):**
-    1. **RAW:** Has the highest priority, operates in PREROUTING and OUTPUT, and is used to create exceptions to connection tracking.
-    2. **MANGLE:** Used strictly for manipulating bits in the IP/TCP headers (like Time to Live) and must not be used for filtering or NAT.
-    3. **NAT:** Dedicated entirely to Network Address Translation.
-    4. **FILTER:** The default table used for standard packet filtering and enforcing security policies.
-
-**Understanding Chains & Packet Flow**
-
-- **PREROUTING:** Applied immediately when a packet arrives, _before_ a routing decision is made. **DNAT** occurs here because the destination IP must change before the router decides where to send it.
-- **INPUT / FORWARD / OUTPUT (Filter Chains):** Packets destined for the host machine itself are evaluated by `INPUT`, packets passing through the machine to another network are evaluated by `FORWARD`, and packets generated internally by the machine are evaluated by `OUTPUT`.
-- **POSTROUTING:** Applied _after_ a routing decision, right before the packet exits the interface. **SNAT** is performed here to assign the correct outgoing public IP.
+    1. **MANGLE:** Used strictly for manipulating bits in the IP/TCP headers (like Time to Live) and must not be used for filtering or NAT.
+    2. **NAT:** Dedicated entirely to Network Address Translation.
+    3. **FILTER:** The default table used for standard packet filtering and enforcing security policies.
+    4. **RAW:** Has the highest priority, operates in PREROUTING and OUTPUT, and is used to create exceptions to connection tracking.
+       
+       ![](../../Pasted%20image%2020260624145930.png)
 
 ### 4.2 Command Syntax, Targets, and Management
 
