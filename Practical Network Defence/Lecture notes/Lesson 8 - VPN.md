@@ -21,10 +21,17 @@ Transport and network layers are the most popular choices for VPNs.
 
 ## 3. Tunneling Mechanics
 
-**Tunneling** is the operation of running one network connection on top of another. The entire Protocol Data Unit (PDU)—including its original headers—is encapsulated within another PDU.
+**Tunneling** is the operation of running one network connection on top of another. This allows two hosts or sites to communicate through another network that they do not want to use directly
 
-- **Secure Tunneling:** The original PDU is encrypted before being encapsulated. To intermediate routers on the internet, the communication simply appears as a connection between the two VPN endpoints; they cannot see the inner contents or the true final destination of the packet.
-- **Split vs. Full Tunneling:**
+- **Site-to-Site Tunneling:** The entire Protocol Data Unit (PDU), including its original headers, is encapsulated within another PDU.  Enable a PDU to be transported from one side to another without its contents being processed by hosts on the route. Encapsulation takes place in the edge router of src. site and decapsulation in the edge router on dst. site.
+  
+  ![](images/Pasted%20image%2020260624172103.png)
+  
+- **Secure Tunneling:** The original PDU is encrypted before being encapsulated. To intermediate routers on the internet, the communication simply appears as a connection between the two VPN endpoints; they cannot see the inner contents or the true final destination of the packet. Encryption on source router, decryption on destination router.
+  
+  ![](images/Pasted%20image%2020260624172146.png)
+  
+- **Two Main VPN Tunneling Modes:**
     - **Split Tunneling:** Only specific traffic (e.g., traffic bound for the university/corporate network) is routed through the encrypted VPN tunnel, while regular internet traffic (like browsing Google) uses the host's default gateway. This is common in academic and corporate setups.
     - **Full Tunneling:** _All_ user network traffic is forced through the VPN tunnel. This is the standard approach for commercial privacy VPNs (e.g., NordVPN, ProtonVPN).
 
