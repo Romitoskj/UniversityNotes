@@ -10,7 +10,7 @@ This secure communication mechanism can be implemented Site-to-site (between two
 
 ## 2. Network Layering and Encryption Strategies
 
-The lecture highlights that where you apply encryption in the OSI/TCP-IP model drastically changes the VPN's flexibility and transparency.
+Where you apply encryption in the OSI/TCP-IP model drastically changes the VPN's flexibility and transparency.
 
 - **Physical / Datalink Layer:** Protects a single link. It is completely transparent but highly inflexible, as it requires the two endpoints to be directly connected or on the same local segment (e.g., military radio communications or modem-based PPTP/L2TP).
 - **Network Layer (e.g., IPsec):** Protects end-to-end between hosts or sites. It encrypts the payload for the final destination, leaving the outer routing headers intact so intermediate routers can still forward the packet.
