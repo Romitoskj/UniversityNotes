@@ -24,8 +24,10 @@
 - **The Broken Applications Problem:** NAT breaks protocols that embed IP addresses directly inside the packet payload (like FTP and SIP), P2P connections, and encrypted protocols like IPsec, where modifying the packet invalidates the signature.
 - **Mitigation Strategies:**
     - **Application Level Gateways (ALGs):** Allow firewalls to inspect specific application traffic and rewrite the IP/port information hidden in the payload.
-    - **STUN and TURN:** STUN (Session Traversal Utilities for NAT) discovery servers help NAT-bound hosts discover their public IPs for direct P2P connections, while TURN (Traversal Using Relays around NAT) servers act as relays forwarding data if direct communication fails.
-- **UDP Hole Punching:** A STUN-assisted technique where hosts exchange their public endpoints to establish outbound NAT states (a "hole") on their respective firewalls, allowing direct return traffic.
+    - **Hole Punching:**
+	    - **STUN (Session Traversal Utilities for NAT):** discovery servers help NAT-bound hosts discover their public IPs for direct P2P connections
+	    -  **TURN (Traversal Using Relays around NAT):** servers act as relays forwarding data if direct communication fails.
+		- **UDP Hole Punching:** A STUN-assisted technique where hosts exchange their public endpoints to establish outbound NAT states (a "hole") on their respective firewalls, allowing direct return traffic.![](images/Pasted%20image%2020260624131218.png)
 
 ## 4. Implementing NAT and Traffic Regulation with `iptables`
 
