@@ -49,7 +49,7 @@ The framework structures operations into **Tables** (categories of operations) a
     3. **FILTER:** The default table used for standard packet filtering and enforcing security policies.
     4. **RAW:** Has the highest priority, operates in PREROUTING and OUTPUT, and is used to create exceptions to connection tracking.
        
-       ![](../../Pasted%20image%2020260624145930.png)
+       ![](images/Pasted%20image%2020260624145930.png)
 
 ### 4.2 Command Syntax, Targets, and Management
 
@@ -78,8 +78,8 @@ To avoid rigid, stateless setups, administrators use the `conntrack` module (`-m
 
 - **The "First Packet" Rule:** In the NAT table, **only the very first packet in a stream is evaluated** against the rules. Once translated, a state is created, and all subsequent packets in that connection automatically receive the identical action.
 - **Targets:**
-    - **SNAT:** Static source translation.
+    - **SNAT:** Static source translation (POSTROUTING chain).
     - **MASQUERADE:** A dynamic form of SNAT used when the firewall's WAN IP is dynamically assigned (e.g., via DHCP).
-    - **DNAT:** Destination translation (Port Forwarding).
+    - **DNAT:** Destination translation (PREROUTING chain).
     - **REDIRECT:** Redirects the packet entirely to the firewall machine itself.
 - **User-Defined Chains:** Systems like Docker heavily utilize custom chains (like `DOCKER-ISOLATION`) within the FILTER and NAT tables to isolate containers safely and route port-forwarded traffic.
