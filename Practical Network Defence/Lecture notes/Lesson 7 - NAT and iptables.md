@@ -1,13 +1,20 @@
 ## 1. Network Address Translation (NAT) Fundamentals
 
 - **The Addressing Problem:** NAT was originally introduced to combat the exhaustion of IPv4 addresses by allowing many private addresses to share a few public addresses.
-- **Address Types:** Routable (public) addresses must be globally unique on the internet, while non-routable (private) addresses (such as `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`) are reserved by RFC 1918 and cannot be routed over the public internet, allowing any organization to use them internally.
+- **NAT Goal:** Translate the addresses for connecting to the Internet a LAN using un-routable in-house LAN addresses. It allows a whole network to connect to the internet by using only one IP addresses provided by the ISP.
+- **Address Types:** 
+	- **Routable (public) addresses** must be globally unique on the internet
+	- **Non-routable (private) addresses** (such as `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`) are reserved by RFC 1918 and cannot be routed over the public internet, allowing any organization to use them internally.
 - **Key Benefits:** Beyond conserving addresses, NAT hides the internal network topology from the outside world, allows organizations to dynamically alter their internal IP scheme without external impact, and makes it simple to switch Internet Service Providers (ISPs) without changing private IP addresses.
 
 ## 2. Core Types of NAT
 
-- **Source NAT (SNAT):** Translates the source IP address of packets leaving the private network (LAN to WAN), masquerading the entire session as originating from the firewall or router.
-- **Network Address Port Translation (NAPT):** The most common form of SNAT multiplexes traffic by translating transport-level identifiers (TCP/UDP source ports). The router maintains a **NAT table** to map which internal host/port initiated the request to a unique external port, ensuring returning traffic reaches the right device.
+- **Source NAT (SNAT):** Translates the source IP address of packets leaving the private network (LAN to WAN), masquerading the entire session as originating from the firewall or router that perform the NATting process.
+	
+	![](images/Pasted%20image%2020260624111429.png)
+	
+	- **Network Address Port Translation (NAPT):** The most common form of SNAT multiplexes traffic by translating transport-level identifiers (TCP/UDP source ports). The router maintains a **NAT table** to map which internal host/port initiated the request to a unique external port, ensuring returning traffic reaches the right device.
+	  
 - **Destination NAT (DNAT):** Also known as Port Forwarding or a Virtual Server, this enables external clients to access servers located inside the private LAN. The firewall intercepts requests addressed to its public IP and translates the destination IP to the internal server's private address. This process allows for port multiplexing, forwarding different ports to entirely different internal machines.
 
 ## 3. Limitations of NAT & Mitigation
