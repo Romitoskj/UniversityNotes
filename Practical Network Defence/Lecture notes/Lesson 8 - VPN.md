@@ -40,8 +40,17 @@ Transport and network layers are the most popular choices for VPNs.
 Deciding where to place the VPN terminator (the device that encrypts/decrypts the tunnel) impacts security, functionality, and performance.
 
 - **VPN Functionality in the Firewall:** The firewall acts as the VPN terminator. It is simple to administer because all rules and VPN configurations are in one box. However, it exposes the firewall to external users (port 443 must be open) and limits you to the features provided by your firewall vendor.
-- **VPN Device in the Internal Network:** The VPN is placed completely behind the firewall. While this protects the VPN device from external DMZ attacks, it introduces a massive risk: traffic exiting the VPN is already decrypted and bypasses the firewall's inspection, meaning a compromised VPN device compromises the entire internal network.
+  
+  ![](images/Pasted%20image%2020260624174931.png)
+  
+- **VPN Device in the Internal Network:** The VPN is placed completely behind the firewall. While this protects the VPN device from external DMZ attacks, it introduces a massive risk: VPN traffic passes through the firewall encrypted so it bypasses, meaning a compromised VPN device compromises the entire internal network.
+  
+  ![](images/Pasted%20image%2020260624175130.png)
+  
 - **Single-Interface VPN Device in the DMZ:** The VPN device sits in the Demilitarized Zone. Unencrypted traffic leaving the VPN must pass back through the internal firewall to reach internal hosts, allowing the firewall and Intrusion Detection Systems (IDS) to analyze it. The downside is that it requires opening numerous firewall ports between the DMZ and the internal network.
+  
+  ![](images/Pasted%20image%2020260624175441.png)
+  
 - **Dual-Interface VPN Device in the DMZ:** The VPN device has one interface facing the internet/DMZ and a second interface wired directly to the internal network. This protects decrypted traffic from other hosts in the DMZ, but it introduces significant routing complexity.
 
 ## 5. SSL / TLS Tunneling
