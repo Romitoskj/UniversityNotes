@@ -60,7 +60,9 @@ Deciding where to place the VPN terminator (the device that encrypts/decrypts th
 SSL (Secure Sockets Layer) and its modern successor TLS (Transport Layer Security) operate at the Transport layer to provide a secure byte stream for TCP-based protocols.
 
 ### 5.1 Protocol Architecture
+Adds extra layer between transport and application layers (record protocol) and extra elements to application layer:
 - **Record Protocol:** Handles the basic encryption, compression, and Message Authentication Code (MAC) integrity checks of the application data.
+- **Application Protocols:**
 
 ### 5.2 Handshake Protocol
 A 4-phase process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session.
