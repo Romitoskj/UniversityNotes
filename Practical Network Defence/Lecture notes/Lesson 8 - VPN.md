@@ -41,19 +41,19 @@ Deciding where to place the VPN terminator (the device that encrypts/decrypts th
 
 - **VPN Functionality in the Firewall:** The firewall acts as the VPN terminator. It is simple to administer because all rules and VPN configurations are in one box. However, it exposes the firewall to external users (port 443 must be open) and limits you to the features provided by your firewall vendor.
   
-  ![](images/Pasted%20image%2020260624174931.png)
+  ![552](images/Pasted%20image%2020260624174931.png)
   
 - **VPN Device in the Internal Network:** The VPN is placed completely behind the firewall. While this protects the VPN device from external DMZ attacks, it introduces a massive risk: VPN traffic passes through the firewall encrypted so it bypasses, meaning a compromised VPN device compromises the entire internal network.
   
-  ![](images/Pasted%20image%2020260624175130.png)
+  ![556](images/Pasted%20image%2020260624175130.png)
   
 - **Single-Interface VPN Device in the DMZ:** The VPN device sits in the Demilitarized Zone. Unencrypted traffic leaving the VPN must pass back through the internal firewall to reach internal hosts, allowing the firewall and Intrusion Detection Systems (IDS) to analyze it. The downside is that it requires opening numerous firewall ports between the DMZ and the internal network and decrypted traffic from device of the internal network must be sent through DMZ.
   
-  ![](images/Pasted%20image%2020260624175441.png)
+  ![556](images/Pasted%20image%2020260624175441.png)
   
 - **Dual-Interface VPN Device in the DMZ:** The VPN device has one interface facing the internet/DMZ and a second interface wired directly to the internal network. This protects decrypted traffic of internal hosts from other hosts in the DMZ, but it introduces significant routing complexity.
   
-  ![](images/Pasted%20image%2020260624175859.png)
+  ![551](images/Pasted%20image%2020260624175859.png)
 
 ## 5. SSL / TLS Tunneling
 
@@ -62,8 +62,12 @@ SSL (Secure Sockets Layer) and its modern successor TLS (Transport Layer Securit
 ### 5.1 Protocol Architecture
 Adds extra layer between transport and application layers (record protocol) and extra elements to application layer:
 - **Record Protocol:** Handles the basic encryption, compression, and Message Authentication Code (MAC) integrity checks of the application data.
+  ![519](../../Pasted%20image%2020260625151938.png)
+  
 - **Application Protocols:**
-
+	- *Handshake:* To authenticate server and agree on encryption keys and algorithms
+	- *Change cipher spec:* Selects agreed keys and encryption algorithm until further notice
+	- *Alter:* Transfers information about failures
 ### 5.2 Handshake Protocol
 A 4-phase process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session.
 
