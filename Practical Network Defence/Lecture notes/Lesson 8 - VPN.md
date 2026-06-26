@@ -68,8 +68,27 @@ Adds extra layer between transport and application layers (record protocol) and 
 	- *Handshake:* To authenticate server and agree on encryption keys and algorithms
 	- *Change cipher spec:* Selects agreed keys and encryption algorithm until further notice
 	- *Alter:* Transfers information about failures
+
 ### 5.2 Handshake Protocol
-A 4-phase process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session:
+A 4-phase "Client/Server" process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session. The client acts as the initiator.
+
+**The 4 Phases of the Handshake:**
+1.  **Hello (Establishment of Security Capabilities):** The client sends a "Client Hello" message detailing its supported protocol versions and a prioritized list of cipher suites. The server responds with a "Server Hello," confirming the selected cipher suite and compression method. During this phase, both parties also exchange random noise (random numbers) that will be used later in key generation.
+2.  **Server Authentication and Key Exchange:** The server sends its authentication information to the client, which is typically an **X.509 Digital Certificate**. If necessary for the chosen cipher suite, the server also executes its part of the key exchange protocol. 
+3.  **Client Authentication and Key Exchange:** The client processes the server's certificate. The client then executes the mandatory key exchange by generating a random pre-secret (often encrypting it using the server's public key found in the certificate) and sending it to the server. The server decrypts this pre-secret using its private key. The client may also optionally send its own certificate to authenticate itself to the server.
+4.  **Finish:** Both parties independently use the exchanged random noise and pre-secrets to mathematically derive a shared symmetric **Master Secret** key. They do this using pseudo-random functions (PRFs) and hashing algorithms (like MD5 and SHA). The **Change Cipher Spec** protocol is activated, meaning all subsequent traffic will be encrypted using this newly derived symmetric key. Both parties exchange and verify a summary of the handshake to ensure it was not tampered with.
+
+### 5.3 Digital Certificates and PKI
+To safely exchange keys during the handshake, the client must be absolutely certain that the public key it receives belongs to the legitimate server, not an attacker. This is achieved using digital certificates.
+
+*   **X.509 Certificates:** An X.509 digital certificate is a standardized document that mathematically binds a public key to a specific identity. The certificate contains several critical fields:
+    *   **Subject:** The identity of the key's owner (often represented as a Common Name or CN, like a web domain).
+    *   **Issuer:** The identity of the entity that verified and signed the certificate.
+    *   **Public Key:** The actual cryptographic public key of the subject.
+    *   **Validity Period:** The timeframe during which the certificate is considered valid.
+    *   **Digital Signature:** A cryptographic hash of the certificate that has been encrypted by the Issuer's private key.
+*   **Certification Authorities (CA):** The "Issuer" is typically a highly trusted third party known as a Certification Authority (CA), such as a government agency or telecommunications company. The CA receives applications for keys, rigidly verifies the applicant's identity, issues the certificate, and maintains Certificate Revocation Lists (CRLs) for keys that expire or become invalid. 
+*   **Public Key Infrastructure (PKI) and Chain of Trust:** CAs are organized into a hierarchy called the Public Key Infrastructure. When a client receives a certificate, it must verify the digital signature. To do this, the client relies on a pre-installed list of trusted **Root CA** public keys stored on their operating system or browser. The client hashes the certificate data and decrypts the attached CA signature using the CA's known public key; if the values match, the certificate is completely authentic and unmodified.
 
 ### 5.3 SSL VPN Architectures
 - **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
