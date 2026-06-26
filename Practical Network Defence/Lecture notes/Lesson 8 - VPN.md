@@ -89,6 +89,7 @@ To safely exchange keys during the handshake, the client must be absolutely cert
     *   **Digital Signature:** A cryptographic hash of the certificate that has been encrypted by the Issuer's private key.
 *   **Certification Authorities (CA):** The "Issuer" is typically a highly trusted third party known as a Certification Authority (CA), such as a government agency or telecommunications company. The CA receives applications for keys, rigidly verifies the applicant's identity, issues the certificate, and maintains Certificate Revocation Lists (CRLs) for keys that expire or become invalid. 
 *   **Public Key Infrastructure (PKI) and Chain of Trust:** CAs are organized into a hierarchy called the Public Key Infrastructure. When a client receives a certificate, it must verify the digital signature. To do this, the client relies on a pre-installed list of trusted **Root CA** public keys stored on their operating system or browser. The client hashes the certificate data and decrypts the attached CA signature using the CA's known public key; if the values match, the certificate is completely authentic and unmodified.
+  ![](../../Pasted%20image%2020260626162610.png)
 
 ### 5.3 SSL VPN Architectures
 - **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
