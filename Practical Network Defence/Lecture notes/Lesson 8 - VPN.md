@@ -69,7 +69,7 @@ Adds extra layer between transport and application layers (record protocol) and 
 	- *Change cipher spec:* Selects agreed keys and encryption algorithm until further notice
 	- *Alter:* Transfers information about failures
 ### 5.2 Handshake Protocol
-A 4-phase process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session.
+A 4-phase process where the client and server establish security capabilities, authenticate the server (using X.509 digital certificates and Public Key Infrastructure), and securely agree on a symmetric master secret key for the session:
 
 ### 5.3 SSL VPN Architectures
 - **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
