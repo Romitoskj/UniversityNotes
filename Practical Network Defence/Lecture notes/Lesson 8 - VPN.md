@@ -130,7 +130,7 @@ It guarantees several core security fundamentals: data origin authentication, co
 ### 6.2 Architecture: Policies and Associations
 Within the operating system kernel, IPsec relies on two critical databases to evaluate traffic:
 
-- **Security Policy Database (SPD):** Stores Security Policies (SPs) set by the administrator. An SP dictates the security requirements for a specific IP stream. Its actions can be configured to **Discard** the packet, **Bypass** IPsec (send in cleartext), or **Secure** the packet using IPsec.
+- **Security Policy Database (SPD):** Stores Security Policies (SPs) set by the administrator. An SP dictates the security requirements for a specific IP stream, such as the security protocol (AH/ESP), the protocol mode (Transport/Tunnel), and the actions. Its actions can be configured to **Discard** the packet, **Bypass** IPsec (send in cleartext), or **Secure** the packet using IPsec.
 - **Security Association Database (SAD):** Stores Security Associations (SAs). An SA is a simplex (unidirectional) channel detailing the specific encryption/authentication algorithms, modes, and keys to be applied. Because it is simplex, bidirectional communication requires at least two SAs. SAs are uniquely identified by a 32-bit **Security Parameters Index (SPI)** alongside the destination IP.
 
 ## 6.3 Packet Processing Flow
