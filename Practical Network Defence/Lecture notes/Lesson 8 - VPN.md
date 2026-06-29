@@ -124,19 +124,16 @@ It guarantees several core security fundamentals: data origin authentication, co
     - **Phase 2 (IKE_AUTH):** Authenticates the previous messages (often using X.509 Public Key Certificates, Pre-Shared Keys, EAP, or Xauth) and creates the first `CHILD_SA`. The `CHILD_SA` is the actual IPsec tunnel that protects the IP traffic with AH or ESP.
 
 ### 6.1 Architecture: Policies and Associations
-
 Within the operating system kernel, IPsec relies on two critical databases to evaluate traffic:
 
 - **Security Policy Database (SPD):** Stores Security Policies (SPs) set by the administrator. An SP dictates the security requirements for a specific IP stream. Its actions can be configured to **Discard** the packet, **Bypass** IPsec (send in cleartext), or **Secure** the packet using IPsec.
 - **Security Association Database (SAD):** Stores Security Associations (SAs). An SA is a simplex (unidirectional) channel detailing the specific encryption/authentication algorithms, modes, and keys to be applied. Because it is simplex, bidirectional communication requires at least two SAs. SAs are uniquely identified by a 32-bit **Security Parameters Index (SPI)** alongside the destination IP.
 
 ## 6.2 Packet Processing Flow
-
 - **Outgoing Traffic:** The kernel intercepts an outbound packet and checks the SPD. If the policy requires the packet to be secured, the kernel looks for a corresponding SA in the SAD. If no SA exists, it triggers the IKE daemon to negotiate one. Once the SA is found, the kernel applies the AH/ESP transformations and sends the packet.
 - **Incoming Traffic:** The kernel extracts the SPI from the incoming IPsec header and looks up the corresponding SA in the SAD to decrypt and authenticate the packet. Before handing the data up to the transport layer, the kernel strictly checks the SPD to ensure the packet's protection perfectly matched the required security policy (dropping it if it fails).
 
 ### 6.3 IPsec Modes
-
 - **Transport Mode:** Provides protection for a Transport-layer payload (e.g., the TCP segment) embedded within an IP packet. The original IP header remains intact, visible, and is used for routing.
 - **Tunnel Mode:** Takes the entire original IP packet, encrypts it, and encapsulates it inside a brand-new outer IP header. This provides traffic flow confidentiality, as intermediate internet routers only see the new outer IP header.
 
