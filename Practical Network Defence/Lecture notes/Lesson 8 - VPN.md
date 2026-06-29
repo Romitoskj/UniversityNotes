@@ -117,7 +117,7 @@ It guarantees several core security fundamentals: data origin authentication, co
 
 **Core Protocols** IPsec relies on three primary (sub)protocols to function:
 
-- **AH (Authentication Header):** Provides data integrity and origin authentication for the IP payload and immutable IP header fields (fields that do not change in transit, like the source address). It provides _no_ encryption. 
+- **AH (Authentication Header):** Provides data integrity and origin authentication for the IP payload and immutable IP header fields (fields that do not change in transit, like the source address) performing a cryptographic hash over them. It provides _no_ encryption. NAT will not work because destination will drop the packet perceiving the change of the address as a tampering.
 - **ESP (Encapsulating Security Payload):** Provides payload encryption for confidentiality, and can optionally provide authentication.
 - **IKEv2 (Internet Key Exchange version 2):** Standardized in RFC 5996, IKEv2 operates over UDP ports 500 and 4500 to dynamically negotiate cryptographic suites, exchange keys, and mutually authenticate endpoints. The IKEv2 process requires two main exchanges:
     - **Phase 1 (IKE_SA_INIT):** Negotiates encryption, integrity protection algorithms, and Diffie-Hellman values to create an `IKE_SA`, which encrypts and protects all subsequent IKE communications.
