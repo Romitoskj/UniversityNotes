@@ -95,7 +95,8 @@ To safely exchange keys during the handshake, the client must be absolutely cert
 
 ### 5.4 Heartbeat
 - An extension that allows to keep an established session alive, because without this extension it will terminate as soon as the data exchange terminates.
-- **The Heartbleed Bug:** TLS includes a "Heartbeat" extension (RFC 6520) to keep idle sessions alive. The infamous "Heartbleed" vulnerability occurred because the OpenSSL library failed to verify the payload length specified by the sender. An attacker could send a tiny payload but declare it as the maximum size, forcing the server's memory buffer to return up to 64KB of adjacent memory, leaking private keys and passwords.
+- **Two messages:** *HeartbeatRequest* *HeartbeatResponse*, one host send the request to the other that starts a retransmit timer. The session is considered terminated in the absence of a HeartbeatResponse within a time interval.
+- **The Heartbleed Bug:** The infamous "Heartbleed" vulnerability occurred because the OpenSSL library failed to verify the payload length specified by the sender. An attacker could send a tiny payload but declare it as the maximum size, forcing the server's memory buffer to return up to 64KB of adjacent memory, leaking private keys and passwords.
 
 ### 5.5 SSL VPN Architectures
 - **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
