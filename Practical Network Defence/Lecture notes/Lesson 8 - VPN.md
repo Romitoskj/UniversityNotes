@@ -134,7 +134,8 @@ Within the operating system kernel, IPsec relies on two critical databases to ev
 - **Security Association Database (SAD):** Stores Security Associations (SAs). An SA is a simplex (unidirectional) channel detailing the specific encryption/authentication algorithms, modes, and keys to be applied. Because it is simplex, bidirectional communication requires at least two SAs. SAs are uniquely identified by a 32-bit **Security Parameters Index (SPI)** alongside the destination IP.
 
 ## 6.3 Packet Processing Flow
-- **Outgoing Traffic:** The kernel intercepts an outbound packet and checks the SPD. If the policy requires the packet to be secured, the kernel looks for a corresponding SA in the SAD. If no SA exists, it triggers the IKE daemon to negotiate one. Once the SA is found, the kernel applies the AH/ESP transformations and sends the packet.
+- **Outgoing Traffic:** The kernel intercepts an outbound packet and checks the SPD. If the policy requires the packet to be secured, the kernel looks for a corresponding SA in the SAD. If no SA exists, it triggers the IKE daemon to negotiate one. Once the SA is found, the kernel applies the AH/ESP transformations and sends the packet.![](images/Pasted%20image%2020260629234055.png)
+  
 - **Incoming Traffic:** The kernel extracts the SPI from the incoming IPsec header and looks up the corresponding SA in the SAD to decrypt and authenticate the packet. Before handing the data up to the transport layer, the kernel strictly checks the SPD to ensure the packet's protection perfectly matched the required security policy (dropping it if it fails).
 
 ### 6.4 Linux Implementation
