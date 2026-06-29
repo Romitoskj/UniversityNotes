@@ -37,7 +37,7 @@ Because roughly 95% of modern web traffic is encrypted with SSL/TLS, an applicat
 SOCKS proxies (e.g., SOCKS5) operate at the session layer as a "shim" between the application and transport layers. They are generic TCP/UDP relays that do not inspect application payloads.
 
 - **Versatility:** They support IPv6, multiple authentication mechanisms, and are natively integrated into tools like SSH and Tor.
-- **Practical Use Case:** The lecture highlights that SOCKS proxies are excellent for bypassing IP-based authentication. For example, establishing a SOCKS tunnel into a university server allows a user to download academic papers from home, as the academic database will only see the university's approved proxy IP address.
+- **Practical Use Case:** SOCKS proxies are excellent for bypassing IP-based authentication. For example, establishing a SOCKS tunnel into a university server allows a user to download academic papers from home, as the academic database will only see the university's approved proxy IP address.
 
 ## **6. Transparent (Intercepting) Proxies**
 
