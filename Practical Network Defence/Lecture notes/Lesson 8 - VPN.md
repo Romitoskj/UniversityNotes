@@ -102,6 +102,13 @@ To safely exchange keys during the handshake, the client must be absolutely cert
 - **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
 - **SSL Tunnel VPN:** The VPN acts as a true network extension, allowing broader access to internal network services.
 
+Typical SSL VPN services include:
+- **Authentication:** Via certificates.
+- **Encryption:** Via TLS.
+- **Access control:** Per-user, per-group or per-resource.
+- **Endpoint security controls:** Validate the security compliance of clients attempting to use the VPN.
+- **Intrusion prevention:** Evaluates decrypted data for malicious attacks and malware.
+
 ## **6. IPsec (IP Security)**
 
 IPsec (standardized in RFC 4301) is a Network Layer protocol suite for providing secure communication over IP networks. It is natively built into IPv6 and available as an add-on for IPv4. Because it operates at the Network Layer, it is completely transparent to upper-layer applications, though its architecture is more complex to configure than TLS.
