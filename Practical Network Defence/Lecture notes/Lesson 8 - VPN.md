@@ -62,7 +62,7 @@ SSL (Secure Sockets Layer) and its modern successor TLS (Transport Layer Securit
 ### 5.1 Protocol Architecture
 Adds extra layer between transport and application layers (record protocol) and extra elements to application layer:
 - **Record Protocol:** Handles the basic encryption, compression, and Message Authentication Code (MAC) integrity checks of the application data.
-  ![519](../../Pasted%20image%2020260625151938.png)
+  ![519](images/Pasted%20image%2020260625151938.png)
   
 - **Application Protocols:**
 	- *Handshake:* To authenticate server and agree on encryption keys and algorithms
@@ -91,13 +91,15 @@ To safely exchange keys during the handshake, the client must be absolutely cert
 *   **Public Key Infrastructure (PKI) and Chain of Trust:** CAs are organized into a hierarchy called the Public Key Infrastructure.
   
   When a client receives a certificate, it must verify the digital signature. To do this, the client relies on a pre-installed list of trusted **Root CA** public keys stored on their operating system or browser. The client hashes the certificate data and decrypts the attached CA signature using the CA's known public key; if the values match, the certificate is completely authentic and unmodified.
-  ![](../../Pasted%20image%2020260626162610.png)
+  ![](images/Pasted%20image%2020260626162610.png)
 
-### 5.3 SSL VPN Architectures
+### 5.4 Heartbeat
+- An extension that allows to keep an established session alive, because without this extension it will terminate as soon as the data exchange terminates.
+- **The Heartbleed Bug:** TLS includes a "Heartbeat" extension (RFC 6520) to keep idle sessions alive. The infamous "Heartbleed" vulnerability occurred because the OpenSSL library failed to verify the payload length specified by the sender. An attacker could send a tiny payload but declare it as the maximum size, forcing the server's memory buffer to return up to 64KB of adjacent memory, leaking private keys and passwords.
+
+### 5.5 SSL VPN Architectures
 - **SSL Portal VPN:** Users access specific protected services directly through a web browser interface.
 - **SSL Tunnel VPN:** The VPN acts as a true network extension, allowing broader access to internal network services.
-
-- **The Heartbleed Bug:** TLS includes a "Heartbeat" extension (RFC 6520) to keep idle sessions alive. The infamous "Heartbleed" vulnerability occurred because the OpenSSL library failed to verify the payload length specified by the sender. An attacker could send a tiny payload but declare it as the maximum size, forcing the server's memory buffer to return up to 64KB of adjacent memory, leaking private keys and passwords.
 
 ## **6. IPsec (IP Security)**
 
