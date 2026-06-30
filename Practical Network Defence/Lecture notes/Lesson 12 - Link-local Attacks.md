@@ -10,7 +10,7 @@ Switches learn and store the MAC addresses of connected hosts in a fixed-size Co
 - **The Impact:** Once the CAM table is full, legitimate MAC addresses cannot be stored, forcing the switch to flood all incoming frames to every port, effectively turning the switch into a hub and allowing the attacker to sniff all traffic. This can also result in a Denial of Service (DoS) if the switch freezes or crashes.
 - **Mitigation:** The primary defense is **Port Security**, which limits the number of MAC addresses allowed per physical switch port or restricts ports to specific known MAC addresses.
 
-## 3. ARP Poisoning and Man-in-the-Middle (MITM
+## 3. ARP Poisoning and Man-in-the-Middle (MITM)
 The Address Resolution Protocol (ARP) translates IP addresses to MAC addresses dynamically, but it lacks any built-in security or ownership validation.
 
 - **Gratuitous ARP:** Hosts normally broadcast Gratuitous ARP messages to announce their IP-to-MAC pairing to the local network and prevent duplicate IPs.
@@ -27,7 +27,8 @@ IPv6 eliminates ARP and relies on the **Neighbor Discovery Protocol (NDP)** via 
 ## 5. DHCP Starvation and Rogue DHCP
 An attacker can perform a DoS attack by requesting and exhausting all available DHCP addresses in a network. Once the legitimate address pool is empty, the attacker deploys a **Rogue DHCP Server**. Because DHCP responses automatically provide clients with DNS server and default gateway configurations, the attacker can redirect all routing and name resolution to malicious endpoints, facilitating complete MITM compromises.
 
-**6. ICMPv6 Redirect Attacks** ICMP redirects are normally used by a router to inform a host that there is a better, more direct route on the local link to reach a specific destination.
+## 6. ICMPv6 Redirect Attacks
+ICMP redirects are normally used by a router to inform a host that there is a better, more direct route on the local link to reach a specific destination.
 
 - **The Attack:** An attacker sends a spoofed redirect message to a victim, tricking the victim's routing table into believing the attacker is the optimal next-hop for a target destination.
 - **Mitigation:** The primary defense against this at the host level is to configure the operating system kernel to reject all ICMP redirects by default (e.g., setting `accept_redirects` to FALSE).
