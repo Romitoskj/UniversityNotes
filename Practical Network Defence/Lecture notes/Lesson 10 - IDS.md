@@ -12,7 +12,7 @@ To detect these threats, an IDS must perform **Deep Packet Inspection (DPI)**, e
 - **Network Sensors:** Detect and send data to the system.
 - **Central Monitoring System:** A server that processes and analyzes data sent from the sensors.
 - **Database and Storage Component:** Repository for event information.
-  ![](../../Pasted%20image%2020260630173206.png)
+  ![](images/Pasted%20image%2020260630173206.png)
 
 ## **2. Alarms and Accuracy Metrics**
 
