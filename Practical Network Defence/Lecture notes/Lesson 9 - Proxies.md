@@ -15,7 +15,7 @@ A **Forward Proxy** operates strictly on behalf of the client. Instead of connec
     - **Caching:** Proxies store retrieved documents locally to save bandwidth on subsequent requests, relying on HTTP headers like `If-Modified-Since` to verify if the cache is up-to-date.
     - **Anonymization:** A proxy shields the client's privacy because the destination server only sees the proxy's IP address, rather than the originating client's IP. Typically used for accessing geo-restricted content.
 - **HTTP Tunneling (`CONNECT` Method):** For non-standard HTTP and FTP requests or TLS/SSL traffic (or any protocol that use TCP), the proxy uses the `HTTP CONNECT` method. The proxy establishes a two-way TCP connection on behalf of the client and then blindly forwards the TCP stream, allowing protocols like HTTPS to traverse the proxy. Often limited to port 443 (HTTPS) only or not supported.
-  ![](../../Pasted%20image%2020260630104528.png)
+  ![](images/Pasted%20image%2020260630104528.png)
 
 ## **3. Reverse Proxies**
 
@@ -29,7 +29,7 @@ A **Reverse Proxy** operates on behalf of the server. It receives requests from 
 
 Because roughly 95% of modern web traffic is encrypted with SSL/TLS, an application proxy cannot natively read the payload to perform inspections.
 
-- **SSL Forward Proxy (SSL Bump):** To inspect encrypted traffic, the proxy must perform a controlled Man-in-the-Middle (MitM) attack. The proxy intercepts the client's request, dynamically generates a forged certificate mimicking the requested server, and presents it to the client. The proxy decrypts the traffic for inspection, applies security policies, and then re-encrypts it before sending it to the destination.
+- **SSL Forward Proxy (SSL Bump):** To inspect encrypted traffic, the proxy must perform a controlled Man-in-the-Middle (MitM) attack. The proxy intercepts the client's request, dynamically generates a forged certificate mimicking the requested server, and presents it to the client. The proxy decrypts the traffic for inspection, applies security policies, and then re-encrypts it before sending it to the destination.![](images/Pasted%20image%2020260630111451.png)
 - **The SNI Dilemma:** During a TLS handshake, the proxy needs to know which certificate to forge before the encrypted HTTP request is sent. It relies on **Server Name Indication (SNI)**, an extension where the client requests the hostname in cleartext during the initial `Client Hello`. Because SNI is unencrypted, it allows proxies (and eavesdroppers) to filter domains. An experimental protocol, Encrypted SNI (ESNI), aims to close this privacy loophole.
 - **TLS Acceleration & Offloading:** Public key asymmetric encryption is highly processor-intensive. Reverse proxies alleviate this bottleneck using dedicated hardware.
     - _SSL Termination:_ The proxy decrypts the traffic and forwards it internally in cleartext, allowing Intrusion Detection Systems (IDS) to inspect it.
