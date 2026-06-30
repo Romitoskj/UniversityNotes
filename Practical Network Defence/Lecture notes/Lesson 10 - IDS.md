@@ -58,8 +58,6 @@ _Note: Modern robust defense requires combining both approaches to minimize both
 
 ## **5. Prominent IDS/IPS Tools**
 
-The course introduces several industry-standard tools for network defense:
-
 - **Snort:** The most famous open-source NIDS/NIPS (now owned by Cisco). It uses a highly expressive rule-driven language. Its architecture consists of a packet decoder, preprocessors (for defragmentation and stream reassembly), a detection engine, and an alerting system.
     - _Rule Syntax:_ Rules contain a **Header** (Action, Protocol, Source IP/Port, Direction `->`, Dest IP/Port) and **Options** enclosed in parentheses (content matching, offset, depth, PCRE regular expressions, and flags).
 - **Suricata:** A modern, high-performance alternative developed by the OISF. It overcomes Snort's historical limitations by natively supporting multi-threading and GPU acceleration. It includes deep application-layer decoding (HTTP, TLS, DNS, etc.) and integrates the Lua scripting language to handle complex conditions that a simple legacy Snort rule cannot match.
