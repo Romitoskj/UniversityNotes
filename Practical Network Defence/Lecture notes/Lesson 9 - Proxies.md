@@ -44,7 +44,7 @@ SOCKS proxies (e.g., SOCKS5) operate at the session layer as a "shim" between th
 
 ## **6. Transparent (Intercepting) Proxies**
 
-While forward proxies require client-side configuration, **Transparent Proxies** are designed to be invisible to the user. The client genuinely believes it is talking to the final internet gateway.
+While forward proxies require client-side configuration, **Transparent Proxies** are designed to be invisible to the user. The client genuinely believes it is talking to the final internet gateway and do not configure a proxy on its OS.
 
 - **Mechanics:** The proxy's TCP/IP stack forcefully intercepts packets destined for external servers and pretends to be the destination.
 - **Policy-Based Routing (PBR):** Because traditional network routing is purely destination-driven, implementing a transparent proxy requires PBR. Administrators must configure the router (e.g., using `iptables` port forwarding rules) to specifically detour all traffic matching a certain port (like TCP 80) into the proxy machine before it leaves the network.
