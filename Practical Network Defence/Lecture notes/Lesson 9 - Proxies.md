@@ -19,10 +19,10 @@ A **Forward Proxy** operates strictly on behalf of the client. Instead of connec
 
 ## **3. Reverse Proxies**
 
-A **Reverse Proxy** operates on behalf of the server. It receives requests from the outside world as if it were the actual server, and then routes those requests to the appropriate internal origin servers.
+A **Reverse Proxy** operates on behalf of the server. It receives requests from the outside world as if it were the actual server, and then issues new proper requests to the appropriate internal origin servers.
 
 - **Internal Server Protection:** Because external users never establish a direct connection to the internal servers, reverse proxies naturally defend against Denial of Service (DoS) attacks. They are also used to protect vulnerable legacy software or IoT devices that cannot be natively secured or updated.
-- **Application Layer Firewall (WAF):** A reverse proxy can act as a Web Application Firewall (e.g., ModSecurity for Apache). It deeply inspects HTTP traffic to block malformed communication, unwanted protocols, or application-level attacks like Cross-Site Scripting (XSS) and file inclusions.
+- **Application Layer Firewall:** A reverse proxy can act as a Web Application Firewall (WAF)(e.g., ModSecurity for Apache). It deeply inspects HTTP traffic to block malformed communication, unwanted protocols, or application-level attacks like Cross-Site Scripting (XSS), SQL injection and file inclusions.
 - **Other Functions:** Load balancing, caching static content, data compression, and centralizing access control.
 
 ## **4. Proxies and the HTTPS Challenge**
