@@ -39,12 +39,12 @@ This approach defines what "normal" behavior looks like and raises an alarm for 
 
 ### 4.2 **Signature-based (Misuse Detection)**
 
-This approach defines the specific characteristics (signatures) of known abnormal activities or attacks. It uses pattern matching against a massive database of known signatures to spot malicious payloads.
+This approach defines the specific characteristics (signatures) of known abnormal activities or attacks. It uses pattern matching against a massive database of known signatures to spot malicious payloads. To extract these signatures invariant characteristics of known attacks must be used (body of known viruses and worms, port numbers of application with known buffer overflows, etc.)
 
 ![](images/Pasted%20image%2020260630155218.png)
 
 - **Evasion Techniques:** Attackers actively try to bypass signature detection. They might use **TCP Insertion or TTL attacks**, where they send overlapping fragments or packets with intentionally short Time-to-Live (TTL) or bad checksums. The NIDS might reassemble the payload incorrectly and miss the signature (e.g., the string "USER root"), while the target host drops the garbage packets and executes the hidden attack.
-- **Honeypots:** To gather new signatures, researchers use honeypots—deceptive security resources with no legitimate purpose. Any interaction with a honeypot is inherently malicious, allowing administrators to safely observe the attacker's methods and extract new signatures.
+- **Honeypots:** To gather new signatures, researchers use honeypots, namely deceptive security resources (single host or network) with no legitimate purpose. Any interaction with a honeypot is inherently malicious, allowing administrators to safely observe the attacker's methods and extract new signatures.
 - **Pros & Cons:** It is fast, highly accurate for known threats, and produces very few false positives. However, it cannot detect new (zero-day) attacks, and it struggles with polymorphic/metamorphic malware that constantly changes its signature.
 
 _Note: Modern robust defense requires combining both approaches to minimize both false positives and false negatives._
