@@ -33,7 +33,7 @@ This approach defines what "normal" behavior looks like and raises an alarm for 
 
 ![](images/Pasted%20image%2020260630155159.png)
 
-- **Feature Extraction:** The system must be trained using data mining to extract relevant features. A classic example is the Lee & Stolfo feature set, classifying features into **Intrinsic** (e.g., connection lifetime), **Traffic** (e.g., percentage of SYN errors), and **Content** (e.g., failed login attempts).
+- **Feature Extraction:** The system must be trained using data mining to extract relevant features. A classic example is the Lee & Stolfo feature set, classifying features into **Intrinsic** (about particular connection e.g., connection lifetime), **Traffic** (statistical information about connections e.g., percentage of SYN errors), and **Content** (application-related statistic e.g., failed login attempts).
 - **Measurement:** Anomalies are measured using distance formulas (Hamming, Mahalanobis, Kolmogorov) or probability models (Markov chains, Neural Networks).
 - **Pros & Cons:** It is excellent for catching zero-day exploits, but it suffers from high false-positive rates because dynamically defining "normal" in a changing network is extremely difficult.
 
