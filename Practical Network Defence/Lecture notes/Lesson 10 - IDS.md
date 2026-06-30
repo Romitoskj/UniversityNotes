@@ -1,4 +1,3 @@
-
 ## **1. Introduction to IDS and IPS**
 
 An **Intrusion Detection System (IDS)** aims to detect the presence of intruders before serious damage is done, such as preventing legitimate users from accessing the system, revealing confidential information, or using the host as a stepping stone for further attacks.
