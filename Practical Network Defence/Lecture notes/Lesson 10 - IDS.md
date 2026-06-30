@@ -19,9 +19,9 @@ Because an IDS evaluates ambiguous behavior, its alarms are categorized into fou
 
 ## **3. Types of Intrusion Detection Systems**
 
-- **Host-based (HIDS):** Monitors a single specific system. It looks for unauthorized access, configuration changes, or anomalous process executions. A prime example of what HIDS monitors is ransomware activity, which can be detected when a process rapidly opens, encrypts, and overwrites an unusually high number of files.
+- **Host-based (HIDS):** Monitors a single specific system (typically critical servers). It looks for unauthorized access, configuration changes, or anomalous process executions. A prime example of what HIDS monitors is ransomware activity, which can be detected when a process rapidly opens, encrypts, and overwrites an unusually high number of files.
 - **Endpoint Detection and Response (EDR):** The modern evolution of HIDS. It integrates host firewalls, anti-malware, and process-level monitoring, frequently leveraging cloud-based global threat intelligence and machine learning to proactively hunt and respond to threats.
-- **Network-based (NIDS):** Operates in promiscuous mode (usually connected to a switch's mirrored/SPAN port) to analyze network, transport, and application protocol activity. A single NIDS can monitor multiple network segments simultaneously, though it struggles with encrypted traffic.
+- **Network-based (NIDS):** Operates in promiscuous mode (usually connected to a switch's mirrored/SPAN Switch Port ANalizer port) to analyze network, transport, and application protocol activity protecting many hosts. All the traffic generated within all the ports of the switches are replicated on the mirrored port where the NIDS is placed. A single NIDS can monitor multiple network segments simultaneously, though it struggles with encrypted traffic.
 - **Wireless (WIDS):** Analyzes wireless networking protocols (e.g., signal power, MAC sequence numbers).
 - **File Integrity Monitors:** Tools like Tripwire that monitor cryptographic hashes of key system configuration files to detect unauthorized changes.
 
@@ -31,6 +31,8 @@ Because an IDS evaluates ambiguous behavior, its alarms are categorized into fou
 
 This approach defines what "normal" behavior looks like and raises an alarm for any significant deviation.
 
+![](images/Pasted%20image%2020260630155159.png)
+
 - **Feature Extraction:** The system must be trained using data mining to extract relevant features. A classic example is the Lee & Stolfo feature set, classifying features into **Intrinsic** (e.g., connection lifetime), **Traffic** (e.g., percentage of SYN errors), and **Content** (e.g., failed login attempts).
 - **Measurement:** Anomalies are measured using distance formulas (Hamming, Mahalanobis, Kolmogorov) or probability models (Markov chains, Neural Networks).
 - **Pros & Cons:** It is excellent for catching zero-day exploits, but it suffers from high false-positive rates because dynamically defining "normal" in a changing network is extremely difficult.
@@ -38,6 +40,8 @@ This approach defines what "normal" behavior looks like and raises an alarm for 
 ### 4.2 **Signature-based (Misuse Detection)**
 
 This approach defines the specific characteristics (signatures) of known abnormal activities or attacks. It uses pattern matching against a massive database of known signatures to spot malicious payloads.
+
+![](images/Pasted%20image%2020260630155218.png)
 
 - **Evasion Techniques:** Attackers actively try to bypass signature detection. They might use **TCP Insertion or TTL attacks**, where they send overlapping fragments or packets with intentionally short Time-to-Live (TTL) or bad checksums. The NIDS might reassemble the payload incorrectly and miss the signature (e.g., the string "USER root"), while the target host drops the garbage packets and executes the hidden attack.
 - **Honeypots:** To gather new signatures, researchers use honeypots—deceptive security resources with no legitimate purpose. Any interaction with a honeypot is inherently malicious, allowing administrators to safely observe the attacker's methods and extract new signatures.
