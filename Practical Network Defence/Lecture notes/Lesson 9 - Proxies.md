@@ -10,11 +10,12 @@ A **Forward Proxy** operates strictly on behalf of the client. Instead of connec
 
 ![](images/Pasted%20image%2020260630100110.png)
 
-- **HTTP Tunneling (`CONNECT` Method):** For non-standard HTTP requests or TLS/SSL traffic, the proxy uses the `HTTP CONNECT` method. The proxy establishes a two-way TCP connection on behalf of the client and then blindly forwards the TCP stream, allowing protocols like HTTPS to traverse the proxy.
 - **Key Benefits:**
     - **Authentication & Content Filtering:** The proxy can enforce Authentication, Authorization, and Auditing (AAA). It acts as a content filter (e.g., in schools) to enforce blacklists, scan for malware, or block executable downloads.
     - **Caching:** Proxies store retrieved documents locally to save bandwidth on subsequent requests, relying on HTTP headers like `If-Modified-Since` to verify if the cache is up-to-date.
-    - **Anonymization:** A proxy shields the client's privacy because the destination server only sees the proxy's IP address, rather than the originating client's IP.
+    - **Anonymization:** A proxy shields the client's privacy because the destination server only sees the proxy's IP address, rather than the originating client's IP. Typically used for accessing geo-restricted content.
+- **HTTP Tunneling (`CONNECT` Method):** For non-standard HTTP and FTP requests or TLS/SSL traffic (or any protocol that use TCP), the proxy uses the `HTTP CONNECT` method. The proxy establishes a two-way TCP connection on behalf of the client and then blindly forwards the TCP stream, allowing protocols like HTTPS to traverse the proxy. Often limited to port 443 (HTTPS) only or not supported.
+  ![](../../Pasted%20image%2020260630104528.png)
 
 ## **3. Reverse Proxies**
 
