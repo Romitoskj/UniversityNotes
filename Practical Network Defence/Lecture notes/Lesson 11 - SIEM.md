@@ -13,7 +13,7 @@ While there is no single established standard or protocol for SIEM, most systems
 
 Logs are the fundamental building blocks of a SIEM; without them, security management is impossible. However, it is important to distinguish between event data and state data:
 
-- **Event Data (Logs):** A specific string or record telling you exactly _what_ happened and _when_. Because logs come from vastly different sources (syslog, firewalls, domain controllers, IDSs, proxies), the SIEM must first **parse and normalize** these heterogeneous strings into a common, structured syntax.
+- **Event Data (Logs):** A specific string or record telling you exactly _what_ happened and _when_. Because logs come from vastly different sources (syslog of servers and computers, firewalls, domain controllers, IDSs, proxies), the SIEM must first **parse and normalize** these heterogeneous strings into a common, structured syntax.
 - **State Data:** This provides a picture of the overall system at a given moment (e.g., current configurations, active users, open processes). As the professor noted, "state" is mathematically derived by combining events—for instance, matching a process "start" log and ruling out a "terminate" log to determine what is currently running.
 
 ## **3. The SIEM Architecture Stack**
