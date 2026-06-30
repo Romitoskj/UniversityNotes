@@ -34,7 +34,7 @@ ICMP redirects are normally used by a router to inform a host that there is a be
 - **Mitigation:** The primary defense against this at the host level is to configure the operating system kernel to reject all ICMP redirects by default (e.g., setting `accept_redirects` to FALSE).
 
 ## 7. First Hop Security (Switch-Level Mitigations)
-The lecture recordings strongly emphasize that defending against link-local and IPv6 ND attacks requires enforcing security at the Data Link layer (Layer 2) within the network switches. Key switch-level mitigations include:
+Defending against link-local and IPv6 ND attacks requires enforcing security at the Data Link layer (Layer 2) within the network switches. Key switch-level mitigations include:
 
 - **RA Guard:** The switch is configured to only allow Router Advertisements on explicitly authorized ports (where the legitimate router is connected), dropping rogue RAs coming from user ports.
 - **DHCPv6 Guard:** Similar to RA Guard, the switch blocks DHCP server responses coming from unauthorized switch ports.
