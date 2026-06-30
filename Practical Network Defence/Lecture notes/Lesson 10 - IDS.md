@@ -7,6 +7,13 @@ To detect these threats, an IDS must perform **Deep Packet Inspection (DPI)**, e
 
 - **IDS (Passive):** Operates "out of band" (e.g., using a network tap or mirrored SPAN port). It detects anomalies and raises alarms for an analyst to investigate, but does not interfere with the traffic directly.
 - **IPS (Active):** Intrusion Prevention Systems operate "in line" (in band) with the traffic. When an intrusion is detected, it actively reacts by dropping connections, blocking access, or dynamically modifying firewall rules. The industry standard term (NIST) combining both concepts is IDP.
+  
+### 1.1 IDS Architecture
+
+- **Network Sensors:** Detect and send data to the system.
+- **Central Monitoring System:** A server that processes and analyzes data sent from the sensors.
+- **Database and Storage Component:** Repository for event information.
+  ![](../../Pasted%20image%2020260630173206.png)
 
 ## **2. Alarms and Accuracy Metrics**
 
