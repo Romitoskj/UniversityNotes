@@ -27,7 +27,7 @@ Because an IDS evaluates ambiguous behavior, its alarms are categorized into fou
 
 ## **4. Detection Approaches: Behavior vs. Signature**
 
-### **Behavior-based (Anomaly Detection)**
+### 4.1 **Behavior-based (Anomaly Detection)**
 
 This approach defines what "normal" behavior looks like and raises an alarm for any significant deviation.
 
@@ -35,7 +35,7 @@ This approach defines what "normal" behavior looks like and raises an alarm for 
 - **Measurement:** Anomalies are measured using distance formulas (Hamming, Mahalanobis, Kolmogorov) or probability models (Markov chains, Neural Networks).
 - **Pros & Cons:** It is excellent for catching zero-day exploits, but it suffers from high false-positive rates because dynamically defining "normal" in a changing network is extremely difficult.
 
-### **Signature-based (Misuse Detection)**
+### 4.2 **Signature-based (Misuse Detection)**
 
 This approach defines the specific characteristics (signatures) of known abnormal activities or attacks. It uses pattern matching against a massive database of known signatures to spot malicious payloads.
 
