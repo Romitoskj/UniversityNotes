@@ -8,6 +8,8 @@ Unlike VPNs, which provide a secure encrypted tunnel for device-level routing, a
 
 A **Forward Proxy** operates strictly on behalf of the client. Instead of connecting directly to the internet, the client sends an absolute-form HTTP or FTP request to the proxy, which then forwards the request to the final destination.
 
+![](images/Pasted%20image%2020260630100110.png)
+
 - **HTTP Tunneling (`CONNECT` Method):** For non-standard HTTP requests or TLS/SSL traffic, the proxy uses the `HTTP CONNECT` method. The proxy establishes a two-way TCP connection on behalf of the client and then blindly forwards the TCP stream, allowing protocols like HTTPS to traverse the proxy.
 - **Key Benefits:**
     - **Authentication & Content Filtering:** The proxy can enforce Authentication, Authorization, and Auditing (AAA). It acts as a content filter (e.g., in schools) to enforce blacklists, scan for malware, or block executable downloads.
