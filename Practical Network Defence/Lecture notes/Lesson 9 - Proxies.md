@@ -1,6 +1,6 @@
 ## **1. Introduction to Proxies**
 
-A proxy acts as an intermediary relay system that takes the role of one of the two parties in a network communication. Originally conceived at CERN in 1994, an application-level proxy was designed to make a firewall safely permeable for internal users without creating a direct security hole for attackers.
+A proxy acts as an intermediary relay system that takes the role of one of the two parties in a network communication. Originally conceived at CERN in 1994, an application-level proxy was designed to make a firewall safely permeable for internal users without creating a direct security hole for attackers. Namely: *one single host handling requests from several users*.
 
 Unlike VPNs, which provide a secure encrypted tunnel for device-level routing, a proxy explicitly handles and evaluates requests on behalf of a client or server. Operating at higher layers, proxies can perform highly intelligent filtering (e.g., blocking specific SQL injections) but introduce significant processing overhead because they must intercept, reassemble, and inspect application data.
 
