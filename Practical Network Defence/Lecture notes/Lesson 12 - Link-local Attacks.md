@@ -11,9 +11,14 @@ Switches learn and store the MAC addresses of connected hosts in a fixed-size Co
 - **Mitigation:** The primary defense is **Port Security**, which limits the number of MAC addresses allowed per physical switch port or restricts ports to specific known MAC addresses.
 
 ### 1.2 ARP Poisoning and Man-in-the-Middle (MITM)
-The Address Resolution Protocol (ARP) translates IP addresses to MAC addresses dynamically, but it lacks any built-in security or ownership validation.
+The Address Resolution Protocol (ARP) translates IP addresses to MAC addresses dynamically, it works like that:
+1. An ARP request message is placed in a frame and broadcasted to all computers on the network;
+2. Each computer receives the request and examines the IP address;
+3. The computer mentioned in the request send a response with its MAC address and all other computer discard the request;
+4. The computer that made the request store the address in a dynamic table that holds the IP-MAC pairs called ARP table, which starts empty and is filled as the MAC address are collected while unused addresses are removed after a timeout.
 
-- **Gratuitous ARP:** Hosts normally broadcast Gratuitous ARP messages to announce their IP-to-MAC pairing to the local network and prevent duplicate IPs.
+But it lacks any built-in security or ownership validation:
+- **Gratuitous ARP Response:** Hosts normally broadcast Gratuitous ARP messages (without request) to announce their IP-to-MAC pairing to the local network and prevent duplicate IPs.
 - **The Attack:** An attacker can misuse Gratuitous ARP by repeatedly broadcasting forged messages claiming that their MAC address corresponds to a victim's IP address (often the default gateway).
 - **The Impact:** Because ARP tables cache these replies blindly, the network hosts will overwrite their legitimate routing entries with the attacker's MAC. The attacker can then perform a **Man-in-the-Middle (MITM)** attack, silently intercepting, altering, or dropping traffic between hosts and the gateway.
 
