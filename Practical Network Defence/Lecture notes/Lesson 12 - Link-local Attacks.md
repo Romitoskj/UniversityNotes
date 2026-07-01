@@ -21,6 +21,7 @@ But it lacks any built-in security or ownership validation:
 - **Gratuitous ARP Response:** Hosts normally broadcast Gratuitous ARP messages (without request) to announce their IP-to-MAC pairing to the local network and prevent duplicate IPs.
 - **The Attack:** An attacker can misuse Gratuitous ARP by repeatedly broadcasting forged messages claiming that their MAC address corresponds to a victim's IP address (often the default gateway).
 - **The Impact:** Because ARP tables cache these replies blindly, the network hosts will overwrite their legitimate routing entries with the attacker's MAC. The attacker can then perform a **Man-in-the-Middle (MITM)** attack, silently intercepting, altering, or dropping traffic between hosts and the gateway.
+  ![](../../Pasted%20image%2020260701113552.png)
 
 ## 2. IPv6 Neighbor Discovery (ND) Threats
 IPv6 eliminates ARP and relies on the **Neighbor Discovery Protocol (NDP)** via ICMPv6. Address resolution is handled using Neighbor Solicitation (NS) multicast requests and Neighbor Advertisement (NA) unicast replies. However, this introduces new link-local vulnerabilities:
