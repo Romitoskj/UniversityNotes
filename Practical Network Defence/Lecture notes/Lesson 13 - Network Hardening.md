@@ -4,7 +4,7 @@ Network hardening is the process of reducing a system's vulnerability surface by
 
 To effectively protect a network, administrators must secure devices across their three functional planes:
 
-![](../../Pasted%20image%2020260702153736.png)
+![](images/Pasted%20image%2020260702153736.png)
 
 - **Management Plane:** 
 	- How administrators monitor, configure, and access the device.
