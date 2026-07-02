@@ -30,7 +30,7 @@ Protecting the management plane ensures that attackers cannot gain unauthorized 
     - **Accounting/Auditing:** Keeping an unalterable log of user actions.
 - **Centralized Management:** Instead of managing local databases on every device, organizations should use centralized Access Control Servers (ACS) running protocols like RADIUS (for end-users) or TACACS+ (for administrators). This allows you to have a centralized point from which to manage all the devices on the network.
 - **Time Synchronization (NTP):** To perform reliable auditing and cross-device log correlation (crucial for SIEMs), all devices must synchronize their clocks. The Network Time Protocol version 3 (NTPv3) is preferred as it includes authentication and integrity verification.
-- **Syslog Centralization:** Log messages should be securely forwarded to a centralized syslog server. Syslog uses 8 severity levels (from _0 Emergency_ to _7 Debugging_). Administrators must carefully configure these levels—relying heavily on lower severity levels like debugging can quickly exhaust storage capacity.
+- **Syslog Centralization:** Log messages should be securely forwarded to a centralized syslog server. Syslog uses 8 severity levels (from _0 Emergency_ to _7 Debugging_). Administrators must carefully configure these levels, relying heavily on lower severity levels like debugging can quickly exhaust storage capacity.
 
 ## **3. Control Plane Protection**
 
