@@ -52,7 +52,8 @@ Data plane protection ensures packets flow according to strict governance polici
 - **Port Security & Snooping:** Limit the number of MAC addresses allowed per physical port (preventing CAM overflow attacks). Enable DHCP Snooping to ensure responses only come from trusted DHCP servers.
 - **IP Source Guard:** Block traffic with abnormal IP-to-MAC associations.
 
-**Layer 3 & 4 Protection (Router/Firewall Configurations):** Network traffic is restricted using Access Control Lists (ACLs)—either Standard (IP only) or Extended (IP + Layer 4 headers). As covered in your earlier firewall lectures, ACLs must be written per-interface to be effective.
+**Layer 3 & 4 Protection (Router/Firewall Configurations):**
+Network traffic is restricted using Access Control Lists (ACLs), either Standard (IP only) or Extended (IP + Layer 4 headers). As covered in your earlier firewall lectures, ACLs must be written per-interface to be effective.
 
 - **Anti-Spoofing Rules:** The external/WAN interface must have strict ingress rules blocking any incoming traffic that fraudulently claims to have a source IP address belonging to the internal network.
 - **Block Network Mapping:** Utilize ACLs to filter out external UDP or ICMP probes attempting to discover open ports.
