@@ -4,8 +4,14 @@ Network hardening is the process of reducing a system's vulnerability surface by
 
 To effectively protect a network, administrators must secure devices across their three functional planes:
 
-- **Management Plane:** How administrators monitor, configure, and access the device.
-- **Control Plane:** The protocols and mechanisms the devices use to perform their tasks (e.g., routing protocols).
+![](../../Pasted%20image%2020260702153736.png)
+
+- **Management Plane:** 
+	- How administrators monitor, configure, and access the device.
+	- Breaches caused by overly simple passwords or insecure protocol, resulting in unauthorized access or loss of access to the device
+- **Control Plane:**
+	- The protocols and mechanisms the devices use to perform their tasks (e.g., routing protocols).
+	- Violations caused by unauthorized data exchange with the device resulting in loss of performance or DoS.
 - **Data Plane:** The actual traffic forwarded by the network devices.
 
 Anomalies in one plane easily reflect into the others, making comprehensive protection across all three mandatory.
