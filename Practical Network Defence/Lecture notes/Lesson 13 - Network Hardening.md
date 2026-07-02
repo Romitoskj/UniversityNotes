@@ -39,7 +39,7 @@ The control plane is vulnerable to Denial of Service (DoS) attacks and the injec
 - **Control Plane Policing/Protection:** Standard packet forwarding is handled in the device's cache and has near-zero CPU impact. However, packets directed _at_ the router itself (e.g., routing table updates, ICMP, DHCP, management traffic) require heavy CPU processing. Administrators must set specific thresholds (e.g., limiting packets per second for certain protocols) to prevent the CPU from being overwhelmed by flooding.
 - **Filtering Dangerous ICMP:** While ICMP is useful, it can be weaponized. To protect the CPU and network topology, devices should filter out:
     - **ICMP Redirects:** Attackers use these to suggest alternate gateways, facilitating Man-in-the-Middle (MitM) attacks.
-    - **ICMP Unreachable:** Attackers trigger these messages to map out the internal structure of a network.
+    - **ICMP Unreachable:** Attackers trigger these messages to map out the internal structure of a network (by addresses that do not respond unreachable).
 - **Authenticated Routing Protocols:** To prevent malicious routers from injecting fake routes and hijacking traffic, routing protocols must require cryptographic authentication.
 
 ## **4. Data Plane Protection**
