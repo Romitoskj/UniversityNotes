@@ -23,12 +23,12 @@ Anomalies in one plane easily reflect into the others, making comprehensive prot
 Protecting the management plane ensures that attackers cannot gain unauthorized control of network appliances.
 
 - **Secure Remote Access:** Cleartext protocols like Telnet and HTTP expose credentials to interception. Administrators must rely strictly on encrypted tunnels like SSH (preferably SSHv2) and HTTPS.
-- **Password Policies & Lockouts:** Devices should enforce strong passphrases (combining uppercase, lowercase, numbers, and symbols) to mathematically defeat brute-force attacks. Passwords should be stored securely (encrypted), and systems should temporarily lock accounts after multiple failed attempts.
+- **Password Policies & Lockouts:** Devices should enforce strong passphrases (combining uppercase, lowercase, numbers, and symbols) to mathematically defeat brute-force attacks. Passwords should be stored securely (encrypted), and systems should temporarily lock accounts after multiple failed attempts. They also should change frequently.
 - **The AAA Framework:**
     - **Authentication:** Verifying the user's identity.
-    - **Authorization:** Restricting access to authorized components, commonly using Role-Based Access Control (RBAC).
+    - **Authorization:** Restricting access to authorized components, commonly using Role-Based Access Control (RBAC) which associate roles to users each one with a set of permission on system objects.
     - **Accounting/Auditing:** Keeping an unalterable log of user actions.
-- **Centralized Management:** Instead of managing local databases on every device, organizations should use centralized Access Control Servers (ACS) running protocols like RADIUS (for end-users) or TACACS+ (for administrators).
+- **Centralized Management:** Instead of managing local databases on every device, organizations should use centralized Access Control Servers (ACS) running protocols like RADIUS (for end-users) or TACACS+ (for administrators). This allows you to have a centralized point from which to manage all the devices on the network.
 - **Time Synchronization (NTP):** To perform reliable auditing and cross-device log correlation (crucial for SIEMs), all devices must synchronize their clocks. The Network Time Protocol version 3 (NTPv3) is preferred as it includes authentication and integrity verification.
 - **Syslog Centralization:** Log messages should be securely forwarded to a centralized syslog server. Syslog uses 8 severity levels (from _0 Emergency_ to _7 Debugging_). Administrators must carefully configure these levels—relying heavily on lower severity levels like debugging can quickly exhaust storage capacity.
 
