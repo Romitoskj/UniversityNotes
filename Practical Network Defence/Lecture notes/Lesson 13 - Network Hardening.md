@@ -34,7 +34,7 @@ Protecting the management plane ensures that attackers cannot gain unauthorized 
 
 ## **3. Control Plane Protection**
 
-The control plane is vulnerable to Denial of Service (DoS) attacks and the injection of fraudulent routing data.
+The control plane is vulnerable to Denial of Service (DoS) attacks and the injection of fraudulent routing data to change the way traffic moves through the network.
 
 - **Control Plane Policing/Protection:** Standard packet forwarding is handled in the device's cache and has near-zero CPU impact. However, packets directed _at_ the router itself (e.g., routing table updates, ICMP, DHCP, management traffic) require heavy CPU processing. Administrators must set specific thresholds (e.g., limiting packets per second for certain protocols) to prevent the CPU from being overwhelmed by flooding.
 - **Filtering Dangerous ICMP:** While ICMP is useful, it can be weaponized. To protect the CPU and network topology, devices should filter out:
