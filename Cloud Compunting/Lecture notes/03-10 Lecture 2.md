@@ -16,12 +16,15 @@ An architectural style serves as a blueprint or pattern for organizing a system.
 
 - **Call and Return:** Components call sub-programs or lower layers, which eventually return results (e.g., the TCP/IP stack or standard C programming libraries).
 
-- **Pipe and Filter (Data Flow):** A chain of processing stages where the output of one becomes the input of the next. A classic example is the **MapReduce** paradigm (e.g., word count applications).![](Images/Pasted%20image%2020260313174122.png)
+- **Pipe and Filter (Data Flow):** A chain of processing stages where the output of one becomes the input of the next. A classic example is the **MapReduce** paradigm (e.g., word count applications).
+  ![](Images/Pasted%20image%2020260313174122.png)
 
 - **Client/Server:** Features presentation, application logic, and data storage tiers.
     - _Thin-client:_ Client handles only presentation; server does logic and storage.
     - _Fat-client:_ Client handles presentation and logic; server does storage.
-    - _Multi-tiered (N-tier):_ Distributes tiers across multiple servers to isolate performance bottlenecks and allow independent scaling.![](Images/Pasted%20image%2020260313174247.png)
+    - _Multi-tiered (N-tier):_ Distributes tiers across multiple servers to isolate performance bottlenecks and allow independent scaling.
+      
+      ![](Images/Pasted%20image%2020260313174247.png)
 
 - **Peer-to-Peer (P2P):** A symmetric, highly decentralized architecture where all nodes (peers) act as both clients and servers. This scales very well and is commonly used for distributed storage (e.g., Cassandra, Amazon Dynamo).
 
