@@ -6,13 +6,13 @@
 - **The Difference:** While scalability is the ability of a system to handle increasing workloads by adding resources, it does not consider how well resource demands are matched by provisioned resources at any specific point in time. Scalability is a prerequisite for elasticity, but it lacks a temporal dimension.
 - **Temporal Aspects:** Elasticity distinguishes itself by introducing temporal aspects, specifically determining "how fast, how often, and at what granularity" scaling actions occur. A scalable system is not inherently elastic if it requires manual intervention or takes hours to adapt, failing to match demand continuously. Some industry definitions, like the NIST definition of "Rapid Elasticity," have been critiqued for blurring these lines by stating scaling can be "in some cases automatically" and portraying an idealistic scenario of unlimited resources.
 
-### **2. The "Matching" Criterion and Asymmetry**
+## **2. The "Matching" Criterion and Asymmetry**
 
 - **The Matching Function:** A system-specific matching function $m(w)=r$ maps a workload intensity ($w$) to the minimal amount of resources ($r$) needed to satisfy performance requirements.
 - **Asymmetry of Scaling:** This function must be derived independently for scaling up and scaling down because the processes are asymmetric. It cannot be assumed that the optimal resource allocation level when transitioning from an underprovisioned state (scaling upwards) will be identical to transitioning from an overprovisioned state (scaling downwards).
 - **System Stability:** After a workload change, systems require a "stable state" to adapt. The technical reaction time and resource overhead for adding a Virtual Machine (VM) often differs significantly from deprovisioning one.
 
-### **3. Metrics of Speed vs. Precision**
+## **3. Metrics of Speed vs. Precision**
 
 Elasticity is evaluated using two core metrics:
 
@@ -22,19 +22,19 @@ Elasticity is evaluated using two core metrics:
     - _For the Provider:_ If scaling is highly rapid but lacks precision (overshooting), the system will overprovision, wasting resources and leading to poor efficiency.
     - _For the User:_ If scaling is rapid but undershoots the target (low precision), the system enters an "underprovisioned" state, leading to performance variability and a failure to meet performance requirements.
 
-### **4. Elasticity vs. Efficiency in Benchmarking**
+## **4. Elasticity vs. Efficiency in Benchmarking**
 
 - **The Paradox:** Efficiency expresses the amount of resources consumed to process a given amount of work. If two systems—one highly efficient and one inefficient—are tested with an **identical workload**, the more efficient system will consume fewer resources, meaning its adaptation mechanisms are not stressed to the same extent. This makes the highly efficient system appear artificially more elastic.
 - **Fair Comparison:** To accurately compare the elasticity of different systems, a benchmark must induce **identical demand curves**, not just identical workloads. This requires adjusting the workload (e.g., doubling it for the more efficient system) so that both systems' adaptation mechanisms are exercised at similar intensities.
 	
 	![](Images/Pasted%20image%2020260527172807.png)
 
-### **5. The Impact of Discrete Scaling Units**
+## **5. The Impact of Discrete Scaling Units**
 
 - **Discrete vs. Continuous:** In reality, resources (such as CPU cores, VMs, or physical nodes) are provisioned in "discrete units". However, real-world user demand usually follows a continuous curve.
 - **Optimal Elasticity is Hypothetical:** Because supply is stepped and demand is continuous, "optimal elasticity" (where resources exactly match demand at all times) is purely hypothetical. There will always be a deviation or precision error, meaning systems will generally provide the minimal amount of resources needed, resulting in slight overprovisioning.
 
-### **6. Benchmarking Real-Life Scenarios**
+## **6. Benchmarking Real-Life Scenarios**
 
 Different types of workload patterns stress different elasticity metrics:
 
