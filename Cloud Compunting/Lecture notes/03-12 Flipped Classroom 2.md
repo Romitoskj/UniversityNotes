@@ -7,7 +7,7 @@
 
 The primary motivation behind autonomic computing is the looming software complexity crisis: modern IT systems are becoming too massive and interconnected for human administrators to manually install, configure, and maintain. The solution is computing systems that manage themselves according to high-level goals set by administrators.
 
-### Self-Management in Practice (Self-CHOP):
+### The Four Self-Properties (Self-CHOP):
 
 - **Self-configuration:** Automated configuration of components following high-level policies (e.g., seamlessly integrating new resources).
 - **Self-healing:** Detecting, diagnosing, and repairing localized software and hardware problems. _Example: An Autonomic Manager monitoring health states and automatically spinning up new application instances when the number of healthy instances drops below a threshold._
