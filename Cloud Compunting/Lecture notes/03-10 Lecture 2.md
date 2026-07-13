@@ -43,11 +43,12 @@ SOA is an architectural style based on "service orientation," where applications
 ### SOA Roles:
 - **Service Provider:** Maintains and publishes the service.
 - **Service Registry:** A central directory storing service metadata, contracts, and binding information.
-- **Service Consumer:** Queries the registry to discover services and develop the client componente to bind and use the service.
+- **Service Consumer:** Queries the registry to discover services and develop the client component to bind and use the service.
 
 ### Coordination in SOA:
 - **Orchestration:** A centralized approach where a single executable business process (the orchestrator) invokes and combines services sequentially (e.g., a travel planner booking flights, then hotels, then cars).
-- **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).![](Images/Pasted%20image%2020260313175617.png)
+- **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).
+  ![](Images/Pasted%20image%2020260313175617.png)
 
 ## 4. Microservices Architecture
 
@@ -57,9 +58,15 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
 - **Highly maintainable and testable:** Because the codebases are small.
 - **Loosely coupled and independently deployable:** Managed by small, autonomous teams with their own continuous integration (CI) pipelines and source code repositories.
 - **The Scale Cube:** Microservices enable scaling along three axes.
-    - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).![](Images/Pasted%20image%2020260313235658.png)
-    - _Z-axis:_ Data partitioning (sharding data based on user ID).![](Images/Pasted%20image%2020260313235720.png)
-    - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).![](Images/Pasted%20image%2020260313235740.png)
+    - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).
+      
+      ![](Images/Pasted%20image%2020260313235658.png)
+    - _Z-axis:_ Data partitioning (sharding data based on user ID).
+      
+      ![](Images/Pasted%20image%2020260313235720.png)
+    - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).
+      
+      ![](Images/Pasted%20image%2020260313235740.png)
 ### Monolithic Architecture vs. Microservices:
 - **Monolithic Architecture:**
     - **Initial Simplicity:** They are initially simple to develop, and straightforward to test and deploy because all functionalities are bundled into a single unified codebase.
