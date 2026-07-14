@@ -94,7 +94,7 @@ In K8s, scheduling refers to making sure that Pods are matched to Nodes so that 
 
 1. **Filtering:** The scheduler finds all "feasible nodes" that satisfy the Pod's resource requirements. To save time in massive clusters, the scheduler often samples a subset of nodes rather than checking every single machine.
 2. **Scoring:** The scheduler runs a set of scoring functions (configured via Scheduling Profiles) to rank the feasible nodes. For instance, it might select the node with the lowest CPU load, or alternatively, pack workloads tightly onto nodes with the highest number of running pods to conserve resources.
-3. **Binding:** Pick a node with the highest score tu run the Pod and notifies the API server about the decision
+3. **Binding:** Pick a node with the highest score to run the Pod and notifies the API server about the decision.
 
 ### Affinity and Anti-Affinity Rules:
 
