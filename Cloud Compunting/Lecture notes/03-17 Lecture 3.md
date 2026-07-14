@@ -66,7 +66,7 @@ Docker is a Client/Server application designed to create and manage containers.
 
 > [!info] Layers Concept
 > ![](Images/Pasted%20image%2020260320162036.png)
->
+
 ## 4. Docker Storage Options
 
 By default, data created inside a container is stored in its ephemeral read/write layer. When the container stops, this data is lost. To achieve data persistence, Docker provides three options:
@@ -81,7 +81,7 @@ By default, data created inside a container is stored in its ephemeral read/writ
     - Provides extremely high performance but data is completely lost when the container stops.
     - Available only on Linux hosts and cannot be shared among different containers. Useful for caching or securely handling non-persistent sensitive data.
 
-## 4. Docker Network Drivers
+## 5. Docker Network Drivers
 
 Docker provides flexible networking to connect containers to each other or to non-Docker workloads:
 
