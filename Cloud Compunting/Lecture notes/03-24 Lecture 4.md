@@ -64,7 +64,7 @@ The guest OS is completely unaware that it is being virtualized.
 - **Binary Translation** is a software-based technique used in to overcome the limitations of systems where sensitive instructions do not naturally trap to the hypervisor.
 - Instead of relying entirely on hardware alerts, the VMM proactively scans the guest's instruction stream. 
 	- Noncritical instructions are allowed to run directly on the hardware
-	- VMM identifies control- and behavior-sensitive instructions and rewrites their binary code prior to execution. This is done one "basic block" (a short, straight-line sequence of instructions ending in a branch) at a time, replacing the sensitive instructions with calls to safe hypervisor procedures. While this process is computationally costly, especially for I/O operations, hypervisors mitigate the performance hit by caching the translated blocks for future use.
+	- VMM identifies control- and behavior-sensitive instructions and rewrites their binary code prior to execution. This is done one "basic block" (a short, straight-line sequence of instructions ending with a branch) at a time, replacing the sensitive instructions with calls to safe hypervisor procedures. While this process is computationally costly, especially for I/O operations, hypervisors mitigate the performance hit by caching the translated blocks for future use.
 	
 	![470](Images/Pasted%20image%2020260325235533.png)
 
