@@ -7,7 +7,10 @@ Orchestration refers to automating a series of individual tasks to work together
 While service orchestration coordinates application functionalities, container orchestration coordinates container lifecycle.
 
 - **Purpose:** It allows providers to select, deploy, monitor, and dynamically control multi-container packaged applications.
-- **Lifecycle Phases:** Orchestration is specifically concerned with automating the deployment, execution (run time), and maintenance in run time phases of a container's lifecycle.![](Images/Pasted%20image%2020260403212051.png)
+- **Lifecycle Phases:** Orchestration is specifically concerned with automating the deployment, execution (run time), and maintenance in run time phases of a container's lifecycle.
+  
+  ![](Images/Pasted%20image%2020260403212051.png)
+  
 - **Core Features:** An orchestrator typically handles resource limit control, complex scheduling policies, load balancing, health checks, fault tolerance, and auto-scaling.
 
 ## 2. Kubernetes (K8s) Overview and Features
