@@ -17,6 +17,7 @@ Containerization is an Operating System (OS) level virtualization technique that
 Containers rely on three main Linux kernel features to function, evolving from the older `chroot` mechanism (which isolated a process by changing its root directory).
 
 ### A. Namespaces ("What you can see")
+
 Namespaces wrap a global system resource in an abstraction, isolating processes so they believe they have their own dedicated instance of that resource.
 
 - Changes made within a namespace are only visible to the processes that are members of that namespace, isolating them from the rest of the system.
@@ -24,12 +25,14 @@ Namespaces wrap a global system resource in an abstraction, isolating processes 
 - They are managed using system calls like `clone()` (to create a process in a new or existing namespace), `setns()`, and `unshare()`.
 
 ### B. Cgroups (Control Groups) ("How much you can use")
+
 While namespaces control what a process sees, **Cgroups** control how much of the system's resources a process can consume, preventing a single container from monopolizing the host.
 
 - They allow processes to be organized hierarchically and provide resource limiting, prioritization, accounting, and controlling.
 - Cgroups can limit CPU time, memory usage, I/O bandwidth, and PIDs. They are managed through a pseudo-filesystem called `cgroupfs`.
 
 ### C. Union File System (UnionFS)
+
 UnionFS allows administrators to logically merge multiple separate physical directories (called branches) into a single unified view.
 
 - **Precedence:** If two files have the same name in different branches, the file in the branch with higher precedence overrides the lower one. If two directories have the same name the contents and attributes are merged
