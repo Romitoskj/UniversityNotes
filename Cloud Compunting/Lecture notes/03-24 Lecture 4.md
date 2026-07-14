@@ -31,7 +31,7 @@ Instructions are divided into distinct categories:
 
 The VMM (or hypervisor) sits above the hardware to mediate between the user mode and the supervisor (kernel) mode, typically running directly in supervisor mode (Ring 0).
 
-According to Popek and Goldberg (1974), a VMM must satisfy three fundamental properties:
+A VMM must satisfy three fundamental properties:
 
 1. **Equivalence:** A guest OS must behave exactly as it would if it were executing directly on the physical host.
 2. **Resource Control:** The VMM must be in complete control of all virtualized system resources.
