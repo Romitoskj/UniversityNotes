@@ -81,7 +81,7 @@ The guest OS is completely unaware that it is being virtualized.
 
 **Hardware-assisted virtualization** is a technology introduced by hardware manufacturers, such as Intel (with VT-x) and AMD (with AMD-V), to natively support and improve the performance of virtualized environments directly at the processor level.
 
-To understand its value, it is essential to look at the historical challenge it solved. Early x86 architectures were incredibly difficult to virtualize because 17 sensitive instructions could be executed in user mode without generating a hardware trap to alert the hypervisor. This broke the isolation between guest operating systems and forced hypervisors to rely on heavy, software-based "binary translation"—a process of constantly scanning and rewriting the guest's code on the fly to intercept these uncooperative instructions.
+To understand its value, it is essential to look at the historical challenge it solved. Early x86 architectures were incredibly difficult to virtualize because 17 sensitive instructions could be executed in user mode without generating a hardware trap to alert the hypervisor. This broke the isolation between guest operating systems and forced hypervisors to rely on heavy, software-based binary translation.
 
 Hardware-assisted virtualization solved this by completely redesigning the processor's instruction set architecture. Its key mechanisms and benefits include:
 
