@@ -12,11 +12,11 @@ A transaction is a multi-step operation that should complete without interruptio
 
 - **All-or-Nothing Atomicity:** The transaction is executed completely, or aborted entirely. It requires two phases: a pre-commit phase (to gather necessary resources) and a post-commit (irreversible actions), the transition is called commit point. If the transaction fails before committing, it is aborted. Systems maintain a log of committed transactions to recover from failures and guarantee consistency.
 	
-	![](Images/Pasted%20image%2020260511165724.png)
+	![](Attachments/Pasted%20image%2020260511165724.png)
 	
 - **Before-or-After Atomicity:** A weaker form of atomicity where the result of concurrent read and write operations is identical to the result if they were executed sequentially.
 	
-	![558](Images/Pasted%20image%2020260511165840.png)
+	![558](Attachments/Pasted%20image%2020260511165840.png)
 
 ## 2. Storage Models
 
@@ -24,7 +24,7 @@ To implement these atomicity properties, different storage models are used:
 
 - **Cell Storage Model:** Simulates the physical structure of a disk (sectors/blocks) by using cells of the same size. This model naturally guarantees **read/write coherence** and **before-or-after atomicity**. However, it **does not guarantee all-or-nothing atomicity** because there is no native way to reserve a cell and undo an action if a failure occurs.
 - **Journal Storage Model:** Combines a cell storage area with a "manager" and a version history/log. Before altering a cell, the intended change is written to the log that maintains the history of all variables in the cell store. This model **guarantees all-or-nothing atomicity** because the log allows the system to undo partial transactions and recover from failures.
-	![](Images/Pasted%20image%2020260511171242.png)
+	![](Attachments/Pasted%20image%2020260511171242.png)
 
 ## 3. Eventual Consistency and the Paxos Consensus Protocol
 

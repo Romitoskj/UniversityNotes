@@ -9,7 +9,7 @@ While service orchestration coordinates application functionalities, container o
 - **Purpose:** It allows providers to select, deploy, monitor, and dynamically control multi-container packaged applications.
 - **Lifecycle Phases:** Orchestration is specifically concerned with automating the deployment, execution (run time), and maintenance in run time phases of a container's lifecycle.
   
-  ![](Images/Pasted%20image%2020260403212051.png)
+  ![](Attachments/Pasted%20image%2020260403212051.png)
   
 - **Core Features:** An orchestrator typically handles resource limit control, complex scheduling policies, load balancing, health checks, fault tolerance, and auto-scaling.
 
@@ -60,7 +60,7 @@ The physical or virtual machines that execute the Pods managed by the control pl
 
 A Kubernetes architecture is divided into two main sections: the **Control Plane** (the managing entity) and a **Cluster of Nodes** (where the workloads are actually executed).
 
-![697](Images/Pasted%20image%2020260403212851.png)
+![697](Attachments/Pasted%20image%2020260403212851.png)
 ### A. Control Plane Components
 
 - **kube-apiserver:** The front-end entry point that allows the control plane to communicate with the cluster of nodes. It receives state information and pushes actions, scaling horizontally to handle requests.

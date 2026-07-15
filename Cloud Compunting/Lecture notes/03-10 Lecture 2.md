@@ -17,14 +17,14 @@ An architectural style serves as a blueprint or pattern for organizing a system.
 - **Call and Return:** Components call sub-programs or lower layers, which eventually return results (e.g., the TCP/IP stack or standard C programming libraries).
 
 - **Pipe and Filter (Data Flow):** A chain of processing stages where the output of one becomes the input of the next. A classic example is the **MapReduce** paradigm (e.g., word count applications).
-  ![](Images/Pasted%20image%2020260313174122.png)
+  ![](Attachments/Pasted%20image%2020260313174122.png)
 
 - **Client/Server:** Features presentation, application logic, and data storage tiers.
     - _Thin-client:_ Client handles only presentation; server does logic and storage.
     - _Fat-client:_ Client handles presentation and logic; server does storage.
     - _Multi-tiered (N-tier):_ Distributes tiers across multiple servers to isolate performance bottlenecks and allow independent scaling.
       
-      ![](Images/Pasted%20image%2020260313174247.png)
+      ![](Attachments/Pasted%20image%2020260313174247.png)
 
 - **Peer-to-Peer (P2P):** A symmetric, highly decentralized architecture where all nodes (peers) act as both clients and servers. This scales very well and is commonly used for distributed storage (e.g., Cassandra, Amazon Dynamo).
 
@@ -48,7 +48,7 @@ SOA is an architectural style based on "service orientation," where applications
 ### Coordination in SOA:
 - **Orchestration:** A centralized approach where a single executable business process (the orchestrator) invokes and combines services sequentially (e.g., a travel planner booking flights, then hotels, then cars).
 - **Choreography:** A decentralized approach where independent services exchange messages according to rules without a central controller (e.g., an e-commerce site communicating with a credit card authentication service).
-  ![](Images/Pasted%20image%2020260313175617.png)
+  ![](Attachments/Pasted%20image%2020260313175617.png)
 
 ## 4. Microservices Architecture
 
@@ -60,13 +60,13 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
 - **The Scale Cube:** Microservices enable scaling along three axes.
     - _X-axis:_ Horizontal duplication (cloning instances behind a load balancer).
       
-      ![](Images/Pasted%20image%2020260313235658.png)
+      ![](Attachments/Pasted%20image%2020260313235658.png)
     - _Z-axis:_ Data partitioning (sharding data based on user ID).
       
-      ![](Images/Pasted%20image%2020260313235720.png)
+      ![](Attachments/Pasted%20image%2020260313235720.png)
     - _Y-axis:_ Functional decomposition (scaling specific hotspots, like replicating only the "Order Service" during high traffic rather than the whole application).
       
-      ![](Images/Pasted%20image%2020260313235740.png)
+      ![](Attachments/Pasted%20image%2020260313235740.png)
 ### Monolithic Architecture vs. Microservices:
 - **Monolithic Architecture:**
     - **Initial Simplicity:** They are initially simple to develop, and straightforward to test and deploy because all functionalities are bundled into a single unified codebase.
@@ -91,4 +91,4 @@ Microservices emerged as an evolution of SOA to solve the problem of SOA service
 | **Team Coordination**              | Requires high coordination across varied teams (business, developers, infrastructure).                         | Requires minimal coordination; small, autonomous teams own everything for their service.                                        |
 | **Heterogeneous Interoperability** | Handles high heterogeneity by translating protocols and languages via middleware.                              | Prefers standardized, simple remote-access protocols like REST and JSON.                                                        |
 | **Application Scope**              | Best for large, complex, enterprise-wide legacy systems needing broad integration.                             | Ideal for well-partitioned, highly scalable web-based systems.                                                                  |
-![](Images/Pasted%20image%2020260314003155.png)
+![](Attachments/Pasted%20image%2020260314003155.png)

@@ -67,6 +67,7 @@ Any auto-scaling system must navigate three primary risks:
 
 - ADI is a metric that evaluates a strategy by calculating the total sum of deviations between actual resource usage and the user's desired target range.
 - **Advantage:** It provides a unified score that equally penalizes two opposing operational issues: **deteriorated QoS** (utilization goes above the maximum limit) and **wasted IT costs** (utilization drops below the minimum limit).
+  ![](Attachments/Pasted%20image%2020260715173739.png)
 
 ### Triggering Strategies:
 

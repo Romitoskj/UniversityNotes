@@ -50,17 +50,17 @@ User-oriented metrics (like end-to-end latency) cannot be measured internally an
 **5. Design Performance Evaluation Experiments** Each experiment must explicitly define the **workload type** (CPU, disk, memory, or network intensive) and its **intensity**, the **duration** and the **number of time** a single experiment is executed (cannot rely on a single outcome).
 
 - **Workload Shape:** For continuous scaling tests, the load should transition smoothly through four phases: a **Warm-up (WU)** period to activate components, a **Ramp-up (RU)** period to increase load gradually, a **Steady (S)** period at maximum load, and a **Ramp-down (RD)** period to observe scale-in.
-	![](Images/Pasted%20image%2020260511160927.png)
+	![](Attachments/Pasted%20image%2020260511160927.png)
 - **Repetition:** You cannot rely on a single experimental outcome due to network variances. In theory, experiments should be repeated 20 times; in practice, running them 3 to 5 times is acceptable to calculate an accurate average for the project.
 - **Common Mistake:** When testing scale-out policies, do not use simple CPU stress tools that only run on the first instance. When a new instance scales out, the tool must automatically run on the new instance as well, or the average CPU load will drop artificially.
 
 **6. Setup the Experimental Environment** To avoid having your cloud provider classify your intensive testing as a malicious attack and ban your account, **run your workload generation tools from virtual machines inside the AWS perimeter**. While this prevents you from measuring real-world internet latency, it ensures the test executes without network blocking. Be careful not to generate load that exceeds platform maximums (e.g., AWS Lambda's default concurrency limits). Configure CloudWatch to collect all the planned metrics and prepare the configuration file for the workload generation tool.
 
-![](Images/Pasted%20image%2020260511161528.png)
+![](Attachments/Pasted%20image%2020260511161528.png)
 
 **7. Run and Analyze** Once tests complete, **download the raw datapoints** for your metrics, calculate the averages across all runs, and plot them manually to show the correlation between workload intensity and system response. **Do not rely on screenshots of the AWS CloudWatch dashboard.** Screenshots are poor practice because they only reflect a single run, the graphs are hard to read, and AWS automatically deletes the data after a few months.
 
-![472](Images/Pasted%20image%2020260511162102.png)
+![472](Attachments/Pasted%20image%2020260511162102.png)
 
 **Setting Thresholds and Testing Availability**
 

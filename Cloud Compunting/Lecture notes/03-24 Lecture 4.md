@@ -8,7 +8,7 @@ Virtualization environments provide three main benefits:
 
 - **Managed Execution:** Virtualization allows for flexible resource management, such as sharing a single physical machine among multiple virtual ones completely separating them (isolation), or aggregating distributed resources to look like a single centralized system (e.g., Cassandra distributed data store). It also allows for the emulation of older processors so legacy software can continue to run on modern hardware.
 	
-	![661](Images/Pasted%20image%2020260325221953.png)
+	![661](Attachments/Pasted%20image%2020260325221953.png)
 
 - **Portability:** The ability to easily transfer and use data/applications across different computing platforms. Just as a Java application runs anywhere with a JVM, a Virtual Machine (VM) can be easily migrated because it boots from a disk image file (e.g., .vmdk, .vdi, .ami) that can be moved or converted to different formats.
 
@@ -16,7 +16,7 @@ Virtualization environments provide three main benefits:
 
 To understand how virtualization techniques work, it is essential to understand the underlying computer architecture, specifically the Instruction Set Architecture (ISA).
 
-![](Images/Pasted%20image%2020260325223359.png)
+![](Attachments/Pasted%20image%2020260325223359.png)
 
 Instructions are divided into distinct categories:
 
@@ -25,7 +25,7 @@ Instructions are divided into distinct categories:
     - _Behavior-sensitive instructions:_ Operate on I/O devices or memory.
     - _Control-sensitive instructions:_ Alter the state of the CPU registers.
 
-![](Images/Pasted%20image%2020260326003506.png)
+![](Attachments/Pasted%20image%2020260326003506.png)
 
 ## 3. The Hypervisor / Virtual Machine Manager (VMM)
 
@@ -42,7 +42,7 @@ A VMM must satisfy three fundamental properties:
 - **Type 1 (Native/Bare Metal):** Runs directly on the host's hardware. They can be built as a _Microkernel_ (e.g., Xen, Microsoft Hyper-V), which handles memory and CPU but leaves device drivers to the host OS, or a _Monolithic_ architecture (e.g., VMware ESX), which includes all drivers internally.
 - **Type 2 (Hosted):** Runs as an application on top of a conventional host operating system (e.g., VMware Workstation, VirtualBox).
 
-![697](Images/Pasted%20image%2020260325224759.png)
+![697](Attachments/Pasted%20image%2020260325224759.png)
 
 ## 4. Virtualization Techniques and Challenges
 
@@ -66,7 +66,7 @@ The guest OS is completely unaware that it is being virtualized.
 	- Noncritical instructions are allowed to run directly on the hardware
 	- VMM identifies control- and behavior-sensitive instructions and rewrites their binary code prior to execution. This is done one "basic block" (a short, straight-line sequence of instructions ending with a branch) at a time, replacing the sensitive instructions with calls to safe hypervisor procedures. While this process is computationally costly, especially for I/O operations, hypervisors mitigate the performance hit by caching the translated blocks for future use.
 	
-	![470](Images/Pasted%20image%2020260325235533.png)
+	![470](Attachments/Pasted%20image%2020260325235533.png)
 
 ### B. Paravirtualization
 
@@ -75,7 +75,7 @@ The guest OS is completely unaware that it is being virtualized.
 - This approach avoids the massive performance overhead caused by continuous hardware traps.
 - Paravirtualization is much easier to implement on systems utilizing a Microkernel architecture, as fewer OS modules need to be modified. Examples include Xen and KVM.
 
-![](Images/Pasted%20image%2020260325234345.png)
+![](Attachments/Pasted%20image%2020260325234345.png)
 
 ### C. Hardware-assisted Virtualization
 

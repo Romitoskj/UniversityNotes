@@ -27,7 +27,7 @@ Elasticity is evaluated using two core metrics:
 - **The Paradox:** Efficiency expresses the amount of resources consumed to process a given amount of work. If two systems—one highly efficient and one inefficient—are tested with an **identical workload**, the more efficient system will consume fewer resources, meaning its adaptation mechanisms are not stressed to the same extent. This makes the highly efficient system appear artificially more elastic.
 - **Fair Comparison:** To accurately compare the elasticity of different systems, a benchmark must induce **identical demand curves**, not just identical workloads. This requires adjusting the workload (e.g., doubling it for the more efficient system) so that both systems' adaptation mechanisms are exercised at similar intensities.
 	
-	![](Images/Pasted%20image%2020260527172807.png)
+	![](Attachments/Pasted%20image%2020260527172807.png)
 
 ## **5. The Impact of Discrete Scaling Units**
 
