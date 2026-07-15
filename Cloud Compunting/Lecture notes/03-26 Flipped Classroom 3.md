@@ -77,8 +77,13 @@ Any auto-scaling system must navigate three primary risks:
 - **Fixed Step Size Problem:** If the fixed number of machines added/removed is too small, the system suffers from slow response times. If the number is too large, the system overreacts and misses the optimal utilization target.
 - **Adaptive Step Size:** Solves the fixed-step inefficiencies for peaky or bursty workloads by mathematically calculating the exact step size in real-time based on current utilization, instantly resizing the pool to reach a satisfactory state. Note that using multiple threshold rules (e.g., adding 1 vs. 2 VMs) acts as a _pseudo-adaptive_ strategy, though it is not as mathematically fluid.
 
-	TODO: WRITE THE FORMULA
+#### Adaptive Step Size Formulas:
 
+When calculating the required step size for a scale-out operation (e.g., current utilization $u_t$ exceeds the upper bound $U$), the system evaluates two bounds based on the current number of allocated VMs ($m_t$) and the desired lower bound ($L$):
+
+- **Conservative Bound ($C$):** The minimum number of machines to add to drop utilization back to the upper bound $U$.  $$C = m_t \cdot \frac{u_t - U}{U}$$
+- **Aggressive Bound ($A$):** The maximum number of machines to add to drop utilization all the way down to the lower bound $L$.$$A = m_t \cdot \frac{u_t - L}{L}$$
+- **Final Step Size ($s_t$):** The final step size is determined by blending the conservative and aggressive bounds using a specific weighting factor ($\alpha$).$$s_t = \alpha \cdot C + (1 - \alpha) \cdot A$$
 ## 5. Experimental Methods for Cloud Research
 
 - **Simulation vs. Real Platforms:** Cloud simulators (like CloudSim) are vastly superior for testing algorithms because they provide time efficiency (minutes vs. hours), isolated and controlled environments free of external interference, massive cost savings, and highly simplified monitoring setups compared to public clouds.
