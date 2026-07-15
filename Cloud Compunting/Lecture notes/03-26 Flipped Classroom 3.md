@@ -80,11 +80,24 @@ Any auto-scaling system must navigate three primary risks:
 
 #### Adaptive Step Size Formulas:
 
-When calculating the required step size for a scale-out operation (e.g., current utilization $u_t$ exceeds the upper bound $U$), the system evaluates two bounds based on the current number of allocated VMs ($m_t$) and the desired lower bound ($L$):
+When calculating the required step size **for a scale-out operation** (e.g., current utilization $u_t$ exceeds the upper bound $U$), the system evaluates two bounds based on the current number of allocated VMs ($m_t$) and the desired lower bound ($L$):
 
 - **Conservative Bound ($C$):** The minimum number of machines to add to drop utilization back to the upper bound $U$.  $$C = m_t \cdot \frac{u_t - U}{U}$$
 - **Aggressive Bound ($A$):** The maximum number of machines to add to drop utilization all the way down to the lower bound $L$.$$A = m_t \cdot \frac{u_t - L}{L}$$
 - **Final Step Size ($s_t$):** The final step size is determined by blending the conservative and aggressive bounds using a specific weighting factor ($\alpha$).$$s_t = \alpha \cdot C + (1 - \alpha) \cdot A$$
+**For a scale-in operation** (e.g., current utilization $u_t$ drops below the lower bound $L$), the system evaluates two bounds to determine how many VMs to remove based on the current number of allocated VMs ($m_t$) and the upper bound ($U$):
+
+- **Conservative Bound ($C$):** The minimum number of machines to remove to raise utilization back to the lower bound $L$.
+    
+    $$C = m_t \cdot \frac{L - u_t}{L}$$
+    
+- **Aggressive Bound ($A$):** The maximum number of machines to remove to raise utilization all the way up to the upper bound $U$.
+    
+    $$A = m_t \cdot \frac{U - u_t}{U}$$
+    
+- **Final Step Size ($s_t$):** The final number of machines to remove is determined by blending the conservative and aggressive bounds using a specific weighting factor ($\alpha$).
+    
+    $$s_t = \alpha \cdot C + (1 - \alpha) \cdot A$$
 ## 5. Experimental Methods for Cloud Research
 
 - **Simulation vs. Real Platforms:** Cloud simulators (like CloudSim) are vastly superior for testing algorithms because they provide time efficiency (minutes vs. hours), isolated and controlled environments free of external interference, massive cost savings, and highly simplified monitoring setups compared to public clouds.
