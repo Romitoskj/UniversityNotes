@@ -76,28 +76,25 @@ Any auto-scaling system must navigate three primary risks:
 ### Step Size Strategies:
 
 - **Fixed Step Size Problem:** If the fixed number of machines added/removed is too small, the system suffers from slow response times. If the number is too large, the system overreacts and misses the optimal utilization target.
+
 - **Adaptive Step Size:** Solves the fixed-step inefficiencies for peaky or bursty workloads by mathematically calculating the exact step size in real-time based on current utilization, instantly resizing the pool to reach a satisfactory state. Note that using multiple threshold rules (e.g., adding 1 vs. 2 VMs) acts as a _pseudo-adaptive_ strategy, though it is not as mathematically fluid.
 
-#### Adaptive Step Size Formulas:
 
-When calculating the required step size **for a scale-out operation** (e.g., current utilization $u_t$ exceeds the upper bound $U$), the system evaluates two bounds based on the current number of allocated VMs ($m_t$) and the desired lower bound ($L$):
+  The goal of an adaptive step size strategy is to find a resource change ($s$) such that the projected system utilization remains strictly within the lower bound ($L$) and upper bound ($U$) dictates of the SLA:$$L \leq \frac{u_{t}m_{t}}{m_{t} + s} \leq U$$Where $u_t$ is the current utilization, $m_t$ is the current number of allocated instances, and $s$ is the amount of resources to change (*step*). Solving this inequality for $s$ provides the mathematical limits for safe scaling:
 
-- **Conservative Bound ($C$):** The minimum number of machines to add to drop utilization back to the upper bound $U$.  $$C = m_t \cdot \frac{u_t - U}{U}$$
-- **Aggressive Bound ($A$):** The maximum number of machines to add to drop utilization all the way down to the lower bound $L$.$$A = m_t \cdot \frac{u_t - L}{L}$$
-- **Final Step Size ($s_t$):** The final step size is determined by blending the conservative and aggressive bounds using a specific weighting factor ($\alpha$).$$s_t = \alpha \cdot C + (1 - \alpha) \cdot A$$
-**For a scale-in operation** (e.g., current utilization $u_t$ drops below the lower bound $L$), the system evaluates two bounds to determine how many VMs to remove based on the current number of allocated VMs ($m_t$) and the upper bound ($U$):
+> [!Info]- Scale-Out Operations (When $u_t > U$)
+> When traffic spikes, the step size $s_t$ (machines to add) is bounded by $C \leq s_t \leq A$:
+> 
+>   - **Conservative Bound ($C$):** The absolute minimum number of machines to add to drop utilization down to the upper bound $U$.$$C = m_t \cdot \frac{u_t - U}{U}$$
+>   - **Aggressive Bound ($A$):** The maximum number of machines to add before dropping utilization below the lower bound $L$.$$A = m_t \cdot \frac{u_t - L}{L}$$
+>   - **Final Step Size ($s_t$):** Determined by blending the bounds with a weighting factor ($\alpha$):$$s_t = \alpha \cdot C + (1 - \alpha) \cdot A$$
 
-- **Conservative Bound ($C$):** The minimum number of machines to remove to raise utilization back to the lower bound $L$.
-    
-    $$C = m_t \cdot \frac{L - u_t}{L}$$
-    
-- **Aggressive Bound ($A$):** The maximum number of machines to remove to raise utilization all the way up to the upper bound $U$.
-    
-    $$A = m_t \cdot \frac{U - u_t}{U}$$
-    
-- **Final Step Size ($s_t$):** The final number of machines to remove is determined by blending the conservative and aggressive bounds using a specific weighting factor ($\alpha$).
-    
-    $$s_t = \alpha \cdot C + (1 - \alpha) \cdot A$$
+> [!Info]- Scale-In Operations (When $u_t < L$)
+>  When traffic drops, the step size $s_t$ (machines to remove) is bounded to prevent accidental under-provisioning:
+>   - **Conservative Bound ($C$):** The minimum number of machines to remove to raise utilization back to the lower bound $L$.$$C = m_t \cdot \frac{L - u_t}{L}$$
+>   - **Aggressive Bound ($A$):** The maximum number of machines to remove before hitting the upper bound $U$.$$A = m_t \cdot \frac{U - u_t}{U}$$
+>   - **Final Step Size ($s_t$):** Combined using a specific weighting factor ($\alpha$):$$s_t = \alpha \cdot C + (1 - \alpha) \cdot A$$
+
 ## 5. Experimental Methods for Cloud Research
 
 - **Simulation vs. Real Platforms:** Cloud simulators (like CloudSim) are vastly superior for testing algorithms because they provide time efficiency (minutes vs. hours), isolated and controlled environments free of external interference, massive cost savings, and highly simplified monitoring setups compared to public clouds.
