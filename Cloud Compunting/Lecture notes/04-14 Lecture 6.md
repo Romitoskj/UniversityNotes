@@ -42,8 +42,10 @@ Unlike traditional relational databases that rigidly enforce ACID properties, No
 
 GFS was designed around the specific workload characteristics of cloud applications: massive files (GBs to TBs), predominantly **append operations** (rather than random writes), sequential reads, and relaxed consistency.
 
-- **Chunk Size:** Files are divided into massive **64 MB chunks**. This large size reduces the metadata the system must manage, decreases the number of network requests needed to locate data, allows persistent client-server connections, and reduces disk fragmentation.
-- **Architecture:** It features a centralized **Master** node that stores all metadata and chunk locations completely in-memory for speed, paired with multiple **Chunkservers** that store the actual data on their local disks. To recover from crashes, the Master relies on an atomic operation log.
+- **Chunk Size:** Files are divided into massive **64 MB chunks** replicated on multiple sites. This large size reduces the metadata the system must manage, increase likelihood that multiple operations will be directed to the same chunk, decreases the number of network requests needed to locate data, allows persistent client-server connections, and reduces disk fragmentation.
+- **Architecture:** It features a centralized **Master** node that stores all metadata (filenames, access control information, replica location and state of chunk servers) and chunk locations completely in-memory for speed, paired with multiple **Chunkservers** that store the actual data on their local disks. To recover from crashes, the Master relies on an atomic operation log.
+  ![](Attachments/Pasted%20image%2020260716172304.png)
+  
 - **Write Protocol:** The Master grants a "lease" to a **primary Chunkserver**. When a client writes, it pushes data to the primary and all secondary Chunkservers, which store the data in a temporary buffer. The client then sends a formal write request to the primary, which applies the mutation and coordinates the secondaries to do the same before acknowledging the client.
 
 ## 5. Hadoop Distributed File System (HDFS)
