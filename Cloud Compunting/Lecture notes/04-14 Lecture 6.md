@@ -36,6 +36,7 @@ Unlike traditional relational databases that rigidly enforce ACID properties, No
 - **Assumptions:** Paxos assumes a system prone to non-Byzantine failures—meaning nodes can crash and restart, and the network can lose or delay messages, but messages are **never corrupted**.
 - **Roles:** Entities in the system act as **Clients** (make requests), **Proposers/Leaders** (coordinate the agreement), **Acceptors** (act as the fault-tolerant memory), and **Learners** (distribute the agreed results).
 - **Process:** A value is chosen if a simple majority (quorum) of Acceptors agree. In **Phase 1 (Prepare)**, the Leader sends a proposal number to Acceptors, who "promise" not to accept requests with a lower number. In **Phase 2 (Accept)**, the Leader asks the Acceptors to officially accept the value, which is then passed to the Learners if the majority complies.
+  ![](Attachments/Pasted%20image%2020260716164803.png)
 
 ## 4. Google File System (GFS)
 
