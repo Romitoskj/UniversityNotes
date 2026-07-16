@@ -74,6 +74,7 @@ For many cloud applications, traditional Relational Database Management Systems 
 
 - **Dropping ACID Properties:** To achieve high availability and scalability, NoSQL databases drop strict ACID (Atomicity, Consistency, Isolation, Durability) guarantees.
 - **Eventual Consistency:** They use a "soft-state" approach where data is partitioned and replicated across multiple servers. Data may be temporarily inconsistent but becomes "eventually consistent" over time.
+- **Partitioning and Replication:** They partition and replicate data among multiple storage servers to increase availability, reduce response time and enhance scalability.
 
 ## **8. Google BigTable**
 
