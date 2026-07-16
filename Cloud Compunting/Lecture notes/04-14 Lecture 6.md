@@ -60,7 +60,7 @@ Similar to GFS, HDFS is a master/slave system designed for big data, though it i
   ![](Attachments/Pasted%20image%2020260716180207.png)
   ![](Attachments/Pasted%20image%2020260716180333.png)
 
-## 6. Object Stores (e.g., Amazon S3)
+## 6. Object Stores (e.g., Amazon Simple Storage Service S3)
 
 Object stores differ fundamentally from file systems like GFS or HDFS. In an object store, **you cannot append to or randomly write inside a file**. You interact with the storage via APIs to retrieve or store the entire object at once. If you need to modify an object, you must download it, alter it in your application, and overwrite the existing file entirely.
 
