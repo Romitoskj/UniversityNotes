@@ -20,10 +20,10 @@ A transaction is a multi-step operation that should complete without interruptio
 
 ## 2. Storage Models
 
-To implement these atomicity properties, different storage models are used:
+To implement these atomicity properties, different storage models that describes the layout of a data structure in a physical storage are used:
 
-- **Cell Storage Model:** Simulates the physical structure of a disk (sectors/blocks) by using cells of the same size. This model naturally guarantees **read/write coherence** and **before-or-after atomicity**. However, it **does not guarantee all-or-nothing atomicity** because there is no native way to reserve a cell and undo an action if a failure occurs.
-- **Journal Storage Model:** Combines a cell storage area with a "manager" and a version history/log. Before altering a cell, the intended change is written to the log that maintains the history of all variables in the cell store. This model **guarantees all-or-nothing atomicity** because the log allows the system to undo partial transactions and recover from failures.
+- **Cell Storage Model:** Simulates the physical structure of a disk (sectors/blocks) by using cells of the same size. This model naturally guarantees **read/write coherence** (result of a read is the same a s the most recent write to the same cell) and **before-or-after atomicity**. However, it **does not guarantee all-or-nothing atomicity** because there is no native way to reserve a cell and undo an action if a failure occurs.
+- **Journal Storage Model:** Combines a cell storage area with a "manager" and a version history/log. Before altering a cell via the manager, the intended change is written to the log that maintains the history of all variables in the cell store. This model **guarantees all-or-nothing atomicity** because the log allows the system to undo partial transactions and recover from failures.
   
   ![493](Attachments/Pasted%20image%2020260511171242.png)
 
