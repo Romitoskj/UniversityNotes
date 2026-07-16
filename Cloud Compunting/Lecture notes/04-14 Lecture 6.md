@@ -56,7 +56,9 @@ Similar to GFS, HDFS is a master/slave system designed for big data, though it i
   ![](Attachments/Pasted%20image%2020260716175833.png)
   
 - **Block Size & Rack Awareness:** Files are split into 64-128 MB blocks with 3 replicas. HDFS implements **rack awareness**, ensuring that replicas are stored across at least two different physical network racks to guarantee availability if a rack fails.
-- **Write Pipeline:** Unlike GFS, an HDFS client **sends data only to the primary DataNode**. The primary then pipelines the data to the second secondary, which passes it to the third in a chain-like fashion.
+- **Write Pipeline:** Unlike GFS, an HDFS client **sends data only to the primary DataNode**. The primary then pipelines the data to the second secondary, which passes it to the third in a chain-like fashion. The write is divided in three stages: Setting up of pipeline, Data Streaming and Replication and Shutdown of Pipeline (Acknowledgment)
+  ![](Attachments/Pasted%20image%2020260716180207.png)
+  ![](Attachments/Pasted%20image%2020260716180333.png)
 
 ## 6. Object Stores (e.g., Amazon S3)
 
