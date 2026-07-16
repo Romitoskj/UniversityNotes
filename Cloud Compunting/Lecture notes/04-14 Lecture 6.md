@@ -53,6 +53,8 @@ GFS was designed around the specific workload characteristics of cloud applicati
 Similar to GFS, HDFS is a master/slave system designed for big data, though it is written in Java and is not fully POSIX compliant.
 
 - **Architecture:** It consists of a **NameNode** (the Master handling namespace, metadata, and logs) and **DataNodes** (the slaves handling read/write ops).
+  ![](Attachments/Pasted%20image%2020260716175833.png)
+  
 - **Block Size & Rack Awareness:** Files are split into 64-128 MB blocks with 3 replicas. HDFS implements **rack awareness**, ensuring that replicas are stored across at least two different physical network racks to guarantee availability if a rack fails.
 - **Write Pipeline:** Unlike GFS, an HDFS client **sends data only to the primary DataNode**. The primary then pipelines the data to the second secondary, which passes it to the third in a chain-like fashion.
 
