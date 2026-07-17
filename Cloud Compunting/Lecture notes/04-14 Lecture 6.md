@@ -80,7 +80,7 @@ For many cloud applications, traditional Relational Database Management Systems 
 
 BigTable is a distributed storage system built to handle structured data across thousands of commodity servers with a highly flexible data model.
 
-- **Data Model:** It is a sparse, distributed, persistent multidimensional sorted map. Data is indexed by three parameters: a **row key**, a **column key**, and a **timestamp**.
+- **Data Model:** It is a sparse, distributed, persistent multidimensional sorted map. Data is uninterpreted array of bytes (string) and is indexed by three parameters: a **row key**, a **column key**, and a **timestamp**.
     - **Rows:** Row keys are arbitrary strings ordered lexicographically. Row ranges are dynamically partitioned into units called **tablets**, which serve as the basis for load balancing.
     - **Columns:** Column keys are grouped into sets called **column families**. Access control and memory accounting are managed at the column family level, and data within a family is of the same type.
     - **Timestamps:** BigTable stores multiple versions of the same cell data, ordered by decreasing timestamps (so the most recent version is read first). Older versions are automatically garbage-collected based on configured rules (e.g., keeping only the last $n$ versions).
