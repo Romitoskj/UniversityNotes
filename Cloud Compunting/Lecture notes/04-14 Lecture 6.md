@@ -96,5 +96,14 @@ Dynamo is a highly available, decentralized key-value store designed to manage t
 - **Prioritizing Availability:** Dynamo explicitly trades strict consistency for high availability. It uses optimistic replication to remain **"always writable,"** meaning updates are never rejected, even during network failures.
 - **Conflict Resolution:** Because it is always writable, divergent data versions can emerge. Dynamo pushes the complexity of conflict resolution to the read phase. Conflicts are ultimately reconciled by the client application itself (e.g., merging two versions of a shopping cart).
 - **Partitioning via Consistent Hashing:** To scale incrementally, Dynamo distributes data across nodes using a consistent hashing ring. To prevent unbalanced loads and account for heterogeneous hardware, it assigns multiple **virtual nodes** to each physical machine on the ring.
-- **Replication Strategy:** A data item is replicated across $N$ hosts. The system hashes the key to find the coordinator node on the ring, which stores the data locally and also replicates it to the next $N-1$ clockwise successor nodes.
+	  
+	![506](Attachments/Pasted%20image%2020260718170106.png)
+	  
+- **Replication Strategy:** A data item is replicated across $N$ hosts. The system hashes the key to find the coordinator node on the ring, which stores the data locally and also replicates it to the next $N-1$ clockwise successor nodes.	  
+	  
+	![502](Attachments/Pasted%20image%2020260718170236.png)
+	
 - **Data Versioning:** Every modification is treated as a new, immutable version. Dynamo uses **vector clocks** (a list of node and counter pairs) to track causality between versions and identify conflicts when a `Get()` operation is called.
+	  
+	![426](Attachments/Pasted%20image%2020260718170603.png)
+	 
