@@ -6,7 +6,7 @@
 - **SSTables:** Bigtable stores data internally using the Google SSTable file format, which contains a sequence of blocks (typically 64KB) and a block index located at the end of the file. When an SSTable is opened, the index is loaded into memory. A lookup requires only a single disk seek: a binary search is performed on the in-memory index to find the correct block, which is then read directly from the disk.
 - **Tablets:** A Bigtable is dynamically partitioned by row ranges into smaller units called tablets, which act as the basic unit of distribution and load balancing. A table initially consists of one tablet, but it automatically splits into multiple tablets (typically 100-200 MB each) as the data grows. The set of existing tablets only changes when a table is created or deleted, when two tablets are merged, or when a tablet splits.
 
-**System Architecture (Master, Tablet Servers, and Chubby)**
+### System Architecture (Master, Tablet Servers, and Chubby)
 
 - **Chubby Lock Service:** Bigtable relies heavily on Chubby, a persistent, highly-available distributed lock service consisting of five replicas. Bigtable uses Chubby to ensure only one master is active, to store the bootstrap location of data, to discover live tablet servers, and to store schema information and access control lists.
 - **Master Server:** The master assigns tablets, balances load, detects when tablet servers join or expire, manages garbage collection in GFS, and handles schema changes.
