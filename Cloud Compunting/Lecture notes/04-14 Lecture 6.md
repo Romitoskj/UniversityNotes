@@ -86,8 +86,9 @@ BigTable is a distributed storage system built to handle structured data across 
     - **Timestamps:** BigTable stores multiple versions of the same cell data, ordered by decreasing timestamps (so the most recent version is read first). Older versions are automatically garbage-collected based on configured rules (e.g., keeping only the last $n$ versions).
       ![](Attachments/Pasted%20image%2020260718160939.png)
       
-- **Building Blocks & Architecture:** BigTable utilizes a single **Master server** (to assign tablets and balance loads) and many **Tablet servers** (to handle read/write operations). It is built on top of the **Google File System (GFS)** and stores data in **SSTables** (a persistent, immutable map of keys to values optimized for single disk seeks). It also heavily relies on **Chubby**, a distributed lock service, to elect the master and manage metadata.
-
+- **Building Blocks & Architecture:** BigTable utilizes a single **Master server** (to assign tablets and balance loads) and many **Tablet servers** (to handle read/write operations that can be dynamically added/removed from a cluster). It is built on top of the **Google File System (GFS)** and stores data in **SSTables** (a persistent, immutable map of keys to values optimized for single disk seeks). It also heavily relies on **Chubby**, a distributed lock service, to elect the master and manage metadata.
+	  ![639](Attachments/Pasted%20image%2020260718165019.png)
+	 
 ## **9. Amazon Dynamo**
 
 Dynamo is a highly available, decentralized key-value store designed to manage the state of Amazon's most critical services, such as shopping carts, where outages have direct financial consequences.
