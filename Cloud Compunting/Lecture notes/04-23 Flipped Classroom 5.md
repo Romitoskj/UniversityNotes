@@ -6,7 +6,7 @@
 - **SSTables:** Bigtable stores data internally using the Google SSTable file format, which contains a sequence of blocks (typically 64KB) and a block index located at the end of the file. When an SSTable is opened, the index is loaded into memory. A lookup requires only a single disk seek: a binary search is performed on the in-memory index to find the correct block, which is then read directly from the disk.
 - **Tablets:** A Bigtable is dynamically partitioned by row ranges into smaller units called tablets, which act as the basic unit of distribution and load balancing. A table initially consists of one tablet, but it automatically splits into multiple tablets (typically 100-200 MB each) as the data grows. The set of existing tablets only changes when a table is created or deleted, when two tablets are merged, or when a tablet splits.
 
-### System Architecture (Master, Tablet Servers, and Chubby)
+### 1.2 System Architecture (Master, Tablet Servers, and Chubby)
 
 - **Chubby Lock Service:** Bigtable relies heavily on Chubby, a persistent, highly-available distributed lock service consisting of five replicas. Bigtable uses Chubby to ensure only one master is active, to store the bootstrap location of data, to discover live tablet servers, and to store schema information and access control lists.
 - **Master Server:** The master assigns tablets, balances load, detects when tablet servers join or expire, manages garbage collection in GFS, and handles schema changes.
@@ -14,7 +14,7 @@
     - _Failures:_ If the master's session with Chubby expires, it kills itself to prevent network vulnerabilities, but this does not impact the current assignment of tablets to servers.
 - **Tablet Servers:** These servers manage their assigned tablets, handle incoming read and write requests, and perform tablet splits when they grow too large. The master discovers them by monitoring the Chubby "servers directory" and periodically checks their lock status. If a tablet server fails or loses its lock, the master acquires the lock, deletes the server's Chubby file to permanently stop it from serving, and reassigns its tablets.
 
-### Metadata and Tablet Location
+### 1.3 Metadata and Tablet Location
 
 - Tablet locations are managed in a three-level hierarchy (similar to a B+-tree):
     1. A file in Chubby stores the location of the **root tablet** (the first METADATA tablet).
@@ -24,7 +24,7 @@
   
   ![590](Attachments/Pasted%20image%2020260718174453.png)
 
-### I/O Operations and Recovery
+### 1.4 I/O Operations and Recovery
 
 - **Writes:** Incoming writes are validated for format and authorization, appended to a commit log using group commit, and then inserted into an in-memory sorted buffer called a **memtable**.
 - **Reads:** Reads are similarly validated and then executed on a merged view of the on-disk SSTables and the in-memory memtable.
@@ -36,13 +36,13 @@
 
 ## **2. Amazon Dynamo: Highly Available Key-Value Store**
 
-### Partitioning and Data Assignment
+### 2.1 Partitioning and Data Assignment
 
 - **Consistent Hashing:** Partitioning allows the system to scale incrementally. It is implemented using consistent hashing, treating the hash function's output as a fixed circular space or "ring".
 - **Data Assignment:** A data item's key is hashed to find its position on the ring. The system walks clockwise to find the first node with a larger position value, meaning each node is responsible for the ring region between itself and its immediate predecessor.
 - **Virtual Nodes:** Basic consistent hashing causes non-uniform load distribution and ignores hardware heterogeneity. Dynamo resolves this using "virtual nodes", assigning each physical node multiple tokens (positions on the ring) proportional to its capacity.
 
-**Replication and Availability**
+### 2.2 Replication and Availability
 
 - **Replication Strategy:** Data is replicated across _N_ hosts. The coordinator stores the key locally and copies it to the _N-1_ clockwise successors. To ensure replicas land on entirely distinct physical hosts despite the use of virtual nodes, the system creates a "preference list" that skips ring positions until _N_ unique physical machines are found.
 - **Handling Failures (Hinted Handoff):** If the top _N_ nodes are unavailable (e.g., due to a network partition), Dynamo employs **hinted handoff**. The write request is sent to the first _N_ healthy nodes found while walking the ring, even if they aren't the intended recipients. These replicas are stored in a separate local database with a "hint" regarding their true destination, and they are automatically moved to the correct node once it comes back online.
