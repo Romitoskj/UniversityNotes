@@ -84,6 +84,8 @@ BigTable is a distributed storage system built to handle structured data across 
     - **Rows:** Row keys are arbitrary strings ordered lexicographically. Row ranges are dynamically partitioned into units called **tablets**, which serve as the basis for load balancing. Row name example reverse hostname.
     - **Columns:** Column keys are grouped into sets called **column families**. Access control and memory accounting are managed at the column family level, and data within a family is of the same type. A column key is *family:qualifier* (e.g. language:id with value such as IT, EN, FR...)
     - **Timestamps:** BigTable stores multiple versions of the same cell data, ordered by decreasing timestamps (so the most recent version is read first). Older versions are automatically garbage-collected based on configured rules (e.g., keeping only the last $n$ versions).
+      ![](Attachments/Pasted%20image%2020260718160939.png)
+      
 - **Building Blocks & Architecture:** BigTable utilizes a single **Master server** (to assign tablets and balance loads) and many **Tablet servers** (to handle read/write operations). It is built on top of the **Google File System (GFS)** and stores data in **SSTables** (a persistent, immutable map of keys to values optimized for single disk seeks). It also heavily relies on **Chubby**, a distributed lock service, to elect the master and manage metadata.
 
 ## **9. Amazon Dynamo**
