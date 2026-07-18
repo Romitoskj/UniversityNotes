@@ -47,14 +47,17 @@
 - **Replication Strategy:** Data is replicated across _N_ hosts. The coordinator stores the key locally and copies it to the _N-1_ clockwise successors. To ensure replicas land on entirely distinct physical hosts despite the use of virtual nodes, the system creates a "preference list" that skips ring positions until _N_ unique physical machines are found.
 - **Handling Failures (Hinted Handoff):** If the top _N_ nodes are unavailable (e.g., due to a network partition), Dynamo employs **hinted handoff**. The write request is sent to the first _N_ healthy nodes found while walking the ring, even if they aren't the intended recipients. These replicas are stored in a separate local database with a "hint" regarding their true destination, and they are automatically moved to the correct node once it comes back online.
 
-**Data Versioning and Conflict Resolution**
+### 2.3 Data Versioning and Conflict Resolution
 
 - Because Dynamo prioritizes availability, writes are not rejected. Consequently, a `get()` operation may return multiple, unreconciled versions of data.
 - Dynamo treats every modification as a new, immutable version identified by a **vector clock**.
 - If the system cannot syntactically reconcile divergent versions (e.g., two concurrent writes occurring before either is aware of the other), it returns all unreconciled versions to the client application, which must perform **semantic reconciliation**.
 
-**Partitioning Strategies** Dynamo evolved through three specific partitioning strategies to handle load and node churn:
+### 2.4 Partitioning Strategies
+
+Dynamo evolved through three specific partitioning strategies to handle load and node churn:
 
 1. **T random tokens per node & partition by token value:** Nodes get random positions. _Limitations:_ Node joins/departures require expensive local database scans and Merkle tree recalculations, and taking snapshots for archival is difficult because key ranges are scattered randomly.
 2. **T random tokens & equal-sized partitions:** The hash space is divided into _Q_ equal partitions. Tokens only build the mapping function, assigning partitions to the first _N_ unique nodes encountered. This successfully decouples partitioning from placement but yields the worst load-balancing efficiency.
 3. **Q/S tokens per node & equal-sized partitions (Optimal):** The hash space is divided into _Q_ equal partitions, and each node receives an equal share of tokens (_Q/S_). Tokens are stolen or redistributed when nodes join or leave. This fixed-partition setup allows partitions to be stored in separate files, enabling much faster bootstrapping, recovery, and archiving, while also achieving the best overall load-balancing efficiency.
+   ![](Attachments/Pasted%20image%2020260718182007.png)
