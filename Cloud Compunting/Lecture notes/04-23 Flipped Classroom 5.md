@@ -14,25 +14,29 @@
     - _Failures:_ If the master's session with Chubby expires, it kills itself to prevent network vulnerabilities, but this does not impact the current assignment of tablets to servers.
 - **Tablet Servers:** These servers manage their assigned tablets, handle incoming read and write requests, and perform tablet splits when they grow too large. The master discovers them by monitoring the Chubby "servers directory" and periodically checks their lock status. If a tablet server fails or loses its lock, the master acquires the lock, deletes the server's Chubby file to permanently stop it from serving, and reassigns its tablets.
 
-**Metadata and Tablet Location**
+### Metadata and Tablet Location
 
 - Tablet locations are managed in a three-level hierarchy (similar to a B+-tree):
-    1. A file in Chubby stores the location of the **root tablet**.
+    1. A file in Chubby stores the location of the **root tablet** (the first METADATA tablet).
     2. The root tablet (which never splits) points to all other **METADATA tablets**.
     3. Each METADATA tablet points to the actual **user tablets**.
 - Clients cache these locations locally; if a location is unknown or stale, the client recursively moves up the hierarchy to discover and prefetch the correct location.
+  
+  ![590](Attachments/Pasted%20image%2020260718174453.png)
 
-**I/O Operations and Recovery**
+### I/O Operations and Recovery
 
 - **Writes:** Incoming writes are validated for format and authorization, appended to a commit log using group commit, and then inserted into an in-memory sorted buffer called a **memtable**.
 - **Reads:** Reads are similarly validated and then executed on a merged view of the on-disk SSTables and the in-memory memtable.
 - **Commit Log & Recovery:** To maximize write performance, a tablet server co-mingles mutations for all its assigned tablets into a **single physical commit log file**. If the server fails and its tablets are distributed to many new servers, reading the entire log would be highly inefficient. To fix this, the master sorts the log entries by `<table, row name, log sequence number>`, making mutations for specific tablets contiguous. This allows a recovering server to rebuild its memtable efficiently via a single disk seek and sequential read.
+  
+  ![637](Attachments/Pasted%20image%2020260718174816.png)
 
 ---
 
 ## **2. Amazon Dynamo: Highly Available Key-Value Store**
 
-**Partitioning and Data Assignment**
+### Partitioning and Data Assignment
 
 - **Consistent Hashing:** Partitioning allows the system to scale incrementally. It is implemented using consistent hashing, treating the hash function's output as a fixed circular space or "ring".
 - **Data Assignment:** A data item's key is hashed to find its position on the ring. The system walks clockwise to find the first node with a larger position value, meaning each node is responsible for the ring region between itself and its immediate predecessor.
