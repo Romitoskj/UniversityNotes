@@ -46,7 +46,7 @@ GFS was designed around the specific workload characteristics of cloud applicati
 - **Architecture:** It features a centralized **Master** node that stores all metadata (filenames, access control information, replica location and state of chunk servers) and chunk locations completely in-memory for speed, paired with multiple **Chunkservers** that store the actual data on their local disks. To recover from crashes, the Master relies on an atomic operation log.
   ![](Attachments/Pasted%20image%2020260716172304.png)
   
-- **Write Protocol:** The Master grants a "lease" to a **primary Chunkserver**. When a client writes, it pushes data to the primary and all secondary Chunkservers, which store the data in a temporary buffer. The client then sends a formal write request to the primary, which applies the mutation and coordinates the secondaries to do the same before acknowledging the client.
+- **Write Protocol:** The Master grants a "lease" to a **primary Chunkserver**. When a client writes, the data flow and control flow are deliberately decoupled to maximize network efficiency. Instead of the client pushing data directly to the primary and all secondary Chunkservers, the data is pushed in a **linear, pipelined fashion**. The client sends the data to the closest chunkserver in the network (which can be a primary or a secondary), and that server immediately forwards it to the next closest one in the chain, while temporarily storing it in an internal LRU buffer cache. Once all replicas acknowledge receiving the data, the client sends a formal write request to the primary. The primary assigns a serial number to the mutation, applies it to its own local state, and forwards the write request to the secondaries so they apply the mutation in the exact same serial order. Finally, after all secondaries report completion to the primary, the primary acknowledges the client.
 
 ## 5. Hadoop Distributed File System (HDFS)
 
@@ -56,7 +56,7 @@ Similar to GFS, HDFS is a master/slave system designed for big data, though it i
   ![](Attachments/Pasted%20image%2020260716175833.png)
   
 - **Block Size & Rack Awareness:** Files are split into 64-128 MB blocks with 3 replicas. HDFS implements **rack awareness**, ensuring that replicas are stored across at least two different physical network racks to guarantee availability if a rack fails.
-- **Write Pipeline:** Unlike GFS, an HDFS client **sends data only to the primary DataNode**. The primary then pipelines the data to the second secondary, which passes it to the third in a chain-like fashion. The write is divided in three stages: Setting up of pipeline, Data Streaming and Replication and Shutdown of Pipeline (Acknowledgment)
+- **Write Pipeline:** HDFS client **sends data only to the primary DataNode**. The primary then pipelines the data to the second secondary, which passes it to the third in a chain-like fashion. The write is divided in three stages: Setting up of pipeline, Data Streaming and Replication and Shutdown of Pipeline (Acknowledgment)
   ![](Attachments/Pasted%20image%2020260716180207.png)
   ![](Attachments/Pasted%20image%2020260716180333.png)
 
