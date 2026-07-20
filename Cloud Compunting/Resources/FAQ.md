@@ -44,3 +44,18 @@ the number in the brackets indicates how many times it has been asked
 	- Autoscaler how does it work (1)  
 	- Advantages of dynamic step size in autoscaling(2)  
 	- Formula Step Size (1)
+
+# July 2026
+
+- exam 1:
+	- K8 object and an example  
+	- Dynamo: data partition  
+	- Gfs: how master and chunk servers communicate; how master handles failures  
+	- elasticity Vs scalability  
+- exam 2:
+	- hdfs write pipeline  
+	- does hdfs support random writing  
+	- does hdfs support concurrent writing  
+	- self-* properties for autonomic computing  
+	- dynamic step size  
+	- is autoscaling self-configuration or self-optimization
