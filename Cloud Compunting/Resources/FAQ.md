@@ -47,15 +47,41 @@ the number in the brackets indicates how many times it has been asked
 
 # July 2026
 
-- exam 1:
+- day 1:
 	- K8 object and an example  
 	- Dynamo: data partition  
 	- Gfs: how master and chunk servers communicate; how master handles failures  
-	- elasticity Vs scalability  
-- exam 2:
+	- elasticity Vs scalability 
+	  
 	- hdfs write pipeline  
 	- does hdfs support random writing  
 	- does hdfs support concurrent writing  
 	- self-* properties for autonomic computing  
 	- dynamic step size  
 	- is autoscaling self-configuration or self-optimization
+	  
+- day 2:
+	- Soa vs Micro
+	- Dynamo: data partitioning + why virtual nodes were introduced  
+	- Self-* properties  
+	- Self healing in GFS (heartbeat as liveness detection)  
+	  
+	- Hadoop Write mechanism  
+	- Metrics to measure elasticity (speed and precision)  
+	- Scheduling In kubernetes
+	  
+	- Bigatble: master and chunk server responsibilities  
+	- Mape-k loop (he forgot about the K part lol)  
+	- Autoscaling: techniques to dinamically decide step size  
+	- Kubernetes: how it's set up, what are it's components  
+	- Does kubernetes implement self config (yes) (HE LIKES TO ASK THIS A LOT)  
+	  
+	- GFS: write operation  
+	- self healing in GFS  
+	- What is a Kubernetes pod  
+	- Definition of orchestration and choreography  
+	  
+	- Data partitioning in dynamo  
+	- How do we manage the failure of a node in Dynamo  
+	- Soa VS micro  
+	- What is a K8 object
