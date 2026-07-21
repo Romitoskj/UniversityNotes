@@ -1,7 +1,7 @@
 # Autonomic Computing Systems
 
 > [!important] Definition
-> Autonomic computing systems are computing systems that can manage themselves given high-level objectives from administrators.
+> Autonomic computing systems are computing systems that can manage themselves given **high-level objectives** from administrators.
 
 ## 1. The Vision of Autonomic Computing & Self-Management
 
@@ -14,25 +14,7 @@ The primary motivation behind autonomic computing is the looming software comple
 - **Self-optimization:** Continually seeking opportunities to improve performance and efficiency. _Example: Dynamically adding or removing Virtual Machines to meet Service Level Objectives (SLOs) like response time and availability while minimizing costs_
 - **Self-protection:** Automatically defending against malicious attacks and cascading failures.
 
-## 2. Foundations and Inspirations (Chapter 3 AC)
-
-Autonomic computing consolidates theories from various non-computing domains to manage complexity.
-
-- **The Biological Metaphor:**
-    - **Autonomic Nervous System (ANS):** In biology, the ANS subconsciously regulates vital functions to ensure survival. In computing, this equates to the **Autonomic Manager**, which controls low-level, subconscious activities.
-    - **Conscious Brain:** Represents the **Human Administrator**, who specifies high-level objectives and only intervenes during major failures or to change system goals.
-    - **Motility:** The biological emergence of motility (movement) necessitated a nervous system because movement brings organisms into changing environments. Similarly, dynamic software programs require "change management" coordination to adapt to unpredictable shifts.
-    - **Homeostasis & Vital Parameters:** Homeostasis is a system’s ability to maintain internal equilibrium despite external or internal changes. In computing, the "vital parameters" are functional services and Quality of Service (QoS) properties that must be kept within a defined "survivability" or viability zone.
-- **Economics & Game Theory:**
-    - **Microeconomics in Resource Allocation:** Concepts like supply and demand patterns and "virtual currencies" are used as negotiation mechanisms for autonomic processes competing for limited resources (like CPU cycles or bandwidth).
-    - **Nash Equilibrium vs. Pareto Optimality:** A Nash Equilibrium is a local optimum where no participant benefits from unilaterally changing their strategy. Pareto Optimality is a global optimum where no one can be made better off without making someone else worse off; moving a system to the Pareto boundary requires cooperation among players.
-    - **Stackelberg vs. Conjectural Equilibrium:** Stackelberg leadership applies when one player has _private knowledge_ of competitors and optimizes accordingly. Conjectural equilibrium is preferred when players have _imperfect knowledge_; they rely on beliefs (conjectures) built through repeated interactions.
-- **Complex Adaptive Systems (CAS) & Cybernetics:**
-    - **CAS Definition:** A system that modifies itself in response to environmental changes and learns from experience. It is critical to distinguish a CAS (which features "nonlinear composition" where the whole is not a simple sum of parts) from a system that is merely "extremely complicated" (having many parts).
-    - **Emergence and Self-Organization:** Self-organization consists of simple, local interactions between agents. Emergence is the coherent, complex global behavior that arises from these local interactions.
-    - **Ashby’s Ultra-Stable System:** A double-feedback control concept. The **first loop** is reactive, handling small, short-term disturbances. The **second loop** (meta-management) operates over a longer time scale and adapts the behavior of the first loop when "essential variables" hit their viability limits.
-
-## 3. Autonomic Architectures (Chapter 4 AC)
+## 2. Autonomic Architectures (Chapter 4 AC)
 
 ### The MAPE-K Loop:
 
