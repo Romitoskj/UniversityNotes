@@ -144,4 +144,4 @@
 
 23. What is an autoscaler and how does it work?
     * **My response:** 
-    * **AI response:** N/A
+    * **AI response:** An **autoscaler** is a system that automatically adjusts the amount of computational resources (such as Virtual Machines or containers) allocated to an application based on its current or predicted workload. Its goal is to provide elasticity, ensuring the system has enough resources to meet Service Level Agreements (SLAs) during traffic spikes without over-provisioning and wasting money on idle machines during low traffic.
