@@ -15,7 +15,7 @@
 
 ## 2. Deep ReLU Networks & Universality
 
-- **Deep ReLU Networks:** If you build a network using entirely ReLU activations (σ(x)=max{0,x}), the resulting mathematical function is **piecewise-linear**. The network creates many ReLU-shaped hyperplanes and stitches them together. The resulting function is continuous but has non-smooth discontinuities (kinks) everywhere the ReLU truncates to zero.
+- **Deep ReLU Networks:** If you build a network using entirely ReLU activations ($\sigma(x)=\max\{0,x\}$), the resulting mathematical function is **piecewise-linear**. The network creates many ReLU-shaped hyperplanes and stitches them together. The resulting function is continuous but has non-smooth discontinuities (kinks) everywhere the ReLU truncates to zero.
 - **Universal Approximation Theorem (UAT):** This theorem guarantees that a network with just **one hidden layer** and a logistic sigmoid activation function can approximate _any continuous function_ over a compact domain to any desired accuracy.
 - **The Catch:** The theorem is an existence proof; it is **not constructive**. It guarantees that a wide enough layer exists to represent the function, but it does not tell you how many neurons (q) are needed, nor how to find the optimal weights. Therefore, network design remains a process of trial and error.
 
