@@ -2,7 +2,7 @@
 
 ## 1. Multi-Layer Perceptrons (MLPs) & Deep Networks
 
-- **Deep Composition:** A deep neural network, specifically a Multi-Layer Perceptron (or feed-forward neural network), is built by stacking simple blocks one after another. Each block consists of a linear transformation (a fine map) followed by a non-linear activation function ($\sigma$).
+- **Deep Composition:** A deep neural network, specifically a Multi-Layer Perceptron (or feed-forward neural network), is built by stacking simple blocks one after another. Each block consists of a linear transformation followed by a non-linear activation function ($\sigma$).
 
 - **Why Non-Linearity?** Concatenating purely linear models results in another linear model, which does not increase the computational capacity or complexity of the model. Introducing non-linearities like the Logistic Sigmoid or Rectified Linear Unit (ReLU) allows the network to represent highly non-linear functions.
 
