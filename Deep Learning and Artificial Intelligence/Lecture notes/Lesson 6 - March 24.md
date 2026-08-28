@@ -34,13 +34,13 @@
 
 Automatic differentiation uses the chain rule to compute gradients, but the _order_ of evaluation completely changes its efficiency.
 
-### Forward-Mode Autodiff:
+### 5.1 Forward-Mode Autodiff:
 
 - Traverses the graph from left to right (input to output), computing partial derivatives of the inner nodes with respect to the input.
 - It computes both the function value and its derivative in a single pass.
 - **The Bottleneck:** It must be repeated for _every single input parameter_. If a network has 7 billion parameters (p), forward mode requires 7 billion forward passes, making its computational complexity O(p). It is efficient only for functions with few inputs and many outputs.
 
-### **Reverse-Mode Autodiff (Backpropagation):
+### 5.2 Reverse-Mode Autodiff (Backpropagation):
 
 - Traverses the graph from right to left (output to input). It computes the derivatives of the final output with respect to every intermediate node.
 - **The Algorithm:** It requires **one initial forward pass** to evaluate and store all the numerical values of the intermediate nodes, followed by **one backward pass** to accumulate the gradients via the chain rule.
