@@ -2,23 +2,6 @@
 
 ---
 
-## 1. Administrative Overview & Course Logistics
-
-- **Lecturer:** **Prof. Gabriele Tolomei** (Associate Professor at Sapienza University of Rome, Lead at HERCOLE Lab, Co-founder & Chief Science Officer at _tellmewAI_).
-- **Relocation Notice:** Prof. Tolomei noted in class that he is relocating at the end of the semester. Early exam sessions (January/February) will run as normal, while arrangements for later sessions will be communicated.
-- **Class Schedule:**
-    - **Wednesdays:** 8:30–11:00 (Room 1L).
-    - **Thursdays:** 10:00–12:00 (Room 2L).
-- **Assessment & Grading:**
-    - Determined through an **oral seminar** on a recent research paper from top-tier venues (e.g., SIGMOD, VLDB, OSDI, SOSP, NeurIPS, ICML, KDD) chosen by the student and approved by the instructor.
-    - **Formats:**
-        - **Individual:** ~12 min presentation + 3 min Q&A (~15 min total).
-        - **Pair:** ~25 min presentation + 5 min Q&A (~30 min total, evenly split).
-- **Recommended References:** _Mining of Massive Datasets_ (Leskovec, Rajaraman & Ullman), _Designing Data-Intensive Applications_ (Kleppmann), and _Foundations of Data Science_ (Blum, Hopcroft & Kannan). Textbooks are optional supplementary reading; lecture slides and referenced papers form the primary material.
-- **Course Structure (5 Modules):** 1. Foundations & Big Data Infrastructure, 2. High-Dimensional Data Representation / Virtualization, 3. Non-Learning Computational Tasks / Concurrency, 4. Large-Scale Machine Learning / Persistence, 5. Advanced Topics.
-
----
-
 ## 2. Why Scale Out? Limits of Single-Machine Computing
 
 ### 2.1 The Data Growth Challenge
@@ -44,7 +27,7 @@ Failure Model        Hardware-level reliability           Software-level fault t
 Complexity           Low (standard local software)        High (distributed coordination layer)
 ```
 
-**
+
 
 ### 2.3 The "Failure Is Routine" Philosophy
 
@@ -85,7 +68,7 @@ Large files are split into contiguous, fixed-size **blocks** (or **chunks**), ma
     ├── 3. Direct Bulk Data Read / Write Transfer ─────────────────────────────────────►│
 ```
 
-**
+
 
 ---
 
