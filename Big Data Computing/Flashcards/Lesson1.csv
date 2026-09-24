@@ -1,0 +1,65 @@
+What is the primary difference between vertical and horizontal scaling?,"Vertical scaling involves making a single machine more powerful, whereas horizontal scaling involves adding more independent nodes to a cluster."
+Why does vertical scaling (scaling up) eventually hit a 'hard ceiling'?,"It is limited by the physical constraints of motherboards, such as the maximum number of CPU sockets and DIMM slots available."
+"In the context of Big Data, what is the 'Commodity Hardware' philosophy?","Building clusters from many cheap, unreliable machines and using software to manage fault tolerance instead of relying on expensive, reliable hardware."
+Term: Distributed File System (DFS),"Definition: A storage system that presents a single, unified file system interface while spreading data contents across many different machines."
+Big Data DFSs generally prioritise aggregate _____ over millisecond-level latency.,Throughput
+What is the common file access assumption in distributed storage systems like HDFS or GFS?,"Write-once, read-many (WORM)."
+How does a Distributed File System (DFS) manage extremely large files?,By splitting them into fixed-size blocks or chunks that are managed and replicated independently.
+"What are the two primary benefits of using large block sizes (e.g., 64–128 MB) in Big Data systems?",It reduces metadata overhead on the master node and facilitates efficient sequential I/O.
+"In a DFS, why is metadata kept separate from the actual data servers?",This separation allows the metadata service to be optimised for fast lookups while data servers are optimised for raw throughput.
+Why is metadata typically kept entirely in memory on the master node?,To ensure metadata operations and lookups are performed at high speed.
+What is the 'client interaction model' regarding the metadata server in a DFS?,Clients query the metadata server only for location information and then transfer bulk data directly with data servers.
+Why is RAID-style protection often insufficient for cluster-scale durability?,"RAID protects against disk failure, but cannot protect against node, rack, or network failures."
+Term: GFS Master,"Definition: The single coordinator node in a GFS cluster that manages the namespace, chunk locations, and system-wide activities."
+"In GFS, how does the Master keep track of chunk locations without persisting them to disk?",It rebuilds the chunk location map by polling Chunkservers during startup and through periodic heartbeats.
+What is the default chunk size used by the Google File System (GFS)?,64 MB
+What is the purpose of GFS 'heartbeats'?,They allow the Master to monitor Chunkserver liveness and inventory while piggybacking instructions like replication commands.
+"In the GFS read path, what information does the Master provide to the client?",The chunk handle and the list of Chunkserver locations holding that chunk.
+What is the role of the 'primary' replica during a GFS write operation?,It determines a serial order for concurrent write requests and coordinates the mutation across secondary replicas.
+Term: Chunk Lease,Definition: A time-bounded grant of 'primary' status from the Master to a specific replica to manage mutations for a chunk.
+How does GFS handle file deletion to ensure robustness against accidental deletes?,"It uses lazy garbage collection, renaming the file to a hidden name and reclaiming space only after a few days."
+How does the GFS Master survive crashes without losing its in-memory namespace state?,"By appending all mutations to a persistent, replicated operation log and periodically creating checkpoints."
+Term: Shadow Master (GFS),Definition: A read-only replica of the Master's state that can serve metadata queries but does not coordinate write operations.
+What is the core principle of 'Data Locality'?,Moving computation to where the data resides rather than moving large volumes of data across the network to a compute node.
+Why is cross-rack network bandwidth considered a 'scarce resource' in data centres?,Because cross-rack bandwidth is typically much lower than the internal bandwidth available within a single rack.
+What is the typical 'rack-aware' placement strategy for 3 replicas in a DFS?,Place two replicas in one rack (on different nodes) and the third replica in a different rack.
+What happens automatically in a DFS when a node is detected as permanently failed?,The system identifies under-replicated blocks and schedules their re-replication from surviving copies to healthy nodes.
+HDFS was an open-source storage system directly inspired by the _____ paper published in 2003.,Google File System (GFS)
+"In HDFS terminology, the 'NameNode' is equivalent to the GFS _____.",Master
+"In HDFS terminology, 'DataNodes' are equivalent to GFS _____.",Chunkservers
+What is the standard default block size for the Hadoop Distributed File System (HDFS)?,128 MB
+Term: FsImage (HDFS),"Definition: A complete, point-in-time snapshot of the entire HDFS file system namespace stored on disk."
+Term: EditLog (HDFS),Definition: An append-only log that records every mutation to the HDFS namespace since the last FsImage snapshot.
+What is the primary responsibility of the Secondary NameNode in HDFS?,Periodically merging the FsImage and EditLog into a new checkpoint to offload work from the primary NameNode.
+How does HDFS achieve 'High Availability' (HA) for the NameNode?,By running an Active NameNode alongside a Standby NameNode that stays synchronised via a shared edit log.
+"In the HDFS write path, data is moved between replicas using a structure called a _____.",Pipeline
+How does 'HDFS Federation' address the scalability limits of a single NameNode?,By using multiple independent NameNodes that each manage a distinct portion of the total namespace.
+What is the 'rack awareness' configuration's role in HDFS?,It allows the system to understand the physical network topology to make optimal block placement and scheduling decisions.
+Term: Transient Failure,"Definition: A temporary unresponsiveness, such as a network blip or a garbage collection stall, where the node remains healthy."
+What mechanism do GFS and HDFS use to detect 'silent' data corruption on disk?,Checksums
+"If a cluster has 10,000 disks and a 2% annual failure rate, why are failures expected weekly rather than annually?","Because at that scale, the aggregate probability results in a statistically consistent stream of individual disk failures."
+Calculate the probability $p$ that a disk fails in a specific week given an Annual Failure Rate (AFR) of 2%.,$p \approx \frac{0.02}{52} \approx 0.000385$
+"In a binomial model for disk failures, if $n$ is the number of disks and $p$ is the weekly failure probability, what is the expected number of failures per week ($E[X]$)?",$E[X] = n \times p$
+"What is the formula for the probability that at least one disk fails in a given week, where $n$ is the disk count and $p$ is failure probability?",$P(X \ge 1) = 1 - (1 - p)^n$
+"Under the binomial distribution, what is the formula for the probability of exactly $k$ failures?",$P(X = k) = \binom{n}{k} p^k (1 - p)^{n-k}$
+"In the scenario where a Chunkserver dies mid-read, how is the failure made transparent to the end-user application?","The client catches the error, re-queries the Master for an alternative replica location, and retries the read against a different server."
+Why does block-based storage naturally support parallel batch computation?,Because each fixed-size block can be processed as an independent unit of work by different tasks simultaneously.
+What are the three structural 'pillars' of scale-out storage discussed in the lecture?,"Horizontal scaling on commodity hardware, block-based replication, and separated metadata management."
+Which DFS component is responsible for maintaining the 'Namespace' hierarchy?,The Master (GFS) or NameNode (HDFS).
+True or False: HDFS traditionally supports arbitrary in-place modifications to existing files.,False (it traditionally supports appends but not arbitrary random writes).
+"In HDFS, which node receives the full list of blocks from DataNodes to maintain an accurate cluster view?",The NameNode (via block reports).
+What happens if a heartbeat timeout is set too short in a distributed system?,"It increases the risk of false positives, where healthy but slow nodes are incorrectly marked as dead."
+"In GFS, where is the information mapping a file to its constituent chunks primarily stored?",In the Master node's memory.
+What is the 'write' cost trade-off of increasing the replication factor from 3 to 5?,"Increased network traffic and higher latency, as the write must be propagated to all 5 replicas before completion."
+Term: DataNode Block Report,Definition: A periodic communication from a DataNode to the NameNode listing all HDFS blocks currently stored on that node.
+Why is inter-rack network bandwidth slower than intra-rack bandwidth?,"Inter-rack traffic must pass through the data centre's backbone switches, which are shared by many more machines."
+"In a cluster of 10,000 disks with a 2% AFR, what is the approximate expected number of failures per week?",3.85
+How does the Master detect that a chunk is 'under-replicated'?,By comparing the expected replication factor against the inventories received in heartbeats/block reports from active servers.
+"In GFS, does the Master involve itself in the direct transfer of bytes from disk to client?","No, it only manages metadata and directs the client to the correct Chunkservers."
+What HDFS mechanism allows standby nodes to take over immediately if the active NameNode fails?,"A shared, consistent edit log that both nodes access."
+What is the 'bottleneck' shift that occurs when scaling out to thousands of commodity nodes?,The bottleneck shifts from raw hardware cost to the efficiency of system coordination and data movement.
+"In the context of the course, what is the goal of the 'oral seminar' assessment?","To present a recent, high-impact research paper from a top-tier venue (e.g. SIGMOD, NeurIPS, ICML)."
+Concept: Failure Domains,"Definition: The scope of impact for a failure, ranging from an individual disk to a node, a rack, or an entire data centre."
+Why does HDFS federation provide better metadata scalability than a single NameNode?,"Because the total namespace capacity scales with the number of NameNodes, bypassing the memory limit of a single machine."
+What is the primary trade-off of the GFS single-Master design?,It drastically simplifies architectural design and consistency but creates a potential metadata bottleneck and single point of failure.
+"Under the rack-aware policy for HDFS, where is the second replica placed relative to the first?",On a different node in a different rack.
