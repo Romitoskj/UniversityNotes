@@ -1,0 +1,54 @@
+Why are fully connected neural networks parameter-inefficient for large images?,"They connect every pixel to every hidden unit, ignoring that spatial correlation in images is local."
+How many parameters are required for a fully connected layer with $1\text{M}$ hidden units given a $1000 \times 1000$ image?,It requires $10^{12}$ parameters.
+"In image processing, what is meant by 'stationarity'?",The assumption that image statistics and features are similar across different spatial locations.
+What structural modification defines a locally connected neural network compared to a fully connected network?,Units only connect to a small local patch (receptive field) of the input image.
+How many parameters does a locally connected layer with $1\text{M}$ hidden units and a $10 \times 10$ filter size have?,It has $100\text{M}$ parameters ($10^6 \times 100$).
+What additional constraint does a convolutional layer apply to a locally connected layer?,Parameter sharing across all spatial locations using learned kernels.
+How many parameters are needed for a convolutional layer with $100$ filters of size $10 \times 10$ (ignoring bias)?,It requires $10\text{K}$ parameters ($100 \times 100$).
+What spatial operation defines 2D discrete image convolution?,Replacing each pixel with a linear combination of its spatial neighbours weighted by a filter kernel.
+Which two fundamental properties define a linear system $T$?,Homogeneity ($T[aX] = aT[X]$) and Additivity ($T[X_1 + X_2] = T[X_1] + T[X_2]$).
+What mathematical principle unifies homogeneity and additivity in linear systems?,The principle of superposition ($T[aX_1 + bX_2] = aT[X_1] + bT[X_2]$).
+What is the formula to calculate the spatial output dimension $W_{\text{out}}$ of a convolutional layer?,"$W_{\text{out}} = \frac{W - K + 2P}{S} + 1$, where $W$ is input size, $K$ is filter size, $P$ is padding, and $S$ is stride."
+"Given an input volume of $32 \times 32 \times 3$, what is the output spatial size after applying $10$ filters of size $5 \times 5$ with stride $1$ and padding $2$?",The spatial output size is $32 \times 32$.
+"Given an input volume of $32 \times 32 \times 3$, what is the full output volume shape after applying $10$ filters of size $5 \times 5$ with stride $1$ and padding $2$?",The output volume shape is $32 \times 32 \times 10$.
+How many trainable parameters (including bias) are in a single filter of size $5 \times 5 \times 3$?,It contains $76$ parameters ($5 \times 5 \times 3 + 1$).
+How many total trainable parameters are in a convolutional layer with $10$ filters of size $5 \times 5 \times 3$ (including bias)?,It contains $760$ parameters ($76 \times 10$).
+What determines the channel depth of an activation map volume resulting from a convolution layer?,The number of distinct convolutional filters applied to the input.
+"In human neuroanatomy, what is 'retinotopy'?",The topographical mapping where adjacent cells in the visual cortex represent adjacent regions in the visual field.
+"Which visual brain area processes basic visual features such as vertical, horizontal, and angular edges?",The primary visual cortex (V1).
+What simple 1D derivative filter can be used to detect a step edge in a 1D signal?,"A filter with weights $[-1, 1]$ (or $[-1, 0, 1]$)."
+What is the output of a 1D edge detection filter when applied across a region of constant signal values?,The output is zero.
+Early neural network architecture: Cognitron/Neocognitron,Definition: Early bio-inspired network models for pattern recognition introduced by Fukushima (1971–1982).
+Who introduced hierarchical pooling mechanisms inspired by the visual cortex in 1999?,Riesenhuber and Poggio.
+Which seminal paper introduced LeNet-5 for document recognition?,"LeCun, Bottou, Bengio, and Haffner (1998)."
+What are the four core feed-forward operations in a traditional LeNet-style architecture?,"Convolution, non-linearity (rectification), pooling (subsampling), and fully connected layers."
+How are convolutional filters trained in supervised CNNs like LeNet?,By back-propagating classification errors to update filter weights.
+What is the primary function of a pooling layer in a Convolutional Neural Network?,"To downsample spatial dimensions, making representations smaller, more manageable, and spatially invariant."
+How does a pooling layer process multi-channel feature map volumes?,It operates independently over each depth slice/channel of the activation map.
+What is the output of a $2 \times 2$ Max Pooling filter applied to the matrix block $\begin{pmatrix} 1 & 2 \\ 5 & 6 \end{pmatrix}$?,The output value is $6$.
+Applying a $2 \times 2$ max pooling filter with stride $2$ reduces a $224 \times 224 \times 64$ activation map to what dimensions?,It reduces the volume to $112 \times 112 \times 64$.
+Who authored the 2012 AlexNet paper that sparked the deep learning revolution in computer vision?,"Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton."
+Approximately how many parameters and neurons did AlexNet (2012) contain?,"It contained approximately $60$ million parameters and $650,000$ neurons."
+What regularization technique was key in preventing overfitting in AlexNet?,Dropout.
+Which hardware advancement enabled a $50\times$ training speedup for AlexNet compared to CPU implementations?,Graphics Processing Units (GPUs).
+How did the training dataset scale increase from LeNet (1998) to AlexNet (2012)?,It increased from $10^3$ images (MNIST) to $10^6$ images (ImageNet).
+"What trend in filter size and network depth emerged in architectures following AlexNet (e.g., VGG, ResNet)?",A shift towards using smaller filters ($3 \times 3$) and building deeper architectures.
+Why are smaller filters preferred over larger filters in deep CNN architectures?,"They are easier to learn, introduce more non-linearities, and use fewer parameters for the same receptive field."
+How many layers are in the VGG architecture shown in the 2014 ImageNet challenge progression?,19 layers.
+How many layers are in the GoogLeNet architecture from 2014?,22 layers.
+How many layers are in the ResNet architecture introduced in 2015?,152 layers.
+What is meant by the 'receptive field' of an output unit in a CNN?,The spatial region in the input volume that directly influences the activation of that unit.
+How much does a single convolutional layer with kernel size $K$ add to the receptive field size?,It adds $K - 1$ to the receptive field size.
+"What is the formula for the receptive field size of a network with $L$ convolutional layers, each having kernel size $K$?",The receptive field size is $1 + L \times (K - 1)$.
+What is the receptive field size in the input after $3$ stacked convolutional layers with $3 \times 3$ kernels?,The receptive field size is $7 \times 7$ ($1 + 3 \times (3 - 1)$).
+What technique provides visual explanations for CNN predictions via gradient-based localization (Selvaraju et al.)?,Grad-CAM.
+What visual explanation methodology was proposed by Chattopadhyay et al. (2018) as an enhancement to Grad-CAM?,Grad-CAM++.
+"What black-box visual explanation technique uses randomized input sampling (Petsiuk et al., 2018)?",RISE (Randomized Input Sampling for Explanation).
+The property where applying a system transformation to scaled inputs equals scaling the transformed output is _____.,Homogeneity
+The visual cortex area VO1 primarily handles visual processing near which eccentricity range shown in retinotopy maps?,Peripheral and central visual field regions beyond early visual areas V1–V3.
+What happens to spatial dimensionality during subsampling/pooling in LeNet?,"The spatial height and width of feature maps are reduced, aggregating local features."
+Concept: Spatial locality in images,"Definition: The assumption that pixels close to each other are strongly correlated, whereas distant pixels are less related."
+Why is parameter sharing mathematically valid across an image?,"Because local feature statistics (e.g. edges, textures) are translation-invariant across spatial locations."
+What is the primary trade-off when using a stride $S > 1$ in a convolutional layer?,"It downsamples the spatial resolution of the feature map, reducing computational overhead."
+"In a $32 \times 32 \times 3$ input image, what does the depth dimension '3' represent?","The three color channels (Red, Green, Blue)."
+How does doubling the number of filters in a convolutional layer affect the output feature map?,It doubles the depth channel dimension of the output activation map volume.
