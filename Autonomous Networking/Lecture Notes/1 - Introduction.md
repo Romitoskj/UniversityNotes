@@ -1,4 +1,4 @@
-# Class 1 Notes: Introduction to Autonomous Networking (A.Y. 2026–2027)
+# Class 1 Notes: Introduction to Autonomous Networking
 
 ## 1. Defining Autonomy in Networking
 

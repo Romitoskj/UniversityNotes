@@ -1,0 +1,30 @@
+Why is chaining multiple MapReduce jobs computationally expensive for multi-stage pipelines?,Each chained job requires writing full intermediate results to distributed disk storage and executing a fresh shuffle phase.
+How does Apache Spark's primary design goal address the high disk I/O of MapReduce?,Spark keeps intermediate datasets in memory across pipeline stages rather than materialising them to disk by default.
+What is a Resilient Distributed Dataset (RDD) in Apache Spark?,"An RDD is an immutable, partitioned collection of elements distributed across machines in a cluster."
+Why is RDD immutability fundamental to Apache Spark's architecture?,"Immutability ensures an RDD's creation history is permanent, enabling fault recovery through recomputation rather than data replication."
+How do RDD partitions relate to storage blocks when an RDD is loaded directly from HDFS?,There is typically a direct one-to-one mapping between file storage blocks and initial RDD partitions.
+What is the primary functional difference between a Spark transformation and a Spark action?,"A transformation creates a new RDD by updating the logical execution plan, whereas an action triggers actual computation across the cluster."
+The mechanism of deferring transformation execution until an action is called is known as _____.,Lazy Evaluation
+What happens internally within Spark when a transformation like `map()` or `filter()` is called?,Spark records the operation in its logical execution plan without reading or processing any actual data.
+Which category of RDD operation does `reduceByKey()` belong to?,Transformation
+Why does Spark's lazy evaluation model provide a performance optimisation opportunity?,It allows the engine to inspect the entire execution graph beforehand and optimise the overall pipeline before executing any tasks.
+How does operator fusion (pipelining) reduce execution overhead in Spark?,"It combines multiple compatible transformations on the same data partition into a single pass, avoiding intermediate materialisation."
+What defines a narrow dependency between parent and child RDD partitions?,"Each child partition depends on a small, fixed number of parent partitions, typically exactly one, requiring no network shuffling."
+What defines a wide dependency in an RDD transformation graph?,"A child partition depends on data scattered across multiple or all partitions of the parent RDD, requiring a network shuffle."
+Which type of dependency is created by a `filter()` transformation?,Narrow Dependency
+Which type of dependency is created by a `groupByKey()` transformation?,Wide Dependency
+What condition marks the boundary between physical stages in Spark's DAG Scheduler?,"The occurrence of a wide dependency, which requires a network shuffle before subsequent operations can proceed."
+Why can multiple narrow transformations be grouped into a single execution stage?,They operate independently on local partitions without requiring data exchange across cluster nodes.
+Why is `reduceByKey()` preferred over `groupByKey()` followed by an aggregation function?,"`reduceByKey()` performs local aggregation on each partition before shuffling, significantly reducing network data transfer."
+How does Apache Spark achieve fault tolerance for lost RDD partitions without relying on 3x data replication?,Spark uses recorded lineage to recompute only the specific lost partitions from available parent partitions.
+What step does Spark take if a parent partition required for fault recovery is also missing?,Spark recursively traces backward along the lineage chain until it reaches an available partition or source data.
+What is the primary operational trade-off of relying solely on lineage for fault tolerance?,Recomputing partitions along very long lineage chains can become computationally expensive and slow down recovery.
+What is the purpose of RDD checkpointing in Apache Spark?,It writes an RDD's current contents to durable storage to truncate its lineage chain and bound recovery costs.
+How does Spark's lineage metadata overhead compare to traditional storage replication overhead?,"Lineage metadata requires a small, constant amount of memory regardless of the underlying dataset's size."
+What is the main responsibility of Spark's DAG Scheduler when an action is invoked?,It translates the logical RDD lineage graph into physical stages and tasks based on dependency boundaries.
+How does Spark's task scheduler respect data locality when scheduling the initial stage of a job?,It assigns tasks to cluster nodes that physically hold the corresponding input file storage blocks.
+What is a Directed Acyclic Graph (DAG) in the context of Apache Spark?,A graph where nodes represent RDDs and directed edges represent transformation dependencies flowing strictly forward.
+What is the output of the DAG Scheduler within Spark's execution workflow?,"A set of physical stages containing individual tasks, with one task assigned per RDD partition."
+Why are iterative machine learning algorithms particularly well-suited for Apache Spark over MapReduce?,"Spark retains the training dataset in cluster RAM across iterations, eliminating repeated disk read and write operations."
+Calling the method `rdd.cache()` instructs Spark to store computed RDD partitions in _____.,Cluster RAM (Memory)
+What occurs if an RDD cached with the `MEMORY_ONLY` storage level exceeds available cluster RAM?,Unfitted partitions are discarded from memory and recomputed on demand via lineage when needed.
