@@ -1,4 +1,4 @@
-# Lecture 03: Training Neural Networks
+# Lecture 04: Training Neural Networks
 
 ### 1. Activation Functions & Saturation/Gradient Analysis
 
