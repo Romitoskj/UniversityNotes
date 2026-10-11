@@ -44,13 +44,9 @@ _Sequence task formulations establish the conceptual blueprint for dynamic tempo
 
 To process temporal sequence data without incurring the step-by-step training bottlenecks of recurrent architectures, Temporal Convolutional Networks (TCNs) adapt 1D convolutions over time. TCNs replace recurrent memory states with feed-forward parallel pipelines during training, sliding learnable 1D filter kernels across sequence dimensions.
 
-#### 2.1 Mechanics of 1D Convolutions on Sequential Data
+### 2.1 Mechanics of 1D Convolutions on Sequential Data
 
-A 1D convolution slides a learnable filter kernel g of temporal kernel size K over an input sequence vector f along the temporal axis. At any discrete time step i, the output scalar is computed as the linear combination (inner product) of the kernel weights and the overlapping local temporal segment:
-
-(f * g)(i) = \sum_{k} g(k) f(i - k)
-
-Unlike recurrent layers, standard 1D convolutional operations process localized temporal windows independently. They do not maintain a persistent internal state vector across temporal steps or execution batches.
+A 1D convolution slides a learnable filter kernel $g$ of temporal kernel size $K$ over an input sequence vector $f$ along the temporal axis. At any discrete time step $i$, the output scalar is computed as the linear combination (inner product) of the kernel weights and the overlapping local temporal segment:$$(f * g)(i) = \sum_{k} g(k) f(i - k)$$Unlike recurrent layers, standard 1D convolutional operations process localized temporal windows independently. They do not maintain a persistent internal state vector across temporal steps or execution batches.
 
 ```
 Input Sequence f:   [ f(i-2) ]  [ f(i-1) ]  [  f(i)  ]  [ f(i+1) ]
@@ -60,18 +56,14 @@ Kernel g (size 3):      [ g(2)  ]   [ g(1)  ]   [ g(0)  ]
 Output (f * g)(i):            [  (f * g)(i)  ]
 ```
 
-##### Interactive Lecture Walkthrough: Future Sequence Prediction
+#### Interactive Lecture Walkthrough: Future Sequence Prediction
 
-To build physical intuition on how 1D convolutions operate on sequence data, Professor Galasso presented an interactive sequence forecasting task in class. Consider a linearly increasing numeric sequence observed over time:
-
-\text{Input Sequence } f = (7, 8, 9, 10, 11, 12, 13, 14, \dots)
-
-The objective is to design or learn a 3 \times 1 temporal kernel g = [w_1, w_2, w_3]^T with scalar bias b that ingests a local context window of length 3 (e.g., f_{in} = [7, 8, 9]^T) to predict the future time step value (y_{target} = 10).
+To build physical intuition on how 1D convolutions operate on sequence data, Professor Galasso presented an interactive sequence forecasting task in class. Consider a linearly increasing numeric sequence observed over time:$$\text{Input Sequence } f = (7, 8, 9, 10, 11, 12, 13, 14, \dots)$$The objective is to design or learn a $3 \times 1$ temporal kernel $g = [w_1, w_2, w_3]^T$ with scalar bias $b$ that ingests a local context window of length 3 (e.g., $f_{in} = [7, 8, 9]^T$) to predict the future time step value (y_{target} = 10).
 
 - **Candidate Solution 1: Naive Shift Operator (****w_1=0, w_2=0, w_3=1, b=0****)** Applying this kernel to history [7, 8, 9]^T yields: y = (0 \cdot 7) + (0 \cdot 8) + (1 \cdot 9) + 0 = 9 This operation merely replicates the most recent observed sequence value. It performs temporal copying rather than true predictive extrapolation. While it tracks the sequence with a time-lag, it fails as a generalizable forecasting model under real-world dynamic shifts.
 - **Candidate Solution 2: Local Averaging with Step Bias (****w_1=\frac{1}{3}, w_2=\frac{1}{3}, w_3=\frac{1}{3}, b=1****)** Applying this parameterized kernel to history [7, 8, 9]^T yields: y = \left(\frac{1}{3} \cdot 7 + \frac{1}{3} \cdot 8 + \frac{1}{3} \cdot 9\right) + 1 = 8 + 1 = 9 \quad \text{(Wait, target is } 10\text{!)} To correctly output 10 from history [7, 8, 9]^T (mean value 8), the required bias is b=2: y = \left(\frac{1}{3} \cdot 7 + \frac{1}{3} \cdot 8 + \frac{1}{3} \cdot 9\right) + 2 = 8 + 2 = 10 Evaluating the subsequent temporal step [8, 9, 10]^T (mean value 9) using the same learned kernel: y = \left(\frac{1}{3} \cdot 8 + \frac{1}{3} \cdot 9 + \frac{1}{3} \cdot 10\right) + 2 = 9 + 2 = 11 This local averaging mechanism incorporates the entire observed history window, making the filter significantly more robust to high-frequency sensor noise than a simple shift operator.
 
-#### 2.2 Architectural Strengths and Structural Bottlenecks of TCNs
+### 2.2 Architectural Strengths and Structural Bottlenecks of TCNs
 
 ##### Key Architectural Strengths
 
