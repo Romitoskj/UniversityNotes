@@ -26,7 +26,7 @@ Sequence tasks are categorized into four primary processing paradigms based on t
 | **Many-to-Many (Asynchronous / Seq2Seq)** | Dynamic input sequence $\rightarrow$ Dynamic output sequence of different length ($T_{in} \neq T_{out}$) | An **Encoder** compresses the dynamic input sequence into a context vector; a **Decoder** unrolls this state to generate a dynamic target sequence. | **Machine Translation**, **Video Captioning** (e.g., converting frame sequences into _"A dog jumps over a hurdle"_).                 |
 | **Many-to-Many (Synchronous)**            | Frame-by-frame aligned temporal sequence ($T_{in} = T_{out}$)                                            | Operates synchronously at each temporal step; input $x_t$ immediately updates internal state $h_t$ to yield step output $y_t$.                      | **Frame-Level Video Classification**, dense temporal object tracking, token-level POS tagging.                                       |
 
->[!Info]- Deep Dive: Asynchronous Translation Insights
+>[!Quote]- Deep Dive: Asynchronous Translation Insights
 > 
 > In asynchronous sequence-to-sequence (Seq2Seq) tasks like machine translation, Professor Galasso emphasizes why model execution must strictly decouple the encoding phase from the decoding generation phase. In languages such as German, syntactical rules frequently place the primary action verb at the very end of a dependent clause or sentence structure. If a sequence model attempts to generate target language tokens synchronously before reading the full source sequence, it risks generating incorrect target grammar and semantics due to the missing verb context. Consequently, the encoder must fully ingest and process the complete input sequence to construct an accurate, holistic latent context representation before the decoder begins generating target output tokens.
 
@@ -56,7 +56,7 @@ Kernel g (size 3):      [ g(2)  ]   [ g(1)  ]   [ g(0)  ]
 Output (f * g)(i):            [  (f * g)(i)  ]
 ```
 
->[!Example]- Interactive Lecture Walkthrough: Future Sequence Prediction
+>[!Quote]- Interactive Lecture Walkthrough: Future Sequence Prediction
 >To build physical intuition on how 1D convolutions operate on sequence data, Professor Galasso presented an interactive sequence forecasting task in class. Consider a linearly increasing numeric sequence observed over time:$$\text{Input Sequence } f = (7, 8, 9, 10, 11, 12, 13, 14, \dots)$$The objective is to design or learn a $3 \times 1$ temporal kernel $g = [w_1, w_2, w_3]^T$ with scalar bias $b$ that ingests a local context window of length 3 (e.g., $f_{in} = [7, 8, 9]^T$) to predict the future time step value ($y_{target}=10$).
 > - **Candidate Solution 1: Naive Shift Operator ($w_1=0, w_2=0, w_3=1, b=0$)** Applying this kernel to history $[7, 8, 9]^T$ yields: $y = (0 \cdot 7) + (0 \cdot 8) + (1 \cdot 9) + 0 = 9$. This operation merely replicates the most recent observed sequence value. It performs temporal copying rather than true predictive extrapolation. While it tracks the sequence with a time-lag, it fails as a generalizable forecasting model under real-world dynamic shifts.
 > - **Candidate Solution 2: Local Averaging with Step Bias ($w_1=\frac{1}{3}, w_2=\frac{1}{3}, w_3=\frac{1}{3}, b=1$)** Applying this parameterized kernel to history $[7, 8, 9]^T$ yields: $y = \left(\frac{1}{3} \cdot 7 + \frac{1}{3} \cdot 8 + \frac{1}{3} \cdot 9\right) + 1 = 8 + 1 = 9 \quad \text{(Wait, target is } 10\text{!)}$. To correctly output 10 from history $[7, 8, 9]^T$ (mean value 8), the required bias is $b=2$: $y = \left(\frac{1}{3} \cdot 7 + \frac{1}{3} \cdot 8 + \frac{1}{3} \cdot 9\right) + 2 = 8 + 2 = 10$. Evaluating the subsequent temporal step $[8, 9, 10]^T$ (mean value 9) using the same learned kernel: $y = \left(\frac{1}{3} \cdot 8 + \frac{1}{3} \cdot 9 + \frac{1}{3} \cdot 10\right) + 2 = 9 + 2 = 11$. This local averaging mechanism incorporates the entire observed history window, making the filter significantly more robust to high-frequency sensor noise than a simple shift operator.
@@ -71,18 +71,16 @@ Output (f * g)(i):            [  (f * g)(i)  ]
 
 #### Structural Receptive Field Bottleneck
 
-A standard 1D convolution with kernel size K restricts the local context window at each layer. When stacking L standard 1D convolutional layers, the effective temporal receptive field R grows linearly with depth:
-
-R = 1 + L(K - 1)
+A standard 1D convolution with kernel size $K$ restricts the local context window at each layer. When stacking $L$ standard 1D convolutional layers, the effective temporal receptive field $R$ grows linearly with depth: $R = 1 + L(K - 1)$.
 
 To capture long historical contexts (e.g., sequences spanning thousands of temporal steps), standard 1D TCNs require extremely deep architectures with many stacked layers. This linear scaling increases parameter counts and memory usage, creating a primary architectural bottleneck for long-context sequence modeling.
 
-#### Fixed Kernel Limitations: Long vs. Short Sequences
-
-During the lecture, Professor Galasso posed two critical conceptual questions regarding context windows in TCNs versus RNNs:
-
-1. _Can I leverage longer temporal sequences to improve predictions?_ **Answer:** In basic TCN architectures with a fixed kernel size K and depth L, **no**—the network's temporal receptive field is structurally fixed at design time. Ingesting extra historical steps beyond R requires altering the network architecture (increasing K or depth L) and retraining parameters. In contrast, RNNs leverage parameter sharing to process arbitrary sequence lengths dynamically without architectural modification.
-2. _What happens if the input sequence is shorter than the receptive field?_ **Answer:** Procedural zero-padding can be applied to fill missing context steps. However, predictive performance drops significantly because feed-forward weights were optimized during training on complete spatial-temporal feature windows.
+>[!Quote]- Fixed Kernel Limitations: Long vs. Short Sequences
+> 
+> During the lecture, Professor Galasso posed two critical conceptual questions regarding context windows in TCNs versus RNNs:
+> 
+> 1. _Can I leverage longer temporal sequences to improve predictions?_ **Answer:** In basic TCN architectures with a fixed kernel size K and depth L, **no**—the network's temporal receptive field is structurally fixed at design time. Ingesting extra historical steps beyond R requires altering the network architecture (increasing K or depth L) and retraining parameters. In contrast, RNNs leverage parameter sharing to process arbitrary sequence lengths dynamically without architectural modification.
+> 2. _What happens if the input sequence is shorter than the receptive field?_ **Answer:** Procedural zero-padding can be applied to fill missing context steps. However, predictive performance drops significantly because feed-forward weights were optimized during training on complete spatial-temporal feature windows.
 
 ### 2.3 Advanced Architectural Solutions in TCNs
 
