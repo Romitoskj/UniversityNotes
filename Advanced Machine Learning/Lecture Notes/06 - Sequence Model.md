@@ -63,13 +63,13 @@ Output (f * g)(i):            [  (f * g)(i)  ]
 
 ### 2.2 Architectural Strengths and Structural Bottlenecks of TCNs
 
-##### Key Architectural Strengths
+#### Key Architectural Strengths
 
 - **High Parallelizability:** Feed-forward 1D convolutions lack sequential step dependencies during forward propagation. Consequently, all sequence positions across a training batch can be processed simultaneously in parallel using GPU hardware pipelines.
 - **Spatial and Temporal Locality:** 1D convolutions extract localized temporal patterns (such as short audio acoustic features or instantaneous velocity changes) through shared weight parameters.
 - **Data-Efficient Convergence:** In domains governed by local temporal stationarity, TCNs often converge faster and exhibit higher sample efficiency during training than unrolled recurrent architectures.
 
-##### Structural Receptive Field Bottleneck
+#### Structural Receptive Field Bottleneck
 
 A standard 1D convolution with kernel size K restricts the local context window at each layer. When stacking L standard 1D convolutional layers, the effective temporal receptive field R grows linearly with depth:
 
@@ -77,14 +77,14 @@ R = 1 + L(K - 1)
 
 To capture long historical contexts (e.g., sequences spanning thousands of temporal steps), standard 1D TCNs require extremely deep architectures with many stacked layers. This linear scaling increases parameter counts and memory usage, creating a primary architectural bottleneck for long-context sequence modeling.
 
-##### Fixed Kernel Limitations: Long vs. Short Sequences
+#### Fixed Kernel Limitations: Long vs. Short Sequences
 
 During the lecture, Professor Galasso posed two critical conceptual questions regarding context windows in TCNs versus RNNs:
 
 1. _Can I leverage longer temporal sequences to improve predictions?_ **Answer:** In basic TCN architectures with a fixed kernel size K and depth L, **no**—the network's temporal receptive field is structurally fixed at design time. Ingesting extra historical steps beyond R requires altering the network architecture (increasing K or depth L) and retraining parameters. In contrast, RNNs leverage parameter sharing to process arbitrary sequence lengths dynamically without architectural modification.
 2. _What happens if the input sequence is shorter than the receptive field?_ **Answer:** Procedural zero-padding can be applied to fill missing context steps. However, predictive performance drops significantly because feed-forward weights were optimized during training on complete spatial-temporal feature windows.
 
-#### 2.3 Advanced Architectural Solutions in TCNs
+### 2.3 Advanced Architectural Solutions in TCNs
 
 To overcome the linear receptive field bottleneck and prevent future information leakage, modern TCN architectures incorporate three structural modifications:
 
