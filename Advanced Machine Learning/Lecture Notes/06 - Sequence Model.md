@@ -11,53 +11,36 @@ Traditional deep learning architectures, such as feed-forward Multilayer Percept
 - **Fixed Input and Output Dimensions:** Standard networks cannot dynamically adjust to input streams or output predictions that expand, contract, or vary across temporal steps. Enforcing fixed dimensions via arbitrary spatial cropping or static temporal padding introduces artificial distortion into the underlying physical signal.
 - **Absence of Internal Memory State:** Vanilla feed-forward architectures process every input instance independently. They lack persistent internal memory vectors across forward executions, rendering them incapable of tracking historical state transitions or temporal evolution over time.
 
-In contrast, sequence modeling paradigms relax these spatial constraints. They are designed to ingest variable-length input sequences \mathbf{X} = (x_1, x_2, \dots, x_{T_{in}}), generate variable-length output sequences \mathbf{Y} = (y_1, y_2, \dots, y_{T_{out}}), or both, dynamically updating hidden latent representations across dynamic temporal steps.
+In contrast, sequence modeling paradigms relax these spatial constraints. They are designed to ingest variable-length input sequences $\mathbf{X} = (x_1, x_2, \dots, x_{T_{in}})$, generate variable-length output sequences $\mathbf{Y} = (y_1, y_2, \dots, y_{T_{out}})$, or both, dynamically updating hidden latent representations across dynamic temporal steps.
 
-#### 1.2 The Four Core Sequence Paradigms
+### 1.2 The Four Core Sequence Paradigms
 
 Sequence tasks are categorized into four primary processing paradigms based on the temporal alignment and relative dynamic length of their input and output streams:
 
-|   |   |   |   |
-|---|---|---|---|
-|Sequence Paradigm|Structural Mapping|Key Mathematical Mechanism|Representative Examples|
-|**One-to-Many**|Single static input \rightarrow Dynamic sequence output (1 \rightarrow T_{out})|Ingests a static context vector (e.g., image feature map) to initialize internal states, autoregressively generating output tokens step-by-step.|**Image Captioning:** Mapping a visual image tensor to a variable text sequence (e.g., _"A happy brown dog"_).|
-|**Many-to-One**|Dynamic temporal input sequence \rightarrow Single static output (T_{in} \rightarrow 1)|Ingests temporal inputs step-by-step to update a persistent state vector; the final temporal state maps to a categorical output decision.|**Video Action Prediction:** Mapping frame sequences to action categories (_Running_, _Jumping_, _Dancing_); **Sentiment Analysis**.|
-|**Many-to-Many (Asynchronous / Seq2Seq)**|Dynamic input sequence \rightarrow Dynamic output sequence of different length (T_{in} \neq T_{out})|An **Encoder** compresses the dynamic input sequence into a context vector; a **Decoder** unrolls this state to generate a dynamic target sequence.|**Machine Translation**, **Video Captioning** (e.g., converting frame sequences into _"A dog jumps over a hurdle"_).|
-|**Many-to-Many (Synchronous)**|Frame-by-frame aligned temporal sequence (T_{in} = T_{out})|Operates synchronously at each temporal step; input x_t immediately updates internal state h_t to yield step output y_t.|**Frame-Level Video Classification**, dense temporal object tracking, token-level POS tagging.|
+![](Attachments/Pasted%20image%2020261011141631.png)
 
-```
-  One-to-One          One-to-Many         Many-to-One       Many-to-Many (Async)   Many-to-Many (Sync)
-   [ Output ]         [Y1] [Y2] [Y3]        [ Output ]        [Y1] [Y2] [Y3]        [Y1] [Y2] [Y3]
-       ^                   ^    ^    ^          ^               ^    ^    ^          ^    ^    ^
-     [  ]                 [  ]->[  ]->[  ]    [  ]->[  ]->[  ]  [  ]->[  ]->[  ]    [  ]->[  ]->[  ]
-       ^                   ^                    ^    ^    ^     ^    ^    ^          ^    ^    ^
-   [ Input  ]         [ Input ]             [X1] [X2] [X3]    [X1] [X2] [X3]        [X1] [X2] [X3]
-```
+| Sequence Paradigm                         | Structural Mapping                                                                                       | Key Mathematical Mechanism                                                                                                                          | Representative Examples                                                                                                              |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **One-to-Many**                           | Single static input $\rightarrow$ Dynamic sequence output ($1 \rightarrow T_{out}$)                      | Ingests a static context vector (e.g., image feature map) to initialize internal states, autoregressively generating output tokens step-by-step.    | **Image Captioning:** Mapping a visual image tensor to a variable text sequence (e.g., _"A happy brown dog"_).                       |
+| **Many-to-One**                           | Dynamic temporal input sequence $\rightarrow$ Single static output ($T_{in} \rightarrow 1$)              | Ingests temporal inputs step-by-step to update a persistent state vector; the final temporal state maps to a categorical output decision.           | **Video Action Prediction:** Mapping frame sequences to action categories (_Running_, _Jumping_, _Dancing_); **Sentiment Analysis**. |
+| **Many-to-Many (Asynchronous / Seq2Seq)** | Dynamic input sequence $\rightarrow$ Dynamic output sequence of different length ($T_{in} \neq T_{out}$) | An **Encoder** compresses the dynamic input sequence into a context vector; a **Decoder** unrolls this state to generate a dynamic target sequence. | **Machine Translation**, **Video Captioning** (e.g., converting frame sequences into _"A dog jumps over a hurdle"_).                 |
+| **Many-to-Many (Synchronous)**            | Frame-by-frame aligned temporal sequence ($T_{in} = T_{out}$)                                            | Operates synchronously at each temporal step; input $x_t$ immediately updates internal state $h_t$ to yield step output $y_t$.                      | **Frame-Level Video Classification**, dense temporal object tracking, token-level POS tagging.                                       |
 
-##### Deep Dive: Asynchronous Translation Insights
+#### Deep Dive: Asynchronous Translation Insights
 
 In asynchronous sequence-to-sequence (Seq2Seq) tasks like machine translation, Professor Galasso emphasizes why model execution must strictly decouple the encoding phase from the decoding generation phase. In languages such as German, syntactical rules frequently place the primary action verb at the very end of a dependent clause or sentence structure. If a sequence model attempts to generate target language tokens synchronously before reading the full source sequence, it risks generating incorrect target grammar and semantics due to the missing verb context. Consequently, the encoder must fully ingest and process the complete input sequence to construct an accurate, holistic latent context representation before the decoder begins generating target output tokens.
 
-#### 1.3 Real-World Application Case Study: Trajectory Forecasting
+### 1.3 Real-World Application Case Study: Trajectory Forecasting
 
-Trajectory forecasting serves as a core benchmark for spatial-temporal sequence modeling in computer vision, autonomous driving, and public space surveillance. As illustrated in pedestrian motion tracking datasets, models observe a target’s past spatial coordinate trajectory over an observation window t \in \{1, \dots, T_{obs}\} to predict its future spatial coordinates over a future horizon t \in \{T_{obs}+1, \dots, T_{pred}\}.
+Trajectory forecasting serves as a core benchmark for spatial-temporal sequence modeling in computer vision, autonomous driving, and public space surveillance. As illustrated in pedestrian motion tracking datasets, models observe a target’s past spatial coordinate trajectory over an observation window $t \in \{1, \dots, T_{obs}\}$ to predict its future spatial coordinates over a future horizon $t \in \{T_{obs}+1, \dots, T_{pred}\}$.
 
-```
-                        Trajectory Forecasting Paradigm:
-                        
-   [Past Observation Window: t_1 to T_obs]   --->   [Future Forecast Horizon: T_obs+1 to T_pred]
-   (Observed Trajectory Coordinates)                (Multi-Modal Trajectory Predictions)
-   
-   Spatial Position (x_t, y_t)                      Path A (Yellow): Pass left around obstacle
-   ------------------------------------------->     Path B (Red):    Linear path continuation
-                                                    Path C (Green):  Pass right / speed adjustment
-```
+![](Attachments/Pasted%20image%2020261011142857.png)
 
 Unlike simplistic linear motion extrapolation, real-world trajectory forecasting requires capturing complex physical interactions, static environmental obstacles (e.g., benches, trash bins), and dynamic social conventions (e.g., avoiding pedestrian collisions, group walking). Because human intent is non-deterministic, a single historical trajectory can branch into multiple plausible future trajectories (e.g., altering walking speed, stepping aside to yield right-of-way, or choosing alternative navigation routes around obstacles). Trajectory prediction thus evaluates an architecture's capacity to maintain temporal context while modeling multi-modal probability distributions over future spatial states.
 
 _Sequence task formulations establish the conceptual blueprint for dynamic temporal mapping; building upon this foundation, non-recurrent Feed-Forward networks leverage Temporal Convolutional Networks to process sequence data through parallelizable spatial-temporal kernels._
 
-### 2. Temporal Convolutional Networks (TCNs) & 1D Convolutions
+## 2. Temporal Convolutional Networks (TCNs) & 1D Convolutions
 
 To process temporal sequence data without incurring the step-by-step training bottlenecks of recurrent architectures, Temporal Convolutional Networks (TCNs) adapt 1D convolutions over time. TCNs replace recurrent memory states with feed-forward parallel pipelines during training, sliding learnable 1D filter kernels across sequence dimensions.
 
