@@ -1,12 +1,12 @@
 # Advanced Machine Learning Class Notes: Sequence Models I (Lecture 06)
 
-### 1. Sequence Task Formulations & Taxonomy
+## 1. Sequence Task Formulations & Taxonomy
 
 Traditional deep learning architectures, such as feed-forward Multilayer Perceptrons (MLPs) and standard Convolutional Neural Networks (CNNs), excel at processing static, fixed-dimensional spatial grids. However, real-world data streams—including natural language text, speech waveforms, video frame sequences, and financial time series—are fundamentally temporal and elastic in length. Standard fixed-input models fail when applied to these sequence domain problems because they enforce rigid spatial grid constraints and lack mechanisms to maintain persistent temporal context across dynamic time horizons. Formalizing a systematic sequence task taxonomy is therefore strategically vital in modern machine learning: it enables researchers and engineers to match spatial-temporal data structures to optimized architectural abstractions, ensuring that computational graphs, memory retention capabilities, and backpropagation pathways align perfectly with the target sequence domain.
 
-#### 1.1 Standard vs. Sequential Processing Paradigms
+### 1.1 Standard vs. Sequential Processing Paradigms
 
-"Vanilla" neural network pipelines (such as classical ImageNet classification models) enforce a strict **one-to-one** input-to-output mapping. In this paradigm, a static, fixed-dimensional tensor (e.g., an RGB image \mathbf{X} \in \mathbb{R}^{224 \times 224 \times 3}) is ingested in a single feed-forward pass to yield a static categorical output vector \mathbf{Y} \in \mathbb{R}^K. This structural rigidity creates two severe operational bottlenecks when processing dynamic time-series data:
+"Vanilla" neural network pipelines (such as classical ImageNet classification models) enforce a strict **one-to-one** input-to-output mapping. In this paradigm, a static, fixed-dimensional tensor (e.g., an RGB image $\mathbf{X} \in \mathbb{R}^{224 \times 224 \times 3}$) is ingested in a single feed-forward pass to yield a static categorical output vector $\mathbf{Y} \in \mathbb{R}^K$. This structural rigidity creates two severe operational bottlenecks when processing dynamic time-series data:
 
 - **Fixed Input and Output Dimensions:** Standard networks cannot dynamically adjust to input streams or output predictions that expand, contract, or vary across temporal steps. Enforcing fixed dimensions via arbitrary spatial cropping or static temporal padding introduces artificial distortion into the underlying physical signal.
 - **Absence of Internal Memory State:** Vanilla feed-forward architectures process every input instance independently. They lack persistent internal memory vectors across forward executions, rendering them incapable of tracking historical state transitions or temporal evolution over time.
