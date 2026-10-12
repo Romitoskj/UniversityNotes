@@ -140,7 +140,7 @@ To generate an explicit prediction output vector $y_t \in \mathbb{R}^K$ at step 
 
 ### 3.2 The Principle of Parameter Sharing
 
-A primary advantage of the canonical RNN formulation is strict **parameter sharing**. The exact same weight matrices (W_{xh}, W_{hh}, W_{hy}) and bias vectors (b_h, b_y) are reused across every temporal step t \in \{1, \dots, T\}.
+A primary advantage of the canonical RNN formulation is strict **parameter sharing**. The exact same weight matrices ($W_{xh}, W_{hh}, W_{hy}$) and bias vectors ($b_h, b_y$) are reused across every temporal step $t \in \{1, \dots, T\}$.
 
 This recurrence strategy ensures that the model parameter count remains constant, regardless of input sequence length. Consequently, an RNN trained on short sequences can immediately generalize to evaluate arbitrarily long sequence streams without increasing model capacity or parameter sizes.
 
