@@ -86,9 +86,9 @@ To capture long historical contexts (e.g., sequences spanning thousands of tempo
 
 To overcome the linear receptive field bottleneck and prevent future information leakage, modern TCN architectures incorporate three structural modifications:
 
-##### 2.3.1. Causal Convolutions
+#### 2.3.1. Causal Convolutions
 
-To prevent future temporal information from leaking into past predictions during sequence forecasting, causal convolutions enforce strict temporal asymmetry. A causal filter at time step t operates exclusively on elements from time step t and earlier in the previous layer. No future inputs (t+1, t+2, \dots) enter the receptive field calculation:
+To prevent future temporal information from leaking into past predictions during sequence forecasting, causal convolutions enforce strict temporal asymmetry. A causal filter at time step t operates exclusively on elements from time step t and earlier in the previous layer. No future inputs ($t+1, t+2, \dots$) enter the receptive field calculation:
 
 ```
 Standard (Non-Causal):            Causal Convolution:
@@ -97,16 +97,11 @@ Time:   t-1   t   t+1             Time:   t-2   t-1    t
 Output:     [ y_t ]               Output:       [ y_t ]
 ```
 
-##### 2.3.2. Dilated Convolutions
+#### 2.3.2. Dilated Convolutions
 
-To expand the receptive field exponentially without increasing parameter counts, TCNs introduce a dilation factor d. A d-dilated convolution introduces gaps between kernel taps, stepping over d-1 spatial/temporal entries during sliding window multiplication. By doubling the dilation factor exponentially with network depth (d = 2^l for layer l \in \{0, 1, \dots, L-1\}):
+To expand the receptive field exponentially without increasing parameter counts, TCNs introduce a dilation factor $d$. A $d$-dilated convolution introduces gaps between kernel taps, stepping over $d$-1 spatial/temporal entries during sliding window multiplication. By doubling the dilation factor exponentially with network depth ($d = 2^l$ for layer $l \in \{0, 1, \dots, L-1\}$): $d \in \{1, 2, 4, 8, 16, \dots\}$
 
-d \in \{1, 2, 4, 8, 16, \dots\}
-
-The effective temporal receptive field grows logarithmically relative to context length:
-
-R = 1 + \sum_{l=0}^{L-1} (K - 1) \cdot 2^l = 1 + (K - 1)(2^L - 1)
-
+The effective temporal receptive field grows logarithmically relative to context length: $$R = 1 + \sum_{l=0}^{L-1} (K - 1) \cdot 2^l = 1 + (K - 1)(2^L - 1)$$
 ```
 Layer 2 (d=4):  [o] --------------- [o] --------------- [o]
                  |                   |                   |
@@ -116,13 +111,13 @@ Layer 0 (d=1):  [o] - [o] - [o] - [o]- [o] - [o] - [o] - [o]
 Input Seq:      x_1   x_2   x_3   x_4  x_5   x_6   x_7   x_8
 ```
 
-##### 2.3.3. Residual Connections
+#### 2.3.3. Residual Connections
 
-Deep TCNs incorporate residual skip connections (Bai et al., 2018). By adding the input tensor directly to the output transformation of the dilated causal layers (\mathbf{y} = \text{Activation}(\mathbf{x} + \mathcal{F}(\mathbf{x}))), residual blocks stabilize gradient propagation across deeply stacked 1D convolutional networks.
+Deep TCNs incorporate residual skip connections. By adding the input tensor directly to the output transformation of the dilated causal layers ($\mathbf{y} = \text{Activation}(\mathbf{x} + \mathcal{F}(\mathbf{x}))$), residual blocks stabilize gradient propagation across deeply stacked 1D convolutional networks.
 
 #### 2.4 Spatial-Temporal Extensions: 3D Convolutions
 
-When extending sequence modeling from 1D temporal signals to spatio-temporal video streams, 1D temporal kernels are expanded into 3D Convolutional Neural Networks (3D CNNs). 3D convolutions operate over volumetric tensors with dimensions (C \times T \times H \times W), sliding 3D filters across two spatial dimensions (H \times W) and one temporal dimension (T) simultaneously. This spatial-temporal integration enables direct feature extraction across video frames for tasks like dynamic action recognition and future frame prediction.
+When extending sequence modeling from 1D temporal signals to spatio-temporal video streams, 1D temporal kernels are expanded into 3D Convolutional Neural Networks (3D CNNs). 3D convolutions operate over volumetric tensors with dimensions ($C \times T \times H \times W$), sliding 3D filters across two spatial dimensions ($H \times W$) and one temporal dimension ($T$) simultaneously. This spatial-temporal integration enables direct feature extraction across video frames for tasks like dynamic action recognition and future frame prediction.
 
 _While Temporal Convolutional Networks optimize parallel feed-forward training, processing arbitrary, variable-length temporal sequences without fixed receptive field bounds requires stateful, recurrent architectures._
 
