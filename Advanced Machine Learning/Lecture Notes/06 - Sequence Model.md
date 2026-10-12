@@ -125,19 +125,7 @@ _While Temporal Convolutional Networks optimize parallel feed-forward training, 
 
 Recurrent Neural Networks (RNNs) represent the classical baseline paradigm for sequence processing. They use an internal persistent state vector that updates recursively at each temporal step, forming a dynamic memory highway across variable-length temporal sequences.
 
-```
-       Unrolling an RNN Computational Graph Over Time:
-
-          y_1             y_2             y_3                 y_T
-           ^               ^               ^                   ^
-         [W_hy]          [W_hy]          [W_hy]              [W_hy]
-           |               |               |                   |
-h_0 ---> [ h_1 ] -W_hh-> [ h_2 ] -W_hh-> [ h_3 ] -W_hh-...-> [ h_T ]
-           ^               ^               ^                   ^
-         [W_xh]          [W_xh]          [W_xh]              [W_xh]
-           |               |               |                   |
-          x_1             x_2             x_3                 x_T
-```
+![](Attachments/Pasted%20image%2020261012231753.png)
 
 #### 3.1 Fundamental Mathematical Formulation
 
