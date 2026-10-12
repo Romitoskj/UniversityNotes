@@ -115,42 +115,36 @@ Input Seq:      x_1   x_2   x_3   x_4  x_5   x_6   x_7   x_8
 
 Deep TCNs incorporate residual skip connections. By adding the input tensor directly to the output transformation of the dilated causal layers ($\mathbf{y} = \text{Activation}(\mathbf{x} + \mathcal{F}(\mathbf{x}))$), residual blocks stabilize gradient propagation across deeply stacked 1D convolutional networks.
 
-#### 2.4 Spatial-Temporal Extensions: 3D Convolutions
+### 2.4 Spatial-Temporal Extensions: 3D Convolutions
 
 When extending sequence modeling from 1D temporal signals to spatio-temporal video streams, 1D temporal kernels are expanded into 3D Convolutional Neural Networks (3D CNNs). 3D convolutions operate over volumetric tensors with dimensions ($C \times T \times H \times W$), sliding 3D filters across two spatial dimensions ($H \times W$) and one temporal dimension ($T$) simultaneously. This spatial-temporal integration enables direct feature extraction across video frames for tasks like dynamic action recognition and future frame prediction.
 
 _While Temporal Convolutional Networks optimize parallel feed-forward training, processing arbitrary, variable-length temporal sequences without fixed receptive field bounds requires stateful, recurrent architectures._
 
-### 3. Recurrent Neural Networks (RNNs) Core Architecture
+## 3. Recurrent Neural Networks (RNNs) Core Architecture
 
 Recurrent Neural Networks (RNNs) represent the classical baseline paradigm for sequence processing. They use an internal persistent state vector that updates recursively at each temporal step, forming a dynamic memory highway across variable-length temporal sequences.
 
 ![](Attachments/Pasted%20image%2020261012231753.png)
 
-#### 3.1 Fundamental Mathematical Formulation
+### 3.1 Fundamental Mathematical Formulation
 
-At every temporal time step t \in \{1, \dots, T\}, an RNN layer receives an input vector x_t \in \mathbb{R}^D and the previous hidden state vector h_{t-1} \in \mathbb{R}^H. It produces an updated hidden state h_t \in \mathbb{R}^H through a non-linear recurrence transition function:
+At every temporal time step $t \in \{1, \dots, T\}$, an RNN layer receives an input vector $x_t \in \mathbb{R}^D$ and the previous hidden state vector $h_{t-1} \in \mathbb{R}^H$. It produces an updated hidden state $h_t \in \mathbb{R}^H$ through a non-linear recurrence transition function:$$h_t = f_W(h_{t-1}, x_t) = \tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h)$$
+To generate an explicit prediction output vector $y_t \in \mathbb{R}^K$ at step $t$, the updated hidden state vector is projected through an output parameter weight matrix:$$y_t = f_{W_{hy}}(h_t) = W_{hy} h_t + b_y$$
+- **$x_t \in \mathbb{R}^D$:** Input features vector at time step $t$.
+- **$h_{t-1} \in \mathbb{R}^H$:** Historical memory state vector propagated from step $t-1$.
+- **$h_t \in \mathbb{R}^H$:** Updated hidden state vector representing accumulated historical context up to step $t$.
+- **$\tanh$:** Hyperbolic tangent non-linear activation function squash-mapping intermediate values strictly within the range $[-1, 1]$.
+- **$W_{xh} \in \mathbb{R}^{H \times D}, W_{hh} \in \mathbb{R}^{H \times H}, W_{hy} \in \mathbb{R}^{K \times H}$:** Learnable weight projection matrices for input-to-hidden, hidden-to-hidden, and hidden-to-output transformations, respectively.
+- **$b_h \in \mathbb{R}^H, b_y \in \mathbb{R}^K$:** Bias projection vectors.
 
-h_t = f_W(h_{t-1}, x_t) = \tanh(W_{hh} h_{t-1} + W_{xh} x_t + b_h)
-
-To generate an explicit prediction output vector y_t \in \mathbb{R}^K at step t, the updated hidden state vector is projected through an output parameter weight matrix:
-
-y_t = W_{hy} h_t + b_y
-
-- **x_t \in \mathbb{R}^D****:** Input features vector at time step t.
-- **h_{t-1} \in \mathbb{R}^H****:** Historical memory state vector propagated from step t-1.
-- **h_t \in \mathbb{R}^H****:** Updated hidden state vector representing accumulated historical context up to step t.
-- **\tanh****:** Hyperbolic tangent non-linear activation function squash-mapping intermediate values strictly within the range [-1, 1].
-- **W_{xh} \in \mathbb{R}^{H \times D}, W_{hh} \in \mathbb{R}^{H \times H}, W_{hy} \in \mathbb{R}^{K \times H}****:** Learnable weight projection matrices for input-to-hidden, hidden-to-hidden, and hidden-to-output transformations, respectively.
-- **b_h \in \mathbb{R}^H, b_y \in \mathbb{R}^K****:** Bias projection vectors.
-
-#### 3.2 The Principle of Parameter Sharing
+### 3.2 The Principle of Parameter Sharing
 
 A primary advantage of the canonical RNN formulation is strict **parameter sharing**. The exact same weight matrices (W_{xh}, W_{hh}, W_{hy}) and bias vectors (b_h, b_y) are reused across every temporal step t \in \{1, \dots, T\}.
 
 This recurrence strategy ensures that the model parameter count remains constant, regardless of input sequence length. Consequently, an RNN trained on short sequences can immediately generalize to evaluate arbitrarily long sequence streams without increasing model capacity or parameter sizes.
 
-#### 3.3 Computational Graph Unrolling and Backpropagation Through Time (BPTT)
+### 3.3 Computational Graph Unrolling and Backpropagation Through Time (BPTT)
 
 To train an RNN via gradient descent, the dynamic recursive graph is unrolled over time into a feed-forward graph spanning temporal steps 1 through T.
 
@@ -164,7 +158,7 @@ Gradients with respect to the shared weight matrices W are computed using **Back
 
 Calculating BPTT requires traversing backwards through every unrolled step from time T to t=1, accumulating gradient updates along the sequential hidden state path.
 
-#### 3.4 Character-Level Language Model Walkthrough
+### 3.4 Character-Level Language Model Walkthrough
 
 To understand the operational mechanics of an RNN, consider a character-level language model trained on the vocabulary V = \{\text{'h'}, \text{'e'}, \text{'l'}, \text{'o'}\} (|V| = 4) to predict the sequence `"hello"`.
 
@@ -178,7 +172,7 @@ One-Hot Input Vectors:
 'o' = [0, 0, 0, 1]^T
 ```
 
-##### Step-by-Step Step Unrolling
+#### Step-by-Step Step Unrolling
 
 1. **Temporal Step 1:** Ingest input x_1 = `'h'` ([1, 0, 0, 0]^T). Combine with initial zero state h_0 = \mathbf{0} to compute h_1 = \tanh(W_{xh} x_1 + W_{hh} h_0 + b_h). Project h_1 via W_{hy} to produce unnormalized logit score vector \hat{y}_1 \in \mathbb{R}^4. Apply Softmax to derive probabilities and calculate Cross-Entropy Loss L_1 against ground-truth target y_1 = `'e'` ([0, 1, 0, 0]^T).
 2. **Temporal Step 2:** Ingest input x_2 = `'e'` ([0, 1, 0, 0]^T). Combine with previous hidden state h_1 to update state h_2 = \tanh(W_{xh} x_2 + W_{hh} h_1 + b_h). Generate logits \hat{y}_2, computing loss L_2 against ground-truth target y_2 = `'l'` ([0, 0, 1, 0]^T).
@@ -193,7 +187,7 @@ Character Sequence Step Shift:
    Step t=4:  Input x_4 = 'l'   --->   Target y_4 = 'o'
 ```
 
-##### Teacher Forcing vs. Autoregressive Sampling
+#### Teacher Forcing vs. Autoregressive Sampling
 
 - **Teacher Forcing (Training Phase):** During model training, at temporal step t+1, the network is explicitly provided the ground-truth target token from step t as its input x_{t+1}, regardless of whether the model's predicted output \hat{y}_t was correct.
     - _Pedagogical Rationale:_ Without Teacher Forcing, an early incorrect prediction at step t=1 feeds an out-of-distribution input to step t=2, triggering error compounding (exposure bias) that destabilizes BPTT gradient computations across deep temporal computational graphs.
@@ -210,7 +204,7 @@ Autoregressive Inference Loop:
 
 _Unrolling an RNN across long temporal sequences exposes numerical vulnerabilities during backpropagation, leading to gradient pathologies._
 
-### 4. RNN Gradient Pathology & Mathematical Analysis
+## 4. RNN Gradient Pathology & Mathematical Analysis
 
 While standard RNN formulations handle short sequence interactions effectively, training them across long temporal sequences often leads to severe optimization instabilities. This pathology stems from propagating gradient error signals backward through long matrix multiplication chains during Backpropagation Through Time (BPTT).
 
@@ -302,7 +296,7 @@ While gradient clipping effectively resolves exploding numerical gradients, simp
 
 _The mathematical limitations of vanishing gradients in standard RNNs motivated the development of gated memory architectures like the Long Short-Term Memory (LSTM) network._
 
-### 5. Long Short-Term Memory (LSTM) Architecture
+## 5. Long Short-Term Memory (LSTM) Architecture
 
 First introduced by Hochreiter & Schmidhuber (1997), the Long Short-Term Memory (LSTM) architecture resolves the vanishing gradient pathology in deep sequence modeling. LSTMs introduce explicit gated memory highways that preserve unimpeded gradient flow across long temporal dependencies.
 
@@ -393,7 +387,7 @@ Instead of multiplying repeatedly by weight matrix transposes (W_{hh}^T), backpr
 
 If the network learns to set forget gate activations f_t \approx 1.0 across a temporal range, backpropagated error signals flow across hundreds of temporal steps without exponential decay. This linear gradient highway enables stable long-context sequence modeling.
 
-### 6. Comparative Synthesis, Historical Context, and Paradigm Shifts
+## 6. Comparative Synthesis, Historical Context, and Paradigm Shifts
 
 Having established the fine-grained gated mathematical transitions of LSTMs and the non-recurrent feed-forward operations of TCNs, we now synthesize these architectural trade-offs to contextualize their evolution toward modern large-scale sequence paradigms.
 
