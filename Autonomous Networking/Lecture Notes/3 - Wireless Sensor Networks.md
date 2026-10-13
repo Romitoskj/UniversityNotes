@@ -4,19 +4,9 @@
 
 A **Wireless Sensor Network (WSN)** is an autonomous network infrastructure composed of spatially distributed, resource-constrained embedded devices (sensor nodes) that monitor physical or environmental conditions. Sensed data is transmitted, typically across multiple short-range wireless hops, to a centralized destination termed the **sink** or **gateway**.
 
-```
-+-----------------------------------------------------------------------------------------------+
-|                                        MONITORED AREA                                         |
-|                                                                                               |
-|  [ Event ] ---> ( Sense ) ---> [ Sensor Nodes ] ---> ( Forward ) ---> [ Sink / Gateway ]      |
-+-----------------------------------------------------------------------------------------------+
-                                                                               |
-                                                                          ( Deliver )
-                                                                               v
-                                                                    [ Internet / Server ]
-```
+![](Attachments/Pasted%20image%2020261013165917.png)
 
-Core Architectural Elements
+### Core Architectural Elements
 
 - **Monitored Area:** The physical environment undergoing observation, populated by sensor nodes linked via short-range, multi-hop wireless channels.
 - **Sensor Nodes:** Low-power embedded systems deployed across the monitored area that sense physical phenomena, perform localized computation, and relay data packets on behalf of peers.
