@@ -290,46 +290,30 @@ Having established the fine-grained gated mathematical transitions of LSTMs and 
 
 ### 6.1 Architectural Trade-Off Analysis Matrix
 
-|                                        |                                                                                                      |                                                                                                         |                                                                                                                   |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **Evaluation Dimension**               | **Temporal Convolutional Networks (TCNs)**                                                           | **Vanilla Recurrent Networks (RNNs)**                                                                   | **Long Short-Term Memory (LSTMs)**                                                                                |
-| **Parallelizability during Training**  | **High:** Fully parallelizable across all temporal sequence positions via feed-forward convolutions. | **Low / Sequential:** Requires step-by-step unrolling (t-1 \to t), preventing parallel GPU execution.   | **Low / Sequential:** Constrained by sequential step dependencies across recurrent time steps.                    |
-| **Sequence Length Flexibility**        | **Bounded:** Receptive field context is bounded by kernel size K, depth L, and dilation factor d.    | **Dynamic:** Processes variable-length sequences dynamically via parameter sharing.                     | **Dynamic:** Processes variable-length sequences dynamically via parameter sharing.                               |
-| **Memory Efficiency & Parameter Cost** | **Moderate:** Parameter count scales with layers and kernel choices; low per-step memory footprint.  | **High Parameter Efficiency:** Reuses small shared matrices (W_{hh}, W_{xh}, W_{hy}); low compute cost. | **High Memory / Gate Overhead:** Uses four internal gate weight projections, increasing memory overhead per step. |
-| **Long-Range Dependency Capacity**     | **Bounded Logarithmic Context:** Context expands via dilated layers, but remains bounded by design.  | **Poor:** Severely limited by vanishing/exploding gradient pathologies across long spans.               | **High Capability:** Gated linear cell states (c_t) provide an uninterrupted gradient path for long sequences.    |
+| **Evaluation Dimension**               | **Temporal Convolutional Networks (TCNs)**                                                              | **Vanilla Recurrent Networks (RNNs)**                                                                         | **Long Short-Term Memory (LSTMs)**                                                                                |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Parallelizability during Training**  | **High:** Fully parallelizable across all temporal sequence positions via feed-forward convolutions.    | **Low / Sequential:** Requires step-by-step unrolling ($t-1 \to t$), preventing parallel GPU execution.       | **Low / Sequential:** Constrained by sequential step dependencies across recurrent time steps.                    |
+| **Sequence Length Flexibility**        | **Bounded:** Receptive field context is bounded by kernel size $K$, depth $L$, and dilation factor $d$. | **Dynamic:** Processes variable-length sequences dynamically via parameter sharing.                           | **Dynamic:** Processes variable-length sequences dynamically via parameter sharing.                               |
+| **Memory Efficiency & Parameter Cost** | **Moderate:** Parameter count scales with layers and kernel choices; low per-step memory footprint.     | **High Parameter Efficiency:** Reuses small shared matrices ($W_{hh}$, $W_{xh}$, $W_{hy}$); low compute cost. | **High Memory / Gate Overhead:** Uses four internal gate weight projections, increasing memory overhead per step. |
+| **Long-Range Dependency Capacity**     | **Bounded Logarithmic Context:** Context expands via dilated layers, but remains bounded by design.     | **Poor:** Severely limited by vanishing/exploding gradient pathologies across long spans.                     | **High Capability:** Gated linear cell states ($c_t$) provide an uninterrupted gradient path for long sequences.  |
 
 ### 6.2 Historical Trajectory and Expert Audio Commentary
 
 Professor Fabio Galasso contextualizes the historical evolution of sequence paradigms:
 
-##### Early Benchmark Breakthroughs
+#### Early Benchmark Breakthroughs
 
 Sequence modeling advanced rapidly through foundational implementations such as Andrej Karpathy's `char-rnn` framework, which demonstrated text generation using character-level recurrent networks.
 
 This work expanded into visual captioning models (Karpathy & Fei-Fei, 2015), combining feed-forward Convolutional networks with recurrent decoders to generate descriptions of images.
 
-```
-       Karpathy Visual Captioning Paradigm (CNN + RNN Decoder):
-       
-       [ Input Image ] ---> [ AlexNet Layer 7 (FC7) ] ---> Context Vector v_img (4096-D)
-                                                                    |
-  Initial Word Token: <START> -------------------------------------+
-                                                                    v
-                                                          [ Recurrent Decoder Cell ]
-                                                                    |
-                                                                    v
-                                                          Output Word: "A dog..."
-```
+![](Attachments/Pasted%20image%2020261013134006.png)
 
-##### Deep Dive: Image Captioning Context Integration Specs
+#### Deep Dive: Image Captioning Context Integration Specs
 
-In Karpathy's image captioning architecture, visual context extraction is performed using AlexNet. The static visual feature vector v_{img} \in \mathbb{R}^{4096} is extracted directly from **AlexNet Layer 7 (FC7)**—the 4096-dimensional fully connected layer located immediately before the 1000-class Softmax layer. This visual context vector is fed as a static bias input into the recurrent cell transition function alongside input word token x_t and previous hidden state h_{t-1}:
+In Karpathy's image captioning architecture, visual context extraction is performed using AlexNet. The static visual feature vector$ $v_{img} \in \mathbb{R}^{4096}$ is extracted directly from **AlexNet Layer 7 (FC7)**—the 4096-dimensional fully connected layer located immediately before the 1000-class Softmax layer. This visual context vector is fed as a static bias input into the recurrent cell transition function alongside input word token $x_t$ and previous hidden state $h_{t-1}$:$$h_t = f(h_{t-1}, x_t, v_{img})$$This formulation allows the recurrent decoder to condition every generated output word on the underlying visual representation.
 
-h_t = f(h_{t-1}, x_t, v_{img})
-
-This formulation allows the recurrent decoder to condition every generated output word on the underlying visual representation.
-
-##### Modern Paradigm Shifts: Self-Attention and State-Space Models
+#### Modern Paradigm Shifts: Self-Attention and State-Space Models
 
 While gated architectures like LSTMs resolved vanishing gradients, their step-by-step temporal unrolling remains a primary parallelization bottleneck when scaling to large datasets. Modern research has shifted toward architectures optimized for high-throughput parallel hardware processing:
 
