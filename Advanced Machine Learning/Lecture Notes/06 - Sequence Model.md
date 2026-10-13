@@ -261,29 +261,7 @@ _The mathematical limitations of vanishing gradients in standard RNNs motivated 
 
 First introduced by Hochreiter & Schmidhuber (1997), the Long Short-Term Memory (LSTM) architecture resolves the vanishing gradient pathology in deep sequence modeling. LSTMs introduce explicit gated memory highways that preserve unimpeded gradient flow across long temporal dependencies.
 
-```
-                         LSTM Cell Internal Architecture:
-
-                         Cell State Highway (c_t)
-         c_{t-1} --------------------(*)------------------(+)-------------> c_t
-                                      ^                    ^
-                                      |                    |
-                                 (f_t | Forget)      (i_t * g_t)
-                                      |                    |
-         h_{t-1} ----+--------+----->[x]                  [x]<--- (g_t)
-                     |        |        ^                    ^
-                     |        |        | (i_t Input)        |
-                     v        v        |                    |
-            x_t --->[x]------[x]---->[ σ ]                [tanh]
-                     |        |        |                    |
-                     |        +--------+--------------------+
-                     v                 |
-                   [ σ ]               v
-                     |             [ tanh ]
-                     v                 |
-                   (o_t Output)        v
-                     +--------------->(*)-------------------------------> h_t
-```
+![](Attachments/Pasted%20image%2020261013125735.png)
 
 #### 5.1 Core Innovation
 
