@@ -220,31 +220,21 @@ The asymptotic stability of BPTT gradient updates is determined by the linear al
 
 #### 4.2.1 Exploding Gradients ($\rho(W_{hh}) > 1$ or $\sigma_{\max}(W_{hh}) > 1$)
 
-When the maximum singular value of W_{hh} exceeds 1.0, repeated matrix multiplications during backpropagation cause gradient magnitudes to grow exponentially relative to temporal distance (t - k):
-
-\left\| \frac{\partial L_t}{\partial h_k} \right\| \to \infty \quad \text{as} \quad (t - k) \to \infty
-
+When the maximum singular value of $W_{hh}$ exceeds $1.0$, repeated matrix multiplications during backpropagation cause gradient magnitudes to grow exponentially relative to temporal distance ($t - k$):$$\left\| \frac{\partial L_t}{\partial h_k} \right\| \to \infty \quad \text{as} \quad (t - k) \to \infty$$
 - **Symptoms:** Gradient norm values exceed floating-point numerical upper bounds, triggering numerical overflow errors (`NaN`), causing catastrophic weight updates, and destabilizing loss optimization curves.
 
-##### 2. Vanishing Gradients (\rho(W_{hh}) < 1 or \sigma_{\max}(W_{hh}) < 1)
+#### 2. Vanishing Gradients ($\rho(W_{hh}) < 1$ or $\sigma_{\max}(W_{hh}) < 1$)
 
-Because the derivative of the hyperbolic tangent activation function is bounded (\|\operatorname{diag}(1 - \tanh^2(z))\|_2 \le 1.0), if the maximum singular value of W_{hh} is less than 1.0, repeated matrix multiplications cause backpropagated error signals to decay exponentially toward zero:
+Because the derivative of the hyperbolic tangent activation function is bounded ($\|\operatorname{diag}(1 - \tanh^2(z))\|_2 \le 1.0$), if the maximum singular value of $W_{hh}$ is less than $1.0$, repeated matrix multiplications cause backpropagated error signals to decay exponentially toward zero:$$\left\| \frac{\partial L_t}{\partial h_k} \right\| \to 0 \quad \text{as} \quad (t - k) \to \infty$$
+- **Symptoms:** Historical states ($h_k$) receive near-zero gradient updates from future temporal losses. The model becomes short-sighted, losing its ability to capture long-range temporal dependencies.
 
-\left\| \frac{\partial L_t}{\partial h_k} \right\| \to 0 \quad \text{as} \quad (t - k) \to \infty
-
-- **Symptoms:** Historical states (h_k) receive near-zero gradient updates from future temporal losses. The model becomes short-sighted, losing its ability to capture long-range temporal dependencies.
-
-#### 4.3 Remediation Strategies
+### 4.3 Remediation Strategies
 
 To mitigate these numerical gradient pathologies during BPTT, several technical solutions have been introduced:
 
-##### Gradient Clipping (Exploding Gradient Heuristic)
+#### Gradient Clipping (Exploding Gradient Heuristic)
 
-To prevent exploding gradients from destabilizing weight optimizations, backpropagated gradient vectors are scaled down whenever their L_2-norm exceeds a pre-defined threshold \theta:
-
-\text{if } \|\mathbf{g}\|_2 > \theta \implies \mathbf{g} \leftarrow \theta \frac{\mathbf{g}}{\|\mathbf{g}\|_2}
-
-This gradient clipping heuristic rescales extreme update vectors while preserving their directional orientation in parameter space.
+To prevent exploding gradients from destabilizing weight optimizations, backpropagated gradient vectors are scaled down whenever their $L_2$-norm exceeds a pre-defined threshold $\theta$:$$\text{if } \|\mathbf{g}\|_2 > \theta \implies \mathbf{g} \leftarrow \theta \frac{\mathbf{g}}{\|\mathbf{g}\|_2}$$This gradient clipping heuristic rescales extreme update vectors while preserving their directional orientation in parameter space.
 
 ```
                       Gradient Clipping Vector Rescaling:
@@ -261,9 +251,9 @@ This gradient clipping heuristic rescales extreme update vectors while preservin
                        Clipped Vector g_clipped (Norm = θ)
 ```
 
-##### Addressing Vanishing Gradients
+#### Addressing Vanishing Gradients
 
-While gradient clipping effectively resolves exploding numerical gradients, simple heuristics cannot fix vanishing gradients. Ad-hoc weight initializations (e.g., identity matrix initializations W_{hh} = \mathbf{I}) provide limited stabilization. Resolving vanishing gradients permanently requires fundamental structural innovations designed to bypass matrix multiplication chains—a breakthrough realized by gated memory mechanisms.
+While gradient clipping effectively resolves exploding numerical gradients, simple heuristics cannot fix vanishing gradients. Ad-hoc weight initializations (e.g., identity matrix initializations $W_{hh} = \mathbf{I}$) provide limited stabilization. Resolving vanishing gradients permanently requires fundamental structural innovations designed to bypass matrix multiplication chains—a breakthrough realized by gated memory mechanisms.
 
 _The mathematical limitations of vanishing gradients in standard RNNs motivated the development of gated memory architectures like the Long Short-Term Memory (LSTM) network._
 
