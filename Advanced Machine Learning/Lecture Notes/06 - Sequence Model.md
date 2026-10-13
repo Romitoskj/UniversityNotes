@@ -263,14 +263,14 @@ First introduced by Hochreiter & Schmidhuber (1997), the Long Short-Term Memory 
 
 ![](Attachments/Pasted%20image%2020261013125735.png)
 
-#### 5.1 Core Innovation
+### 5.1 Core Innovation
 
 The core innovation of the LSTM architecture is decoupling the internal long-term memory highway from working output representations:
 
-- **Cell State (****c_t \in \mathbb{R}^H****):** An internal linear memory highway running continuously across time steps. It uses elementwise additive updates to preserve gradient signals across long temporal spans without exponential matrix decay.
-- **Hidden State (****h_t \in \mathbb{R}^H****):** A gated working output representation derived directly from the current cell state. It exposes contextually filtered information to downstream output layers and subsequent temporal steps.
+- **Cell State ($c_t \in \mathbb{R}^H$):** An internal linear memory highway running continuously across time steps. It uses elementwise additive updates to preserve gradient signals across long temporal spans without exponential matrix decay.
+- **Hidden State ($h_t \in \mathbb{R}^H$):** A gated working output representation derived directly from the current cell state. It exposes contextually filtered information to downstream output layers and subsequent temporal steps.
 
-#### 5.2 Mathematical Mechanics of the Four Gated Operations
+### 5.2 Mathematical Mechanics of the Four Gated Operations
 
 At temporal step t, an LSTM ingests current input vector x_t \in \mathbb{R}^D and previous hidden state h_{t-1} \in \mathbb{R}^H, evaluating four internal gated transformations (where \sigma denotes the Sigmoid function mapping values to [0, 1], and \tanh maps candidate values to [-1, 1]):
 
