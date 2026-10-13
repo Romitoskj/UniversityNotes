@@ -125,7 +125,7 @@ _While Temporal Convolutional Networks optimize parallel feed-forward training, 
 
 Recurrent Neural Networks (RNNs) represent the classical baseline paradigm for sequence processing. They use an internal persistent state vector that updates recursively at each temporal step, forming a dynamic memory highway across variable-length temporal sequences.
 
-![](Attachments/Pasted%20image%2020261012231753.png)
+![](Attachments/Pasted%20image%2020261013115134.png)
 
 ### 3.1 Fundamental Mathematical Formulation
 
@@ -146,21 +146,15 @@ This recurrence strategy ensures that the model parameter count remains constant
 
 ### 3.3 Computational Graph Unrolling and Backpropagation Through Time (BPTT)
 
-To train an RNN via gradient descent, the dynamic recursive graph is unrolled over time into a feed-forward graph spanning temporal steps 1 through T.
+To train an RNN via gradient descent, the dynamic recursive graph is unrolled over time into a feed-forward graph spanning temporal steps 1 through $T$.
 
-The global loss L across an unrolled sequence equals the sum of step-wise temporal losses L_t:
-
-L = \sum_{t=1}^{T} L_t
-
-Gradients with respect to the shared weight matrices W are computed using **Backpropagation Through Time (BPTT)**. Because weight matrix W is reused across all unrolled temporal steps, the total gradient of global loss L equals the sum of the partial gradients calculated across every individual temporal step:
-
-\frac{\partial L}{\partial W} = \sum_{t=1}^{T} \frac{\partial L_t}{\partial W}
-
-Calculating BPTT requires traversing backwards through every unrolled step from time T to t=1, accumulating gradient updates along the sequential hidden state path.
+The global loss $L$ across an unrolled sequence equals the sum of step-wise temporal losses $L_t$:$$L = \sum_{t=1}^{T} L_t$$
+Gradients with respect to the shared weight matrices $W$ are computed using **Backpropagation Through Time (BPTT)**. Because weight matrix $W$ is reused across all unrolled temporal steps, the total gradient of global loss $L$ equals the sum of the partial gradients calculated across every individual temporal step:$$\frac{\partial L}{\partial W} = \sum_{t=1}^{T} \frac{\partial L_t}{\partial W}$$
+Calculating BPTT requires traversing backwards through every unrolled step from time $T$ to $t=1$, accumulating gradient updates along the sequential hidden state path.
 
 ### 3.4 Character-Level Language Model Walkthrough
 
-To understand the operational mechanics of an RNN, consider a character-level language model trained on the vocabulary V = \{\text{'h'}, \text{'e'}, \text{'l'}, \text{'o'}\} (|V| = 4) to predict the sequence `"hello"`.
+To understand the operational mechanics of an RNN, consider a character-level language model trained on the vocabulary $V = \{\text{'h'}, \text{'e'}, \text{'l'}, \text{'o'}\} (|V| = 4)$ to predict the sequence `"hello"`.
 
 ```
 Vocabulary Mapping: {'h': 0, 'e': 1, 'l': 2, 'o': 3}  (Vocabulary Size V = 4)
@@ -174,24 +168,18 @@ One-Hot Input Vectors:
 
 #### Step-by-Step Step Unrolling
 
-1. **Temporal Step 1:** Ingest input x_1 = `'h'` ([1, 0, 0, 0]^T). Combine with initial zero state h_0 = \mathbf{0} to compute h_1 = \tanh(W_{xh} x_1 + W_{hh} h_0 + b_h). Project h_1 via W_{hy} to produce unnormalized logit score vector \hat{y}_1 \in \mathbb{R}^4. Apply Softmax to derive probabilities and calculate Cross-Entropy Loss L_1 against ground-truth target y_1 = `'e'` ([0, 1, 0, 0]^T).
-2. **Temporal Step 2:** Ingest input x_2 = `'e'` ([0, 1, 0, 0]^T). Combine with previous hidden state h_1 to update state h_2 = \tanh(W_{xh} x_2 + W_{hh} h_1 + b_h). Generate logits \hat{y}_2, computing loss L_2 against ground-truth target y_2 = `'l'` ([0, 0, 1, 0]^T).
-3. **Temporal Step 3:** Ingest input x_3 = `'l'` ([0, 0, 1, 0]^T). Update state h_3 = \tanh(W_{xh} x_3 + W_{hh} h_2 + b_h). Generate logits \hat{y}_3, computing loss L_3 against target y_3 = `'l'` ([0, 0, 1, 0]^T).
-4. **Temporal Step 4:** Ingest input x_4 = `'l'` ([0, 0, 1, 0]^T). Update state h_4 = \tanh(W_{xh} x_4 + W_{hh} h_3 + b_h). Generate logits \hat{y}_4, computing loss L_4 against target y_4 = `'o'` ([0, 0, 0, 1]^T).
+1. **Temporal Step 1:** Ingest input $x_1 = 'h' ([1, 0, 0, 0]^T)$. Combine with initial zero state $h_0 = \mathbf{0}$ to compute $h_1 = \tanh(W_{xh} x_1 + W_{hh} h_0 + b_h)$. Project $h_1$ via $W_{hy}$ to produce unnormalized logit score vector $\hat{y}_1 \in \mathbb{R}^4$. Apply Softmax to derive probabilities and calculate Cross-Entropy Loss $L_1$ against ground-truth target $y_1 = 'e' ([0, 1, 0, 0]^T)$.
+2. **Temporal Step 2:** Ingest input $x_2 = 'e' ([0, 1, 0, 0]^T)$. Combine with previous hidden state $h_1$ to update state $h_2 = \tanh(W_{xh} x_2 + W_{hh} h_1 + b_h)$. Generate logits $\hat{y}_2$, computing loss $L_2$ against ground-truth target $y_2 = 'l' ([0, 0, 1, 0]^T)$.
+3. **Temporal Step 3:** Ingest input $x_3 = 'l' ([0, 0, 1, 0]^T)$. Update state $h_3 = \tanh(W_{xh} x_3 + W_{hh} h_2 + b_h)$. Generate logits $\hat{y}_3$, computing loss $L_3$ against target $y_3 = 'l' ([0, 0, 1, 0]^T)$.
+4. **Temporal Step 4:** Ingest input $x_4 = 'l' ([0, 0, 1, 0]^T)$. Update state $h_4 = \tanh(W_{xh} x_4 + W_{hh} h_3 + b_h)$. Generate logits $\hat{y}_4$, computing loss $L_4$ against target $y_4 = 'o' ([0, 0, 0, 1]^T)$.
 
-```
-Character Sequence Step Shift:
-   Step t=1:  Input x_1 = 'h'   --->   Target y_1 = 'e'
-   Step t=2:  Input x_2 = 'e'   --->   Target y_2 = 'l'
-   Step t=3:  Input x_3 = 'l'   --->   Target y_3 = 'l'
-   Step t=4:  Input x_4 = 'l'   --->   Target y_4 = 'o'
-```
+![485](Attachments/Pasted%20image%2020261013115810.png)
 
 #### Teacher Forcing vs. Autoregressive Sampling
 
-- **Teacher Forcing (Training Phase):** During model training, at temporal step t+1, the network is explicitly provided the ground-truth target token from step t as its input x_{t+1}, regardless of whether the model's predicted output \hat{y}_t was correct.
-    - _Pedagogical Rationale:_ Without Teacher Forcing, an early incorrect prediction at step t=1 feeds an out-of-distribution input to step t=2, triggering error compounding (exposure bias) that destabilizes BPTT gradient computations across deep temporal computational graphs.
-- **Autoregressive Sampling (Inference Phase):** Ground-truth target labels are unavailable during inference. The network operates autoregressively: its sampled output prediction token \hat{y}_t at step t is fed back directly as input x_{t+1} for the subsequent temporal step.
+- **Teacher Forcing (Training Phase):** During model training, at temporal step $t+1$, the network is explicitly provided the ground-truth target token from step $t$ as its input $x_{t+1}$, regardless of whether the model's predicted output $\hat{y}_t$ was correct.
+    - _Pedagogical Rationale:_ Without Teacher Forcing, an early incorrect prediction at step $t=1$ feeds an out-of-distribution input to step $t=2$, triggering error compounding (exposure bias) that destabilizes BPTT gradient computations across deep temporal computational graphs.
+- **Autoregressive Sampling (Inference Phase):** Ground-truth target labels are unavailable during inference. The network operates autoregressively: its sampled output prediction token $\hat{y}_t$ at step $t$ is fed back directly as input $x_{t+1}$ for the subsequent temporal step.
 
 ```
 Autoregressive Inference Loop:
