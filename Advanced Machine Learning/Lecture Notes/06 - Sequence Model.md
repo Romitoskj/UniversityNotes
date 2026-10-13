@@ -276,31 +276,29 @@ Once gate activations are evaluated, the LSTM updates its long-term cell state m
 2. **Hidden State Working Output Update ($h_t$):** The working hidden state vector exposes a squashed representation of the updated cell state, filtered by the output gate:$$h_t = o_t \odot \tanh(c_t)$$
 Where $\odot$ represents the elementwise (Hadamard) vector product.
 
-#### 5.4 The Uninterrupted Gradient Highway
+### 5.4 The Uninterrupted Gradient Highway
 
-LSTMs eliminate the vanishing gradient pathology due to the additive mathematical structure of their cell state memory update. When computing backpropagation partial derivatives from c_t to c_{t-1}:
+LSTMs eliminate the vanishing gradient pathology due to the additive mathematical structure of their cell state memory update. When computing backpropagation partial derivatives from $c_t$ to $c_{t-1}$:$$\frac{\partial c_t}{\partial c_{t-1}} = f_t$$Instead of multiplying repeatedly by weight matrix transposes ($W_{hh}^T$), backpropagation along the cell state highway relies on elementwise scalar operations governed directly by the forget gate vector $f_t$.
 
-\frac{\partial c_t}{\partial c_{t-1}} = f_t
+![](Attachments/Pasted%20image%2020261013132529.png)
 
-Instead of multiplying repeatedly by weight matrix transposes (W_{hh}^T), backpropagation along the cell state highway relies on elementwise scalar operations governed directly by the forget gate vector f_t.
-
-If the network learns to set forget gate activations f_t \approx 1.0 across a temporal range, backpropagated error signals flow across hundreds of temporal steps without exponential decay. This linear gradient highway enables stable long-context sequence modeling.
+If the network learns to set forget gate activations $f_t \approx 1.0$ across a temporal range, backpropagated error signals flow across hundreds of temporal steps without exponential decay. This linear gradient highway enables stable long-context sequence modeling.
 
 ## 6. Comparative Synthesis, Historical Context, and Paradigm Shifts
 
 Having established the fine-grained gated mathematical transitions of LSTMs and the non-recurrent feed-forward operations of TCNs, we now synthesize these architectural trade-offs to contextualize their evolution toward modern large-scale sequence paradigms.
 
-#### 6.1 Architectural Trade-Off Analysis Matrix
+### 6.1 Architectural Trade-Off Analysis Matrix
 
-|   |   |   |   |
-|---|---|---|---|
-|Evaluation Dimension|Temporal Convolutional Networks (TCNs)|Vanilla Recurrent Networks (RNNs)|Long Short-Term Memory (LSTMs)|
-|**Parallelizability during Training**|**High:** Fully parallelizable across all temporal sequence positions via feed-forward convolutions.|**Low / Sequential:** Requires step-by-step unrolling (t-1 \to t), preventing parallel GPU execution.|**Low / Sequential:** Constrained by sequential step dependencies across recurrent time steps.|
-|**Sequence Length Flexibility**|**Bounded:** Receptive field context is bounded by kernel size K, depth L, and dilation factor d.|**Dynamic:** Processes variable-length sequences dynamically via parameter sharing.|**Dynamic:** Processes variable-length sequences dynamically via parameter sharing.|
-|**Memory Efficiency & Parameter Cost**|**Moderate:** Parameter count scales with layers and kernel choices; low per-step memory footprint.|**High Parameter Efficiency:** Reuses small shared matrices (W_{hh}, W_{xh}, W_{hy}); low compute cost.|**High Memory / Gate Overhead:** Uses four internal gate weight projections, increasing memory overhead per step.|
-|**Long-Range Dependency Capacity**|**Bounded Logarithmic Context:** Context expands via dilated layers, but remains bounded by design.|**Poor:** Severely limited by vanishing/exploding gradient pathologies across long spans.|**High Capability:** Gated linear cell states (c_t) provide an uninterrupted gradient path for long sequences.|
+|                                        |                                                                                                      |                                                                                                         |                                                                                                                   |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **Evaluation Dimension**               | **Temporal Convolutional Networks (TCNs)**                                                           | **Vanilla Recurrent Networks (RNNs)**                                                                   | **Long Short-Term Memory (LSTMs)**                                                                                |
+| **Parallelizability during Training**  | **High:** Fully parallelizable across all temporal sequence positions via feed-forward convolutions. | **Low / Sequential:** Requires step-by-step unrolling (t-1 \to t), preventing parallel GPU execution.   | **Low / Sequential:** Constrained by sequential step dependencies across recurrent time steps.                    |
+| **Sequence Length Flexibility**        | **Bounded:** Receptive field context is bounded by kernel size K, depth L, and dilation factor d.    | **Dynamic:** Processes variable-length sequences dynamically via parameter sharing.                     | **Dynamic:** Processes variable-length sequences dynamically via parameter sharing.                               |
+| **Memory Efficiency & Parameter Cost** | **Moderate:** Parameter count scales with layers and kernel choices; low per-step memory footprint.  | **High Parameter Efficiency:** Reuses small shared matrices (W_{hh}, W_{xh}, W_{hy}); low compute cost. | **High Memory / Gate Overhead:** Uses four internal gate weight projections, increasing memory overhead per step. |
+| **Long-Range Dependency Capacity**     | **Bounded Logarithmic Context:** Context expands via dilated layers, but remains bounded by design.  | **Poor:** Severely limited by vanishing/exploding gradient pathologies across long spans.               | **High Capability:** Gated linear cell states (c_t) provide an uninterrupted gradient path for long sequences.    |
 
-#### 6.2 Historical Trajectory and Expert Audio Commentary
+### 6.2 Historical Trajectory and Expert Audio Commentary
 
 Professor Fabio Galasso contextualizes the historical evolution of sequence paradigms:
 
