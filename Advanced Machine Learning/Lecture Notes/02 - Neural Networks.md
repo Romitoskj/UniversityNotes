@@ -22,16 +22,16 @@ Biological hardware operates on a hierarchy of processing speeds: the retina pro
 
 As architects, we recognize that RGB sensors are a "human-friendly" approximation because our neurons are specifically tuned to those frequencies. However, modern AI has moved toward a "super-engineered" paradigm. To borrow an industry analogy: if you want to fly, you go to the airport; you do not "find a mosquito" to study how to flap wings. We seek the underlying principles—like lift (portance)—rather than biological mimicry. This shift necessitates a move toward the mathematical representation of visual data.
 
-### 2. Linear Image Classifiers and Probabilistic Frameworks
+## 2. Linear Image Classifiers and Probabilistic Frameworks
 
 To move from raw pixels to semantic understanding, we must map high-dimensional visual data into discrete categories. The linear classifier serves as the foundational unit for this mapping and is the essential building block of deep architectures.
 
 #### From Pixels to Scores
 
-An image (e.g., 32x32x3) is vectorized into N = 3072 features. We apply the linear function f(x,W) = Wx + b. For a 10-class problem, the dimensions are:
+An image (e.g., 32x32x3) is vectorized into N = 3072 features. We apply the linear function $f(x,W) = Wx + b$. For a 10-class problem, the dimensions are:
 
-- **Weight Matrix (****W****):** [10 \times 3072], representing [Classes \times Input\_Features].
-- **Bias (****b****):** [10 \times 1]. The result is a 10 \times 1 vector of **class scores**, or what the literature calls **unnormalized logical probabilities** (commonly referred to in industry as **logits**).
+- **Weight Matrix ($W$):** $[10 \times 3072]$, representing $[Classes \times Input\_Features]$.
+- **Bias ($b$):** $[10 \times 1]$. The result is a $10 \times 1$ vector of **class scores**, or what the literature calls **unnormalized logical probabilities** (commonly referred to in industry as **logits**).
 
 #### The Softmax Classifier
 
@@ -45,7 +45,7 @@ To train the model, we use **Cross-Entropy Loss**: L_i = -\log P(Y = y_i | X = x
 
 Training purely on data loss leads to overfitting. We calculate **Total Loss** as \text{Data Loss} + \lambda R(W), where \lambda is the regularization strength. Regularization prevents the model from "doing too well" on training data by penalizing large weights. Large weights allow the model to "bend" the classification function too sharply to fit noise. Modern architectural preference leans toward large-capacity models that are heavily regularized (using L2, L1, Dropout, or Batch Normalization) to ensure generalization. Once the error is defined, we must minimize it through optimization.
 
-### 3. Optimization and Stochastic Gradient Descent (SGD)
+## 3. Optimization and Stochastic Gradient Descent (SGD)
 
 Optimization in high-dimensional parameter spaces requires navigating a complex "loss surface" via iterative refinement.
 
@@ -57,7 +57,7 @@ We minimize loss by moving in the negative gradient direction. The most critical
 
 Calculating the gradient for an entire dataset is computationally prohibitive. **Stochastic Gradient Descent (SGD)** utilizes minibatches to estimate the gradient. While "noisy," this stochasticity is a strategic advantage: it acts as a form of implicit regularization, helping the optimization process escape sharp local minima that might otherwise trap a full-batch approach. This strategy is implemented through computational graphs.
 
-### 4. Computational Graphs and Backpropagation Mechanics
+## 4. Computational Graphs and Backpropagation Mechanics
 
 Backpropagation decomposes complex functions into a chain of local, modular operations, allowing us to compute gradients efficiently.
 
