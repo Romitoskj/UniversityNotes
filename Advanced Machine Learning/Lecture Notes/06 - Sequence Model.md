@@ -86,9 +86,7 @@ To capture long historical contexts (e.g., sequences spanning thousands of tempo
 
 To overcome the linear receptive field bottleneck and prevent future information leakage, modern TCN architectures incorporate three structural modifications:
 
-#### 2.3.1. Causal Convolutions
-
-To prevent future temporal information from leaking into past predictions during sequence forecasting, causal convolutions enforce strict temporal asymmetry. A causal filter at time step t operates exclusively on elements from time step t and earlier in the previous layer. No future inputs ($t+1, t+2, \dots$) enter the receptive field calculation:
+1. **Causal Convolutions:** To prevent future temporal information from leaking into past predictions during sequence forecasting, causal convolutions enforce strict temporal asymmetry. A causal filter at time step t operates exclusively on elements from time step t and earlier in the previous layer. No future inputs ($t+1, t+2, \dots$) enter the receptive field calculation:
 
 ```
 Standard (Non-Causal):            Causal Convolution:
@@ -97,11 +95,9 @@ Time:   t-1   t   t+1             Time:   t-2   t-1    t
 Output:     [ y_t ]               Output:       [ y_t ]
 ```
 
-#### 2.3.2. Dilated Convolutions
+2. **Dilated Convolutions:** To expand the receptive field exponentially without increasing parameter counts, TCNs introduce a dilation factor $d$. A $d$-dilated convolution introduces gaps between kernel taps, stepping over $d$-1 spatial/temporal entries during sliding window multiplication. By doubling the dilation factor exponentially with network depth ($d = 2^l$ for layer $l \in \{0, 1, \dots, L-1\}$): $d \in \{1, 2, 4, 8, 16, \dots\}$
 
-To expand the receptive field exponentially without increasing parameter counts, TCNs introduce a dilation factor $d$. A $d$-dilated convolution introduces gaps between kernel taps, stepping over $d$-1 spatial/temporal entries during sliding window multiplication. By doubling the dilation factor exponentially with network depth ($d = 2^l$ for layer $l \in \{0, 1, \dots, L-1\}$): $d \in \{1, 2, 4, 8, 16, \dots\}$
-
-The effective temporal receptive field grows logarithmically relative to context length: $$R = 1 + \sum_{l=0}^{L-1} (K - 1) \cdot 2^l = 1 + (K - 1)(2^L - 1)$$
+	The effective temporal receptive field grows logarithmically relative to context length: $$R = 1 + \sum_{l=0}^{L-1} (K - 1) \cdot 2^l = 1 + (K - 1)(2^L - 1)$$
 ```
 Layer 2 (d=4):  [o] --------------- [o] --------------- [o]
                  |                   |                   |
@@ -111,9 +107,7 @@ Layer 0 (d=1):  [o] - [o] - [o] - [o]- [o] - [o] - [o] - [o]
 Input Seq:      x_1   x_2   x_3   x_4  x_5   x_6   x_7   x_8
 ```
 
-#### 2.3.3. Residual Connections
-
-Deep TCNs incorporate residual skip connections. By adding the input tensor directly to the output transformation of the dilated causal layers ($\mathbf{y} = \text{Activation}(\mathbf{x} + \mathcal{F}(\mathbf{x}))$), residual blocks stabilize gradient propagation across deeply stacked 1D convolutional networks.
+3. **Residual Connections:** Deep TCNs incorporate residual skip connections. By adding the input tensor directly to the output transformation of the dilated causal layers ($\mathbf{y} = \text{Activation}(\mathbf{x} + \mathcal{F}(\mathbf{x}))$), residual blocks stabilize gradient propagation across deeply stacked 1D convolutional networks.
 
 ### 2.4 Spatial-Temporal Extensions: 3D Convolutions
 
@@ -218,14 +212,10 @@ The asymptotic stability of BPTT gradient updates is determined by the linear al
     0.0+-------------> Time Steps            +-------------> Time Steps
 ```
 
-#### 4.2.1 Exploding Gradients ($\rho(W_{hh}) > 1$ or $\sigma_{\max}(W_{hh}) > 1$)
-
-When the maximum singular value of $W_{hh}$ exceeds $1.0$, repeated matrix multiplications during backpropagation cause gradient magnitudes to grow exponentially relative to temporal distance ($t - k$):$$\left\| \frac{\partial L_t}{\partial h_k} \right\| \to \infty \quad \text{as} \quad (t - k) \to \infty$$
+1. **Exploding Gradients ($\rho(W_{hh}) > 1$ or $\sigma_{\max}(W_{hh}) > 1$):** When the maximum singular value of $W_{hh}$ exceeds $1.0$, repeated matrix multiplications during backpropagation cause gradient magnitudes to grow exponentially relative to temporal distance ($t - k$):$$\left\| \frac{\partial L_t}{\partial h_k} \right\| \to \infty \quad \text{as} \quad (t - k) \to \infty$$
 - **Symptoms:** Gradient norm values exceed floating-point numerical upper bounds, triggering numerical overflow errors (`NaN`), causing catastrophic weight updates, and destabilizing loss optimization curves.
 
-#### 2. Vanishing Gradients ($\rho(W_{hh}) < 1$ or $\sigma_{\max}(W_{hh}) < 1$)
-
-Because the derivative of the hyperbolic tangent activation function is bounded ($\|\operatorname{diag}(1 - \tanh^2(z))\|_2 \le 1.0$), if the maximum singular value of $W_{hh}$ is less than $1.0$, repeated matrix multiplications cause backpropagated error signals to decay exponentially toward zero:$$\left\| \frac{\partial L_t}{\partial h_k} \right\| \to 0 \quad \text{as} \quad (t - k) \to \infty$$
+1. **Vanishing Gradients ($\rho(W_{hh}) < 1$ or $\sigma_{\max}(W_{hh}) < 1$):** Because the derivative of the hyperbolic tangent activation function is bounded ($\|\operatorname{diag}(1 - \tanh^2(z))\|_2 \le 1.0$), if the maximum singular value of $W_{hh}$ is less than $1.0$, repeated matrix multiplications cause backpropagated error signals to decay exponentially toward zero:$$\left\| \frac{\partial L_t}{\partial h_k} \right\| \to 0 \quad \text{as} \quad (t - k) \to \infty$$
 - **Symptoms:** Historical states ($h_k$) receive near-zero gradient updates from future temporal losses. The model becomes short-sighted, losing its ability to capture long-range temporal dependencies.
 
 ### 4.3 Remediation Strategies
@@ -272,32 +262,12 @@ The core innovation of the LSTM architecture is decoupling the internal long-ter
 
 ### 5.2 Mathematical Mechanics of the Four Gated Operations
 
-At temporal step t, an LSTM ingests current input vector x_t \in \mathbb{R}^D and previous hidden state h_{t-1} \in \mathbb{R}^H, evaluating four internal gated transformations (where \sigma denotes the Sigmoid function mapping values to [0, 1], and \tanh maps candidate values to [-1, 1]):
+At temporal step $t$, an LSTM ingests current input vector $x_t \in \mathbb{R}^D$ and previous hidden state $h_{t-1} \in \mathbb{R}^H$, evaluating four internal gated transformations (where $\sigma$ denotes the Sigmoid function mapping values to $[0, 1]$, and $\tanh$ maps candidate values to $[-1, 1]$):
 
-##### 1. Forget Gate (f_t)
-
-Controls what proportion of historical long-term cell memory to retain versus discard:
-
-f_t = \sigma(W_{xf} x_t + W_{hf} h_{t-1} + b_f)
-
-##### 2. Input Gate (i_t)
-
-Determines which specific temporal memory dimensions will be updated with newly arriving information:
-
-i_t = \sigma(W_{xi} x_t + W_{hi} h_{t-1} + b_i)
-
-##### 3. Candidate Cell State (g_t)
-
-Generates a vector of new candidate values to be integrated into the long-term cell state memory highway:
-
-g_t = \tanh(W_{xg} x_t + W_{hg} h_{t-1} + b_g)
-
-##### 4. Output Gate (o_t)
-
-Controls what portion of the internal long-term cell state memory is filtered and exposed as the working hidden state output:
-
-o_t = \sigma(W_{xo} x_t + W_{ho} h_{t-1} + b_o)
-
+1. **Forget Gate ($f_t$):** Controls what proportion of historical long-term cell memory to retain versus discard:$$f_t = \sigma(W_{xf} x_t + W_{hf} h_{t-1} + b_f)$$
+2. **Input Gate ($i_t$):** Determines which specific temporal memory dimensions will be updated with newly arriving information:$$i_t = \sigma(W_{xi} x_t + W_{hi} h_{t-1} + b_i)$$
+3. **Candidate Cell State ($g_t$):** Generates a vector of new candidate values to be integrated into the long-term cell state memory highway:$$g_t = \tanh(W_{xg} x_t + W_{hg} h_{t-1} + b_g)$$
+ 4. **Output Gate ($o_t$):** Controls what portion of the internal long-term cell state memory is filtered and exposed as the working hidden state output:$$o_t = \sigma(W_{xo} x_t + W_{ho} h_{t-1} + b_o)$$
 #### 5.3 State Update Equations and Information Flow
 
 Once gate activations are evaluated, the LSTM updates its long-term cell state memory c_t and working hidden state h_t using the following update equations:
