@@ -177,18 +177,9 @@ One-Hot Input Vectors:
 
 #### Teacher Forcing vs. Autoregressive Sampling
 
-- **Teacher Forcing (Training Phase):** During model training, at temporal step $t+1$, the network is explicitly provided the ground-truth target token from step $t$ as its input $x_{t+1}$, regardless of whether the model's predicted output $\hat{y}_t$ was correct.
+- **Teacher/Ground Truth Forcing (Training Phase):** During model training, at temporal step $t+1$, the network is explicitly provided the ground-truth target token from step $t$ as its input $x_{t+1}$, regardless of whether the model's predicted output $\hat{y}_t$ was correct.
     - _Pedagogical Rationale:_ Without Teacher Forcing, an early incorrect prediction at step $t=1$ feeds an out-of-distribution input to step $t=2$, triggering error compounding (exposure bias) that destabilizes BPTT gradient computations across deep temporal computational graphs.
 - **Autoregressive Sampling (Inference Phase):** Ground-truth target labels are unavailable during inference. The network operates autoregressively: its sampled output prediction token $\hat{y}_t$ at step $t$ is fed back directly as input $x_{t+1}$ for the subsequent temporal step.
-
-```
-Autoregressive Inference Loop:
-   [x_1: 'h'] ---> [ RNN Block ] ---> Output Logits ---> Sample 'e'
-                        |                                   |
-   [x_2: 'e'] <---------+-----------------------------------+
-        |
-        +---------> [ RNN Block ] ---> Output Logits ---> Sample 'l' ...
-```
 
 _Unrolling an RNN across long temporal sequences exposes numerical vulnerabilities during backpropagation, leading to gradient pathologies._
 
@@ -196,28 +187,20 @@ _Unrolling an RNN across long temporal sequences exposes numerical vulnerabiliti
 
 While standard RNN formulations handle short sequence interactions effectively, training them across long temporal sequences often leads to severe optimization instabilities. This pathology stems from propagating gradient error signals backward through long matrix multiplication chains during Backpropagation Through Time (BPTT).
 
-#### 4.1 Mechanics of Gradient Flow Breakdown
+### 4.1 Mechanics of Gradient Flow Breakdown
 
-To update shared recurrent weight parameters W_{hh} based on a temporal loss L_t occurring at a distant step t, backpropagation must calculate partial derivatives through intermediate hidden states \frac{\partial h_t}{\partial h_k} (where k \ll t). Applying the multivariable chain rule yields:
-
-\frac{\partial L_t}{\partial h_k} = \frac{\partial L_t}{\partial h_t} \prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}}
-
-Evaluating the single-step Jacobian derivative matrix \frac{\partial h_j}{\partial h_{j-1}} requires differentiating the hidden state transition equation h_j = \tanh(W_{hh} h_{j-1} + W_{xh} x_j + b_h).
+To update shared recurrent weight parameters $W_{hh}$ based on a temporal loss $L_t$ occurring at a distant step $t$, backpropagation must calculate partial derivatives through intermediate hidden states $\frac{\partial h_t}{\partial h_k}$ (where $k \ll t$). Applying the multivariable chain rule yields:$$\frac{\partial L_t}{\partial h_k} = \frac{\partial L_t}{\partial h_t} \prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}}$$Evaluating the single-step Jacobian derivative matrix $\frac{\partial h_j}{\partial h_{j-1}}$ requires differentiating the hidden state transition equation $h_j = \tanh(W_{hh} h_{j-1} + W_{xh} x_j + b_h)$.
 
 ##### Vector-Matrix Layout Conventions
 
-- **Column Vector Convention:** Defining h_j \in \mathbb{R}^{H \times 1} as a column vector, the Jacobian matrix is: \frac{\partial h_j}{\partial h_{j-1}} = \operatorname{diag}\left(1 - \tanh^2(z_j)\right) W_{hh} Where z_j = W_{hh} h_{j-1} + W_{xh} x_j + b_h, and \operatorname{diag}(1 - \tanh^2(z_j)) is an H \times H diagonal matrix of derivative values.
-- **Row Vector Convention:** Defining h_j \in \mathbb{R}^{1 \times H} as a row vector, the transposed layout gives: \frac{\partial h_j}{\partial h_{j-1}} = W_{hh}^T \operatorname{diag}\left(1 - \tanh^2(z_j)\right)
+- **Column Vector Convention:** Defining $h_j \in \mathbb{R}^{H \times 1}$ as a column vector, the Jacobian matrix is: $\frac{\partial h_j}{\partial h_{j-1}} = \operatorname{diag}\left(1 - \tanh^2(z_j)\right) W_{hh}$ Where $z_j = W_{hh} h_{j-1} + W_{xh} x_j + b_h$, and $\operatorname{diag}(1 - \tanh^2(z_j))$ is an $H \times H$ diagonal matrix of derivative values.
+- **Row Vector Convention:** Defining $h_j \in \mathbb{R}^{1 \times H}$ as a row vector, the transposed layout gives: $\frac{\partial h_j}{\partial h_{j-1}} = W_{hh}^T \operatorname{diag}\left(1 - \tanh^2(z_j)\right)$
 
-In both mathematical conventions, propagating error signals backwards over T = t - k temporal steps requires evaluating an iterated matrix product chain:
+In both mathematical conventions, propagating error signals backwards over $T = t - k$ temporal steps requires evaluating an iterated matrix product chain:$$\prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}} \approx \prod_{j=k+1}^{t} \operatorname{diag}\left(1 - \tanh^2(z_j)\right) W_{hh}$$As temporal distance $(t - k)$ expands, this product is dominated by exponential matrix powers of $W_{hh}$ (or $W_{hh}^T$).
 
-\prod_{j=k+1}^{t} \frac{\partial h_j}{\partial h_{j-1}} \approx \prod_{j=k+1}^{t} \operatorname{diag}\left(1 - \tanh^2(z_j)\right) W_{hh}
+### 4.2 Mathematical Analysis: Exploding vs. Vanishing Gradients
 
-As temporal distance (t - k) expands, this product is dominated by exponential matrix powers of W_{hh} (or W_{hh}^T).
-
-#### 4.2 Mathematical Analysis: Exploding vs. Vanishing Gradients
-
-The asymptotic stability of BPTT gradient updates is determined by the linear algebra spectral properties of the recurrent weight matrix W_{hh}. Specifically, we evaluate the **spectral radius** \rho(W_{hh}) = \max_i |\lambda_i| (where \lambda_i are eigenvalues of W_{hh}) and the **maximum singular value** \sigma_{\max}(W_{hh}) (which defines the matrix operator norm \|W_{hh}\|_2).
+The asymptotic stability of BPTT gradient updates is determined by the linear algebra spectral properties of the recurrent weight matrix $W_{hh}$. Specifically, we evaluate the **spectral radius** $\rho(W_{hh}) = \max_i |\lambda_i|$ (where $\lambda_i$ are eigenvalues of $W_{hh}$) and the **maximum singular value** $\sigma_{\max}(W_{hh})$ (which defines the matrix operator norm $\|W_{hh}\|_2$).
 
 ```
                Spectral Radius & Eigenvalue Spectrum Analysis:
@@ -235,7 +218,7 @@ The asymptotic stability of BPTT gradient updates is determined by the linear al
     0.0+-------------> Time Steps            +-------------> Time Steps
 ```
 
-##### 1. Exploding Gradients (\rho(W_{hh}) > 1 or \sigma_{\max}(W_{hh}) > 1)
+#### 4.2.1 Exploding Gradients ($\rho(W_{hh}) > 1$ or $\sigma_{\max}(W_{hh}) > 1$)
 
 When the maximum singular value of W_{hh} exceeds 1.0, repeated matrix multiplications during backpropagation cause gradient magnitudes to grow exponentially relative to temporal distance (t - k):
 
