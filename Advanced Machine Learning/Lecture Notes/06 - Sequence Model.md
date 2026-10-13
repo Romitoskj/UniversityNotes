@@ -268,23 +268,13 @@ At temporal step $t$, an LSTM ingests current input vector $x_t \in \mathbb{R}^D
 2. **Input Gate ($i_t$):** Determines which specific temporal memory dimensions will be updated with newly arriving information:$$i_t = \sigma(W_{xi} x_t + W_{hi} h_{t-1} + b_i)$$
 3. **Candidate Cell State ($g_t$):** Generates a vector of new candidate values to be integrated into the long-term cell state memory highway:$$g_t = \tanh(W_{xg} x_t + W_{hg} h_{t-1} + b_g)$$
  4. **Output Gate ($o_t$):** Controls what portion of the internal long-term cell state memory is filtered and exposed as the working hidden state output:$$o_t = \sigma(W_{xo} x_t + W_{ho} h_{t-1} + b_o)$$
-#### 5.3 State Update Equations and Information Flow
+### 5.3 State Update Equations and Information Flow
 
-Once gate activations are evaluated, the LSTM updates its long-term cell state memory c_t and working hidden state h_t using the following update equations:
+Once gate activations are evaluated, the LSTM updates its long-term cell state memory $c_t$ and working hidden state $h_t$ using the following update equations:
 
-##### Cell State Memory Update (c_t)
-
-The updated cell state combines retained past memory with scaled candidate updates:
-
-c_t = f_t \odot c_{t-1} + i_t \odot g_t
-
-Where \odot represents the elementwise (Hadamard) vector product.
-
-##### Hidden State Working Output Update (h_t)
-
-The working hidden state vector exposes a squashed representation of the updated cell state, filtered by the output gate:
-
-h_t = o_t \odot \tanh(c_t)
+1. **Cell State Memory Update ($c_t$):** The updated cell state combines retained past memory with scaled candidate updates:$$c_t = f_t \odot c_{t-1} + i_t \odot g_t$$
+2. **Hidden State Working Output Update ($h_t$):** The working hidden state vector exposes a squashed representation of the updated cell state, filtered by the output gate:$$h_t = o_t \odot \tanh(c_t)$$
+Where $\odot$ represents the elementwise (Hadamard) vector product.
 
 #### 5.4 The Uninterrupted Gradient Highway
 
