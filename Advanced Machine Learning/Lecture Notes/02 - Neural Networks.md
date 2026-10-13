@@ -1,6 +1,6 @@
 # Advanced Machine Learning & Computer Vision: Neural Networks and Backpropagation
 
-### 1. Foundations of Machine Learning and Computer Vision
+## 1. Foundations of Machine Learning and Computer Vision
 
 The strategic evolution of Artificial Intelligence represents a transition from explicit programming—where developers manually hard-coded every rule—to experiential learning. In a professional architecture context, we define this transition using the formalization provided by Tom Mitchell (1998): A computer program is said to learn from **Experience (E)** with respect to a **Task (T)** and a **Performance measure (P)**, if its performance on T, as measured by P, improves with experience E. This contrasts with Arthur Samuel’s (1959) more intuitive definition of "learning without being explicitly programmed."
 
