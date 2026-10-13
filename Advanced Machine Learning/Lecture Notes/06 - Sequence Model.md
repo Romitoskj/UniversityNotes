@@ -297,25 +297,25 @@ Having established the fine-grained gated mathematical transitions of LSTMs and 
 | **Memory Efficiency & Parameter Cost** | **Moderate:** Parameter count scales with layers and kernel choices; low per-step memory footprint.     | **High Parameter Efficiency:** Reuses small shared matrices ($W_{hh}$, $W_{xh}$, $W_{hy}$); low compute cost. | **High Memory / Gate Overhead:** Uses four internal gate weight projections, increasing memory overhead per step. |
 | **Long-Range Dependency Capacity**     | **Bounded Logarithmic Context:** Context expands via dilated layers, but remains bounded by design.     | **Poor:** Severely limited by vanishing/exploding gradient pathologies across long spans.                     | **High Capability:** Gated linear cell states ($c_t$) provide an uninterrupted gradient path for long sequences.  |
 
-### 6.2 Historical Trajectory and Expert Audio Commentary
-
-Professor Fabio Galasso contextualizes the historical evolution of sequence paradigms:
-
-#### Early Benchmark Breakthroughs
-
-Sequence modeling advanced rapidly through foundational implementations such as Andrej Karpathy's `char-rnn` framework, which demonstrated text generation using character-level recurrent networks.
-
-This work expanded into visual captioning models (Karpathy & Fei-Fei, 2015), combining feed-forward Convolutional networks with recurrent decoders to generate descriptions of images.
-
-![](Attachments/Pasted%20image%2020261013134006.png)
-
-#### Deep Dive: Image Captioning Context Integration Specs
-
-In Karpathy's image captioning architecture, visual context extraction is performed using AlexNet. The static visual feature vector$ $v_{img} \in \mathbb{R}^{4096}$ is extracted directly from **AlexNet Layer 7 (FC7)**—the 4096-dimensional fully connected layer located immediately before the 1000-class Softmax layer. This visual context vector is fed as a static bias input into the recurrent cell transition function alongside input word token $x_t$ and previous hidden state $h_{t-1}$:$$h_t = f(h_{t-1}, x_t, v_{img})$$This formulation allows the recurrent decoder to condition every generated output word on the underlying visual representation.
-
-#### Modern Paradigm Shifts: Self-Attention and State-Space Models
-
-While gated architectures like LSTMs resolved vanishing gradients, their step-by-step temporal unrolling remains a primary parallelization bottleneck when scaling to large datasets. Modern research has shifted toward architectures optimized for high-throughput parallel hardware processing:
-
-- **Transformers & Self-Attention:** Replaces recurrent hidden state unrolling with global self-attention mechanisms, computing pairwise dot-product correlations between all sequence tokens in parallel regardless of temporal distance.
-- **State-Space Models (SSMs):** Modern formulations (e.g., Mamba, S4) combine the parallel training speed of feed-forward convolutional networks with the efficient, constant-time stateful inference of recurrent models, enabling high-performance processing across extremely long context windows.
+> [!Quote]- 6.2 Historical Trajectory and Expert Audio Commentary
+> 
+> Professor Fabio Galasso contextualizes the historical evolution of sequence paradigms:
+> 
+> #### Early Benchmark Breakthroughs
+> 
+> Sequence modeling advanced rapidly through foundational implementations such as Andrej Karpathy's `char-rnn` framework, which demonstrated text generation using character-level recurrent networks.
+> 
+> This work expanded into visual captioning models (Karpathy & Fei-Fei, 2015), combining feed-forward Convolutional networks with recurrent decoders to generate descriptions of images.
+> 
+> ![](Attachments/Pasted%20image%2020261013134006.png)
+> 
+> #### Deep Dive: Image Captioning Context Integration Specs
+> 
+> In Karpathy's image captioning architecture, visual context extraction is performed using AlexNet. The static visual feature vector$ $v_{img} \in \mathbb{R}^{4096}$ is extracted directly from **AlexNet Layer 7 (FC7)**—the 4096-dimensional fully connected layer located immediately before the 1000-class Softmax layer. This visual context vector is fed as a static bias input into the recurrent cell transition function alongside input word token $x_t$ and previous hidden state $h_{t-1}$:$$h_t = f(h_{t-1}, x_t, v_{img})$$This formulation allows the recurrent decoder to condition every generated output word on the underlying visual representation.
+> 
+> #### Modern Paradigm Shifts: Self-Attention and State-Space Models
+> 
+> While gated architectures like LSTMs resolved vanishing gradients, their step-by-step temporal unrolling remains a primary parallelization bottleneck when scaling to large datasets. Modern research has shifted toward architectures optimized for high-throughput parallel hardware processing:
+> 
+> - **Transformers & Self-Attention:** Replaces recurrent hidden state unrolling with global self-attention mechanisms, computing pairwise dot-product correlations between all sequence tokens in parallel regardless of temporal distance.
+> - **State-Space Models (SSMs):** Modern formulations (e.g., Mamba, S4) combine the parallel training speed of feed-forward convolutional networks with the efficient, constant-time stateful inference of recurrent models, enabling high-performance processing across extremely long context windows.
