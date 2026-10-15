@@ -35,15 +35,15 @@ An image (e.g., 32x32x3) is vectorized into N = 3072 features. We apply the line
 
 #### The Softmax Classifier
 
-In Multinomial Logistic Regression, we interpret these logical probabilities as actual probabilities. We exponentiate the scores to ensure they are positive and normalize them so they sum to 1. This transformation allows us to treat the output as a probability distribution.
+In Multinomial Logistic Regression, we interpret these logical probabilities as actual probabilities. We exponentiate the scores to ensure they are positive and normalize them so they sum to 1:$$P(Y = k \mid X = x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}}$$This transformation allows us to treat the output as a probability distribution.
 
 #### Loss Functions and Information Theory
 
-To train the model, we use **Cross-Entropy Loss**: L_i = -\log P(Y = y_i | X = x_i). From an information theory perspective, we are minimizing the KL divergence between the predicted distribution and the "one-hot" ground truth distribution. We effectively penalize the model until the predicted probability for the correct class approaches 1.00.
+To train the model, we use **Cross-Entropy Loss**: $$L_i = -\log P(Y = y_i | X = x_i)$$From an information theory perspective, we are minimizing the KL divergence between the predicted distribution and the "one-hot" ground truth distribution. We effectively penalize the model until the predicted probability for the correct class approaches 1.00.
 
 #### Regularization: Bending the Function
 
-Training purely on data loss leads to overfitting. We calculate **Total Loss** as \text{Data Loss} + \lambda R(W), where \lambda is the regularization strength. Regularization prevents the model from "doing too well" on training data by penalizing large weights. Large weights allow the model to "bend" the classification function too sharply to fit noise. Modern architectural preference leans toward large-capacity models that are heavily regularized (using L2, L1, Dropout, or Batch Normalization) to ensure generalization. Once the error is defined, we must minimize it through optimization.
+Training purely on data loss leads to overfitting. We calculate **Total Loss** as $\text{Data Loss} + \lambda R(W)$, where $\lambda$ is the regularization strength. Regularization prevents the model from "doing too well" on training data by penalizing large weights. Large weights allow the model to "bend" the classification function too sharply to fit noise. Modern architectural preference leans toward large-capacity models that are heavily regularized (using L2, L1, Dropout, or Batch Normalization) to ensure generalization. Once the error is defined, we must minimize it through optimization.
 
 ## 3. Optimization and Stochastic Gradient Descent (SGD)
 
