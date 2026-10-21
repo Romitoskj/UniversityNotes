@@ -1,559 +1,551 @@
-1. Foundations of Sequence-to-Sequence Architecture and the Bottleneck Dilemma
+1. Recurrent Sequence Models and the Sequence-to-Sequence Bottleneck
 
-Historical Evolution of Sequence Processing
-
-The paradigm of sequence processing in deep learning experienced a major evolutionary shift when moving from standard recurrent architectures to Encoder-Decoder frameworks. Standard Recurrent Neural Networks (RNNs) initially established the capability to process sequential data, yet they lacked a flexible structural mechanism to map input sequences to output sequences of differing lengths.
-
-The introduction of the Sequence-to-Sequence (Seq2Seq) Encoder-Decoder architecture (Sutskever et al., 2014) solved this structural limitation, enabling breakthroughs in complex sequence conversion tasks such as machine translation (e.g., mapping an English sequence to a Spanish target). However, these early Seq2Seq frameworks introduced a severe structural bottleneck: they compressed variable-length source sequences into a single fixed-dimensional context vector, constraining model capacity when handling long temporal dependencies.
+Sequence-to-Sequence (Seq2Seq) architectures powered by Recurrent Neural Networks (RNNs) established the foundational paradigm for early neural machine translation (NMT) and sequence modeling. Prior to these architectures, mapping variable-length input sequences to variable-length output sequences posed a structural challenge for fixed-input neural networks. The classic Seq2Seq paradigm resolved this by partitioning the task into two recurrent sub-networks: an _Encoder_ that ingests the input sequence and a _Decoder_ that autoregressively generates the target sequence. Understanding the structural limitations of standard encoder-decoder RNNs is essential to appreciating the paradigm shift toward attention-driven architectures.
 
 ```
-                  ENCODER                                      DECODER
-x₁ ──> [RNN] ──> h₁                                       s₁ ──> [RNN] ──> y₁ ("estamos")
-        │                                                  ▲
-x₂ ──> [RNN] ──> h₂ ──> Static Context Vector (c = h₄) ───┤
-        │                                                  ▼
-x₃ ──> [RNN] ──> h₃                                       s₂ ──> [RNN] ──> y₂ ("comiendo")
-        │                                                  │
-x₄ ──> [RNN] ──> h₄ ───────────────────────────────────────┘
+ENCODER                                     DECODER
+x_1 ("we")    --> [ h_1 ]                   s_0 (= h_4)
+                    |                        |
+x_2 ("are")   --> [ h_2 ]                   s_1 ("estamos")  <-- c (= h_4)
+                    |                        |
+x_3 ("eating")--> [ h_3 ]                   s_2 ("comiendo") <-- c (= h_4)
+                    |                        |
+x_4 ("bread") --> [ h_4 ]  ===> Context c ===> s_3 ("pan")     <-- c (= h_4)
 ```
 
-Recurrent Encoder-Decoder Mechanics
+Mathematical Formulation of Classical Seq2Seq
 
-Mathematical Formulation of the Encoder
-
-The encoder sequentially ingests an input token sequence $\mathbf{X} = (x_1, x_2, \dots, x_T)$. At each discrete time-step $t$, the recurrent unit updates its internal representation according to the parametric transition rule:
+Given an input sequence $X = (x_1, x_2, \dots, x_T)$ of length $T$ and a target sequence $Y = (y_1, y_2, \dots, y_{T'})$ of length $T'$ (where sequence lengths $T$ and $T'$ frequently differ), the recurrent encoder processes tokens sequentially. At each time step $t \in \{1, \dots, T\}$, the encoder updates its internal hidden state $h_t \in \mathbb{R}^d$ via a non-linear activation function $f_W$ parameterized by learnable weight matrices $W$:
 
 $$h_t = f_W(x_t, h_{t-1})$$
 
-where:
+The recurrence operates step-by-step from $t = 1$ to $t = T$, initialized from $h_0 = \mathbf{0}$. Upon reading the terminal input token $x_T$, the encoder produces its final hidden state $h_T$. In standard Seq2Seq models (e.g., Sutskever et al., 2014), this terminal state $h_T$ serves two distinct functions:
 
-- $x_t \in \mathbb{R}^{d_{model}}$ represents the vector embedding of the input token at time-step $t$.
-- $h_t \in \mathbb{R}^{d_{model}}$ denotes the hidden state at time-step $t$, capturing temporal information up to $t$.
-- $f_W$ is a non-linear mapping parameterized by learnable recurrent weight matrix $W$.
+1. It initializes the decoder's hidden state: $s_0 = h_T$.
+2. It forms a static context vector $c$ (where $c = h_T$) passed to the decoder at every output time step.
 
-Mathematical Formulation of the Decoder
-
-Upon consuming the final source token $x_T$, the encoder synthesizes the full sequence history into a static context vector $c$ (typically assigned directly as the final encoder state, $c = h_T$). The decoder network generates the target sequence $\mathbf{Y} = (y_1, y_2, \dots, y_{T'})$ autoregressively. The dynamic update of the decoder state $s_t$ and output token generation proceed as:
+The decoder generates the target sequence autoregressively using a recurrence function $g_U$:
 
 $$s_t = g_U(y_{t-1}, s_{t-1}, c)$$
 
-where:
+where $s_t \in \mathbb{R}^d$ represents the decoder's state at output step $t$, $y_{t-1}$ is the previously generated token (initialized with a special `[START]` token $y_0$), and $c$ remains fixed throughout decoding until a terminal `[STOP]` token is predicted.
 
-- $s_t \in \mathbb{R}^{d_{model}}$ is the internal hidden state of the decoder at generation time-step $t$.
-- $y_{t-1}$ is the previously generated output token (with $y_0$ initialized to a special `[START]` token).
-- $c$ is the fixed static context vector provided across all decoding steps.
-- $g_U$ is the decoder transition function parameterized by learnable weights $U$.
+The Information Compression Bottleneck
 
-Mapping Paradigms and Sequence Topologies
+The structural flaw in this classic framework lies in forcing the context vector $c$ to be a single, fixed-size vector (e.g., $c \in \mathbb{R}^d$). As the input sequence length $T$ scales—such as processing a document of $T=1000$ tokens—the network must compress all semantic, syntactic, and long-range dependencies into this single vector representation.
 
-Sequence processing architectures accommodate distinct structural configurations based on input-to-output cardinality, as illustrated below:
+Mathematically, $c$ acts as an information bottleneck. Compressing an arbitrary number of tokens into a fixed-dimensional vector space creates theoretical and practical degradation:
 
-```
-1. One-to-One          2. One-to-Many         3. Many-to-One
-   [Image Class]          [Image Captioning]     [Sentiment Analysis]
-     [Output]               [y₁]  [y₂]  [y₃]           [Output]
-        ▲                    ▲     ▲     ▲                ▲
-     [Hidden]             [h₁]──>[h₂]──>[h₃]             [h₃]
-        ▲                    ▲                            ▲
-     [Input]              [Input]                     [x₁][x₂][x₃]
+- **Loss of Long-Range Dependencies:** As backpropagation through time (BPTT) executes over long sequences, information from early tokens ($x_1, x_2$) is diluted or overwritten by later tokens ($x_{T-1}, x_T$).
+- **Vanishing Gradients:** Error gradients propagated from the decoder back to early encoder states decay exponentially over sequence steps, preventing early input tokens from receiving meaningful weight updates.
+- **Degraded Translation Quality:** Empirical performance degrades rapidly as sequence length grows beyond a few dozen tokens, as the static vector $c$ fails to retain fine-grained contextual details needed for downstream generation.
 
-2. Many-to-Many (Asynchronous / Delayed)      5. Many-to-Many (Synchronous)
-   [Machine Translation]                        [Video Frame Tagging]
-        [y₁]  [y₂]  [y₃]                             [y₁]  [y₂]  [y₃]
-         ▲     ▲     ▲                                ▲     ▲     ▲
-  [h₁]──>[h₂]──>[h₃]──>[s₁]──>[s₂]──>[s₃]           [h₁]──>[h₂]──>[h₃]
-   ▲      ▲      ▲                                   ▲     ▲     ▲
-  [x₁]   [x₂]   [x₃]                                [x₁]  [x₂]  [x₃]
-```
+Capacity Constraints: Theory vs. Practice
 
-- **One-to-One:** Standard feed-forward architecture without temporal recurrence (e.g., fixed-size image classification).
-- **One-to-Many:** Single static input mapped to an unrolling variable-length output sequence (e.g., standard image captioning).
-- **Many-to-One:** Variable-length sequential input collapsed into a single output decision (e.g., sentiment analysis or sentence classification).
-- **Many-to-Many (Asynchronous / Delayed):** Variable-length input encoded completely before unrolling an independent variable-length output (e.g., sequence-to-sequence translation).
-- **Many-to-Many (Synchronous):** Input and output sequences aligned step-by-step at identical temporal intervals (e.g., frame-level video tagging).
+- **Theoretical Capacity:**
+    - In principle, high-dimensional hidden states $h_t$ can model arbitrary temporal relationships.
+    - Recurrent feedback loops allow unbounded sequence processing over time steps $t$.
+    - Fixed-size vectors theoretically store complex language semantics when fully optimized.
+- **Practical Failures:**
+    - Severe information loss occurs when compressing long input sequences ($T \ge 1000$) into a single static context vector $c$.
+    - Sequential BPTT causes vanishing gradients, cutting off early tokens from learning long-distance relationships.
+    - Inability to retrieve specific historical input details leads to structural errors and missing context in outputs.
 
-Critical Analysis of the Context Bottleneck
-
-The structural failure of early Seq2Seq networks stems from forcing an arbitrary input sequence $x_1, \dots, x_T$—whether $T=10$ or $T=1000$ tokens—into a single fixed-dimensional vector space $c \in \mathbb{R}^{d_{model}}$ (e.g., $d_{model} = 4000$).
-
-As the temporal sequence length $T$ grows, the fixed vector capacity causes severe information loss. The continuous updating of $h_t$ via non-linear functions leads to catastrophic forgetting, where early input tokens ($x_1, x_2$) are obscured by subsequent hidden state updates ($h_{T-1}, h_T$). Consequently, when decoding target tokens later in sequence generation, the decoder loses critical fine-grained source context, impairing translation accuracy on long sequences.
-
-Architectural Transition
-
-The context bottleneck demonstrated that forcing an entire sequence into a single static representation is fundamentally unscalable, creating the need for a dynamic lookup mechanism that exposes all intermediate encoder hidden states to the decoder on demand.
+To bypass this single-vector compression bottleneck, architectures required a dynamic lookup mechanism to selectively access intermediate encoder hidden states during decoding, directly catalyzing the development of additive attention mechanisms.
 
 ---
 
-2. The Dynamic Attention Mechanism — Bridging Long-Range Dependencies
+2. Additive Attention Mechanisms (Bahdanau Attention)
 
-Dynamic Memory Access in Sequence Models
-
-To eliminate the context bottleneck, Bahdanau et al. (2015) introduced the dynamic attention mechanism. Instead of constraining the decoder to a single fixed vector $c = h_T$, attention treats the complete sequence of intermediate encoder hidden states $(h_1, h_2, \dots, h_T)$ as a dynamic, content-addressable memory archive. At each decoding step $t$, the network computes a customized context vector $c_t$ based on the relevance of every source token to the current target state.
+Additive attention (Bahdanau et al., 2015) replaced the static context vector $c$ with a dynamic alignment mechanism. Instead of forcing the encoder to compress the entire input sequence into a single terminal state $h_T$, the model retains all intermediate encoder states $(h_1, h_2, \dots, h_T)$. During each step of decoding, the decoder calculates a unique context vector $c_t$ by dynamically evaluating which input hidden states are most relevant to generating the next output token.
 
 ```
-ENCODER HIDDEN STATES      ALIGNMENT SCORES           ATTENTION WEIGHTS         DYNAMIC CONTEXT
-  h₁ ("we") ───────────┐
-  h₂ ("are") ──────────┼──> e₁,ᵢ = f_att(s₀, hᵢ) ──> Softmax ──> a₁,ᵢ ──> c₁ = ∑ a₁,ᵢ hᵢ ──> Decoder State s₁
-  h₃ ("eating") ───────┤
-  h₄ ("bread") ────────┘
+ENCODER HIDDEN STATES: [ h_1 ]  [ h_2 ]  [ h_3 ]  [ h_4 ]
+                          \        /        /        /
+Alignment Scores (e_t,i):  e_t,1    e_t,2    e_t,3    e_t,4  <-- f_att(s_{t-1}, h_i)
+                             |        |        |        |
+Softmax Normalization:     a_t,1    a_t,2    a_t,3    a_t,4  (Weights sum to 1.0)
+                             \        |        |       /
+Dynamic Context Vector:                c_t                   <-- Sum_i (a_t,i * h_i)
+                                        |
+Decoder State Update:                  s_t                   <-- g_U(y_{t-1}, s_{t-1}, c_t)
 ```
 
-Mathematical Formulation of Bahdanau Attention
+Mathematical Formulation and Recurrent Causality
 
-1. Alignment Scores
+The step-by-step computation of Bahdanau additive attention proceeds as follows:
 
-At decoder time-step $t$, the architecture evaluates the similarity between the prior decoder hidden state $s_{t-1}$ and each encoder hidden state $h_i$ via an alignment function $f_{att}$:
+1. **Alignment Score Calculation:** Before generating target token $y_t$, the decoder compares its _previous_ hidden state $s_{t-1}$ against every encoder hidden state $h_i$ (for $i = 1, \dots, T$). The scalar alignment score $e_{t,i} \in \mathbb{R}$ quantifies the relevance between input position $i$ and output position $t$: $$e_{t,i} = f_{\text{att}}(s_{t-1}, h_i) = v_a^T \tanh(W_a s_{t-1} + U_a h_i)$$ Here, $f_{\text{att}}$ is parameterized as a learnable Multi-Layer Perceptron (MLP) with weight matrices $W_a, U_a$ and projection vector $v_a$, trained end-to-end via backpropagation.
 
-$$e_{t,i} = f_{att}(s_{t-1}, h_i)$$
+_Crucial Timing Distinction:_ The alignment score $e_{t,i}$ explicitly depends on $s_{t-1}$—the decoder state _before_ emitting token $y_t$. This timing maintains strict recurrent causality: $s_{t-1}$ encodes the history of generated tokens $(y_0, \dots, y_{t-1})$ to determine where to attend next, before $s_t$ is updated.
 
-where $f_{att}$ is typically implemented as a learnable Multi-Layer Perceptron (MLP) or inner product, producing a scalar score $e_{t,i}$ indicating the relevance of source position $i$ to target generation step $t$.
+1. **Attention Weight Normalization via Softmax:** The raw alignment scores $e_{t,i}$ are normalized using a Softmax function across all input sequence steps $i$: $$a_{t,i} = \frac{\exp(e_{t,i})}{\sum_{k=1}^{T} \exp(e_{t,k})}$$ This guarantees $0 < a_{t,i} < 1$ and $\sum_{i=1}^{T} a_{t,i} = 1$, allowing $a_{t,i}$ to act as a probability distribution over the input states.
+2. **Dynamic Context Vector Computation:** The dynamic context vector $c_t \in \mathbb{R}^d$ is computed as a weighted sum of all encoder hidden states $h_i$: $$c_t = \sum_{i=1}^{T} a_{t,i} h_i$$
+3. **Decoder State Update:** The decoder updates its state $s_t$ using the previously generated token $y_{t-1}$, previous state $s_{t-1}$, and current dynamic context vector $c_t$: $$s_t = g_U(y_{t-1}, s_{t-1}, c_t)$$
 
-2. Softmax Normalization
+Interpretability and Machine Translation
 
-To transform scalar alignment scores into a normalized spatial probability distribution across all source indices $k \in \{1, \dots, T\}$, the network applies the Softmax function:
+By plotting the attention weights $a_{t,i}$ as an $T' \times T$ matrix, we can visualize soft alignments between source and target words.
 
-$$a_{t,i} = \frac{\exp(e_{t,i})}{\sum_{k=1}^T \exp(e_{t,k})}$$
+For example, when translating the English sequence _"we are eating bread"_ ($x_1 \dots x_4$) into the Spanish sequence _"estamos comiendo pan"_ ($y_1 \dots y_3$):
 
-yielding attention weights $a_{t,i}$ that satisfy $0 \le a_{t,i} \le 1$ and $\sum_{i=1}^T a_{t,i} = 1$.
-
-3. Dynamic Context Vector Calculation
-
-The step-specific dynamic context vector $c_t$ is constructed as the weighted linear combination of all intermediate encoder states:
-
-$$c_t = \sum_{i=1}^T a_{t,i} h_i$$
-
-4. Decoder Hidden State Update
-
-The decoder state $s_t$ is updated autoregressively using the dynamically calculated context vector $c_t$:
-
-$$s_t = g_U(y_{t-1}, s_{t-1}, c_t)$$
-
-Interpretability and Alignment Analysis
-
-Visualizing the attention weight matrix $A \in \mathbb{R}^{T' \times T}$ (where entry $(t, i) = a_{t,i}$) yields explicit interpretability regarding source-target token alignments across language pairs.
+- To generate $y_1 =$ _"estamos"_ (which synthesizes _"we are"_), the decoder assigns high attention weights to $h_1$ and $h_2$ ($a_{1,1} \approx 0.45, a_{1,2} \approx 0.45$), and low weights to $h_3$ and $h_4$ ($a_{1,3} \approx 0.05, a_{1,4} \approx 0.05$).
+- To generate $y_2 =$ _"comiendo"_ (_"eating"_), attention shifts dynamically to $h_3$ ($a_{2,3} \approx 0.80$).
 
 ```
-       English Source Tokens ──>
-       "agreement"  "on"  "the"  "European"  "economic"  "area"
-     ┌─────────────────────────────────────────────────────────┐
- "L'"│   0.05       0.05   0.80     0.05        0.02     0.03  │
-"accord"│0.90       0.02   0.03     0.02        0.01     0.02  │
-"sur"│   0.02       0.92   0.02     0.01        0.01     0.02  │
-"l'" │   0.01       0.02   0.85     0.05        0.02     0.05  │
-"espace"│0.02       0.01   0.02     0.05        0.05     0.85  │ <── Non-diagonal
-"économique"│0.01   0.01   0.01     0.02        0.90     0.05  │ <── Syntactic
-"européen"│0.01     0.01   0.01     0.92        0.03     0.02  │ <── Reordering
-     └─────────────────────────────────────────────────────────┘
+                SOURCE TOKENS (i)
+               we    are   eating  bread
+             ----------------------------
+y1: estamos | 0.45  0.45   0.05    0.05
+y2: comiendo| 0.05  0.05   0.80    0.10
+y3: pan     | 0.02  0.03   0.05    0.90
 ```
 
-When translating the English clause _"agreement on the European economic area"_ to the French _"l'accord sur l'espace économique européen"_, the attention matrix heatmaps display non-diagonal activations:
+These alignment matrices reveal structural language differences without hand-crafted syntactic rules. In English-to-French translation, English places adjectives before nouns (_"European Economic Area"_), whereas French places adjectives after nouns (_"Zone économique européenne"_). The alignment matrix captures this non-linear word reordering through non-diagonal high-activation clusters. Because all attention operations are differentiable, the network learns these soft alignments end-to-end without explicit alignment supervision.
 
-- Direct monotonic correspondences generate high attention along diagonal paths (e.g., _"agreement"_ $\rightarrow$ _"accord"_).
-- Syntactic variations across language structures (such as English adjective-noun placement vs. French noun-adjective placement) naturally produce non-diagonal activations. The target token _"espace"_ focuses directly on the distant source token _"area"_, while _"européen"_ attends back to _"European"_.
-- Crucially, these alignments emerge entirely unsupervised via end-to-end backpropagation, driven solely by the global translation loss without direct token-level alignment supervision.
+Visual Attention in Image Captioning
 
-Cross-Modal Application — Visual Attention in Image Captioning
+The attention mechanism extends to spatial grid structures in computer vision ("Show, Attend and Tell", Xu et al., 2015). Instead of 1D temporal hidden states, a Convolutional Neural Network (CNN) backbone extracts a 3D feature grid $Z \in \mathbb{R}^{H \times W \times D}$ from an input image, where $H \times W$ denotes spatial grid coordinates and $D$ represents feature channel depth.
 
-Xu et al. (2015) extended dynamic attention beyond 1D text sequences to 2D spatial image grids in the _Show, Attend and Tell_ architecture.
+The decoder RNN computes spatial alignment scores across grid coordinates $(i, j)$ for $i \in \{1, \dots, H\}$ and $j \in \{1, \dots, W\}$:
 
-```
-INPUT IMAGE                CNN FEATURE MAP                  SPATIAL ATTENTION               CAPTION GENERATION
-┌───────────┐            ┌──────────────────┐             ┌───────────────────┐
-│           │            │ Z ∈ R^(H×W×d_mod)│             │ a_{t,i,j} Over    │           "A dog [a_{t,i,j}]"
-│  [Image]  │ ──CNN───>  │ Grid Patches     │ ──Softmax──>│ Grid Regions      │ ──Decoder──>  "standing on"
-│           │            │ z_{i,j}          │             │                   │            "hardwood floor"
-└───────────┘            └──────────────────┘             └───────────────────┘
-```
+$$e_{t,i,j} = f_{\text{att}}(s_{t-1}, z_{i,j})$$
 
-1. **Spatial Feature Extraction:** A Convolutional Neural Network (CNN) processes an input image, extracting a 3D feature tensor $Z \in \mathbb{R}^{H \times W \times d_{model}}$. This tensor corresponds to a spatial grid of $H \times W$ visual feature vectors $z_{i,j} \in \mathbb{R}^{d_{model}}$, where each vector represents a localized sub-region of the image.
-2. **2D Alignment Scoring:** At each text decoding step $t$, alignment scores $e_{t,i,j}$ are computed between the prior decoder state $s_{t-1}$ and each spatial grid cell $z_{i,j}$:
+_Spatial Grid Normalization:_ Unlike 1D sequence attention normalized over length $T$, visual attention normalizes simultaneously across all $H \cdot W$ spatial grid patches:
 
-$$e_{t,i,j} = f_{att}(s_{t-1}, z_{i,j})$$
+$$a_{t,i,j} = \frac{\exp(e_{t,i,j})}{\sum_{i'=1}^{H} \sum_{j'=1}^{W} \exp(e_{t,i',j'})}, \quad \text{where } \sum_{i=1}^{H} \sum_{j=1}^{W} a_{t,i,j} = 1$$
 
-1. **Spatial Softmax Normalization:** Scores are normalized across the entire $H \times W$ spatial domain:
+|Generated Token ($y_t$)|Primary Spatial Focus Coordinates $(i,j)$|Visual Semantic Context (Lecture Examples)|
+|---|---|---|
+|**"frisbee"**|Upper-middle spatial regions|High feature activations centered on a spinning disk in the sky (_"a woman throwing a frisbee in a park"_)|
+|**"dog"**|Lower-center visual grid patches|High activations on the animal's torso and legs (_"a dog standing on a hardwood floor"_)|
+|**"giraffe"**|Vertical center-to-right regions|High activations spanning the long neck and patterned body (_"a giraffe standing in the forest"_)|
 
-$$a_{t,i,j} = \frac{\exp(e_{t,i,j})}{\sum_{i'=1}^H \sum_{j'=1}^W \exp(e_{t,i',j'})}$$
+Computational Cost and Memory Analysis
 
-1. **Visual Context Vector Aggregation:** The dynamic visual context vector $c_t$ is computed as a spatially weighted sum:
+While additive attention resolves the single-vector bottleneck, it introduces operational trade-offs:
 
-$$c_t = \sum_{i=1}^H \sum_{j=1}^W a_{t,i,j} z_{i,j}$$
+- **Computational Overhead (**$O(T \cdot T')$**):** Calculating alignment scores requires comparing every output time step $T'$ with every input time step $T$. This pairwise calculation scales quadratically with sequence length, compared to the linear $O(T + T')$ cost of standard recurrent models.
+- **Memory Retention Overhead:** The model cannot discard intermediate encoder states $h_i$ after reading the input. All $T$ vectors ($h_i \in \mathbb{R}^d$) must be cached in VRAM during decoding.
 
-This mechanism allows the dynamic visual context vector $c_t$ to shift its spatial focus across distinct image regions at each generation step (e.g., placing high spatial weight over canine features when predicting the word _"dog"_, or over background regions when predicting _"hardwood floor"_).
-
-Trade-Off Analysis: Fixed-Context RNN vs. Attention-Augmented RNN
-
-```
-+----------------------------------------------------------------------------------------------------+
-|                                      COMPUTATIONAL OVERHEAD                                        |
-|  Fixed-Context RNN: O(T + T') Sequential Steps                                                     |
-|  Attention RNN:     O(T × T') Structural Interactions                                              |
-+----------------------------------------------------------------------------------------------------+
-|                                         MEMORY FOOTPRINT                                           |
-|  Fixed-Context RNN: Keeps Vector 'c' Only ──> O(d_model) Memory                                    |
-|  Attention RNN:     Retains All Encoder Hidden States {h₁...h_T} ──> O(T × d_model) Memory         |
-+----------------------------------------------------------------------------------------------------+
-|                                     BACKPROPAGATION PATHWAY                                        |
-|  Fixed-Context RNN: Path Length O(T + T') through Sequential Bottleneck                            |
-|  Attention RNN:     Direct O(1) Gradient Paths to Any Historical Encoder State                     |
-+----------------------------------------------------------------------------------------------------+
-```
-
-- **Computational Complexity:** Fixed-context Seq2Seq models operate with linear dynamic complexity $O(T + T')$. Attention-augmented models scale to $O(T \cdot T')$ operations because every individual output generation step $t \in \{1, \dots, T'\}$ must evaluate inner products or MLP functions against all $T$ source encoder vectors.
-- **Memory Overhead:** Fixed-context models require storing only the current state vector $h_t$, maintaining an $O(d_{model})$ operational memory footprint. Attention models must retain the entire sequence of intermediate encoder states $(h_1, \dots, h_T)$ in GPU memory throughout the decoding process, yielding an $O(T \cdot d_{model})$ footprint.
-- **Backpropagation Dynamics:** Fixed-context models propagate error gradients through a long sequence of recurrent time-steps, exposing backpropagation to vanishing or exploding gradients. Attention introduces direct, differentiable shortcuts from decoder step $s_t$ to any historical encoder hidden state $h_i$, providing stable gradient flows across temporal distances without requiring explicit positional supervision.
-
-Architectural Transition
-
-While dynamic attention solves the context bottleneck over recurrent states, the underlying architecture remains constrained by sequential recurrence ($h_t = f_W(x_t, h_{t-1})$). Eliminating sequential dependence entirely requires rethinking dynamic attention as an autonomous transformation operating directly on sequence representations: Self-Attention.
+While Bahdanau attention allowed decoders to selectively query encoder states, processing tokens still required sequential RNN loops step-by-step. To scale sequence models further, architectures needed an attention mechanism that could eliminate recurrent hidden states entirely.
 
 ---
 
-3. Core Mechanics of Self-Attention (Query, Key, Value Formulation)
+3. Self-Attention and the Query-Key-Value (QKV) Framework
 
-Intra-Sequence Transformation Blocks
-
-Self-Attention (Intra-Attention) acts as an autonomous sequence transformation layer that computes interactions directly between all positions in a single sequence, operating independently of temporal recurrences or spatial convolutions. It replaces sequential state updates with direct, pairwise interactions across all constituent tokens.
-
-The Tripartite Projection (Query, Key, Value)
-
-Given an input sequence of embedding vectors $\mathbf{X} \in \mathbb{R}^{N \times d_{model}}$ (where $N$ is sequence length and $d_{model}$ is the core hidden dimension), each input vector $x_i$ is linearly projected into three distinct functional spaces using learnable weight matrices $W_Q, W_K \in \mathbb{R}^{d_{model} \times d_k}$ and $W_V \in \mathbb{R}^{d_{model} \times d_v}$:
+Self-attention eliminates recurrent loops entirely, allowing every token in a sequence to interact directly with every other token in a single computational step. By computing pairwise interactions across all positions in a sequence, self-attention converts static token embeddings into contextualized representations that encode syntax, coreference, and semantic relationships.
 
 ```
-                    ┌──> Query Vector (Qᵢ = xᵢ W_Q) ───> Current Token Seeking Context
-Input Token (xᵢ) ───┼──> Key Vector   (Kᵢ = xᵢ W_K) ───> Structural Identity/Match Target
-                    └──> Value Vector (Vᵢ = xᵢ W_V) ───> Content Aggregated into Output
+    [ X ]  (Input Sequence Matrix: B x S x d_model)
+   /  |  \
+  /   |   \  (Linear Transformations via W_Q, W_K, W_V)
+ v    v    v
+[Q]  [K]  [V] (Shapes: Q, K in B x S x d_k; V in B x S x d_v)
+  \  /     |
+   \/      |
+ [ Q K^T ] |  (Pairwise Matrix Multiplication: B x S x S)
+     |     |
+ [/ sqrt(d_k)] (Variance Normalization Scaling)
+     |     |
+ [Softmax] |  (Row-wise Probability Normalization: B x S x S)
+     \    /
+      \  /
+    [ Output ] (Weighted Sum Matrix Multiplication: B x S x d_v)
 ```
 
-1. **Query (**$Q_i = x_i W_Q \in \mathbb{R}^{d_k}$**):** Represents the current token $i$ actively probing the sequence for relevant context.
-2. **Key (**$K_i = x_i W_K \in \mathbb{R}^{d_k}$**):** Represents the indexed feature identity of token $i$, serving as the target matched against incoming queries.
-3. **Value (**$V_i = x_i W_V \in \mathbb{R}^{d_v}$**):** Represents the actual semantic content aggregated to compute the final output representation.
+The Query-Key-Value (QKV) Abstraction and Tensor Shape Mechanics
 
-Mathematical Operations & Matrix Computation
+The QKV framework structures sequence interaction using a database lookup metaphor. Let $B$ represent batch size, $S$ represent sequence length, $d_{\text{model}}$ represent model feature dimension, $d_k$ represent Key/Query projection dimension, and $d_v$ represent Value projection dimension.
 
-Step-by-Step Scalar Formulation
+Given an input tensor $X \in \mathbb{R}^{B \times S \times d_{\text{model}}}$, the model projects each token into three vector spaces using learnable parameter matrices $W_Q \in \mathbb{R}^{d_{\text{model}} \times d_k}$, $W_K \in \mathbb{R}^{d_{\text{model}} \times d_k}$, and $W_V \in \mathbb{R}^{d_{\text{model}} \times d_v}$:
 
-1. **Alignment Score Computation:** Evaluates the pairwise dot-product similarity between Query vector $Q_i$ and Key vector $K_j$:
+$$Q = X W_Q \in \mathbb{R}^{B \times S \times d_k}$$
 
-$$e_{i,j} = Q_i K_j^T$$
+$$K = X W_K \in \mathbb{R}^{B \times S \times d_k}$$
 
-1. **Softmax Normalization:** Normalizes pairwise alignment scores across all sequence positions $j \in \{1, \dots, N\}$ to obtain attention probabilities $\alpha_{i,j}$:
+$$V = X W_V \in \mathbb{R}^{B \times S \times d_v}$$
 
-$$\alpha_{i,j} = \text{Softmax}_j(e_{i,j}) = \frac{\exp(e_{i,j})}{\sum_{k=1}^N \exp(e_{i,k})}$$
+|Representation|Mathematical Definition|Intuitive Metaphor|
+|---|---|---|
+|**Query (**$Q$**)**|$Q = X W_Q \in \mathbb{R}^{B \times S \times d_k}$|The target focus seeking context. Represents what the current token is searching for among other tokens in the sequence.|
+|**Key (**$K$**)**|$K = X W_K \in \mathbb{R}^{B \times S \times d_k}$|The index tag for each token. Represents the attributes offered by candidate tokens to match incoming queries.|
+|**Value (**$V$**)**|$V = X W_V \in \mathbb{R}^{B \times S \times d_v}$|The underlying content vector. Contains the semantic information extracted and aggregated when a query matches a key.|
 
-1. **Value Aggregation:** Computes the transformed output representation $Y_i$ as a weighted sum over all projected Value vectors:
+Mathematical Derivation of Scaled Dot-Product Attention
 
-$$Y_i = \sum_{j=1}^N \alpha_{i,j} V_j$$
+The dot product $Q K^T$ calculates raw similarity scores between every query $q_i$ and key $k_j$. To maintain stable gradients during backpropagation, the product is divided by a scaling factor $\sqrt{d_k}$.
 
-Parallel Matrix Formulation & Scaling Justification
+_Derivation of Variance Scaling_ $\frac{1}{\sqrt{d_k}}$_:_ Assume components of $q_i \in \mathbb{R}^{d_k}$ and $k_j \in \mathbb{R}^{d_k}$ are independent random variables with zero mean ($\mathbb{E}[q_{i,m}] = \mathbb{E}[k_{j,m}] = 0$) and unit variance ($\text{Var}(q_{i,m}) = \text{Var}(k_{j,m}) = 1$). Their dot product is $q_i \cdot k_j = \sum_{m=1}^{d_k} q_{i,m} k_{j,m}$. The expectation of the sum is 0, and its variance is:
 
-By stacking input embeddings into matrix $\mathbf{X} \in \mathbb{R}^{N \times d_{model}}$, the projections are processed in parallel across all tokens: $Q = \mathbf{X} W_Q \in \mathbb{R}^{N \times d_k}$, $K = \mathbf{X} W_K \in \mathbb{R}^{N \times d_k}$, and $V = \mathbf{X} W_V \in \mathbb{R}^{N \times d_v}$. The standard matrix equation is expressed as:
+$$\text{Var}\left(\sum_{m=1}^{d_k} q_{i,m} k_{j,m}\right) = \sum_{m=1}^{d_k} \text{Var}(q_{i,m} k_{j,m}) = \sum_{m=1}^{d_k} \mathbb{E}[q_{i,m}^2] \mathbb{E}[k_{j,m}^2] = \sum_{m=1}^{d_k} (1)(1) = d_k$$
 
-$$\text{Attention}(Q, K, V) = \text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V$$
+For large $d_k$, the dot product variance grows to $d_k$, pushing dot products to large magnitude values. This drives the Softmax function into saturation regions where gradients vanish ($\nabla \text{softmax} \approx \mathbf{0}$). Dividing $Q K^T$ by $\sqrt{d_k}$ scales the variance back to $1.0$, stabilizing backpropagation.
 
-```
-   [ Q ]           [ K ]ᵀ                    Softmax                    [ V ]            OUTPUT [ Y ]
-┌─────────┐     ┌─────────┐             ┌───────────────┐            ┌─────────┐        ┌─────────┐
-│  Q₁...  │  ×  │ K₁...   │  ──Scale─>  │  α₁,₁   α₁,₂  │     ×      │ V₁...   │   =    │ Y₁...   │
-│  Q_N... │     │ K_N...  │  (/√d_k)    │  α_N,₁  α_N,N │            │ V_N...  │        │ Y_N...  │
-└─────────┘     └─────────┘             └───────────────┘            └─────────┘        └─────────┘
- (N × d_k)       (d_k × N)                   (N × N)                  (N × d_v)          (N × d_v)
-```
+The full Scaled Dot-Product Attention equation is:
 
-**Why Scale by** $\frac{1}{\sqrt{d_k}}$**?** Assume $Q_i$ and $K_j$ components are independent random variables with zero mean and unit variance. Their dot product $Q_i K_j^T = \sum_{m=1}^{d_k} Q_{i,m} K_{j,m}$ has mean $0$ and variance $d_k$. For large key dimensions $d_k$ (e.g., $d_k = 64$ or $128$), dot products grow large in magnitude, pushing the Softmax function into regions with extremely small gradients ($\text{Softmax}'(z) \to 0$). Dividing by $\sqrt{d_k}$ normalizes variance back to $1$, preventing the Softmax gradient from vanishing during backpropagation.
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V$$
 
-Multi-Head Attention (MHA) Mechanism
+Tensor Evolution Step-by-Step:
 
-Single-head attention averages interactions across the sequence, which can obscure multiple distinct relationship types between tokens. Multi-Head Attention (MHA) addresses this by running $h$ parallel attention "heads" (typically $h=8$).
+1. **Similarity Matrix (**$Q K^T \in \mathbb{R}^{B \times S \times S}$**):** Pairwise matrix multiplication comparing all queries and keys in parallel.
+2. **Variance Scaling (**$\frac{Q K^T}{\sqrt{d_k}} \in \mathbb{R}^{B \times S \times S}$**):** Divides matrix elements by $\sqrt{d_k}$ to prevent Softmax saturation.
+3. **Softmax Normalization (**$A = \text{softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) \in \mathbb{R}^{B \times S \times S}$**):** Applied row-wise across the last dimension, producing normalized weights where $\sum_{j=1}^{S} A_{b,i,j} = 1$.
+4. **Contextual Aggregation (**$A V \in \mathbb{R}^{B \times S \times d_v}$**):** Multiplies attention weights $A$ by the Value tensor $V$. Each token representation becomes a weighted sum of all Value vectors in the sequence.
 
-```
-                                      ┌──> Head 1 (QW_Q¹, KW_K¹, VW_V¹) ──> Head₁ ┐
-                                      │                                           │
-Input Tokens (X) ── Projection Matrices ┼──> Head 2 (QW_Q², KW_K², VW_V²) ──> Head₂ ┼──> Concat ──> Wᵒ ──> Multi-Head Output
-                                      │                                           │
-                                      └──> Head h (QW_Qʰ, KW_Kʰ, VW_Vʰ) ──> Head_h┘
-```
+💡 **Professor's Architectural Note:** Modern AI hardware accelerators (e.g., NVIDIA Tensor Cores) are optimized for dense matrix-matrix multiplication ($Q K^T$) rather than sequential vector-matrix operations found in RNNs. By formulating sequence interactions as a unified matrix operation, self-attention transforms sequence modeling from a memory-bandwidth-bound sequential loop into a compute-bound operation that executes efficiently on parallel hardware architectures.
 
-Each head $k \in \{1, \dots, h\}$ uses independent projection parameter sets $(W_Q^{(k)}, W_K^{(k)}, W_V^{(k)})$, projecting input embeddings into distinct subspace dimensions $d_k = d_v = d_{model}/h$. This separation allows different heads to simultaneously track varied syntactic and semantic relationships (e.g., tracking grammatical subject-verb dependencies in Head 1 while capturing co-reference resolution in Head 2):
+Contextual Integration and Ambiguity Resolution
 
-$$\text{Head}_k = \text{Attention}\left(Q W_Q^{(k)}, K W_K^{(k)}, V W_V^{(k)}\right)$$
+Self-attention allows tokens to dynamically update their representations based on surrounding context. Consider the sentence: _"The animal didn't cross the street because it was too tired."_
 
-$$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{Head}_1, \text{Head}_2, \dots, \text{Head}_h) W^O$$
+To resolve the ambiguous pronoun _"it"_, the Query vector for _"it"_ calculates dot products against Key vectors for all preceding tokens. The Key vector for _"animal"_ yields a significantly higher dot product than _"street"_. Consequently, the Softmax row for _"it"_ assigns a high weight to _"animal"_, pulling its Value vector into the output state for _"it"_, resolving the coreference link.
 
-where $W^O \in \mathbb{R}^{h d_v \times d_{model}}$ aggregates concatenated projections back to the core model dimensional space.
+Similarly, self-attention resolves polysemous words (words with multiple meanings). For example, the standalone word _"eating"_ has a generic embedding, but when self-attention processes _"eating bread"_, the token _"eating"_ attends to _"bread"_, incorporating specific context into its updated value vector.
 
-**Parameter Efficiency:** Because each head projects down to $d_k = d_{model}/h$, the total computational complexity across all $h$ heads is mathematically identical to single-head attention operating at full $d_{model}$ dimension ($h \cdot (N^2 \cdot d_k) = N^2 \cdot d_{model}$), granting rich multi-subspace representation capacity at zero extra computational cost.
-
-Architectural Significance
-
-Self-Attention removes the sequential step dependencies of recurrent architectures ($O(N)$ operations). Because every matrix row interacts directly with every matrix column in parallel matrix multiplication, the maximum structural path length between any two sequence positions drops to constant time $O(1)$. This architectural change enables full GPU training parallelization across large datasets.
-
-```
-RECURRENT ARCHITECTURE (RNN)              SELF-ATTENTION LAYER
-Path Length: O(N) Sequential Steps        Path Length: O(1) Constant Parallel Operations
-
-x₁ ──> [RNN] ──> h₁                       x₁ ────────┐
-        │                                 x₂ ────────┼┐
-x₂ ──> [RNN] ──> h₂                       x₃ ────────┼┼─> [All-to-All Self-Attention Matrix] ──> [Y₁, Y₂, Y₃, Y₄]
-        │                                 x₄ ────────┼┘
-x₃ ──> [RNN] ──> h₃                                  │
-        │                                            │
-x₄ ──> [RNN] ──> h₄ ─────────────────────────────────┘
-```
-
-Architectural Transition
-
-Although Self-Attention provides constant path length and parallel execution, the matrix multiplication $\text{Softmax}(Q K^T)$ is permutation-equivariant. Reordering the input token sequence yields an identically reordered output representation sequence. Consequently, explicit positional information must be added to preserve sequence order.
+While QKV self-attention models rich semantic dependencies across a sequence, it treats input vectors as an unordered set. Because dot-product attention contains no inherent structural bias for token position, pure self-attention is insensitive to sequence order.
 
 ---
 
-4. Positional Encoding — Injecting Sequence Order into Permutation-Invariant Networks
+4. Positional Encoding and Causal (Masked) Self-Attention
 
-Permutation Equivariance in Self-Attention
+Permutation Equivariance Analysis
 
-Because Self-Attention operates via unordered set operations over Query-Key projections, it lacks an inherent awareness of sequence order. Swapping two input tokens $x_i$ and $x_j$ alters the row order of output matrix $Y$ by the same permutation, leaving the structural token representations identical regardless of position.
+A pure self-attention layer is _permutation equivariant_. If $\mathcal{P}(\cdot)$ represents a permutation operator that shuffles sequence tokens along the length dimension, applying self-attention to a permuted sequence produces an output permuted by the exact same operator:
 
-To process ordered structures such as text or spatial image grids, explicit positional representations must be added directly to token input embeddings.
+$$\text{Attention}(\mathcal{P}(X)) = \mathcal{P}(\text{Attention}(X))$$
 
-Mathematical Criteria for Effective Positional Representations
+Because matrix multiplication ($Q K^T$) processes pairwise token interactions independently of sequence position, swapping word positions changes output order but leaves calculated contextual values unchanged for those words.
 
-An effective positional encoding function $PE: \mathbb{N} \to \mathbb{R}^{d_{model}}$ must satisfy four operational criteria:
+In natural language processing, this order-insensitivity is a limitation: the sequence _"A person riding a horse"_ produces identical contextual representation vectors to _"A horse riding a person"_, despite having opposite meanings. To provide awareness of word order without using sequential recurrence, explicit positional metadata must be injected into input token embeddings.
 
-1. **Unique Output:** Generates a distinct coordinate signature for each discrete time-step or position index $pos$.
-2. **Consistent Relative Distance:** Maintains uniform metric distances between relative offset positions ($pos + \Delta$) across sequences of varying length.
-3. **Bounded and Generalizable:** Produces deterministic, bounded values that generalize reliably to sequence lengths beyond those encountered during training.
-4. **Integration Compatibility:** Integrates efficiently with input embeddings without increasing feature vector dimensionality.
+Functional Constraints for Positional Representations
 
-Sinusoidal Positional Encoding Formulation
+To encode positional metadata into a Transformer, a positional encoding function $PE: \mathbb{N} \to \mathbb{R}^{d_{\text{model}}}$ must satisfy four core functional requirements:
 
-Vaswani et al. (2017) introduced continuous sinusoidal positional encodings. For token position $pos$ and feature dimension index $2k, 2k+1 \in \{0, \dots, d_{model}-1\}$, encodings are computed as:
+1. **Unique Identity:** It must generate a unique positional vector for every time-step $pos$ in a sequence.
+2. **Bounded and Deterministic Values:** It must produce deterministic outputs with bounded values to keep activations stable during training.
+3. **Distance Consistency:** The distance metric between encodings at relative positions ($pos$ and $pos + \Delta t$) must remain consistent across variable sentence lengths.
+4. **Generalization:** It must generalize smoothly to longer sequence lengths than those encountered during training.
 
-$$PE_{(pos, 2k)} = \sin\left(\frac{pos}{10000^{2k/d_{model}}}\right) = \sin(\omega_k \cdot pos)$$
+Sinusoidal Positional Encoding Mechanics
 
-$$PE_{(pos, 2k+1)} = \cos\left(\frac{pos}{10000^{2k/d_{model}}}\right) = \cos(\omega_k \cdot pos)$$
+Vaswani et al. (2017) introduced a deterministic sinusoidal positional encoding function using varying frequency sine and cosine functions across embedding dimensions:
 
-where $\omega_k = \frac{1}{10000^{2k/d_{model}}}$ defines the angular frequency for dimension $k$.
+$$\text{PE}_{(pos, 2k)} = \sin\left(\frac{pos}{10000^{2k/d_{\text{model}}}}\right)$$
 
-```
-DIMENSION INDEX (k) ──>
-Low Dimensions (k → 0):    Rapid Oscillation (Short Wavelengths λ ≈ 2π)   ──> [High-Frequency Spatial Counter]
-High Dimensions (k → d/2): Slow Oscillation  (Long Wavelengths λ ≈ 10000·2π) ──> [Low-Frequency Global Counter]
-```
+$$\text{PE}_{(pos, 2k+1)} = \cos\left(\frac{pos}{10000^{2k/d_{\text{model}}}}\right)$$
 
-This geometric design functions similarly to a continuous binary counter:
-
-- Low-index dimensions ($k \to 0$) oscillate at high frequencies, tracking short-range positional shifts between adjacent tokens.
-- High-index dimensions ($k \to d_{model}/2$) oscillate at lower frequencies, establishing global coordinate frameworks capable of spanning thousands of positions (wavelengths up to $10,000 \cdot 2\pi$).
-
-Integration Method
-
-Positional signatures are integrated via element-wise addition directly at the model input layer, combining token embeddings $\mathbf{E} \in \mathbb{R}^{N \times d_{model}}$ with positional matrix $\mathbf{PE} \in \mathbb{R}^{N \times d_{model}}$:
-
-$$\mathbf{X}_{embedded} = \mathbf{E} + \mathbf{PE}$$
+where $pos \in \{0, 1, \dots, S-1\}$ represents absolute token position, and $k \in [0, d_{\text{model}}/2)$ indexes the embedding channel pair.
 
 ```
-Token Embedding (E_pos) : [ e₁,₁ ,  e₁,₂ ,  e₁,₃ , ... ,  e₁,d_model ]
-                            +       +       +              +
-Positional Vector (PE_pos): [ sin   , cos   , sin   , ... , cos       ]
-                            =       =       =              =
-Input Feature Vector    : [ x₁,₁ ,  x₁,₂ ,  x₁,₃ , ... ,  x₁,d_model ]
+POSITION   DIM 0 (High Frequency) -------------> DIM d_model (Low Frequency)
+  pos=0:   [ sin(0/10000^0)   cos(0/10000^0)  ...  sin(0/10000^1)   cos(0/10000^1) ]
+  pos=1:   [ sin(1/10000^0)   cos(1/10000^0)  ...  sin(1/10000^1)   cos(1/10000^1) ]
+  pos=2:   [ sin(2/10000^0)   cos(2/10000^0)  ...  sin(2/10000^1)   cos(2/10000^1) ]
 ```
 
-Element-wise addition preserves model dimension $d_{model}$ (unlike vector concatenation, which inflates model size). The lower self-attention layers learn to project and separate semantic content from positional signatures across distinct linear channels.
+The Binary Counter Analogy
 
-Relative Positional Encoding Offsets
+This sinusoidal formulation operates similarly to a continuous binary counter. Low channel dimensions ($k \to 0$) use high-frequency sinusoids that oscillate rapidly across adjacent positions $pos$, capturing fine-grained local positional relationships. High channel dimensions ($k \to d_{\text{model}}/2$) use low-frequency sinusoids with wavelengths up to $10000 \cdot 2\pi$, providing spatial tracking across long sequences.
 
-In applications sensitive to relative distances—such as speech processing, audio modeling, or localized visual processing—relative self-attention formulations incorporate distance offsets ($i - j$) directly into attention logits:
+```
+Bit 0 (Fastest): 0 1 0 1 0 1 0 1  <-- High Frequency (Local spatial position)
+Bit 1          : 0 0 1 1 0 0 1 1
+Bit 2 (Slowest): 0 0 0 0 1 1 1 1  <-- Low Frequency (Global spatial position)
+```
 
-$$e_{i,j}^{\text{relative}} = Q_i K_j^T + Q_i R_{i-j}^T$$
+Mathematical Proof of the Linear Projection Property
 
-where $R_{i-j}$ is a learnable or deterministic embedding representing the relative displacement index $i - j$.
+A key property of sinusoidal encodings is that for any fixed offset $\Delta t$, the encoding at position $pos + \Delta t$ can be represented as a linear projection of the encoding at position $pos$.
 
-Architectural Transition
+_Proof:_ Let $\omega_k = \frac{1}{10000^{2k/d_{\text{model}}}}$. Applying the trigonometric angle addition formulas for sine and cosine gives:
 
-Injecting positional encodings restores sequence order awareness to permutation-invariant self-attention layers. Combined with causal masking, these elements form the fundamental building blocks of the Transformer architecture.
+$$\text{PE}_{(pos+\Delta t, 2k)} = \sin(\omega_k (pos + \Delta t)) = \sin(\omega_k pos)\cos(\omega_k \Delta t) + \cos(\omega_k pos)\sin(\omega_k \Delta t)$$
+
+$$\text{PE}_{(pos+\Delta t, 2k+1)} = \cos(\omega_k (pos + \Delta t)) = \cos(\omega_k pos)\cos(\omega_k \Delta t) - \sin(\omega_k pos)\sin(\omega_k \Delta t)$$
+
+Expressed in matrix form, there exists a linear rotation matrix $M_{\Delta t} \in \mathbb{R}^{2 \times 2}$ such that:
+
+$$\begin{bmatrix} \text{PE}_{(pos+\Delta t, 2k)} \\ \text{PE}_{(pos+\Delta t, 2k+1)} \end{bmatrix} = \begin{bmatrix} \cos(\omega_k \Delta t) & \sin(\omega_k \Delta t) \\ -\sin(\omega_k \Delta t) & \cos(\omega_k \Delta t) \end{bmatrix} \begin{bmatrix} \text{PE}_{(pos, 2k)} \\ \text{PE}_{(pos, 2k+1)} \end{bmatrix}$$
+
+Because $M_{\Delta t}$ depends only on relative offset $\Delta t$ and not on absolute position $pos$, linear layers in self-attention can learn relative distance relationships across sequence positions.
+
+The positional vector $\text{PE}_{(pos)}$ is added directly to the input token embedding $X_{(pos)}$ before entering the network:
+
+$$\tilde{X}_{(pos)} = X_{(pos)} + \text{PE}_{(pos)}$$
+
+Causal (Masked) Self-Attention
+
+In bidirectional encoders, self-attention allows tokens to attend both forward and backward across a sequence. However, autoregressive generation requires that generating token $y_t$ depends _only_ on previously generated tokens $(y_0, \dots, y_{t-1})$. Attending to future tokens $(y_{t+1}, \dots, y_T)$ would allow the model to copy target answers directly during training.
+
+To enforce causal autoregression, decoders use **Causal (Masked) Self-Attention**. Future token positions are masked out by setting their raw alignment scores to $-\infty$ prior to Softmax:
+
+$$M_{i,j} = \begin{cases} 0 & \text{if } i \ge j \\ -\infty & \text{if } i < j \end{cases}$$
+
+$$\text{MaskedAttention}(Q, K, V) = \text{softmax}\left(\frac{Q K^T}{\sqrt{d_k}} + M\right) V$$
+
+```
+RAW DOT-PRODUCT SCORES (Q K^T)           MASK MATRIX M            SOFTMAX ATTENTION WEIGHTS
+    [ 4.2   1.5   2.1 ]              [   0   -\infty  -\infty ]           [ 1.00  0.00  0.00 ]
+    [ 2.0   5.1   0.8 ]      +       [   0      0     -\infty ]   ===>    [ 0.05  0.95  0.00 ]
+    [ 1.1   3.4   6.2 ]              [   0      0        0    ]           [ 0.01  0.08  0.91 ]
+  (Row = Query, Col = Key)             (Upper Triangle Mask)          (Zero weight to future keys)
+```
+
+Because $\exp(-\infty) = 0$, Softmax assigns zero attention weight to future token positions ($j > i$). This enforces causality during parallelized training while preserving matrix multiplication speed benefits.
+
+Integrating positional encodings and causal masking into the Transformer block forms the full network architecture.
 
 ---
 
-5. The Complete Transformer Architecture (Vaswani et al., 2017)
+5. The Complete Transformer Architecture and Multi-Head Attention
 
-Structural Overview
-
-The Transformer architecture (Vaswani et al., 2017) establishes an end-to-end Sequence-to-Sequence framework constructed entirely from Self-Attention, Positional Encodings, Feed-Forward Networks, and Residual Normalization blocks, eliminating recurrent and convolutional operations.
+The Transformer architecture (Vaswani et al., 2017) synthesizes self-attention, positional encodings, multi-head abstractions, and feed-forward subnetworks into a modular, parallel processing model.
 
 ```
-                  TRANSFORMER ENCODER ($N=6$)                             TRANSFORMER DECODER ($N=6$)
-            ┌────────────────────────────────────┐                   ┌────────────────────────────────────┐
-            │   Position-wise Feed-Forward FFN   │                   │   Position-wise Feed-Forward FFN   │
-            │     [Add & Layer Normalization]    │                   │     [Add & Layer Normalization]    │
-            ├────────────────────────────────────┤                   ├────────────────────────────────────┤
- Context ───┼────────────────────────────────────┼─ Keys/Values ────>│    Multi-Head Cross-Attention      │
- Output     │     Multi-Head Self-Attention      │                   │     [Add & Layer Normalization]    │
-            │     [Add & Layer Normalization]    │                   ├────────────────────────────────────┤
-            └────────────────────────────────────┘                   │  Masked Multi-Head Self-Attention  │
-                              ▲                                      │     [Add & Layer Normalization]    │
-                              │                                      └────────────────────────────────────┘
-                     Input Embeddings +                                                ▲
-                    Positional Encodings                                               │
-                                                                             Target Embeddings +
-                                                                            Positional Encodings
+                  TRANSFORMER ENCODER BLOCK               TRANSFORMER DECODER BLOCK
+                +---------------------------+           +---------------------------+
+                |       Output Token        |           |       Output Token        |
+                +---------------------------+           +---------------------------+
+                              ^                                       ^
+                              |                                       |
+                +---------------------------+           +---------------------------+
+                |      Layer Norm &         |           |      Layer Norm &         |
+                |    Residual Addition      |           |    Residual Addition      |
+                +---------------------------+           +---------------------------+
+                              ^                                       ^
+                              |                                       |
+                +---------------------------+           +---------------------------+
+                | Position-Wise FFN (MLP)   |           | Position-Wise FFN (MLP)   |
+                +---------------------------+           +---------------------------+
+                              ^                                       ^
+                              |                                       |
+                +---------------------------+           +---------------------------+
+                |      Layer Norm &         |           |      Layer Norm &         |
+                |    Residual Addition      |           |    Residual Addition      |
+                +---------------------------+           +---------------------------+
+                              ^                                       ^
+                              |                                       |
+                              |                         +---------------------------+
+                              |                         | Encoder-Decoder Cross Attn| <=== (Keys/Values from
+                              |                         +---------------------------+      Encoder Context)
+                              |                                       ^
+                              |                                       |
+                              |                         +---------------------------+
+                              |                         |      Layer Norm &         |
+                              |                         |    Residual Addition      |
+                              |                         +---------------------------+
+                              |                                       ^
+                              |                                       |
+                +---------------------------+           +---------------------------+
+                | Multi-Head Self-Attention |           | Masked Multi-Head Self-   |
+                |    (Full Bidirectional)   |           | Attention (Autoregressive)|
+                +---------------------------+           +---------------------------+
+                              ^                                       ^
+                              |                                       |
+                +---------------------------+           +---------------------------+
+                | Positional Encoding Add   |           | Positional Encoding Add   |
+                +---------------------------+           +---------------------------+
+                              ^                                       ^
+                              |                                       |
+                +---------------------------+           +---------------------------+
+                |  Input Token Embeddings   |           | Shifted Target Embeddings |
+                +---------------------------+           +---------------------------+
 ```
 
-Transformer Encoder Block Structure ($N=6$ Layers)
+Multi-Head Attention (MHA)
 
-The encoder consists of a stack of $N=6$ identical processing layers. Each layer contains two primary sub-layers:
+Single-head attention computes a single average attention distribution across a sequence, which can average out distinct relationship types. For instance, a token may need to attend to syntactic dependencies, coreference links, and local positional context simultaneously.
 
-1. **Unmasked Multi-Head Self-Attention:** Computes bidirectional contextual representations across all input sequence tokens simultaneously.
-2. **Residual Connection & Layer Normalization:** Applies a residual skip connection followed by Layer Normalization:
+Multi-Head Attention (MHA) splits the feature space into $h$ lower-dimensional subspaces (typically $h=8$). Each "head" projects inputs using independent parameter matrices $W_Q^{(i)} \in \mathbb{R}^{d_{\text{model}} \times d_k}$, $W_K^{(i)} \in \mathbb{R}^{d_{\text{model}} \times d_k}$, $W_V^{(i)} \in \mathbb{R}^{d_{\text{model}} \times d_v}$ (where $d_k = d_v = d_{\text{model}} / h$):
 
-$$\text{SubLayer}_{out} = \text{LayerNorm}(x + \text{SubLayer}(x))$$
+$$\text{head}_i = \text{Attention}\left(X W_Q^{(i)}, X W_K^{(i)}, X W_V^{(i)}\right) \in \mathbb{R}^{B \times S \times d_v}$$
 
-_Layer Normalization vs. Batch Normalization:_ Layer Normalization computes feature mean and variance across channels for each token position independently of the batch size or dynamic sequence length. Unlike Batch Normalization, which relies on mini-batch statistics that fluctuate on variable-length sequences, LayerNorm operates reliably across individual sequence instances.
+$$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \dots, \text{head}_h) W^O \in \mathbb{R}^{B \times S \times d_{\text{model}}}$$
 
-1. **Position-wise Feed-Forward Network (FFN):** A two-layer fully connected network applied identically to each sequence token position:
+where $W^O \in \mathbb{R}^{(h \cdot d_v) \times d_{\text{model}}}$ projects the concatenated multi-head outputs back into the hidden dimension. This structure enables individual heads to specialize—one head might track syntactic agreement, another coreferences, and a third local positional context.
 
-$$\text{FFN}(x) = \max(0, x W_1 + b_1) W_2 + b_2$$
+Encoder and Decoder Layer Structure
 
-where $W_1 \in \mathbb{R}^{d_{model} \times d_{ff}}$ (typically $d_{ff} = 4 d_{model}$) and $W_2 \in \mathbb{R}^{d_{ff} \times d_{model}}$.
+The canonical Transformer stacks $N=6$ identical encoder blocks and $N=6$ identical decoder blocks.
 
-1. **Secondary Residual Connection & Layer Normalization:** Wraps the Feed-Forward Network with an additional skip connection and Layer Normalization step.
+Encoder Layer Sub-Blocks:
 
-Transformer Decoder Block Structure ($N=6$ Layers)
+1. **Multi-Head Bidirectional Self-Attention:** Computes pairwise attention across all input sequence tokens.
+2. **Position-wise Feed-Forward Network (FFN):** A two-layer token-level MLP applied independently to each position: $$\text{FFN}(x) = \max(0, x W_1 + b_1) W_2 + b_2$$
 
-The decoder consists of $N=6$ stacked layers, each containing three functional sub-layers:
+Both sub-layers use a residual connection ($x + \text{Sublayer}(x)$) followed by Layer Normalization ($\text{LayerNorm}$).
 
-1. **Masked Multi-Head Self-Attention (Causal Masking):** Restricts target generation step $t$ from attending to future target tokens $t+1, \dots, T'$.
+Decoder Layer Sub-Blocks:
 
-```
-CAUSAL MASK MATRIX (M)                        UNMASKED ATTENTION LOGITS                    MASKED SOFTMAX PROBABILITIES
-┌──────────────────────┐                     ┌───────────────────────────┐                 ┌───────────────────────────┐
-│  0   -∞   -∞   -∞    │                     │  e₁,₁   e₁,₂  e₁,₃  e₁,₄  │                 │  α₁,₁    0     0     0    │
-│  0    0   -∞   -∞    │   +   Q Kᵀ / √d_k ──>│  e₂,₁   e₂,₂  e₂,₃  e₂,₄  │ ──Softmax──>    │  α₂,₁   α₂,₂   0     0    │
-│  0    0    0   -∞    │                     │  e₃,₁   e₃,₂  e₃,₃  e₃,₄  │                 │  α₃,₁   α₃,₂  α₃,₃   0    │
-│  0    0    0    0    │                     │  e₄,₁   e₄,₂  e₄,₃  e₄,₄  │                 │  α₄,₁   α₄,₂  α₄,₃  α₄,₄  │
-└──────────────────────┘                     └───────────────────────────┘                 └───────────────────────────┘
-```
+1. **Masked Multi-Head Self-Attention:** Restricts decoder tokens to attending only to present and past output positions $j \le i$.
+2. **Encoder-Decoder Cross-Attention:** Uses Queries ($Q$) generated by the decoder's masked self-attention layer, while drawing Keys ($K$) and Values ($V$) directly from the output of the Encoder stack. This allows the decoder to access source context at every generation step.
+3. **Position-wise Feed-Forward Network (FFN):** Applies token-level non-linear transformations identical to the encoder FFN.
 
-Setting ungenerated future alignments to $-\infty$ forces $\text{Softmax}(-\infty) = 0$, enforcing causal autoregressive sequence generation during training and inference.
+💡 **Professor's Architectural Note:** In the original Transformer (Vaswani et al., 2017), Layer Normalization was placed _after_ the residual addition ($\text{Post-LN}$): $\text{LayerNorm}(x + \text{Sublayer}(x))$. However, in deep networks ($N > 12$), Post-LN causes gradient magnitudes near the output layer to grow large relative to early layers, making warmup schedules necessary. Modern implementations use $\text{Pre-LN}$: $x + \text{Sublayer}(\text{LayerNorm}(x))$, where gradients flow directly through the residual skip pathway, improving training stability in deep models.
 
-1. **Multi-Head Cross-Attention:** Connects the encoder and decoder stacks. Queries ($Q$) are projected from the decoder's prior sub-layer, while Keys ($K$) and Values ($V$) are derived directly from the output of the Encoder stack. This allows every position in the decoder to attend over all source tokens in the input context.
-2. **Position-wise Feed-Forward Network:** Applies the position-wise linear transformations wrapped in residual skip connections and layer normalizations.
+Comparative Paradigm Analysis
 
-Comparative Complexity Analysis
-
-|Layer Paradigm|Computational Complexity per Layer|Sequential Operations (Parallelization Limit)|Maximum Structural Path Length|
+|Parameter / Metric|Recurrent Neural Networks (RNN)|Convolutional Neural Networks (CNN)|Self-Attention (Transformer)|
 |---|---|---|---|
-|**Self-Attention**|$\mathcal{O}(N^2 \cdot d_{model})$|$\mathcal{O}(1)$|$\mathcal{O}(1)$|
-|**Recurrent Layer (RNN)**|$\mathcal{O}(N \cdot d_{model}^2)$|$\mathcal{O}(N)$|$\mathcal{O}(N)$|
-|**Convolutional Layer (1D CNN)**|$\mathcal{O}(k \cdot N \cdot d_{model}^2)$|$\mathcal{O}(1)$|$\mathcal{O}(\log_k(N))$|
+|**Computational Complexity per Layer**|$O(S \cdot d^2)$|$O(k \cdot S \cdot d^2)$|$O(S^2 \cdot d)$|
+|**Sequential Operations (Parallelizability)**|$O(S)$ (Sequential processing loop over step $t$)|$O(1)$ (Parallel execution across spatial grids)|$O(1)$ (Parallel execution across all token pairs)|
+|**Maximum Path Length Between Tokens**|$O(S)$ (Information passes step-by-step through intermediate hidden states)|$O(\log_k(S))$ (Requires stacking multi-layer convolutional trees)|$O(1)$ (Direct pairwise comparisons connect all token pairs)|
+|**Structural Inductive Bias**|**High:** Strong temporal sequential bias (assumes adjacent order step-by-step)|**High:** Strong spatial locality and translation invariance|**Minimal:** Zero structural spatial/temporal bias (relies on positional encodings)|
+|**Inference Memory Consumption (KV Cache)**|$O(d)$ (Maintains a single recurrent state vector $h_t \in \mathbb{R}^d$)|$O(k \cdot d)$ (Maintains receptive field sliding window buffer)|$O(S \cdot d)$ (Caches historical Key and Value tensors for all tokens)|
 
-_where_ $N$ _represents sequence length,_ $d_{model}$ _is feature embedding dimensionality, and_ $k$ _is kernel spatial width._
+_Note:_ $S$ _denotes sequence length,_ $d$ _denotes feature representation dimension, and_ $k$ _denotes convolutional kernel size._
 
-Architectural Transition
+Scaling Laws and the Parallelization Imperative
 
-By eliminating sequential recurrences and structural inductive biases, the Transformer achieves high GPU hardware parallelization. This capability enabled scaling models to massive datasets and extended their application beyond NLP to visual domains.
+While self-attention incurs quadratic computational complexity $O(S^2 \cdot d)$ per layer with respect to sequence length $S$, it reduces sequential operations to $O(1)$.
 
----
+Traditional RNNs require sequential step-by-step loops ($O(S)$), preventing parallel execution during forward passes or backpropagation. In contrast, Transformers eliminate hidden-state temporal dependencies, allowing GPU clusters to process thousands of tokens in parallel.
 
-6. Extending Transformers to Computer Vision — Vision Transformers (ViT) and Swin Transformers
-
-The Shift Away from Convolutional Inductive Biases
-
-Convolutional Neural Networks rely on two explicit structural inductive biases:
-
-- **Locality:** Assuming nearest-neighbor pixels are semantically correlated.
-- **Translation Invariance:** Applying identical convolutional filters uniformly across all spatial coordinates.
-
-While effective for localized image visual signals, these assumptions constrain a network's ability to model non-local, dynamic spatial interactions (such as multi-object occlusions or long-range visual context). Vision Transformers eliminate these fixed convolutional biases, learning dynamic spatial relationships directly from raw image patch sequences.
-
-```
-CONVOLUTIONAL LAYER: Fixed Local Receptive Fields      VISION TRANSFORMER: Global All-to-All Patch Relationships
-┌───┬───┬───┐                                         ┌──────┐ ───┐
-│   │ ★ │   │ Local 3×3 Kernel Computation            │ Patch│    │
-├───┼───┼───┤ (Restricted Receptive Field)            ├──────┤    ├──> Full-Image Dynamic Interactions
-│ ★ │ X │ ★ │                                         │ Patch│    │    (Constant O(1) Receptive Field)
-├───┼───┼───┤                                         ├──────┤    │
-│   │ ★ │   │                                         │ Patch│ ───┘
-└───┴───┴───┘                                         └──────┘
-```
-
-The Vision Transformer (ViT) Pipeline (Dosovitskiy et al., 2020)
-
-```
-Input Image (H×W×C) ──> 2D Patch Extraction ──> Flattened Sequence (N) ──> Linear Projection + [CLS] Token ──> Add 2D Positional Enc. ──> Transformer Encoder Stack
-```
-
-1. Image Patchification
-
-A 2D image $X \in \mathbb{R}^{H \times W \times C}$ is partitioned into a sequence of non-overlapping $P \times P$ spatial patches. Each patch is flattened into a 1D vector $x_p \in \mathbb{R}^{P^2 \cdot C}$. The total sequence length $N$ is defined as:
-
-$$N = \frac{H \cdot W}{P^2}$$
-
-2. Linear Projection and Token Prep
-
-The flattened patch vectors are mapped to the core model embedding dimension $d_{model}$ using a learnable projection matrix $E \in \mathbb{R}^{(P^2 \cdot C) \times d_{model}}$. A learnable classification token `[CLS]` ($z_0^0 = x_{class}$) is prepended to the patch sequence, serving as an aggregated global representation vector for classification tasks:
-
-$$\mathbf{Z}_0 = [x_{class}; x_p^1 E; x_p^2 E; \dots; x_p^N E] + \mathbf{E}_{pos}$$
-
-where $\mathbf{E}_{pos} \in \mathbb{R}^{(N+1) \times d_{model}}$ provides 2D spatial positional embeddings.
-
-3. Encoder Processing
-
-The resulting sequence of visual tokens $\mathbf{Z}_0$ is processed through standard Transformer Encoder blocks, modeling global visual interactions across the entire image grid.
-
-The Swin Transformer — Hierarchical Windowed Attention (Liu et al., 2021)
-
-```
-VISION TRANSFORMER (ViT)                        SWIN TRANSFORMER (Hierarchical Windowed Attention)
-Global Quadratic Complexity: O(N²)              Linear Local Window Attention: O(N) + Shifted Window Cross-Communication
-
-┌───┬───┬───┬───┐ All Patches                   ┌───┬───┐ ┌───┬───┐ Local Windows
-│   │   │   │   │ Attend to All                 │   │   │ │   │   │ (Computes Attention Within
-├───┼───┼───┼───┤ Other Patches                 ├───┼───┤ ├───┼───┤ Local P×P Boundaries)
-│   │   │   │   │ Globally                      │   │   │ │   │   │
-└───┴───┴───┴───┘                               └───┴───┘ └───┴───┘ Layer Shift Interconnects Windows
-```
-
-1. Quadratic Bottleneck of Standard ViT
-
-Standard ViT models evaluate global self-attention across all $N$ image patches, resulting in quadratic computational complexity $\mathcal{O}(N^2) = \mathcal{O}\left(\left(\frac{HW}{P^2}\right)^2\right)$. While manageable for low-resolution classification images (e.g., $224 \times 224$), this quadratic cost becomes computationally unfeasible for dense, high-resolution visual tasks like object detection or semantic segmentation on multi-megapixel images.
-
-2. Shifted Windowing (Swin)
-
-The Swin Transformer restricts self-attention computation to local $M \times M$ patch windows (typically $M=7$), yielding linear computational complexity relative to image size:
-
-$$\mathcal{O}(\text{Swin}) = 4 N M^2 d_{model} + 2 N d_{model}^2 = \mathcal{O}(N)$$
-
-To establish spatial communication between adjacent local windows, consecutive layers alternate between standard local windowing (W-MSA) and shifted windowing configurations (SW-MSA), shifting window boundaries by $\left(\left\lfloor \frac{M}{2} \right\rfloor, \left\lfloor \frac{M}{2} \right\rfloor\right)$ patches.
-
-3. Hierarchical Patch Merging
-
-As visual representations propagate through deeper layers, Swin progressively concatenates adjacent $2 \times 2$ patch groups and applies linear projections, reducing spatial sequence resolution while doubling feature dimension depth ($C \to 2C \to 4C$). This constructs a multi-scale hierarchical feature pyramid essential for dense visual prediction tasks.
-
-Architectural Transition
-
-By adapting self-attention to high-resolution visual inputs, Vision Transformers establish a unified processing paradigm across text, images, and multimodal domains.
+This operational efficiency unlocked **Scaling Laws** in deep learning: models scaled from millions to hundreds of billions of parameters when trained on web-scale text corpora. Removing sequential processing bottlenecks made modern large-scale language models computationally feasible.
 
 ---
 
-7. Core Takeaways and Architectural Summary
+6. Vision Transformers (ViT), Relative Attention, and Structural Adaptations
 
-Synthesized Takeaway Checklist
+Because Transformers carry minimal structural inductive bias, self-attention can be adapted directly to 2D visual data.
+
+Relative Self-Attention
+
+Standard self-attention relies on absolute positional encodings added at the input layer. However, tasks involving visual patterns, speech processing, or music generation often depend more on relative spatial or temporal distances than absolute positions.
+
+Relative self-attention introduces learnable relative distance offsets directly into the alignment score calculations:
+
+$$e_{i,j} = \frac{q_i (k_j + R_{i-j}^K)^T}{\sqrt{d_k}}$$
+
+$$\text{Output}_i = \sum_{j=1}^{S} a_{i,j} (v_j + R_{i-j}^V)$$
+
+where $R_{i-j}^K$ and $R_{i-j}^V$ are learnable weight matrices indexed by relative spatial/temporal offset $(i - j)$. This allows the attention mechanism to capture repeating patterns—such as musical choruses, texture symmetries, or architectural features—regardless of where they appear in the sequence.
+
+Vision Transformer (ViT) Mechanics
+
+The Vision Transformer (Dosovitskiy et al., 2020) applies a standard Transformer Encoder directly to 2D image data, bypassing convolutional layers entirely.
 
 ```
-                      EVOLUTION OF SEQUENCE AND VISION ARCHITECTURES
-                      
-    RECURRENT BOTTLENECK           DYNAMIC ATTENTION               SELF-ATTENTION (TRANSFORMER)             VISION TRANSFORMERS (ViT/SWIN)
-   ┌────────────────────┐       ┌────────────────────┐            ┌────────────────────────────┐           ┌──────────────────────────────┐
-   │ Fixed Context 'c'  │ ───>  │ Dynamic Alignment  │ ────────>  │ Parallel Matrix Operations │ ────────> │ Patchified Image Tokens      │
-   │ O(N) Path Length   │       │ Variable Memory    │            │ O(1) Constant Path Length  │           │ Linear Local/Shifted Windows │
-   └────────────────────┘       └────────────────────┘            └────────────────────────────┘           └──────────────────────────────┘
+  [ Input Image (H x W x C) ]
+             |
+             v
+  [ Split into Patches (N x (P^2 * C)) ]
+             |
+             v
+  [ Linear Patch Projection Matrix ]  ===> Projected Patch Embeddings (N x d_model)
+             |
+             v
+  [ Add 2D Spatial Positional Encodings (PE) ]
+             |
+             v
+  [ Prepended Learnable [CLS] Token ]
+             |
+             v
+  [ Standard Transformer Encoder Stack (N Layers) ]
+             |
+             v
+  [ Extract [CLS] Hidden Output Vector ] ===> [ Linear MLP Classification Head ]
 ```
 
-1. **Recurrent Context Bottleneck:** Early Seq2Seq networks compressed variable-length source sequences into a single fixed vector $c = h_T$, leading to catastrophic forgetting over long temporal horizons ($T \ge 1000$).
-2. **Dynamic Memory Lookup:** Bahdanau Attention introduced a dynamic lookup mechanism, constructing a custom context vector $c_t = \sum a_{t,i} h_i$ at each decoding step by evaluating alignment scores over intermediate encoder states.
-3. **Self-Attention Abstraction:** Self-attention replaces temporal updates with dynamic matrix projections ($Q = \mathbf{X} W_Q$, $K = \mathbf{X} W_K$, $V = \mathbf{X} W_V$), computing direct token interactions in parallel via $\text{Softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V$.
-4. **Positional Encoding:** Because self-attention is permutation-equivariant, sinusoidal functions ($PE_{(pos, 2k)} = \sin(pos / 10000^{2k/d_{model}})$) are added directly to input token embeddings to explicitly encode sequence order.
-5. **Causal Auto-Regressive Decoders:** Decoder self-attention uses causal masking, setting future alignment logits to $-\infty$ to ensure autoregressive prediction without look-ahead leakage.
-6. **Unified Multimodal Paradigm:** Vision Transformers (ViT) flatten 2D spatial image patches into sequence tokens, removing convolutional inductive biases to enable scalable end-to-end learning across visual and text domains.
+1. **Patch Tokenization:** An input image $I \in \mathbb{R}^{H \times W \times C}$ is flattened into a sequence of non-overlapping 2D patches $I_p \in \mathbb{R}^{N \times (P^2 \cdot C)}$, where $P \times P$ denotes pixel resolution per patch, and $N = \frac{HW}{P^2}$ represents the sequence length.
+2. **Linear Embedding Projection:** Each flattened patch is linearly projected into a $d_{\text{model}}$-dimensional vector space using a learnable projection matrix.
+3. **2D Positional Encoding Injection:** Learnable 1D or 2D positional embeddings are added directly to patch representations to retain relative spatial location information across the grid.
+4. **Encoder Processing:** A learnable classification token (`[CLS]`) is prepended to the patch sequence. The complete set of $N + 1$ vectors passes through a standard Transformer Encoder stack. The final output state of the `[CLS]` token serves as the global feature vector for image classification.
 
-By replacing fixed inductive biases with unconstrained dynamic attention layers, modern Transformer architectures leverage parallel GPU computation to learn complex context patterns, establishing the architectural foundation for modern foundation models across language and computer vision.
+Addressing the Quadratic Bottleneck in Vision (Swin Transformer)
+
+Applying standard self-attention to high-resolution images creates a computational bottleneck. For example, a 32-megapixel image broken into $8 \times 8$ pixel patches yields $N = 500,000$ tokens. Computing $O(N^2)$ self-attention across half a million tokens requires trillions of operations per layer, exhausting GPU VRAM.
+
+The **Swin Transformer** (Liu et al., 2021) resolves this complexity using two key mechanisms:
+
+```
+  REGULAR WINDOW ATTENTION (Shift 0)        SHIFTED WINDOW ATTENTION (Shift Step)
+  +-------------------+-------------------+  +---------+-------------------+---------+
+  |                   |                   |  |         |                   |         |
+  |  Local Window 1   |  Local Window 2   |  |   W11   |        W12        |   W13   |
+  |  (Self-Attn inside|  (Self-Attn inside|  |         |                   |         |
+  |   local grid)     |   local grid)     |  +---------+-------------------+---------+
+  +-------------------+-------------------+  |         |                   |         |
+  |                   |                   |  |   W21   |    Cross-Window   |   W23   |
+  |  Local Window 3   |  Local Window 4   |  |         |    Interaction    |         |
+  |                   |                   |  +---------+-------------------+---------+
+  +-------------------+-------------------+  |   W31   |        W32        |   W33   |
+                                             +---------+-------------------+---------+
+```
+
+- **Shifted Local Windows (Swin):** Self-attention is restricted to non-overlapping local grids ($M \times M$ patches), reducing computational complexity from $O(N^2)$ to linear $O(N \cdot M^2)$. To enable communication across local boundaries, subsequent layers shift the window partition grids by $(\lfloor \frac{M}{2} \rfloor, \lfloor \frac{M}{2} \rfloor)$ patches for local window size $M \times M$, allowing features to cross local boundaries in consecutive layers.
+- **Hierarchical Patch Merging:** Deep layers merge adjacent patches into larger macro-patches, creating fine-to-coarse multiscale feature pyramids similar to CNN backbones.
+
+Having explored visual self-attention models, we can now examine how bidirectional encoding inspired pre-trained language models like BERT.
+
+---
+
+7. Bidirectional Encoder Representations from Transformers (BERT)
+
+The introduction of BERT (Devlin et al., 2019) marked a major development in language representation learning by utilizing a purely bidirectional, encoder-only Transformer architecture.
+
+```
+                    CAUSAL AUTOREGRESSIVE MASKING           BIDIRECTIONAL CONTEXTUALIZATION
+                        (e.g., GPT Decoders)                     (e.g., BERT Encoders)
+                      =========================               =========================
+       Token 1 ("The")   --> Attends to: Token 1                Token 1 ("The")   --> Attends to: ALL Tokens
+       Token 2 ("cat")   --> Attends to: Tokens 1, 2            Token 2 ("cat")   --> Attends to: ALL Tokens
+       Token 3 ("sat")   --> Attends to: Tokens 1, 2, 3        Token 3 ("sat")   --> Attends to: ALL Tokens
+       Token 4 ("down")  --> Attends to: Tokens 1,2,3,4        Token 4 ("down")  --> Attends to: ALL Tokens
+```
+
+Architectural Identity
+
+Unlike autoregressive decoders (e.g., GPT, which use causal masks) or sequence-to-sequence models (e.g., T5, which combine encoders and decoders), BERT relies entirely on stacked Transformer Encoders. BERT eliminates causal masks, enabling every token in a sequence to attend to both left and right context simultaneously across all layers.
+
+Deep Bidirectional Contextualization
+
+Traditional autoregressive language models were constrained by unidirectional training. In those architectures, a token's representation could only incorporate information from preceding words.
+
+BERT's bidirectional encoder removes directional boundaries, building contextual representations based on the entire surrounding sequence. For example, in the phrases _"bank of a river"_ and _"bank account"_, a bidirectional model contextualizes the word _"bank"_ using both its left and right context, generating distinct embeddings for each usage.
+
+Pre-Training Objectives and Downstream Fine-Tuning
+
+To train bidirectional representations without allowing tokens to view their own target states during pre-training, BERT uses two unsupervised objectives:
+
+1. **Masked Language Modeling (MLM):** Randomly selects 15% of input tokens to be masked out. The model predicts these original masked tokens using cross-entropy loss based on the surrounding bidirectional context.
+2. **Next Sentence Prediction (NSP):** Trains the model to understand sentence-level relationships by predicting whether a candidate sentence $B$ logically follows sentence $A$, using binary classification applied to the `[CLS]` token output.
+
+```
+              PRE-TRAINING (Unsupervised on Large Text Corpora)
+      +---------------------------------------------------------------+
+      |  Task 1: Masked Language Model (MLM) via [MASK] Tokens        |
+      |  Task 2: Next Sentence Prediction (NSP) via [CLS] Tokens      |
+      +---------------------------------------------------------------+
+                                      |
+                                      v
+                      PRE-TRAINED BERT BASE ENCODER
+                                      |
+       +------------------------------+------------------------------+
+       |                              |                              |
+       v                              v                              v
+DOWNSTREAM TASK FINE-TUNING     DOWNSTREAM TASK FINE-TUNING     DOWNSTREAM TASK FINE-TUNING
++-------------------------+     +-------------------------+     +-------------------------+
+|  Text Classification    |     |   Question Answering    |     | Named Entity Recog.     |
+| (Classifier Head added) |     | (Start/End Token Heads) |     |  (Token-Level Heads)    |
++-------------------------+     +-------------------------+     +-------------------------+
+```
+
+💡 **Professor's Architectural Note:** If a pre-training model uses `[MASK]` tokens exclusively during pre-training, the network encounters a distribution mismatch during fine-tuning because the explicit `[MASK]` token never appears in downstream fine-tuning data. To resolve this mismatch, BERT's MLM task uses a proportional token replacement scheme for the chosen 15% candidate tokens:
+
+- **80% of the time:** Replaced with the explicit `[MASK]` token (e.g., _"my dog is [MASK]"_).
+- **10% of the time:** Replaced with a random dictionary token (e.g., _"my dog is apple"_), forcing the network to maintain language representations for all tokens.
+- **10% of the time:** Kept unchanged (e.g., _"my dog is hairy"_), biasing representation vectors toward true sequence context.
+
+Once pre-trained on large text corpora, BERT's bidirectional representations can be fine-tuned for downstream tasks—such as text classification, question answering, or named entity recognition—by adding a task-specific output layer and updating the network end-to-end.
+
+Architectural Summary
+
+The evolution of sequence models—from recurrent networks to modern attention-driven architectures—is defined by four core principles:
+
+- **Complete Parallelization:** Eliminating recurrent hidden state loops removes sequential bottlenecks ($O(1)$ sequential operations per layer), enabling efficient training across compute clusters.
+- **Minimal Inductive Bias:** Removing fixed spatial and temporal assumptions allows models to learn arbitrary relation patterns directly from web-scale data.
+- **Constant Path Lengths (**$O(1)$**):** Direct pairwise interactions connect every token pair in a single computational step, mitigating gradient degradation across long sequences.
+- **Cross-Modal Adaptability:** The core Query-Key-Value framework operates on arbitrary set representations, allowing identical self-attention layers to process text sequences, 2D image patches, point clouds, and audio signals.
