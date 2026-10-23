@@ -2,46 +2,45 @@
 
 The fundamental objective of any **RFID (Radio Frequency Identification)** system is **Object Identification**. This entails retrieving a unique identifier associated with a specific tag attached to an object (e.g., inventory, assets, or access cards) to facilitate tracking and management within a digital repository.
 
-#### Component Synthesis
+### Component Synthesis
 
 An RFID architecture is composed of three primary segments, each with distinct physical constraints and functional responsibilities.
 
-|   |   |   |
-|---|---|---|
-|Component|Physical Characteristics|Functional Role|
-|**RF Tags**|Passive, small-scale, and cost-effective. Consist of a microchip and an integrated antenna [SOURCE_IMAGE_5, 11].|Data carriers that store unique identifiers. They lack an internal power source for active transmission.|
-|**Interrogators (Readers)**|High-power devices available in **Stationary (Fixed)** or **Handheld (Mobile)** form factors [SOURCE_IMAGE_8, 9].|Acts as the central controller. Queries tags to retrieve IDs and manages the communication link.|
-|**Servers & Data Repositories**|Backend computational infrastructure and databases.|Processes raw data from the reader and maps IDs to specific application logic.|
+| *Component*                     | *Physical Characteristics*                                                                    | *Functional Role*                                                                                        |
+| ------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| **RF Tags**                     | Passive, small-scale, and cost-effective. Consist of a microchip with an integrated antenna.  | Data carriers that store unique identifiers. They lack an internal power source for active transmission. |
+| **Interrogators (Readers)**     | High-power devices available in **Stationary (Fixed)** or **Handheld (Mobile)** form factors. | Acts as the central controller. Queries tags to retrieve IDs and manages the communication link.         |
+| **Servers & Data Repositories** | Backend computational infrastructure and databases.                                           | Processes raw data from the reader and maps IDs to specific application logic.                           |
 
-#### Tag Data Specifications
+### Tag Data Specifications
 
-Tags transmit unique bit-strings, typically utilizing a **96-bit** standard known as the **Electronic Product Code (EPC)**. Depending on the application requirements, identifier lengths can scale up to a maximum of **256 bits** [SOURCE_IMAGE_14].
+Tags transmit unique bit-strings, typically utilizing a **96-bit** standard known as the **Electronic Product Code (EPC)**. Depending on the application requirements, identifier lengths can scale up to a maximum of **256 bits**.
 
-### 2. Physical and Link Layer Characteristics
+## 2. Physical and Link Layer Characteristics
 
-#### The RFID Channel
+### The RFID Channel
 
 The communication medium in RFID systems presents several challenges for reliable network design:
 
 - **Wireless and Shared:** Multiple tags and the reader occupy the same frequency spectrum, leading to interference.
-- **Asymmetric Low Data Rate:** The typical **uplink** (tag-to-reader) data rate is constrained to **40 kbps** [SOURCE_IMAGE_13].
+- **Asymmetric Low Data Rate:** The typical **uplink** (tag-to-reader) data rate is constrained to **40 kbps**.
 - **Collision Vulnerability:** If multiple tags reply to a query simultaneously, their signals overlap, resulting in a collision that renders the data unreadable.
 
-#### Passive Backscatter Communication
+### Passive Backscatter Communication
 
 Because RFID tags are **Passive**, they cannot initiate communication or transmit active radio signals. Instead, they respond via **Backscattering**: tags modulate and reflect the continuous wave signal transmitted by the reader.
 
-#### Fundamental MAC Constraints
+### Fundamental MAC Constraints
 
 The Medium Access Control (**MAC**) design for RFID deviates significantly from protocols like Wi-Fi or Ethernet due to hardware limitations:
 
-- **Lack of Sensing Capabilities:** Tags are incapable of "hearing" one another. There is **NO Carrier Sense (CS)** and **NO Collision Detection (CD)** on the tag side [SOURCE_IMAGE_15].
+- **Lack of Sensing Capabilities:** Tags are incapable of "hearing" one another. There is **NO Carrier Sense (CS)** and **NO Collision Detection (CD)** on the tag side.
 - **Half-Duplex Limitations:** Tags cannot support the power-intensive transceivers required to listen while transmitting.
 - **Reader-Driven Arbitration:** Because tags cannot coordinate, the **Reader** must serve as the central arbiter, orchestrating channel access to resolve collisions.
 
-### 3. Classification of Anti-Collision Protocols
+## 3. Classification of Anti-Collision Protocols
 
-To achieve **Singulation**—the process of identifying tags one by one—several **Sequential** protocols are employed [SOURCE_IMAGE_16]:
+To achieve **Singulation**—the process of identifying tags one by one—several **Sequential** protocols are employed:
 
 - **Tree-Based Protocols:** Deterministic algorithms that recursively split the tag population.
     - **Binary Splitting (BS)**
