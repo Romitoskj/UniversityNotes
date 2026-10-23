@@ -1,6 +1,4 @@
-# Class 2 Notes: RFID Architecture, MAC Protocols, and Autonomous Adaptation
-
-### 1. Introduction to RFID Systems
+## 1. Introduction to RFID Systems
 
 The fundamental objective of any **RFID (Radio Frequency Identification)** system is **Object Identification**. This entails retrieving a unique identifier associated with a specific tag attached to an object (e.g., inventory, assets, or access cards) to facilitate tracking and management within a digital repository.
 
