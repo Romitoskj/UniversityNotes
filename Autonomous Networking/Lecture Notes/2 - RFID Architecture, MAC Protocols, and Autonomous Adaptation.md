@@ -68,7 +68,9 @@ _Note:_ _**Concurrent**_ _protocols, which attempt to decode overlapping transmi
 4. **Success or Idle Slot:** If the slot is non-colliding:
     - All tags decrement their counter by one (**C = C - 1**). This effectively "pops" the next subgroup from the virtual stack, moving them to the root (**C = 0**) for the next query.
 
-#### Query Tree (QT) Protocols
+![](Attachments/Pasted%20image%2020261023150200.png)
+
+### Query Tree (QT) Protocols
 
 Unlike **BS**, which uses random numbers, **QT** uses **ID Prefixes**. The reader broadcasts a prefix; only tags matching that prefix respond.
 
