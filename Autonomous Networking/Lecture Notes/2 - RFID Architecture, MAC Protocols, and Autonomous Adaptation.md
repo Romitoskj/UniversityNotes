@@ -53,14 +53,13 @@ To achieve **Singulation**—the process of identifying tags one by one—severa
 
 _Note:_ _**Concurrent**_ _protocols, which attempt to decode overlapping transmissions, are outside the scope of this course._
 
-### 4. Tree-Based Anti-Collision Protocols
+## 4. Tree-Based Anti-Collision Protocols
 
-#### Binary Splitting (BS) Principles
+### Binary Splitting (BS) Principles
 
 **Binary Splitting** utilizes a virtual stack mechanism to isolate tags. This is managed via internal counters (**C**) within the tags.
 
 **Algorithmic Logic:**
-
 1. **Initialisation:** All tags set their internal counter **C = 0**.
 2. **Query:** Only tags with **C = 0** are permitted to respond.
 3. **Collision Handling:** If a collision occurs:
