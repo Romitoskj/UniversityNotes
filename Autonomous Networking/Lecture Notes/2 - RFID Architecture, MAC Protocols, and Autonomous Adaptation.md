@@ -72,7 +72,9 @@ _Note:_ _**Concurrent**_ _protocols, which attempt to decode overlapping transmi
 
 ### Query Tree (QT) Protocols
 
-Unlike **BS**, which uses random numbers, **QT** uses **ID Prefixes**. The reader broadcasts a prefix; only tags matching that prefix respond.
+Unlike **BS**, which uses random numbers, **QT** uses **ID Prefixes**. The reader broadcasts a prefix (initially empty); only tags matching that prefix respond. If a collision occurs the string length is increased by one bit.
+
+![](Attachments/Pasted%20image%2020261023150850.png)
 
 - **Synthesis:** In scenarios with a uniform ID distribution, the tree structure of **QT** mirrors **BS**, as the population naturally splits into approximately equal halves at each bit-level branch.
 
