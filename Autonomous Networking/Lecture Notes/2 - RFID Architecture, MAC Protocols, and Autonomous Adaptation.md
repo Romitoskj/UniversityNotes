@@ -92,26 +92,26 @@ To evaluate protocol performance, we must look beyond raw throughput and conside
 - **Collision Slots:** Wasted time because multiple tags responded, resulting in unreadable data.
 - **System Efficiency:** Defined as the ratio of **Successful Slots** (where exactly one tag is identified) to the total number of slots required to complete the singulation process.
 
-### 6. Autonomous Adaptation and Reinforcement Learning
+## 6. Autonomous Adaptation and Reinforcement Learning
 
 ### Dynamics of Tag Populations
 
-In real-world deployments, the tag field is rarely static. We classify the population into three categories [SOURCE_IMAGE_20]:
+In real-world deployments, the tag field is rarely static. We classify the population into three categories:
 
 1. **Staying Tags:** Resident within the reader range across multiple cycles.
 2. **Arriving Tags:** New entrants to the field.
 3. **Leaving Tags:** Tags exiting the identification range.
 
-#### Adaptive BSTSA via Reinforcement Learning (RL)
+### Adaptive BSTSA via Reinforcement Learning (RL)
 
-Static protocols fail to maintain efficiency as these populations shift. **Autonomous Networking** solves this by enabling the system to **Observe, Decide, and Adapt** [SOURCE_IMAGE_1].
+Static protocols fail to maintain efficiency as these populations shift. **Autonomous Networking** solves this by enabling the system to **Observe, Decide, and Adapt**.
 
 By integrating **Reinforcement Learning (RL)**, the reader acts as an intelligent agent. It monitors real-time channel feedback (the ratio of successes, idles, and collisions) to optimize:
 
 - **Frame Size (L):** Adjusting the number of available slots to match the estimated tag population.
 - **Splitting Depth:** Fine-tuning the recursion level in **BSTSA** to minimize collision duration.
 
-### 7. Summary of Key Takeaways
+## 7. Summary of Key Takeaways
 
 - **Tree-based protocols** (e.g., **BS**, **QT**) are deterministic. They provide guaranteed identification but can be slower in very high-density, low-collision scenarios.
 - **Aloha-based protocols** (e.g., **FSA**, **EPC Gen**) are probabilistic. They are highly efficient for general use but require dynamic adjustment to prevent "thrashing" during high collision periods.
