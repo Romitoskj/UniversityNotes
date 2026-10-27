@@ -78,13 +78,13 @@ Unlike **BS**, which uses random numbers, **QT** uses **ID Prefixes**. The reade
 
 - **Synthesis:** In scenarios with a uniform ID distribution, the tree structure of **QT** mirrors **BS**, as the population naturally splits into approximately equal halves at each bit-level branch.
 
-### 5. Aloha-Based and Hybrid Protocols
+## 5. Aloha-Based and Hybrid Protocols
 
-#### Evolution to BSTSA
+### Evolution to BSTSA
 
 While basic **Aloha** variants like **FSA** organize access into frames and slots, they can struggle with high collision rates in dense environments. **Binary Splitting Tree Slotted Aloha (BSTSA)** is a hybrid approach that applies **BS** counter logic _within_ specific slots of an **Aloha** frame to resolve collisions more efficiently.
 
-#### Performance Evaluation: The Transmission Time Model
+### Performance Evaluation: The Transmission Time Model
 
 To evaluate protocol performance, we must look beyond raw throughput and consider the ratio of productive vs. non-productive time:
 
@@ -94,7 +94,7 @@ To evaluate protocol performance, we must look beyond raw throughput and conside
 
 ### 6. Autonomous Adaptation and Reinforcement Learning
 
-#### Dynamics of Tag Populations
+### Dynamics of Tag Populations
 
 In real-world deployments, the tag field is rarely static. We classify the population into three categories [SOURCE_IMAGE_20]:
 
