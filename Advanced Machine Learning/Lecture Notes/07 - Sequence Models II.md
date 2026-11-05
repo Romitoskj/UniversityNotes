@@ -4,7 +4,7 @@ Sequence-to-Sequence (Seq2Seq) architectures powered by Recurrent Neural Network
 
 ![](Attachments/1793898380755368052.png)
 
-### Mathematical Formulation of Classical Seq2Seq
+### 1.1 Mathematical Formulation of Classical Seq2Seq
 
 Given an input sequence $X = (x_1, x_2, \dots, x_T)$ of length $T$ and a target sequence $Y = (y_1, y_2, \dots, y_{T'})$ of length $T'$ (where sequence lengths $T$ and $T'$ frequently differ), the recurrent encoder processes tokens sequentially. At each time step $t \in \{1, \dots, T\}$, the encoder updates its internal hidden state $h_t \in \mathbb{R}^d$ via a non-linear activation function $f_W$ parameterized by learnable weight matrices $W$:
 
@@ -21,7 +21,7 @@ $$s_t = g_U(y_{t-1}, s_{t-1}, c)$$
 
 where $s_t \in \mathbb{R}^d$ represents the decoder's state at output step $t$, $y_{t-1}$ is the previously generated token (initialized with a special `[START]` token $y_0$), and $c$ remains fixed throughout decoding until a terminal `[STOP]` token is predicted.
 
-The Information Compression Bottleneck
+### 1.2 The Information Compression Bottleneck
 
 The structural flaw in this classic framework lies in forcing the context vector $c$ to be a single, fixed-size vector (e.g., $c \in \mathbb{R}^d$). As the input sequence length $T$ scales—such as processing a document of $T=1000$ tokens—the network must compress all semantic, syntactic, and long-range dependencies into this single vector representation.
 
@@ -31,7 +31,7 @@ Mathematically, $c$ acts as an information bottleneck. Compressing an arbitrary 
 - **Vanishing Gradients:** Error gradients propagated from the decoder back to early encoder states decay exponentially over sequence steps, preventing early input tokens from receiving meaningful weight updates.
 - **Degraded Translation Quality:** Empirical performance degrades rapidly as sequence length grows beyond a few dozen tokens, as the static vector $c$ fails to retain fine-grained contextual details needed for downstream generation.
 
-Capacity Constraints: Theory vs. Practice
+### 1.3 Capacity Constraints: Theory vs. Practice
 
 - **Theoretical Capacity:**
     - In principle, high-dimensional hidden states $h_t$ can model arbitrary temporal relationships.
