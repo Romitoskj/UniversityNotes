@@ -64,6 +64,8 @@ The step-by-step computation of Bahdanau additive attention proceeds as follows:
 3. **Dynamic Context Vector Computation:** The dynamic context vector $c_t \in \mathbb{R}^d$ is computed as a weighted sum of all encoder hidden states $h_i$: $$c_t = \sum_{i=1}^{T} a_{t,i} h_i$$
 4. **Decoder State Update:** The decoder updates its state $s_t$ using the previously generated token $y_{t-1}$, previous state $s_{t-1}$, and current dynamic context vector $c_t$: $$s_t = g_U(y_{t-1}, s_{t-1}, c_t)$$
 
+![](Attachments/Pasted%20image%2020261105190457.png)
+
 ### 2.2 Interpretability and Machine Translation
 
 By plotting the attention weights $a_{t,i}$ as an $T' \times T$ matrix, we can visualize soft alignments between source and target words.
@@ -83,6 +85,8 @@ y3: pan     | 0.02  0.03   0.05    0.90
 ```
 
 These alignment matrices reveal structural language differences without hand-crafted syntactic rules. In English-to-French translation, English places adjectives before nouns (_"European Economic Area"_), whereas French places adjectives after nouns (_"Zone économique européenne"_). The alignment matrix captures this non-linear word reordering through non-diagonal high-activation clusters. Because all attention operations are differentiable, the network learns these soft alignments end-to-end without explicit alignment supervision.
+
+![](Attachments/Pasted%20image%2020261105190354.png)
 
 ### 2.3 Visual Attention in Image Captioning
 
