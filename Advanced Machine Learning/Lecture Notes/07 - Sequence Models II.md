@@ -2,18 +2,9 @@
 
 Sequence-to-Sequence (Seq2Seq) architectures powered by Recurrent Neural Networks (RNNs) established the foundational paradigm for early neural machine translation (NMT) and sequence modeling. Prior to these architectures, mapping variable-length input sequences to variable-length output sequences posed a structural challenge for fixed-input neural networks. The classic Seq2Seq paradigm resolved this by partitioning the task into two recurrent sub-networks: an _Encoder_ that ingests the input sequence and a _Decoder_ that autoregressively generates the target sequence. Understanding the structural limitations of standard encoder-decoder RNNs is essential to appreciating the paradigm shift toward attention-driven architectures.
 
-```
-ENCODER                                     DECODER
-x_1 ("we")    --> [ h_1 ]                   s_0 (= h_4)
-                    |                        |
-x_2 ("are")   --> [ h_2 ]                   s_1 ("estamos")  <-- c (= h_4)
-                    |                        |
-x_3 ("eating")--> [ h_3 ]                   s_2 ("comiendo") <-- c (= h_4)
-                    |                        |
-x_4 ("bread") --> [ h_4 ]  ===> Context c ===> s_3 ("pan")     <-- c (= h_4)
-```
+![](Attachments/1793898380755368052.png)
 
-Mathematical Formulation of Classical Seq2Seq
+### Mathematical Formulation of Classical Seq2Seq
 
 Given an input sequence $X = (x_1, x_2, \dots, x_T)$ of length $T$ and a target sequence $Y = (y_1, y_2, \dots, y_{T'})$ of length $T'$ (where sequence lengths $T$ and $T'$ frequently differ), the recurrent encoder processes tokens sequentially. At each time step $t \in \{1, \dots, T\}$, the encoder updates its internal hidden state $h_t \in \mathbb{R}^d$ via a non-linear activation function $f_W$ parameterized by learnable weight matrices $W$:
 
