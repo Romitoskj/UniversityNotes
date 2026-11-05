@@ -58,11 +58,11 @@ The step-by-step computation of Bahdanau additive attention proceeds as follows:
 
 1. **Alignment Score Calculation:** Before generating target token $y_t$, the decoder compares its _previous_ hidden state $s_{t-1}$ against every encoder hidden state $h_i$ (for $i = 1, \dots, T$). The scalar alignment score $e_{t,i} \in \mathbb{R}$ quantifies the relevance between input position $i$ and output position $t$: $$e_{t,i} = f_{\text{att}}(s_{t-1}, h_i) = v_a^T \tanh(W_a s_{t-1} + U_a h_i)$$ Here, $f_{\text{att}}$ is parameterized as a learnable Multi-Layer Perceptron (MLP) with weight matrices $W_a, U_a$ and projection vector $v_a$, trained end-to-end via backpropagation.
 
-_Crucial Timing Distinction:_ The alignment score $e_{t,i}$ explicitly depends on $s_{t-1}$—the decoder state _before_ emitting token $y_t$. This timing maintains strict recurrent causality: $s_{t-1}$ encodes the history of generated tokens $(y_0, \dots, y_{t-1})$ to determine where to attend next, before $s_t$ is updated.
+	_Crucial Timing Distinction:_ The alignment score $e_{t,i}$ explicitly depends on $s_{t-1}$—the decoder state _before_ emitting token $y_t$. This timing maintains strict recurrent causality: $s_{t-1}$ encodes the history of generated tokens $(y_0, \dots, y_{t-1})$ to determine where to attend next, before $s_t$ is updated.
 
-1. **Attention Weight Normalization via Softmax:** The raw alignment scores $e_{t,i}$ are normalized using a Softmax function across all input sequence steps $i$: $$a_{t,i} = \frac{\exp(e_{t,i})}{\sum_{k=1}^{T} \exp(e_{t,k})}$$ This guarantees $0 < a_{t,i} < 1$ and $\sum_{i=1}^{T} a_{t,i} = 1$, allowing $a_{t,i}$ to act as a probability distribution over the input states.
-2. **Dynamic Context Vector Computation:** The dynamic context vector $c_t \in \mathbb{R}^d$ is computed as a weighted sum of all encoder hidden states $h_i$: $$c_t = \sum_{i=1}^{T} a_{t,i} h_i$$
-3. **Decoder State Update:** The decoder updates its state $s_t$ using the previously generated token $y_{t-1}$, previous state $s_{t-1}$, and current dynamic context vector $c_t$: $$s_t = g_U(y_{t-1}, s_{t-1}, c_t)$$
+2. **Attention Weight Normalization via Softmax:** The raw alignment scores $e_{t,i}$ are normalized using a Softmax function across all input sequence steps $i$: $$a_{t,i} = \frac{\exp(e_{t,i})}{\sum_{k=1}^{T} \exp(e_{t,k})}$$ This guarantees $0 < a_{t,i} < 1$ and $\sum_{i=1}^{T} a_{t,i} = 1$, allowing $a_{t,i}$ to act as a probability distribution over the input states.
+3. **Dynamic Context Vector Computation:** The dynamic context vector $c_t \in \mathbb{R}^d$ is computed as a weighted sum of all encoder hidden states $h_i$: $$c_t = \sum_{i=1}^{T} a_{t,i} h_i$$
+4. **Decoder State Update:** The decoder updates its state $s_t$ using the previously generated token $y_{t-1}$, previous state $s_{t-1}$, and current dynamic context vector $c_t$: $$s_t = g_U(y_{t-1}, s_{t-1}, c_t)$$
 
 ### 2.2 Interpretability and Machine Translation
 
