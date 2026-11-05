@@ -92,6 +92,8 @@ These alignment matrices reveal structural language differences without hand-cra
 
 The attention mechanism extends to spatial grid structures in computer vision ("Show, Attend and Tell", Xu et al., 2015). Instead of 1D temporal hidden states, a Convolutional Neural Network (CNN) backbone extracts a 3D feature grid $Z \in \mathbb{R}^{H \times W \times D}$ from an input image, where $H \times W$ denotes spatial grid coordinates and $D$ represents feature channel depth.
 
+![](Attachments/Pasted%20image%2020261105190800.png)
+
 The decoder RNN computes spatial alignment scores across grid coordinates $(i, j)$ for $i \in \{1, \dots, H\}$ and $j \in \{1, \dots, W\}$:
 
 $$e_{t,i,j} = f_{\text{att}}(s_{t-1}, z_{i,j})$$
@@ -100,24 +102,20 @@ _Spatial Grid Normalization:_ Unlike 1D sequence attention normalized over lengt
 
 $$a_{t,i,j} = \frac{\exp(e_{t,i,j})}{\sum_{i'=1}^{H} \sum_{j'=1}^{W} \exp(e_{t,i',j'})}, \quad \text{where } \sum_{i=1}^{H} \sum_{j=1}^{W} a_{t,i,j} = 1$$
 
-|Generated Token ($y_t$)|Primary Spatial Focus Coordinates $(i,j)$|Visual Semantic Context (Lecture Examples)|
-|---|---|---|
-|**"frisbee"**|Upper-middle spatial regions|High feature activations centered on a spinning disk in the sky (_"a woman throwing a frisbee in a park"_)|
-|**"dog"**|Lower-center visual grid patches|High activations on the animal's torso and legs (_"a dog standing on a hardwood floor"_)|
-|**"giraffe"**|Vertical center-to-right regions|High activations spanning the long neck and patterned body (_"a giraffe standing in the forest"_)|
+![](Attachments/Pasted%20image%2020261105190821.png)
 
 ### 2.4 Computational Cost and Memory Analysis
 
 While additive attention resolves the single-vector bottleneck, it introduces operational trade-offs:
 
-- **Computational Overhead (**$O(T \cdot T')$**):** Calculating alignment scores requires comparing every output time step $T'$ with every input time step $T$. This pairwise calculation scales quadratically with sequence length, compared to the linear $O(T + T')$ cost of standard recurrent models.
+- **Computational Overhead ($O(T \cdot T')$):** Calculating alignment scores requires comparing every output time step $T'$ with every input time step $T$. This pairwise calculation scales quadratically with sequence length, compared to the linear $O(T + T')$ cost of standard recurrent models.
 - **Memory Retention Overhead:** The model cannot discard intermediate encoder states $h_i$ after reading the input. All $T$ vectors ($h_i \in \mathbb{R}^d$) must be cached in VRAM during decoding.
 
 While Bahdanau attention allowed decoders to selectively query encoder states, processing tokens still required sequential RNN loops step-by-step. To scale sequence models further, architectures needed an attention mechanism that could eliminate recurrent hidden states entirely.
 
 ---
 
-3. Self-Attention and the Query-Key-Value (QKV) Framework
+## 3. Self-Attention and the Query-Key-Value (QKV) Framework
 
 Self-attention eliminates recurrent loops entirely, allowing every token in a sequence to interact directly with every other token in a single computational step. By computing pairwise interactions across all positions in a sequence, self-attention converts static token embeddings into contextualized representations that encode syntax, coreference, and semantic relationships.
 
