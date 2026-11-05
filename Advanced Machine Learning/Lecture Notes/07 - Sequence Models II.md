@@ -1,4 +1,4 @@
-1. Recurrent Sequence Models and the Sequence-to-Sequence Bottleneck
+## 1. Recurrent Sequence Models and the Sequence-to-Sequence Bottleneck
 
 Sequence-to-Sequence (Seq2Seq) architectures powered by Recurrent Neural Networks (RNNs) established the foundational paradigm for early neural machine translation (NMT) and sequence modeling. Prior to these architectures, mapping variable-length input sequences to variable-length output sequences posed a structural challenge for fixed-input neural networks. The classic Seq2Seq paradigm resolved this by partitioning the task into two recurrent sub-networks: an _Encoder_ that ingests the input sequence and a _Decoder_ that autoregressively generates the target sequence. Understanding the structural limitations of standard encoder-decoder RNNs is essential to appreciating the paradigm shift toward attention-driven architectures.
 
