@@ -50,19 +50,9 @@ To bypass this single-vector compression bottleneck, architectures required a dy
 
 Additive attention (Bahdanau et al., 2015) replaced the static context vector $c$ with a dynamic alignment mechanism. Instead of forcing the encoder to compress the entire input sequence into a single terminal state $h_T$, the model retains all intermediate encoder states $(h_1, h_2, \dots, h_T)$. During each step of decoding, the decoder calculates a unique context vector $c_t$ by dynamically evaluating which input hidden states are most relevant to generating the next output token.
 
-```
-ENCODER HIDDEN STATES: [ h_1 ]  [ h_2 ]  [ h_3 ]  [ h_4 ]
-                          \        /        /        /
-Alignment Scores (e_t,i):  e_t,1    e_t,2    e_t,3    e_t,4  <-- f_att(s_{t-1}, h_i)
-                             |        |        |        |
-Softmax Normalization:     a_t,1    a_t,2    a_t,3    a_t,4  (Weights sum to 1.0)
-                             \        |        |       /
-Dynamic Context Vector:                c_t                   <-- Sum_i (a_t,i * h_i)
-                                        |
-Decoder State Update:                  s_t                   <-- g_U(y_{t-1}, s_{t-1}, c_t)
-```
+![](Attachments/Pasted%20image%2020261105184620.png)
 
-Mathematical Formulation and Recurrent Causality
+### 2.1 Mathematical Formulation and Recurrent Causality
 
 The step-by-step computation of Bahdanau additive attention proceeds as follows:
 
@@ -74,7 +64,7 @@ _Crucial Timing Distinction:_ The alignment score $e_{t,i}$ explicitly depends o
 2. **Dynamic Context Vector Computation:** The dynamic context vector $c_t \in \mathbb{R}^d$ is computed as a weighted sum of all encoder hidden states $h_i$: $$c_t = \sum_{i=1}^{T} a_{t,i} h_i$$
 3. **Decoder State Update:** The decoder updates its state $s_t$ using the previously generated token $y_{t-1}$, previous state $s_{t-1}$, and current dynamic context vector $c_t$: $$s_t = g_U(y_{t-1}, s_{t-1}, c_t)$$
 
-Interpretability and Machine Translation
+### 2.2 Interpretability and Machine Translation
 
 By plotting the attention weights $a_{t,i}$ as an $T' \times T$ matrix, we can visualize soft alignments between source and target words.
 
@@ -94,7 +84,7 @@ y3: pan     | 0.02  0.03   0.05    0.90
 
 These alignment matrices reveal structural language differences without hand-crafted syntactic rules. In English-to-French translation, English places adjectives before nouns (_"European Economic Area"_), whereas French places adjectives after nouns (_"Zone économique européenne"_). The alignment matrix captures this non-linear word reordering through non-diagonal high-activation clusters. Because all attention operations are differentiable, the network learns these soft alignments end-to-end without explicit alignment supervision.
 
-Visual Attention in Image Captioning
+### 2.3 Visual Attention in Image Captioning
 
 The attention mechanism extends to spatial grid structures in computer vision ("Show, Attend and Tell", Xu et al., 2015). Instead of 1D temporal hidden states, a Convolutional Neural Network (CNN) backbone extracts a 3D feature grid $Z \in \mathbb{R}^{H \times W \times D}$ from an input image, where $H \times W$ denotes spatial grid coordinates and $D$ represents feature channel depth.
 
@@ -112,7 +102,7 @@ $$a_{t,i,j} = \frac{\exp(e_{t,i,j})}{\sum_{i'=1}^{H} \sum_{j'=1}^{W} \exp(e_{t,i
 |**"dog"**|Lower-center visual grid patches|High activations on the animal's torso and legs (_"a dog standing on a hardwood floor"_)|
 |**"giraffe"**|Vertical center-to-right regions|High activations spanning the long neck and patterned body (_"a giraffe standing in the forest"_)|
 
-Computational Cost and Memory Analysis
+### 2.4 Computational Cost and Memory Analysis
 
 While additive attention resolves the single-vector bottleneck, it introduces operational trade-offs:
 
