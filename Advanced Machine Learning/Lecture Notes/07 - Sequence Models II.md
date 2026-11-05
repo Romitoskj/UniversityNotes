@@ -46,7 +46,7 @@ To bypass this single-vector compression bottleneck, architectures required a dy
 
 ---
 
-2. Additive Attention Mechanisms (Bahdanau Attention)
+## 2. Additive Attention Mechanisms (Bahdanau Attention)
 
 Additive attention (Bahdanau et al., 2015) replaced the static context vector $c$ with a dynamic alignment mechanism. Instead of forcing the encoder to compress the entire input sequence into a single terminal state $h_T$, the model retains all intermediate encoder states $(h_1, h_2, \dots, h_T)$. During each step of decoding, the decoder calculates a unique context vector $c_t$ by dynamically evaluating which input hidden states are most relevant to generating the next output token.
 
