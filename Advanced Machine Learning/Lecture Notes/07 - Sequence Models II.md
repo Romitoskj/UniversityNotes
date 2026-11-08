@@ -173,8 +173,6 @@ Similarly, self-attention resolves polysemous words (words with multiple meaning
 
 While QKV self-attention models rich semantic dependencies across a sequence, it treats input vectors as an unordered set. Because dot-product attention contains no inherent structural bias for token position, pure self-attention is insensitive to sequence order.
 
-![](Attachments/Pasted%20image%2020261108124404.png)
-
 ---
 
 ## 4. Positional Encoding and Causal (Masked) Self-Attention
@@ -262,58 +260,9 @@ Integrating positional encodings and causal masking into the Transformer block f
 
 The Transformer architecture (Vaswani et al., 2017) synthesizes self-attention, positional encodings, multi-head abstractions, and feed-forward subnetworks into a modular, parallel processing model.
 
-```
-                  TRANSFORMER ENCODER BLOCK               TRANSFORMER DECODER BLOCK
-                +---------------------------+           +---------------------------+
-                |       Output Token        |           |       Output Token        |
-                +---------------------------+           +---------------------------+
-                              ^                                       ^
-                              |                                       |
-                +---------------------------+           +---------------------------+
-                |      Layer Norm &         |           |      Layer Norm &         |
-                |    Residual Addition      |           |    Residual Addition      |
-                +---------------------------+           +---------------------------+
-                              ^                                       ^
-                              |                                       |
-                +---------------------------+           +---------------------------+
-                | Position-Wise FFN (MLP)   |           | Position-Wise FFN (MLP)   |
-                +---------------------------+           +---------------------------+
-                              ^                                       ^
-                              |                                       |
-                +---------------------------+           +---------------------------+
-                |      Layer Norm &         |           |      Layer Norm &         |
-                |    Residual Addition      |           |    Residual Addition      |
-                +---------------------------+           +---------------------------+
-                              ^                                       ^
-                              |                                       |
-                              |                         +---------------------------+
-                              |                         | Encoder-Decoder Cross Attn| <=== (Keys/Values from
-                              |                         +---------------------------+      Encoder Context)
-                              |                                       ^
-                              |                                       |
-                              |                         +---------------------------+
-                              |                         |      Layer Norm &         |
-                              |                         |    Residual Addition      |
-                              |                         +---------------------------+
-                              |                                       ^
-                              |                                       |
-                +---------------------------+           +---------------------------+
-                | Multi-Head Self-Attention |           | Masked Multi-Head Self-   |
-                |    (Full Bidirectional)   |           | Attention (Autoregressive)|
-                +---------------------------+           +---------------------------+
-                              ^                                       ^
-                              |                                       |
-                +---------------------------+           +---------------------------+
-                | Positional Encoding Add   |           | Positional Encoding Add   |
-                +---------------------------+           +---------------------------+
-                              ^                                       ^
-                              |                                       |
-                +---------------------------+           +---------------------------+
-                |  Input Token Embeddings   |           | Shifted Target Embeddings |
-                +---------------------------+           +---------------------------+
-```
+![](Attachments/Pasted%20image%2020261108203250.png)
 
-Multi-Head Attention (MHA)
+### 5.1 Multi-Head Attention (MHA)
 
 Single-head attention computes a single average attention distribution across a sequence, which can average out distinct relationship types. For instance, a token may need to attend to syntactic dependencies, coreference links, and local positional context simultaneously.
 
@@ -323,20 +272,22 @@ $$\text{head}_i = \text{Attention}\left(X W_Q^{(i)}, X W_K^{(i)}, X W_V^{(i)}\ri
 
 $$\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \text{head}_2, \dots, \text{head}_h) W^O \in \mathbb{R}^{B \times S \times d_{\text{model}}}$$
 
-where $W^O \in \mathbb{R}^{(h \cdot d_v) \times d_{\text{model}}}$ projects the concatenated multi-head outputs back into the hidden dimension. This structure enables individual heads to specialize—one head might track syntactic agreement, another coreferences, and a third local positional context.
+where $W^O \in \mathbb{R}^{(h \cdot d_v) \times d_{\text{model}}}$ projects the concatenated multi-head outputs back into the hidden dimension. This structure enables individual heads to specialize—one head might track syntactic agreement, another coreferences, and a third local positional context (similar idea as multiple conv filters in a layer).
 
-Encoder and Decoder Layer Structure
+![696](Attachments/Pasted%20image%2020261108203616.png)
+
+### 5.2 Encoder and Decoder Layer Structure
 
 The canonical Transformer stacks $N=6$ identical encoder blocks and $N=6$ identical decoder blocks.
 
-Encoder Layer Sub-Blocks:
+#### Encoder Layer Sub-Blocks:
 
 1. **Multi-Head Bidirectional Self-Attention:** Computes pairwise attention across all input sequence tokens.
 2. **Position-wise Feed-Forward Network (FFN):** A two-layer token-level MLP applied independently to each position: $$\text{FFN}(x) = \max(0, x W_1 + b_1) W_2 + b_2$$
 
 Both sub-layers use a residual connection ($x + \text{Sublayer}(x)$) followed by Layer Normalization ($\text{LayerNorm}$).
 
-Decoder Layer Sub-Blocks:
+#### Decoder Layer Sub-Blocks:
 
 1. **Masked Multi-Head Self-Attention:** Restricts decoder tokens to attending only to present and past output positions $j \le i$.
 2. **Encoder-Decoder Cross-Attention:** Uses Queries ($Q$) generated by the decoder's masked self-attention layer, while drawing Keys ($K$) and Values ($V$) directly from the output of the Encoder stack. This allows the decoder to access source context at every generation step.
@@ -344,7 +295,7 @@ Decoder Layer Sub-Blocks:
 
 💡 **Professor's Architectural Note:** In the original Transformer (Vaswani et al., 2017), Layer Normalization was placed _after_ the residual addition ($\text{Post-LN}$): $\text{LayerNorm}(x + \text{Sublayer}(x))$. However, in deep networks ($N > 12$), Post-LN causes gradient magnitudes near the output layer to grow large relative to early layers, making warmup schedules necessary. Modern implementations use $\text{Pre-LN}$: $x + \text{Sublayer}(\text{LayerNorm}(x))$, where gradients flow directly through the residual skip pathway, improving training stability in deep models.
 
-Comparative Paradigm Analysis
+### 5.3 Comparative Paradigm Analysis
 
 |Parameter / Metric|Recurrent Neural Networks (RNN)|Convolutional Neural Networks (CNN)|Self-Attention (Transformer)|
 |---|---|---|---|
@@ -356,7 +307,7 @@ Comparative Paradigm Analysis
 
 _Note:_ $S$ _denotes sequence length,_ $d$ _denotes feature representation dimension, and_ $k$ _denotes convolutional kernel size._
 
-Scaling Laws and the Parallelization Imperative
+#### Scaling Laws and the Parallelization Imperative
 
 While self-attention incurs quadratic computational complexity $O(S^2 \cdot d)$ per layer with respect to sequence length $S$, it reduces sequential operations to $O(1)$.
 
