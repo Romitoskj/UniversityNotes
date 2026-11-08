@@ -198,7 +198,7 @@ To encode positional metadata into a Transformer, a positional encoding function
 3. **Distance Consistency:** The distance metric between encodings at relative positions ($pos$ and $pos + \Delta t$) must remain consistent across variable sentence lengths.
 4. **Generalization:** It must generalize smoothly to longer sequence lengths than those encountered during training.
 
-Sinusoidal Positional Encoding Mechanics
+### 4.3 Sinusoidal Positional Encoding Mechanics
 
 Vaswani et al. (2017) introduced a deterministic sinusoidal positional encoding function using varying frequency sine and cosine functions across embedding dimensions:
 
