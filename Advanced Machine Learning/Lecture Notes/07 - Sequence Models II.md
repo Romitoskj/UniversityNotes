@@ -153,16 +153,17 @@ The full Scaled Dot-Product Attention equation is:
 
 $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) V$$
 
-Tensor Evolution Step-by-Step:
+### 2.3 Tensor Evolution Step-by-Step:
 
 1. **Similarity Matrix (**$Q K^T \in \mathbb{R}^{B \times S \times S}$**):** Pairwise matrix multiplication comparing all queries and keys in parallel.
 2. **Variance Scaling (**$\frac{Q K^T}{\sqrt{d_k}} \in \mathbb{R}^{B \times S \times S}$**):** Divides matrix elements by $\sqrt{d_k}$ to prevent Softmax saturation.
 3. **Softmax Normalization (**$A = \text{softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right) \in \mathbb{R}^{B \times S \times S}$**):** Applied row-wise across the last dimension, producing normalized weights where $\sum_{j=1}^{S} A_{b,i,j} = 1$.
 4. **Contextual Aggregation (**$A V \in \mathbb{R}^{B \times S \times d_v}$**):** Multiplies attention weights $A$ by the Value tensor $V$. Each token representation becomes a weighted sum of all Value vectors in the sequence.
 
-💡 **Professor's Architectural Note:** Modern AI hardware accelerators (e.g., NVIDIA Tensor Cores) are optimized for dense matrix-matrix multiplication ($Q K^T$) rather than sequential vector-matrix operations found in RNNs. By formulating sequence interactions as a unified matrix operation, self-attention transforms sequence modeling from a memory-bandwidth-bound sequential loop into a compute-bound operation that executes efficiently on parallel hardware architectures.
+> [!Quote]- **Professor's Architectural Note**
+> Modern AI hardware accelerators (e.g., NVIDIA Tensor Cores) are optimized for dense matrix-matrix multiplication ($Q K^T$) rather than sequential vector-matrix operations found in RNNs. By formulating sequence interactions as a unified matrix operation, self-attention transforms sequence modeling from a memory-bandwidth-bound sequential loop into a compute-bound operation that executes efficiently on parallel hardware architectures.
 
-Contextual Integration and Ambiguity Resolution
+### 2.4 Contextual Integration and Ambiguity Resolution
 
 Self-attention allows tokens to dynamically update their representations based on surrounding context. Consider the sentence: _"The animal didn't cross the street because it was too tired."_
 
