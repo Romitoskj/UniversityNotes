@@ -208,14 +208,9 @@ $$\text{PE}_{(pos, 2k+1)} = \cos\left(\frac{pos}{10000^{2k/d_{\text{model}}}}\ri
 
 where $pos \in \{0, 1, \dots, S-1\}$ represents absolute token position, and $k \in [0, d_{\text{model}}/2)$ indexes the embedding channel pair.
 
-```
-POSITION   DIM 0 (High Frequency) -------------> DIM d_model (Low Frequency)
-  pos=0:   [ sin(0/10000^0)   cos(0/10000^0)  ...  sin(0/10000^1)   cos(0/10000^1) ]
-  pos=1:   [ sin(1/10000^0)   cos(1/10000^0)  ...  sin(1/10000^1)   cos(1/10000^1) ]
-  pos=2:   [ sin(2/10000^0)   cos(2/10000^0)  ...  sin(2/10000^1)   cos(2/10000^1) ]
-```
+![](Attachments/Pasted%20image%2020261108201512.png)
 
-The Binary Counter Analogy
+#### The Binary Counter Analogy
 
 This sinusoidal formulation operates similarly to a continuous binary counter. Low channel dimensions ($k \to 0$) use high-frequency sinusoids that oscillate rapidly across adjacent positions $pos$, capturing fine-grained local positional relationships. High channel dimensions ($k \to d_{\text{model}}/2$) use low-frequency sinusoids with wavelengths up to $10000 \cdot 2\pi$, providing spatial tracking across long sequences.
 
@@ -225,7 +220,7 @@ Bit 1          : 0 0 1 1 0 0 1 1
 Bit 2 (Slowest): 0 0 0 0 1 1 1 1  <-- Low Frequency (Global spatial position)
 ```
 
-Mathematical Proof of the Linear Projection Property
+#### Mathematical Proof of the Linear Projection Property
 
 A key property of sinusoidal encodings is that for any fixed offset $\Delta t$, the encoding at position $pos + \Delta t$ can be represented as a linear projection of the encoding at position $pos$.
 
@@ -245,7 +240,7 @@ The positional vector $\text{PE}_{(pos)}$ is added directly to the input token e
 
 $$\tilde{X}_{(pos)} = X_{(pos)} + \text{PE}_{(pos)}$$
 
-Causal (Masked) Self-Attention
+### Causal (Masked) Self-Attention
 
 In bidirectional encoders, self-attention allows tokens to attend both forward and backward across a sequence. However, autoregressive generation requires that generating token $y_t$ depends _only_ on previously generated tokens $(y_0, \dots, y_{t-1})$. Attending to future tokens $(y_{t+1}, \dots, y_T)$ would allow the model to copy target answers directly during training.
 
