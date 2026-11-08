@@ -179,7 +179,7 @@ While QKV self-attention models rich semantic dependencies across a sequence, it
 
 ## 4. Positional Encoding and Causal (Masked) Self-Attention
 
-Permutation Equivariance Analysis
+### 4.1 Permutation Equivariance Analysis
 
 A pure self-attention layer is _permutation equivariant_. If $\mathcal{P}(\cdot)$ represents a permutation operator that shuffles sequence tokens along the length dimension, applying self-attention to a permuted sequence produces an output permuted by the exact same operator:
 
@@ -189,7 +189,7 @@ Because matrix multiplication ($Q K^T$) processes pairwise token interactions in
 
 In natural language processing, this order-insensitivity is a limitation: the sequence _"A person riding a horse"_ produces identical contextual representation vectors to _"A horse riding a person"_, despite having opposite meanings. To provide awareness of word order without using sequential recurrence, explicit positional metadata must be injected into input token embeddings.
 
-Functional Constraints for Positional Representations
+### 4.2 Functional Constraints for Positional Representations
 
 To encode positional metadata into a Transformer, a positional encoding function $PE: \mathbb{N} \to \mathbb{R}^{d_{\text{model}}}$ must satisfy four core functional requirements:
 
