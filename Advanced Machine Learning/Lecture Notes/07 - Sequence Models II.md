@@ -173,9 +173,11 @@ Similarly, self-attention resolves polysemous words (words with multiple meaning
 
 While QKV self-attention models rich semantic dependencies across a sequence, it treats input vectors as an unordered set. Because dot-product attention contains no inherent structural bias for token position, pure self-attention is insensitive to sequence order.
 
+![](Attachments/Pasted%20image%2020261108124404.png)
+
 ---
 
-4. Positional Encoding and Causal (Masked) Self-Attention
+## 4. Positional Encoding and Causal (Masked) Self-Attention
 
 Permutation Equivariance Analysis
 
@@ -267,7 +269,7 @@ Integrating positional encodings and causal masking into the Transformer block f
 
 ---
 
-5. The Complete Transformer Architecture and Multi-Head Attention
+## 5. The Complete Transformer Architecture and Multi-Head Attention
 
 The Transformer architecture (Vaswani et al., 2017) synthesizes self-attention, positional encodings, multi-head abstractions, and feed-forward subnetworks into a modular, parallel processing model.
 
@@ -375,7 +377,7 @@ This operational efficiency unlocked **Scaling Laws** in deep learning: models s
 
 ---
 
-6. Vision Transformers (ViT), Relative Attention, and Structural Adaptations
+## 6. Vision Transformers (ViT), Relative Attention, and Structural Adaptations
 
 Because Transformers carry minimal structural inductive bias, self-attention can be adapted directly to 2D visual data.
 
@@ -450,7 +452,7 @@ Having explored visual self-attention models, we can now examine how bidirection
 
 ---
 
-7. Bidirectional Encoder Representations from Transformers (BERT)
+## 7. Bidirectional Encoder Representations from Transformers (BERT)
 
 The introduction of BERT (Devlin et al., 2019) marked a major development in language representation learning by utilizing a purely bidirectional, encoder-only Transformer architecture.
 
