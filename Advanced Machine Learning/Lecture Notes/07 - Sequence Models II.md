@@ -102,7 +102,7 @@ _Spatial Grid Normalization:_ Unlike 1D sequence attention normalized over lengt
 
 $$a_{t,i,j} = \frac{\exp(e_{t,i,j})}{\sum_{i'=1}^{H} \sum_{j'=1}^{W} \exp(e_{t,i',j'})}, \quad \text{where } \sum_{i=1}^{H} \sum_{j=1}^{W} a_{t,i,j} = 1$$
 
-![](Attachments/Pasted%20image%2020261105190821.png)
+![696](Attachments/Pasted%20image%2020261105190821.png)
 
 ### 2.4 Computational Cost and Memory Analysis
 
@@ -119,25 +119,9 @@ While Bahdanau attention allowed decoders to selectively query encoder states, p
 
 Self-attention eliminates recurrent loops entirely, allowing every token in a sequence to interact directly with every other token in a single computational step. By computing pairwise interactions across all positions in a sequence, self-attention converts static token embeddings into contextualized representations that encode syntax, coreference, and semantic relationships.
 
-```
-    [ X ]  (Input Sequence Matrix: B x S x d_model)
-   /  |  \
-  /   |   \  (Linear Transformations via W_Q, W_K, W_V)
- v    v    v
-[Q]  [K]  [V] (Shapes: Q, K in B x S x d_k; V in B x S x d_v)
-  \  /     |
-   \/      |
- [ Q K^T ] |  (Pairwise Matrix Multiplication: B x S x S)
-     |     |
- [/ sqrt(d_k)] (Variance Normalization Scaling)
-     |     |
- [Softmax] |  (Row-wise Probability Normalization: B x S x S)
-     \    /
-      \  /
-    [ Output ] (Weighted Sum Matrix Multiplication: B x S x d_v)
-```
+![696](Attachments/Pasted%20image%2020261108120217.png)
 
-The Query-Key-Value (QKV) Abstraction and Tensor Shape Mechanics
+### 3.1 The Query-Key-Value (QKV) Abstraction and Tensor Shape Mechanics
 
 The QKV framework structures sequence interaction using a database lookup metaphor. Let $B$ represent batch size, $S$ represent sequence length, $d_{\text{model}}$ represent model feature dimension, $d_k$ represent Key/Query projection dimension, and $d_v$ represent Value projection dimension.
 
