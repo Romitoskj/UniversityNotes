@@ -250,13 +250,7 @@ $$M_{i,j} = \begin{cases} 0 & \text{if } i \ge j \\ -\infty & \text{if } i < j \
 
 $$\text{MaskedAttention}(Q, K, V) = \text{softmax}\left(\frac{Q K^T}{\sqrt{d_k}} + M\right) V$$
 
-```
-RAW DOT-PRODUCT SCORES (Q K^T)           MASK MATRIX M            SOFTMAX ATTENTION WEIGHTS
-    [ 4.2   1.5   2.1 ]              [   0   -\infty  -\infty ]           [ 1.00  0.00  0.00 ]
-    [ 2.0   5.1   0.8 ]      +       [   0      0     -\infty ]   ===>    [ 0.05  0.95  0.00 ]
-    [ 1.1   3.4   6.2 ]              [   0      0        0    ]           [ 0.01  0.08  0.91 ]
-  (Row = Query, Col = Key)             (Upper Triangle Mask)          (Zero weight to future keys)
-```
+![](Attachments/Pasted%20image%2020261108202439.png)
 
 Because $\exp(-\infty) = 0$, Softmax assigns zero attention weight to future token positions ($j > i$). This enforces causality during parallelized training while preserving matrix multiplication speed benefits.
 
