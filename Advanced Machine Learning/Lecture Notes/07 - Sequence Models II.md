@@ -139,7 +139,7 @@ $$V = X W_V \in \mathbb{R}^{B \times S \times d_v}$$
 |**Key (**$K$**)**|$K = X W_K \in \mathbb{R}^{B \times S \times d_k}$|The index tag for each token. Represents the attributes offered by candidate tokens to match incoming queries.|
 |**Value (**$V$**)**|$V = X W_V \in \mathbb{R}^{B \times S \times d_v}$|The underlying content vector. Contains the semantic information extracted and aggregated when a query matches a key.|
 
-Mathematical Derivation of Scaled Dot-Product Attention
+### 2.2 Mathematical Derivation of Scaled Dot-Product Attention
 
 The dot product $Q K^T$ calculates raw similarity scores between every query $q_i$ and key $k_j$. To maintain stable gradients during backpropagation, the product is divided by a scaling factor $\sqrt{d_k}$.
 
