@@ -297,7 +297,8 @@ Both sub-layers use a residual connection ($x + \text{Sublayer}(x)$) followed by
    
 ![](Attachments/Pasted%20image%2020261109110629.png)
 
-💡 **Professor's Architectural Note:** In the original Transformer (Vaswani et al., 2017), Layer Normalization was placed _after_ the residual addition ($\text{Post-LN}$): $\text{LayerNorm}(x + \text{Sublayer}(x))$. However, in deep networks ($N > 12$), Post-LN causes gradient magnitudes near the output layer to grow large relative to early layers, making warmup schedules necessary. Modern implementations use $\text{Pre-LN}$: $x + \text{Sublayer}(\text{LayerNorm}(x))$, where gradients flow directly through the residual skip pathway, improving training stability in deep models.
+>[!Quote]- **Professor's Architectural Note**
+> In the original Transformer (Vaswani et al., 2017), Layer Normalization was placed _after_ the residual addition ($\text{Post-LN}$): $\text{LayerNorm}(x + \text{Sublayer}(x))$. However, in deep networks ($N > 12$), Post-LN causes gradient magnitudes near the output layer to grow large relative to early layers, making warmup schedules necessary. Modern implementations use $\text{Pre-LN}$: $x + \text{Sublayer}(\text{LayerNorm}(x))$, where gradients flow directly through the residual skip pathway, improving training stability in deep models.
 
 ### 5.3 Comparative Paradigm Analysis
 
