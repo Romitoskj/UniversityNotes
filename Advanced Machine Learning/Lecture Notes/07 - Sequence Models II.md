@@ -399,54 +399,113 @@ Having explored visual self-attention models, we can now examine how bidirection
 
 ## 7. Bidirectional Encoder Representations from Transformers (BERT)
 
-The introduction of BERT (Devlin et al., 2019) marked a major development in language representation learning by utilizing a purely bidirectional, encoder-only Transformer architecture.
+5.1 The Unidirectional Dilemma in Classical Language Modeling
 
-```
-                    CAUSAL AUTOREGRESSIVE MASKING           BIDIRECTIONAL CONTEXTUALIZATION
-                        (e.g., GPT Decoders)                     (e.g., BERT Encoders)
-                      =========================               =========================
-       Token 1 ("The")   --> Attends to: Token 1                Token 1 ("The")   --> Attends to: ALL Tokens
-       Token 2 ("cat")   --> Attends to: Tokens 1, 2            Token 2 ("cat")   --> Attends to: ALL Tokens
-       Token 3 ("sat")   --> Attends to: Tokens 1, 2, 3        Token 3 ("sat")   --> Attends to: ALL Tokens
-       Token 4 ("down")  --> Attends to: Tokens 1,2,3,4        Token 4 ("down")  --> Attends to: ALL Tokens
-```
+Prior to BERT (Devlin et al., 2018), standard neural language models were strictly unidirectional. Autoregressive models (such as GPT or standard LSTM language models) factorise the joint probability of a sequence $P(w_1, \dots, w_n)$ using the chain rule from left to right:
 
-Architectural Identity
+$$P(w_1, \dots, w_n) = \prod_{t=1}^n P(w_t \mid w_1, \dots, w_{t-1})$$
 
-Unlike autoregressive decoders (e.g., GPT, which use causal masks) or sequence-to-sequence models (e.g., T5, which combine encoders and decoders), BERT relies entirely on stacked Transformer Encoders. BERT eliminates causal masks, enabling every token in a sequence to attend to both left and right context simultaneously across all layers.
+In lecture recording `09_1.mp3`, Professor Fabio Galasso highlighted that unidirectionality was historically enforced by two constraints:
 
-Deep Bidirectional Contextualization
+1. **Well-Formed Probability Distributions**: Enforcing strict left-to-right factorization prevents cyclical dependencies, ensuring valid probabilistic distribution formulation.
+2. **Information Leakage ("Words Seeing Themselves")**: In a standard multi-layer bidirectional Transformer encoder, allowing self-attention to look both left and right would allow target tokens to attend directly to themselves across deeper layers, making next-word prediction trivial and destroying representation learning.
 
-Traditional autoregressive language models were constrained by unidirectional training. In those architectures, a token's representation could only incorporate information from preceding words.
+However, natural language comprehension is inherently **bidirectional**. Human understanding of linguistic constituents depends symmetrically on preceding context and subsequent context. In sentences like:
 
-BERT's bidirectional encoder removes directional boundaries, building contextual representations based on the entire surrounding sequence. For example, in the phrases _"bank of a river"_ and _"bank account"_, a bidirectional model contextualizes the word _"bank"_ using both its left and right context, generating distinct embeddings for each usage.
+_"The man went to the_ **[store]** _to buy a_ **[gallon]** _of milk."_
 
-Pre-Training Objectives and Downstream Fine-Tuning
+Determining that the first missing word is a physical location requires processing the right context (_"to buy... of milk"_), while determining the container noun requires processing both the verb (_"buy"_) and the object (_"milk"_). Unidirectional models are fundamentally blind to future context during feature extraction.
 
-To train bidirectional representations without allowing tokens to view their own target states during pre-training, BERT uses two unsupervised objectives:
+5.2 The Masked Language Model (MLM) Pretext Task
 
-1. **Masked Language Modeling (MLM):** Randomly selects 15% of input tokens to be masked out. The model predicts these original masked tokens using cross-entropy loss based on the surrounding bidirectional context.
-2. **Next Sentence Prediction (NSP):** Trains the model to understand sentence-level relationships by predicting whether a candidate sentence $B$ logically follows sentence $A$, using binary classification applied to the `[CLS]` token output.
+BERT resolves this paradox by eliminating next-word prediction and introducing the **Masked Language Model (MLM)** pre-training objective. Instead of predicting the subsequent token, the model masks out a random percentage $k\%$ of input tokens with a special `[MASK]` token, tasking the network with reconstructing the original vocabulary identity based purely on surrounding bidirectional context.
 
-```
-              PRE-TRAINING (Unsupervised on Large Text Corpora)
-      +---------------------------------------------------------------+
-      |  Task 1: Masked Language Model (MLM) via [MASK] Tokens        |
-      |  Task 2: Next Sentence Prediction (NSP) via [CLS] Tokens      |
-      +---------------------------------------------------------------+
-                                      |
-                                      v
-                      PRE-TRAINED BERT BASE ENCODER
-                                      |
-       +------------------------------+------------------------------+
-       |                              |                              |
-       v                              v                              v
-DOWNSTREAM TASK FINE-TUNING     DOWNSTREAM TASK FINE-TUNING     DOWNSTREAM TASK FINE-TUNING
-+-------------------------+     +-------------------------+     +-------------------------+
-|  Text Classification    |     |   Question Answering    |     | Named Entity Recog.     |
-| (Classifier Head added) |     | (Start/End Token Heads) |     |  (Token-Level Heads)    |
-+-------------------------+     +-------------------------+     +-------------------------+
-```
+The 15% Masking Ratio: Analytical Trade-off
+
+BERT fixes the masking ratio at exactly $k = 15\%$. Professor Galasso provided an in-depth breakdown of why this exact threshold represents an optimal mathematical trade-off:
+
+- **The Problem with Under-Masking (**$k \ll 15\%$**)**: The cross-entropy reconstruction loss is computed **strictly on the masked positions**, ignoring all unmasked tokens. If only 1% or 2% of words are masked, each forward-backward pass provides extremely sparse error gradients. Training becomes computationally prohibitive because millions of additional sentences must be processed to accumulate sufficient gradient updates.
+- **The Problem with Over-Masking (**$k \gg 15\%$**)**: If 40% or 50% of the sentence is masked, the remaining unmasked words cannot provide enough contextual evidence to infer the missing words. The sentence degenerates into an unresolvable puzzle (for example, _"something went to something to do something"_), making optimization noisy and uninformative.
+- **The 15% Sweet Spot**: Masking 15% strikes the balance: it leaves 85% intact context for robust contextual conditioning while generating enough masked targets per batch to drive dense gradient updates.
+
+Token Corruption Recipe
+
+To mitigate the discrepancy between pre-training (where `[MASK]` tokens appear) and fine-tuning (where `[MASK]` never appears), the 15% chosen tokens undergo a three-way split:
+
+- **80%** are replaced with the explicit token `[MASK]`.
+- **10%** are replaced with a random vocabulary token (forcing the model to maintain contextual representations of all words).
+- **10%** are kept unchanged (biasing the representation toward the actual observed token).
+
+5.3 Input Embeddings and Structural Architecture
+
+BERT is an **Encoder-Only** architecture. It discards the Transformer decoder entirely, utilizing only stacked multi-head self-attention encoder blocks (for example, BERT-Base: $L = 12, H = 768, A = 12, 110\text{M}$ parameters; BERT-Large: $L = 24, H = 1024, A = 16, 340\text{M}$ parameters).
+
+Every input token representation is constructed by summing three distinct embeddings:
+
+$$E = E_{\text{Token}} + E_{\text{Segment}} + E_{\text{Position}}$$
+
+1. **Token Embeddings**: WordPiece embeddings representing discrete sub-word units.
+2. **Segment Embeddings**: A binary vector designating whether a token belongs to Sentence $A$ or Sentence $B$.
+3. **Position Embeddings**: Learned positional encodings representing spatial token index.
+
+Special Functional Tokens
+
+- **[CLS]** **(Classification Token)**: Prepended to the very beginning of every input sequence. Because self-attention allows all tokens to interact directly with all others, the final hidden vector $C \in \mathbb{R}^H$ corresponding to `[CLS]` aggregates sequence-level semantic context, serving as the pooled representation for classification tasks.
+- **[SEP]** **(Separator Token)**: Inserted between Sentence $A$ and Sentence $B$, and appended at the end of Sentence $B$, establishing rigid sequence boundaries.
+
+5.4 Dual Pre-training Objectives: MLM and NSP
+
+BERT optimizes a joint multi-task objective during self-supervised pre-training:
+
+$$\mathcal{L}_{\text{Pre-training}} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\text{NSP}}$$
+
+1. **Masked LM Loss (**$\mathcal{L}_{\text{MLM}}$**)**: The output representation $O_i$ of each masked token is fed into a classification head (Linear layer + GELU + LayerNorm) projected onto the full vocabulary $|V|$ followed by a softmax: $$\mathcal{L}_{\text{MLM}} = -\sum_{i \in \text{Masked}} \log P(w_i \mid O_i)$$ Unmasked tokens generate zero loss and are completely ignored by the objective.
+2. **Next Sentence Prediction (**$\mathcal{L}_{\text{NSP}}$**)**: Many critical downstream tasks (such as Question Answering and Natural Language Inference) depend on understanding inter-sentence relationships. During pre-training, the model receives sentence pairs $(A, B)$ where:
+    - **50% of the time**: $B$ is the actual subsequent sentence following $A$ in the corpus (labeled `IsNext`).
+    - **50% of the time**: $B$ is a random sentence sampled from another document (labeled `NotNext`). The pooled vector $C$ of `[CLS]` is fed to a binary classification layer: $$\mathcal{L}_{\text{NSP}} = -\log P(\text{IsNext} \mid C)$$
+
+5.5 Downstream Fine-Tuning Paradigms
+
+Once pre-trained on massive unlabeled text corpora (BooksCorpus and English Wikipedia), BERT acts as a versatile **foundation model**. It can be adapted to diverse downstream tasks by simply swapping the final classification layer and fine-tuning all parameters end-to-end with minimal task-specific labels:
+
+1. **Sentence Pair Classification (e.g., MNLI, QQP, RTE)**: Sentences $A$ and $B$ are concatenated with `[SEP]`. The `[CLS]` output $C$ is multiplied by a task-specific classification matrix $W \in \mathbb{R}^{K \times H}$ to output class logits.
+2. **Single Sentence Classification (e.g., SST-2 Sentiment Analysis)**: A single sentence (for example, a social media post) is fed with `[CLS]`. The vector $C$ is directly classified into positive or negative sentiment classes.
+3. **Question Answering (SQuAD v1.1 & v2.0)**: The input packs the Question as Sentence $A$ and the Reference Passage as Sentence $B$. BERT learns two vectors: a Start vector $S \in \mathbb{R}^H$ and an End vector $E \in \mathbb{R}^H$. The probability that token $i$ is the start of the answer span is $P_i = \text{softmax}(S \cdot T_i)$. In SQuAD v2.0, where questions may be unanswerable, the `[CLS]` token is trained to classify the question as unanswerable ("no answer").
+4. **Single Sentence Tagging (e.g., CoNLL-2003 Named Entity Recognition)**: Individual output vectors $T_i$ are classified into token-level entity labels.
+
+5.6 Conceptual Parallels: BERT in NLP vs. Masked Autoencoders (MAE) in Vision
+
+In lecture `09_1.mp3`, Professor Galasso established a direct conceptual parallel between BERT and **Masked Autoencoders (MAE)** in Computer Vision (He et al., 2022):
+
+|Architectural Property|BERT (NLP)|Masked Autoencoder - MAE (Vision)|
+|---|---|---|
+|**Modality**|Discrete linguistic tokens|Continuous spatial image patches|
+|**Masking Ratio**|15% of tokens|75% to 80% of image patches|
+|**Masking Rationale**|High semantic density of text|Extreme spatial redundancy in pixels|
+|**Architecture Topology**|Encoder-Only|Asymmetric Encoder-Decoder|
+|**Reconstruction Target**|Discrete vocabulary token (Classification)|Continuous raw pixel RGB values (Regression)|
+|**Unmasked Token Processing**|Processes 100% of tokens|Encoder processes strictly 25% visible patches|
+
+- **Masking Ratio Disparity (15% vs. 75%)**: Language is information-dense; removing more than 15% destroys grammatical syntax. Natural images exhibit extreme spatial redundancy; neighboring pixels are highly correlated. Thus, vision models require masking 75% to 80% of patches to make the self-supervised pretext task non-trivial.
+- **Asymmetry vs. Full Processing**: BERT processes all tokens (replacing 15% with `[MASK]` embeddings). MAE completely removes the 75% masked patches from the encoder input, allowing a high-capacity encoder to run on only 25% of the data with a 4x computational speedup, utilizing a lightweight decoder strictly for pixel reconstruction.
+
+5.7 Pre-training Innovations: ELECTRA
+
+To address the training inefficiency of BERT—where loss is computed only on the 15% masked subset—Clark et al. (2020) proposed **ELECTRA** (_Efficiently Learning an Encoder that Classifies Token Replacements Accurately_):
+
+- A small generator network (trained via Masked LM) samples plausible replacement tokens for masked positions.
+- The discriminator (ELECTRA) is trained as a binary classifier across **100% of the tokens** in the sequence, predicting for every single token whether it is original or replaced.
+- Because every position generates an active error gradient, ELECTRA achieves state-of-the-art results matching BERT performance with significantly fewer training FLOPs.
+
+5.8 Model Distillation and Production Deployment
+
+While pre-trained bidirectional Transformer models established state-of-the-art accuracy across NLP benchmarks, their immense parameter scale (hundreds of millions of parameters) and quadratic memory complexity impose prohibitive latencies in production environments (such as real-time web search serving in Google and Bing).
+
+To resolve this deployment bottleneck, models undergo **Knowledge Distillation** (model compression):
+
+- **Teacher-Student Paradigm** (Bucila et al., 2006; Hinton et al., 2015): A high-capacity, computationally heavy "Teacher" model (e.g., BERT-Large) is fully pre-trained and fine-tuned. A compact "Student" network (such as DistilBERT, with half the layers) is trained to mimic the full softmax output distribution and internal representations of the teacher.
+- **Adversarial Network Compression** (Belagiannis, Farshad, Galasso, 2018): Utilizes adversarial training dynamics to transfer rich representational capabilities to compact student models without sacrificing task accuracy.
+- **Production Impact**: Compact student models retain over 95% of the parent model's linguistic performance while cutting inference latency and memory footprints by more than 40-60%, making real-time search queries and mobile execution computationally tractable.
 
 💡 **Professor's Architectural Note:** If a pre-training model uses `[MASK]` tokens exclusively during pre-training, the network encounters a distribution mismatch during fine-tuning because the explicit `[MASK]` token never appears in downstream fine-tuning data. To resolve this mismatch, BERT's MLM task uses a proportional token replacement scheme for the chosen 15% candidate tokens:
 
