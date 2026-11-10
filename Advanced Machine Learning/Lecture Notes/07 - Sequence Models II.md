@@ -350,26 +350,13 @@ The Vision Transformer (Dosovitskiy et al., 2020) applies a standard Transformer
 3. **2D Positional Encoding Injection:** Learnable 1D or 2D positional embeddings are added directly to patch representations to retain relative spatial location information across the grid.
 4. **Encoder Processing:** A learnable classification token (`[CLS]`) is prepended to the patch sequence. The complete set of $N + 1$ vectors passes through a standard Transformer Encoder stack. The final output state of the `[CLS]` token serves as the global feature vector for image classification.
 
-Addressing the Quadratic Bottleneck in Vision (Swin Transformer)
+### 6.3 Addressing the Quadratic Bottleneck in Vision (Swin Transformer)
 
 Applying standard self-attention to high-resolution images creates a computational bottleneck. For example, a 32-megapixel image broken into $8 \times 8$ pixel patches yields $N = 500,000$ tokens. Computing $O(N^2)$ self-attention across half a million tokens requires trillions of operations per layer, exhausting GPU VRAM.
 
 The **Swin Transformer** (Liu et al., 2021) resolves this complexity using two key mechanisms:
 
-```
-  REGULAR WINDOW ATTENTION (Shift 0)        SHIFTED WINDOW ATTENTION (Shift Step)
-  +-------------------+-------------------+  +---------+-------------------+---------+
-  |                   |                   |  |         |                   |         |
-  |  Local Window 1   |  Local Window 2   |  |   W11   |        W12        |   W13   |
-  |  (Self-Attn inside|  (Self-Attn inside|  |         |                   |         |
-  |   local grid)     |   local grid)     |  +---------+-------------------+---------+
-  +-------------------+-------------------+  |         |                   |         |
-  |                   |                   |  |   W21   |    Cross-Window   |   W23   |
-  |  Local Window 3   |  Local Window 4   |  |         |    Interaction    |         |
-  |                   |                   |  +---------+-------------------+---------+
-  +-------------------+-------------------+  |   W31   |        W32        |   W33   |
-                                             +---------+-------------------+---------+
-```
+![696](Attachments/Pasted%20image%2020261110151002.png)
 
 - **Shifted Local Windows (Swin):** Self-attention is restricted to non-overlapping local grids ($M \times M$ patches), reducing computational complexity from $O(N^2)$ to linear $O(N \cdot M^2)$. To enable communication across local boundaries, subsequent layers shift the window partition grids by $(\lfloor \frac{M}{2} \rfloor, \lfloor \frac{M}{2} \rfloor)$ patches for local window size $M \times M$, allowing features to cross local boundaries in consecutive layers.
 - **Hierarchical Patch Merging:** Deep layers merge adjacent patches into larger macro-patches, creating fine-to-coarse multiscale feature pyramids similar to CNN backbones.
