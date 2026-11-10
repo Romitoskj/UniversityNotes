@@ -447,7 +447,7 @@ Once pre-trained on massive unlabeled text corpora (BooksCorpus and English Wiki
 
 ### 7.6 Conceptual Parallels: BERT in NLP vs. Masked Autoencoders (MAE) in Vision
 
-In lecture `09_1.mp3`, Professor Galasso established a direct conceptual parallel between BERT and **Masked Autoencoders (MAE)** in Computer Vision (He et al., 2022):
+There is a direct conceptual parallel between BERT and [Masked Autoencoders (MAE)](09%20-%20Self%20Supervised%20Learning.md) in Computer Vision (He et al., 2022):
 
 |Architectural Property|BERT (NLP)|Masked Autoencoder - MAE (Vision)|
 |---|---|---|
@@ -461,13 +461,15 @@ In lecture `09_1.mp3`, Professor Galasso established a direct conceptual paralle
 - **Masking Ratio Disparity (15% vs. 75%)**: Language is information-dense; removing more than 15% destroys grammatical syntax. Natural images exhibit extreme spatial redundancy; neighboring pixels are highly correlated. Thus, vision models require masking 75% to 80% of patches to make the self-supervised pretext task non-trivial.
 - **Asymmetry vs. Full Processing**: BERT processes all tokens (replacing 15% with `[MASK]` embeddings). MAE completely removes the 75% masked patches from the encoder input, allowing a high-capacity encoder to run on only 25% of the data with a 4x computational speedup, utilizing a lightweight decoder strictly for pixel reconstruction.
 
-5.7 Pre-training Innovations: ELECTRA
+### 7.7 Pre-training Innovations: ELECTRA
 
 To address the training inefficiency of BERT—where loss is computed only on the 15% masked subset—Clark et al. (2020) proposed **ELECTRA** (_Efficiently Learning an Encoder that Classifies Token Replacements Accurately_):
 
 - A small generator network (trained via Masked LM) samples plausible replacement tokens for masked positions.
 - The discriminator (ELECTRA) is trained as a binary classifier across **100% of the tokens** in the sequence, predicting for every single token whether it is original or replaced.
 - Because every position generates an active error gradient, ELECTRA achieves state-of-the-art results matching BERT performance with significantly fewer training FLOPs.
+
+![](Attachments/Pasted%20image%2020261110154532.png)
 
 5.8 Model Distillation and Production Deployment
 
