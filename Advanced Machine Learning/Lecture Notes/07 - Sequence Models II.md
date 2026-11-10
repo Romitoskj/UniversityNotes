@@ -326,7 +326,7 @@ This operational efficiency unlocked **Scaling Laws** in deep learning: models s
 
 Because Transformers carry minimal structural inductive bias, self-attention can be adapted directly to 2D visual data.
 
-Relative Self-Attention
+### 6.1 Relative Self-Attention
 
 Standard self-attention relies on absolute positional encodings added at the input layer. However, tasks involving visual patterns, speech processing, or music generation often depend more on relative spatial or temporal distances than absolute positions.
 
