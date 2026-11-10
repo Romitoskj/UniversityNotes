@@ -338,31 +338,12 @@ $$\text{Output}_i = \sum_{j=1}^{S} a_{i,j} (v_j + R_{i-j}^V)$$
 
 where $R_{i-j}^K$ and $R_{i-j}^V$ are learnable weight matrices indexed by relative spatial/temporal offset $(i - j)$. This allows the attention mechanism to capture repeating patterns—such as musical choruses, texture symmetries, or architectural features—regardless of where they appear in the sequence.
 
-Vision Transformer (ViT) Mechanics
+### 6.2 Vision Transformer (ViT) Mechanics
 
 The Vision Transformer (Dosovitskiy et al., 2020) applies a standard Transformer Encoder directly to 2D image data, bypassing convolutional layers entirely.
 
-```
-  [ Input Image (H x W x C) ]
-             |
-             v
-  [ Split into Patches (N x (P^2 * C)) ]
-             |
-             v
-  [ Linear Patch Projection Matrix ]  ===> Projected Patch Embeddings (N x d_model)
-             |
-             v
-  [ Add 2D Spatial Positional Encodings (PE) ]
-             |
-             v
-  [ Prepended Learnable [CLS] Token ]
-             |
-             v
-  [ Standard Transformer Encoder Stack (N Layers) ]
-             |
-             v
-  [ Extract [CLS] Hidden Output Vector ] ===> [ Linear MLP Classification Head ]
-```
+![](Attachments/Pasted%20image%2020261110150504.png)
+![](Attachments/Pasted%20image%2020261110150407.png)
 
 1. **Patch Tokenization:** An input image $I \in \mathbb{R}^{H \times W \times C}$ is flattened into a sequence of non-overlapping 2D patches $I_p \in \mathbb{R}^{N \times (P^2 \cdot C)}$, where $P \times P$ denotes pixel resolution per patch, and $N = \frac{HW}{P^2}$ represents the sequence length.
 2. **Linear Embedding Projection:** Each flattened patch is linearly projected into a $d_{\text{model}}$-dimensional vector space using a learnable projection matrix.
