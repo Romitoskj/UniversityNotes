@@ -64,6 +64,8 @@ Calculating the gradient for an entire dataset is computationally prohibitive. *
 
 Backpropagation decomposes complex functions into a chain of local, modular operations, allowing us to compute gradients efficiently.
 
+![](Attachments/Pasted%20image%2020261110180928.png)
+
 #### The Chain Rule and Gradient Decomposition
 
 The fundamental algorithm for downstream gradient calculation is: \frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x} _(Downstream Gradient = Upstream Gradient_ _\times_ _Local Gradient)_
