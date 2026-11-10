@@ -408,6 +408,8 @@ To mitigate the discrepancy between pre-training (where `[MASK]` tokens appear) 
 
 BERT is an **Encoder-Only** architecture. It discards the Transformer decoder entirely, utilizing only stacked multi-head self-attention encoder blocks (for example, BERT-Base: $L = 12, H = 768, A = 12, 110\text{M}$ parameters; BERT-Large: $L = 24, H = 1024, A = 16, 340\text{M}$ parameters).
 
+![](Attachments/Pasted%20image%2020261110153141.png)
+
 Every input token representation is constructed by summing three distinct embeddings:
 
 $$E = E_{\text{Token}} + E_{\text{Segment}} + E_{\text{Position}}$$
@@ -416,12 +418,12 @@ $$E = E_{\text{Token}} + E_{\text{Segment}} + E_{\text{Position}}$$
 2. **Segment Embeddings**: A binary vector designating whether a token belongs to Sentence $A$ or Sentence $B$.
 3. **Position Embeddings**: Learned positional encodings representing spatial token index.
 
-Special Functional Tokens
+#### Special Functional Tokens
 
 - **[CLS]** **(Classification Token)**: Prepended to the very beginning of every input sequence. Because self-attention allows all tokens to interact directly with all others, the final hidden vector $C \in \mathbb{R}^H$ corresponding to `[CLS]` aggregates sequence-level semantic context, serving as the pooled representation for classification tasks.
 - **[SEP]** **(Separator Token)**: Inserted between Sentence $A$ and Sentence $B$, and appended at the end of Sentence $B$, establishing rigid sequence boundaries.
 
-5.4 Dual Pre-training Objectives: MLM and NSP
+### 7.4 Dual Pre-training Objectives: MLM and NSP
 
 BERT optimizes a joint multi-task objective during self-supervised pre-training:
 
@@ -432,7 +434,9 @@ $$\mathcal{L}_{\text{Pre-training}} = \mathcal{L}_{\text{MLM}} + \mathcal{L}_{\t
     - **50% of the time**: $B$ is the actual subsequent sentence following $A$ in the corpus (labeled `IsNext`).
     - **50% of the time**: $B$ is a random sentence sampled from another document (labeled `NotNext`). The pooled vector $C$ of `[CLS]` is fed to a binary classification layer: $$\mathcal{L}_{\text{NSP}} = -\log P(\text{IsNext} \mid C)$$
 
-5.5 Downstream Fine-Tuning Paradigms
+![696](Attachments/Pasted%20image%2020261110153445.png)
+
+### 7.5 Downstream Fine-Tuning Paradigms
 
 Once pre-trained on massive unlabeled text corpora (BooksCorpus and English Wikipedia), BERT acts as a versatile **foundation model**. It can be adapted to diverse downstream tasks by simply swapping the final classification layer and fine-tuning all parameters end-to-end with minimal task-specific labels:
 
@@ -441,7 +445,7 @@ Once pre-trained on massive unlabeled text corpora (BooksCorpus and English Wiki
 3. **Question Answering (SQuAD v1.1 & v2.0)**: The input packs the Question as Sentence $A$ and the Reference Passage as Sentence $B$. BERT learns two vectors: a Start vector $S \in \mathbb{R}^H$ and an End vector $E \in \mathbb{R}^H$. The probability that token $i$ is the start of the answer span is $P_i = \text{softmax}(S \cdot T_i)$. In SQuAD v2.0, where questions may be unanswerable, the `[CLS]` token is trained to classify the question as unanswerable ("no answer").
 4. **Single Sentence Tagging (e.g., CoNLL-2003 Named Entity Recognition)**: Individual output vectors $T_i$ are classified into token-level entity labels.
 
-5.6 Conceptual Parallels: BERT in NLP vs. Masked Autoencoders (MAE) in Vision
+### 7.6 Conceptual Parallels: BERT in NLP vs. Masked Autoencoders (MAE) in Vision
 
 In lecture `09_1.mp3`, Professor Galasso established a direct conceptual parallel between BERT and **Masked Autoencoders (MAE)** in Computer Vision (He et al., 2022):
 
