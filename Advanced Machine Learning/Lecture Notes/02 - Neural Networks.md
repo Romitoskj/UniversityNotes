@@ -34,9 +34,11 @@ The result is a $10 \times 1$ vector of **class scores**, or what the literature
 
 #### The Softmax Classifier
 
-In Multinomial Logistic Regression, we interpret these logical probabilities as actual probabilities. We exponentiate the scores to ensure they are positive and normalize them so they sum to 1:$$P(Y = k \mid X = x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}}$$with $s=f(x,W)$.
+In Multinomial Logistic Regression, we interpret these logical probabilities as actual probabilities. We exponentiate the scores to ensure they are positive and normalize them so they sum to 1:$$P(Y = k \mid X = x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}}$$with $s=f(x_i,W)$.
 
 This transformation allows us to treat the output as a probability distribution.
+
+![](Attachments/Pasted%20image%2020261110175246.png)
 
 #### Loss Functions and Information Theory
 
