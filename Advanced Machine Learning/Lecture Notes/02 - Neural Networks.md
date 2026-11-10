@@ -54,7 +54,7 @@ Optimization in high-dimensional parameter spaces requires navigating a complex 
 
 #### Gradient Descent and the Learning Rate
 
-We minimize loss by moving in the negative gradient direction. The most critical hyperparameter in this process is the **step size** (or **learning rate**): W = W - \text{step\_size} \times \text{grad} A step size that is too large will cause the model to diverge, while one that is too small will stall training.
+We minimize loss by moving in the negative gradient direction. The most critical hyperparameter in this process is the **step size** (or **learning rate**): $W = W - \text{step\_size} \times \text{grad}$. A step size that is too large will cause the model to diverge, while one that is too small will stall training.
 
 #### Efficiency via Stochasticity
 
