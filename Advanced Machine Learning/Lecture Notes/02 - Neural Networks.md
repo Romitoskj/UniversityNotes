@@ -26,10 +26,11 @@ To move from raw pixels to semantic understanding, we must map high-dimensional 
 
 #### From Pixels to Scores
 
-An image (e.g., 32x32x3) is vectorized into N = 3072 features. We apply the linear function $f(x,W) = Wx + b$. For a 10-class problem, the dimensions are:
+An image (e.g., $32\times32\times3$) is vectorized into N = 3072 features. We apply the linear function $f(x,W) = Wx + b$. For a 10-class problem, the dimensions are:
 
 - **Weight Matrix ($W$):** $[10 \times 3072]$, representing $[Classes \times Input\_Features]$.
-- **Bias ($b$):** $[10 \times 1]$. The result is a $10 \times 1$ vector of **class scores**, or what the literature calls **unnormalized logical probabilities** (commonly referred to in industry as **logits**).
+- **Bias ($b$):** $[10 \times 1]$.
+The result is a $10 \times 1$ vector of **class scores**, or what the literature calls **unnormalized logical probabilities** (commonly referred to in industry as **logits**).
 
 #### The Softmax Classifier
 
