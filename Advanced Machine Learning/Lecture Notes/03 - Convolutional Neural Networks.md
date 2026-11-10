@@ -127,12 +127,3 @@ To peer inside the "black box," we utilize several diagnostic frameworks:
 ### Final Synthesis
 
 The success of CNNs lies in their ability to mirror the hierarchical and local nature of biological vision. By codifying local receptive fields and parameter sharing, we achieve a high degree of representational power while maintaining computational efficiency.
-
-### References & Further Reading
-
-- Selvaraju, R. R., et al. (2019). "Grad-CAM: Visual Explanations from Deep Networks via Gradient-based Localization." _IJCV_.
-- Chattopadhyay, A., et al. (2018). "Grad-CAM++: Improved Visual Explanations for Deep Convolutional Networks." _WACV_.
-- Petsiuk, V., Das, A., and Saenko, K. (2018). "RISE: Randomized Input Sampling for Explanation of Black-box Models." _BMVC_.
-- Bach, S., et al. (2015). "On Pixel-Wise Explanations for Non-Linear Classifier Decisions by Layer-Wise Relevance Propagation." _PLOS ONE_.
-- Krizhevsky, A., Sutskever, I., and Hinton, G. E. (2012). "ImageNet Classification with Deep Convolutional Neural Networks." _NIPS_.
-- LeCun, Y., et al. (1998). "Gradient-based learning applied to document recognition." _Proceedings of the IEEE_.

@@ -68,9 +68,11 @@ Backpropagation decomposes complex functions into a chain of local, modular oper
 
 #### The Chain Rule and Gradient Decomposition
 
-The fundamental algorithm for downstream gradient calculation is: \frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x} _(Downstream Gradient = Upstream Gradient_ _\times_ _Local Gradient)_
+The fundamental algorithm for downstream gradient calculation is: $$\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x}$$_(Downstream Gradient $=$ Upstream Gradient_ $\times$ _Local Gradient)_
 
 #### Standard Gate Behaviors
+
+![](Attachments/Pasted%20image%2020261110181526.png)
 
 - **Add Gate:** A "gradient distributor" that passes the upstream gradient equally to all inputs.
 - **Mul Gate:** A "swapper." For f = xy, the local gradient \partial f/\partial x is y. It scales the upstream gradient by the value of the _other_ input.
