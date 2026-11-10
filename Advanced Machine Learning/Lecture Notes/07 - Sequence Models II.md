@@ -384,19 +384,19 @@ _"The man went to the_ **[store]** _to buy a_ **[gallon]** _of milk."_
 
 Determining that the first missing word is a physical location requires processing the right context (_"to buy... of milk"_), while determining the container noun requires processing both the verb (_"buy"_) and the object (_"milk"_). Unidirectional models are fundamentally blind to future context during feature extraction.
 
-5.2 The Masked Language Model (MLM) Pretext Task
+### 7.2 The Masked Language Model (MLM) Pretext Task
 
 BERT resolves this paradox by eliminating next-word prediction and introducing the **Masked Language Model (MLM)** pre-training objective. Instead of predicting the subsequent token, the model masks out a random percentage $k\%$ of input tokens with a special `[MASK]` token, tasking the network with reconstructing the original vocabulary identity based purely on surrounding bidirectional context.
 
-The 15% Masking Ratio: Analytical Trade-off
+#### The 15% Masking Ratio: Analytical Trade-off
 
-BERT fixes the masking ratio at exactly $k = 15\%$. Professor Galasso provided an in-depth breakdown of why this exact threshold represents an optimal mathematical trade-off:
+BERT fixes the masking ratio at exactly $k = 15\%$. This exact threshold represents an optimal mathematical trade-off:
 
 - **The Problem with Under-Masking (**$k \ll 15\%$**)**: The cross-entropy reconstruction loss is computed **strictly on the masked positions**, ignoring all unmasked tokens. If only 1% or 2% of words are masked, each forward-backward pass provides extremely sparse error gradients. Training becomes computationally prohibitive because millions of additional sentences must be processed to accumulate sufficient gradient updates.
 - **The Problem with Over-Masking (**$k \gg 15\%$**)**: If 40% or 50% of the sentence is masked, the remaining unmasked words cannot provide enough contextual evidence to infer the missing words. The sentence degenerates into an unresolvable puzzle (for example, _"something went to something to do something"_), making optimization noisy and uninformative.
 - **The 15% Sweet Spot**: Masking 15% strikes the balance: it leaves 85% intact context for robust contextual conditioning while generating enough masked targets per batch to drive dense gradient updates.
 
-Token Corruption Recipe
+#### Token Corruption Recipe
 
 To mitigate the discrepancy between pre-training (where `[MASK]` tokens appear) and fine-tuning (where `[MASK]` never appears), the 15% chosen tokens undergo a three-way split:
 
@@ -404,7 +404,7 @@ To mitigate the discrepancy between pre-training (where `[MASK]` tokens appear) 
 - **10%** are replaced with a random vocabulary token (forcing the model to maintain contextual representations of all words).
 - **10%** are kept unchanged (biasing the representation toward the actual observed token).
 
-5.3 Input Embeddings and Structural Architecture
+### 7.3 Input Embeddings and Structural Architecture
 
 BERT is an **Encoder-Only** architecture. It discards the Transformer decoder entirely, utilizing only stacked multi-head self-attention encoder blocks (for example, BERT-Base: $L = 12, H = 768, A = 12, 110\text{M}$ parameters; BERT-Large: $L = 24, H = 1024, A = 16, 340\text{M}$ parameters).
 
@@ -483,7 +483,7 @@ To resolve this deployment bottleneck, models undergo **Knowledge Distillation**
 
 Once pre-trained on large text corpora, BERT's bidirectional representations can be fine-tuned for downstream tasks—such as text classification, question answering, or named entity recognition—by adding a task-specific output layer and updating the network end-to-end.
 
-Architectural Summary
+## Architectural Summary
 
 The evolution of sequence models—from recurrent networks to modern attention-driven architectures—is defined by four core principles:
 
