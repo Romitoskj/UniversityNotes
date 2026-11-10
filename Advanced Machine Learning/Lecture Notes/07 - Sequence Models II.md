@@ -367,13 +367,13 @@ Having explored visual self-attention models, we can now examine how bidirection
 
 ## 7. Bidirectional Encoder Representations from Transformers (BERT)
 
-5.1 The Unidirectional Dilemma in Classical Language Modeling
+### 7.1 The Unidirectional Dilemma in Classical Language Modeling
 
 Prior to BERT (Devlin et al., 2018), standard neural language models were strictly unidirectional. Autoregressive models (such as GPT or standard LSTM language models) factorise the joint probability of a sequence $P(w_1, \dots, w_n)$ using the chain rule from left to right:
 
 $$P(w_1, \dots, w_n) = \prod_{t=1}^n P(w_t \mid w_1, \dots, w_{t-1})$$
 
-In lecture recording `09_1.mp3`, Professor Fabio Galasso highlighted that unidirectionality was historically enforced by two constraints:
+Unidirectionality was historically enforced by two constraints:
 
 1. **Well-Formed Probability Distributions**: Enforcing strict left-to-right factorization prevents cyclical dependencies, ensuring valid probabilistic distribution formulation.
 2. **Information Leakage ("Words Seeing Themselves")**: In a standard multi-layer bidirectional Transformer encoder, allowing self-attention to look both left and right would allow target tokens to attend directly to themselves across deeper layers, making next-word prediction trivial and destroying representation learning.
