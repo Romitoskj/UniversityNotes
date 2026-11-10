@@ -471,7 +471,7 @@ To address the training inefficiency of BERT—where loss is computed only on th
 
 ![](Attachments/Pasted%20image%2020261110154532.png)
 
-5.8 Model Distillation and Production Deployment
+### 7.8 Model Distillation and Production Deployment
 
 While pre-trained bidirectional Transformer models established state-of-the-art accuracy across NLP benchmarks, their immense parameter scale (hundreds of millions of parameters) and quadratic memory complexity impose prohibitive latencies in production environments (such as real-time web search serving in Google and Bing).
 
@@ -481,15 +481,7 @@ To resolve this deployment bottleneck, models undergo **Knowledge Distillation**
 - **Adversarial Network Compression** (Belagiannis, Farshad, Galasso, 2018): Utilizes adversarial training dynamics to transfer rich representational capabilities to compact student models without sacrificing task accuracy.
 - **Production Impact**: Compact student models retain over 95% of the parent model's linguistic performance while cutting inference latency and memory footprints by more than 40-60%, making real-time search queries and mobile execution computationally tractable.
 
-💡 **Professor's Architectural Note:** If a pre-training model uses `[MASK]` tokens exclusively during pre-training, the network encounters a distribution mismatch during fine-tuning because the explicit `[MASK]` token never appears in downstream fine-tuning data. To resolve this mismatch, BERT's MLM task uses a proportional token replacement scheme for the chosen 15% candidate tokens:
-
-- **80% of the time:** Replaced with the explicit `[MASK]` token (e.g., _"my dog is [MASK]"_).
-- **10% of the time:** Replaced with a random dictionary token (e.g., _"my dog is apple"_), forcing the network to maintain language representations for all tokens.
-- **10% of the time:** Kept unchanged (e.g., _"my dog is hairy"_), biasing representation vectors toward true sequence context.
-
-Once pre-trained on large text corpora, BERT's bidirectional representations can be fine-tuned for downstream tasks—such as text classification, question answering, or named entity recognition—by adding a task-specific output layer and updating the network end-to-end.
-
-## Architectural Summary
+## 8. Architectural Summary
 
 The evolution of sequence models—from recurrent networks to modern attention-driven architectures—is defined by four core principles:
 
