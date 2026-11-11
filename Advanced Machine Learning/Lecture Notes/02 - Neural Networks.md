@@ -66,23 +66,6 @@ Backpropagation decomposes complex functions into a chain of local, modular oper
 
 ![](Attachments/Pasted%20image%2020261110180928.png)
 
-#### The Chain Rule and Gradient Decomposition
-
-The fundamental algorithm for downstream gradient calculation is: $$\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x}$$_(Downstream Gradient $=$ Upstream Gradient_ $\times$ _Local Gradient)_
-
-#### Standard Gate Behaviors
-
-![](Attachments/Pasted%20image%2020261110181526.png)
-
-- **Add Gate:** A "gradient distributor" that passes the upstream gradient equally to all inputs.
-- **Mul Gate:** A "swapper." For f = xy, the local gradient \partial f/\partial x is y. It scales the upstream gradient by the value of the _other_ input.
-- **Max Gate:** A "gradient router." It sends the entire upstream gradient to the input that was highest during the forward pass (gradient is 0 for others).
-- **Copy Gate:** A "gradient adder" that sums gradients from multiple branches.
-
-#### Vector and Matrix Backpropagation
-
-When x is a vector, the local gradient is a **Jacobian matrix**. For elementwise operations like **ReLU**, the Jacobian for N elements is an N \times N **diagonal matrix**. In production environments, we never explicitly form these massive matrices (avoiding O(N^2) memory costs). Instead, we use **implicit multiplication**: applying a bitmask (1 where x > 0, 0 otherwise) to the upstream gradient.
-
 #### Implementation Logic
 
 1. **Forward Pass:** Process nodes in a **topological sort** to compute loss and **cache** intermediate activations.
@@ -90,38 +73,58 @@ When x is a vector, the local gradient is a **Jacobian matrix**. For elementwise
 
 This modularity allows us to transition from single operations to multi-layer deep architectures.
 
+#### The Chain Rule and Gradient Decomposition
+
+The fundamental algorithm for downstream gradient calculation is: $$\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x}$$_(Downstream Gradient $=$ Upstream Gradient_ $\times$ _Local Gradient)_
+
+![](Attachments/Pasted%20image%2020261110184650.png)
+
+#### Standard Gate Behaviors
+
+![](Attachments/Pasted%20image%2020261110181526.png)
+
+- **Add Gate:** A "gradient distributor" that passes the upstream gradient equally to all inputs.
+- **Mul Gate:** A "swapper." For $f = xy$, the local gradient $\frac{\partial f}{\partial x}$ is $y$. It scales the upstream gradient by the value of the _other_ input.
+- **Max Gate:** A "gradient router." It sends the entire upstream gradient to the input that was highest during the forward pass (gradient is 0 for others).
+- **Copy Gate:** A "gradient adder" that sums gradients from multiple branches.
+
+#### Vector and Matrix Backpropagation
+
+When x is a vector, the local gradient is a **Jacobian matrix**. For elementwise operations like **ReLU**, the Jacobian for $N$ elements is an $N \times N$ **diagonal matrix**. In production environments, we never explicitly form these massive matrices (avoiding $O(N^2)$ memory costs). Instead, we use **implicit multiplication**: applying a bitmask (1 where x > 0, 0 otherwise) to the upstream gradient.
+
 ### 5. Deep Neural Networks and Activation Functions
 
 Deep architectures are required to learn "bent," non-linear classification functions for data that is not linearly separable.
 
 #### The Necessity of Non-Linearity
 
-Stacking linear layers (W_2 W_1 x) is mathematically equivalent to a single linear layer. Non-linear **activation functions** are required to break this linear collapse and allow the network to capture complex features.
+Stacking linear layers ($W_2 W_1 x$) is mathematically equivalent to a single linear layer. Non-linear **activation functions** are required to break this linear collapse and allow the network to capture complex features.
 
 #### Comparative Analysis of Activation Functions
 
-|                |                              |                        |                                                        |
-| -------------- | ---------------------------- | ---------------------- | ------------------------------------------------------ |
-| Function       | Formula                      | Gradient Behavior      | Characteristics                                        |
-| **ReLU**       | \max(0, x)                   | 1 for x > 0, else 0    | **Modern Default.** Efficient, but can "die" if x < 0. |
-| **Sigmoid**    | 1 / (1 + e^{-x})             | Vanishing at extremes  | Historically popular; squashes to [0, 1].              |
-| **Tanh**       | \tanh(x)                     | Vanishing at extremes  | Zero-centered; squashes to [-1, 1].                    |
-| **Leaky ReLU** | \max(0.01x, x)               | 1 for x > 0, else 0.01 | Prevents "dying" neurons by allowing a small gradient. |
-| **ELU**        | x if x>0 else \alpha(e^x -1) | Smooth gradient        | Robust against noise; computationally heavier.         |
+![](Attachments/Pasted%20image%2020261110185653.png)
+
+| Function       | Formula                          | Gradient Behavior      | Characteristics                                        |
+| -------------- | -------------------------------- | ---------------------- | ------------------------------------------------------ |
+| **ReLU**       | $\max(0, x)$                     | 1 for x > 0, else 0    | **Modern Default.** Efficient, but can "die" if x < 0. |
+| **Sigmoid**    | $\frac{1}{(1 + e^{-x})}$         | Vanishing at extremes  | Historically popular; squashes to [0, 1].              |
+| **Tanh**       | $\tanh(x)$                       | Vanishing at extremes  | Zero-centered; squashes to [-1, 1].                    |
+| **Leaky ReLU** | $\max(0.01x, x)$                 | 1 for x > 0, else 0.01 | Prevents "dying" neurons by allowing a small gradient. |
+| **ELU**        | $x$ if x>0 else $\alpha(e^x -1)$ | Smooth gradient        | Robust against noise; computationally heavier.         |
 
 #### Implementation Walkthrough (2-Layer Neural Network)
 
-A 2-layer network f = W_2 \max(0, W_1 x) is implemented in NumPy as follows:
+A 2-layer network $f = W_2 \max(0, W_1 x)$ is implemented in NumPy as follows:
 
 - **Forward:**
     1. Compute `h1 = W1.dot(x)`.
-    2. **Store** `**h1**` **in cache** (required for the backward pass).
+    2. **Store** **`h1`** **in cache** (required for the backward pass).
     3. Compute `a1 = np.maximum(0, h1)` (ReLU).
     4. Compute `scores = W2.dot(a1)`.
 - **Backward:**
     1. Compute gradient of loss with respect to `scores`.
-    2. Backprop through W_2.
+    2. Backprop through $W_2$.
     3. Backprop through the ReLU "router" using the cached `h1`.
-    4. Backprop through W_1.
+    4. Backprop through $W_1$.
 
 The modern success of computer vision stems from this synergy between architectural depth, non-linear activation, probabilistic loss formulation, and the efficient gradient flow of backpropagation.
