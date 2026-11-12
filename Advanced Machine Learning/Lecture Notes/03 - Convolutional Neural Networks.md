@@ -25,7 +25,7 @@ We trace a clear progression of architectural constraints to manage complexity:
 
 - **Fully Connected Nets:** Global connectivity ($10^{12}$ parameters).
 - **Locally Connected Nets:** Introduction of local receptive fields. For a $1000 \times 1000$ image with $1M$ hidden units and a $10 \times 10$ filter, the count drops to $100M$ parameters.
-- **Convolutional Networks:** Integration of parameter sharing. By applying the same 100 filters of size 10 \times 10 across all locations, we reduce the requirement to a mere 10,000 (10^4) parameters.
+- **Convolutional Networks:** Integration of parameter sharing. By applying the same 100 filters of size $10 \times 10$ across all locations, we reduce the requirement to a mere 10,000 ($10^4$) parameters.
 
 Once the structural necessity of local sharing is established, we must define the mathematical operation governing this interaction: the 2D convolution.
 
@@ -35,7 +35,7 @@ The efficacy of ConvNets stems from a rigorous synthesis of digital signal proce
 
 ### Discrete 2D Convolution
 
-In our context, convolution is a linear filtering operation where each pixel is replaced by a linear combination of its neighbors. We define the formal discrete formula as: f[m,n] = (I * g)[m,n] = \sum_{k,l} I[m-k, n-l] g[k,l] Where I represents the input image, g denotes the filter kernel, and f is the resulting activation map.
+In our context, convolution is a linear filtering operation where each pixel is replaced by a linear combination of its neighbors. We define the formal discrete formula as: $$f[m,n] = (I \ast g)[m,n] = \sum_{k,l} I[m-k, n-l] g[k,l]$$Where $I$ represents the input image, $g$ denotes the filter kernel, and $f$ is the resulting activation map.
 
 **Note on Implementation:** It is a vital distinction for the researcher to note that while we use the formal term "convolution," most deep learning libraries actually implement _cross-correlation_, where the kernel is not flipped before the sliding dot product.
 
