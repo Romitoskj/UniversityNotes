@@ -37,6 +37,8 @@ The efficacy of ConvNets stems from a rigorous synthesis of digital signal proce
 
 In our context, convolution is a linear filtering operation where each pixel is replaced by a linear combination of its neighbors. We define the formal discrete formula as: $$f[m,n] = (I \ast g)[m,n] = \sum_{k,l} I[m-k, n-l] g[k,l]$$Where $I$ represents the input image, $g$ denotes the filter kernel, and $f$ is the resulting activation map.
 
+![](Attachments/Pasted%20image%2020261112181201.png)
+
 **Note on Implementation:** It is a vital distinction for the researcher to note that while we use the formal term "convolution," most deep learning libraries actually implement _cross-correlation_, where the kernel is not flipped before the sliding dot product.
 
 ### Properties of Linear Systems
