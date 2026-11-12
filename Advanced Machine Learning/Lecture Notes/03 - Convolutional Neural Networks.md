@@ -75,13 +75,15 @@ Designing a network requires a mastery of the "geometry of the volume." We must 
 
 >[!quote]- Guided In-Class Exercise
 > 
-> **Scenario:** Input $32 \times 32 \times 3$ image; 10 filters of 5 \times 5; Stride 1; Padding 2.
+> **Scenario:** Input $32 \times 32 \times 3$ image; 10 filters of $5 \times 5$; Stride 1; Padding 2.
 > 
 > 1. **Spatial Calculation:** $\frac{32 - 5 + 2(2)}{1} + 1 = 32$. The spatial resolution is preserved.
 > 2. **Parameters per Filter:** $(5 \times 5 \times 3) + 1 = 76$.
-> 3. **Total Layer Parameters:** 76 \times 10 = 760.
+> 3. **Total Layer Parameters:** $76 \times 10 = 760$.
 > 
 > While a single layer identifies local features, the power of the architecture is realized through the cumulative growth of the "view" across the hierarchy.
+> 
+> ![](Attachments/Pasted%20image%2020261112183054.png)
 
 ## 4. Hierarchical Feature Extraction: Receptive Fields and Depth
 
