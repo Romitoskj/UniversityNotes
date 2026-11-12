@@ -91,7 +91,8 @@ Deep networks utilize hierarchical abstraction to build complex semantic underst
 
 ### Receptive Field Dynamics
 
-The **Receptive Field** is the spatial area of the original input influencing a specific neuron. **Mathematical Growth:** Each successive convolution adds $K-1$ to the field. For $L$ layers with kernel size $K$: $\text{Receptive Field Size} = 1 + L \times (K - 1)$
+The **Receptive Field** is the spatial area of the original input influencing a specific neuron. For covolution with kernel size $K$, each element in the output depends on a $K \times K$ receptive field.
+**Mathematical Growth:** Each successive convolution adds $K-1$ to the field. For $L$ layers with kernel size $K$: $\text{Receptive Field Size} = 1 + L \times (K - 1)$
 
 ![](Attachments/Pasted%20image%2020261112183605.png)
 
