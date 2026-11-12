@@ -45,14 +45,14 @@ In our context, convolution is a linear filtering operation where each pixel is 
 
 Convolutional layers function as linear systems, adhering to the principle of **Superposition**, which is composed of:
 
-- **Homogeneity:** T[aX] = aT[X] (scaling the input scales the output proportionally).
-- **Additivity:** T[X_1+X_2] = T[X_1] + T[X_2] (the response to a sum is the sum of responses).
+- **Homogeneity:** $T[aX] = aT[X]$ (scaling the input scales the output proportionally).
+- **Additivity:** $T[X_1+X_2] = T[X_1] + T[X_2]$ (the response to a sum is the sum of responses).
 
-### Biological Alignment
-
-- **1D Edge Detection Case Study:** Consider a 1D filter like [-1, 0, 1]. When applied to a signal, it identifies "step functions." In constant regions, the output is zero; at a transition point (an edge), the output peaks, acting as a precursor to complex visual processing.
-- **Cortical Mapping:** The human brain utilizes **Retinotopy**, a topographical mapping where nearby cells in the visual cortex represent nearby regions in the visual field. This spans a hierarchy from V1 through V2, V3, hV4, and VO1.
-- **V1 Processing & Hubel-Wiesel Foundations:** In the primary visual cortex (V1), neurons act as biological edge detectors. Our research confirms that V1 processing involves identifying vertical, horizontal, and 45° edges, alongside polar edges and color-specific transitions (e.g., green-to-yellow or blue-to-red). Artificial networks like AlexNet naturally learn Gabor-like filters in their initial layers that mirror these biological structures.
+>[!info]- Biological Alignment
+> 
+> - **1D Edge Detection Case Study:** Consider a 1D filter like $[-1, 0, 1]$. When applied to a signal, it identifies "step functions". In constant regions, the output is zero; at a transition point (an edge), the output peaks, acting as a precursor to complex visual processing.
+> - **Cortical Mapping:** The human brain utilizes **Retinotopy**, a topographical mapping where nearby cells in the visual cortex represent nearby regions in the visual field. This spans a hierarchy from V1 through V2, V3, hV4, and VO1.
+> - **V1 Processing & Hubel-Wiesel Foundations:** In the primary visual cortex (V1), neurons act as biological edge detectors. Our research confirms that V1 processing involves identifying vertical, horizontal, and 45° edges, alongside polar edges and color-specific transitions (e.g., green-to-yellow or blue-to-red). Artificial networks like AlexNet naturally learn Gabor-like filters in their initial layers that mirror these biological structures.
 
 ## 3. Convolutional Layer Mechanics and Applied Calculus
 
@@ -60,28 +60,28 @@ Designing a network requires a mastery of the "geometry of the volume." We must 
 
 ### Hyperparameter Definitions
 
-- **Input volume:** W \times H \times D_{in}
-- **Kernel size (****K****):** The spatial extent of the filter.
-- **Stride (****S****):** The pixel-step of the kernel.
-- **Padding (****P****):** Zero-pixels added to borders.
-- **Number of filters (****N****):** The count of distinct activation maps produced.
+- **Input volume:** $W \times H \times D_{in}$
+- **Kernel size (K):** The spatial extent of the filter.
+- **Stride (S):** The pixel-step of the kernel.
+- **Padding (P):** Zero-pixels added to borders.
+- **Number of filters (N):** The count of distinct activation maps produced.
 
 ### The Golden Formulas
 
-- **Spatial Output:** W_{out} = \frac{W - K + 2P}{S} + 1
-- **Output Volume:** W_{out} \times H_{out} \times N
-- **Depth Matching Rule:** The filter depth must equal input depth (D_{filter} = D_{in}).
-- **Trainable Parameters:** N \times (K^2 \times D_{in} + 1), where the +1 represents the bias term per filter.
+- **Spatial Output:** $W_{out} = \frac{W - K + 2P}{S} + 1$
+- **Output Volume:** $W_{out} \times H_{out} \times N$
+- **Depth Matching Rule:** The filter depth must equal input depth ($D_{filter} = D_{in}$).
+- **Trainable Parameters:** $N \times (K^2 \times D_{in} + 1)$, where the $+1$ represents the bias term per filter.
 
-### Guided In-Class Exercise
-
-**Scenario:** Input 32 \times 32 \times 3 image; 10 filters of 5 \times 5; Stride 1; Padding 2.
-
-1. **Spatial Calculation:** \frac{32 - 5 + 2(2)}{1} + 1 = 32. The spatial resolution is preserved.
-2. **Parameters per Filter:** (5 \times 5 \times 3) + 1 = 76.
-3. **Total Layer Parameters:** 76 \times 10 = 760.
-
-While a single layer identifies local features, the power of the architecture is realized through the cumulative growth of the "view" across the hierarchy.
+>[!quote]- Guided In-Class Exercise
+> 
+> **Scenario:** Input $32 \times 32 \times 3$ image; 10 filters of 5 \times 5; Stride 1; Padding 2.
+> 
+> 1. **Spatial Calculation:** $\frac{32 - 5 + 2(2)}{1} + 1 = 32$. The spatial resolution is preserved.
+> 2. **Parameters per Filter:** $(5 \times 5 \times 3) + 1 = 76$.
+> 3. **Total Layer Parameters:** 76 \times 10 = 760.
+> 
+> While a single layer identifies local features, the power of the architecture is realized through the cumulative growth of the "view" across the hierarchy.
 
 ## 4. Hierarchical Feature Extraction: Receptive Fields and Depth
 
