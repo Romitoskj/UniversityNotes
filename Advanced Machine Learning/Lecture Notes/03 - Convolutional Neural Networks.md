@@ -91,11 +91,13 @@ Deep networks utilize hierarchical abstraction to build complex semantic underst
 
 ### Receptive Field Dynamics
 
-The **Receptive Field** is the spatial area of the original input influencing a specific neuron. **Mathematical Growth:** Each successive convolution adds K-1 to the field. For L layers with kernel size K: \text{Receptive Field Size} = 1 + L \times (K - 1)
+The **Receptive Field** is the spatial area of the original input influencing a specific neuron. **Mathematical Growth:** Each successive convolution adds $K-1$ to the field. For $L$ layers with kernel size $K$: $\text{Receptive Field Size} = 1 + L \times (K - 1)$
+
+![](Attachments/Pasted%20image%2020261112183605.png)
 
 ### Design Trade-offs
 
-Modern architectures favor stacking multiple 3 \times 3 filters over single large filters (e.g., 7 \times 7). The advantages are threefold:
+Modern architectures favor stacking multiple $3 \times 3$ filters over single large filters (e.g., $7 \times 7$). The advantages are threefold:
 
 1. **Lower Computational Cost:** Fewer operations per receptive field area.
 2. **Parameter Efficiency:** Significant reduction in total weights.
@@ -103,28 +105,28 @@ Modern architectures favor stacking multiple 3 \times 3 filters over single larg
 
 ### The Role of ReLU
 
-Non-linearity is a mathematical necessity. Without the **Rectified Linear Unit (ReLU)**, a stack of convolutional layers collapses into a single linear transformation (W_3 \cdot W_2 \cdot W_1), rendering depth useless for learning complex, non-linear representations.
+Non-linearity is a mathematical necessity. Without the **Rectified Linear Unit (ReLU)**, a stack of convolutional layers collapses into a single linear transformation ($W_3 \cdot W_2 \cdot W_1$), rendering depth useless for learning complex, non-linear representations.
 
 ## 5. Subsampling and the Lineage of Vision Architectures
 
 ### Pooling Mechanics
 
-Subsampling, specifically **Max Pooling**, provides spatial robustness and computational tractability. By selecting the maximum value in a (typically) 2 \times 2 stride 2 window, the network becomes less sensitive to small shifts. Crucially, pooling operates independently on each depth channel.
+Subsampling, specifically **Max Pooling**, provides spatial robustness and computational tractability. By selecting the maximum value in a (typically) $2 \times 2$ stride 2 window, the network becomes less sensitive to small shifts. Crucially, pooling operates independently on each depth channel.
+
+![](Attachments/Pasted%20image%2020261112184045.png)
 
 ### Historical Milestone Timeline
 
 - **Pre-1990s:** Fukushima’s **Cognitron/Neocognitron** introduced hierarchical pooling for spatial invariance.
-- **LeNet-5 (1998):** A "supervised gradient-based learning" approach for document recognition. Architecture: Convolutions \rightarrow Non-linearity (rectified linear) \rightarrow Pooling \rightarrow FC layers.
+
+- **LeNet-5 (1998):** A "supervised gradient-based learning" approach for document recognition. Architecture: Convolutions $\rightarrow$ Non-linearity (rectified linear) $\rightarrow$ Pooling $\rightarrow$ FC layers.
+	
+	![](Attachments/Pasted%20image%2020261112184459.png)
+	
 - **AlexNet (2012):** The deep learning catalyst. It featured **8 total layers** (7 hidden), 60M parameters, and achieved a 50x GPU speedup. It pioneered the use of Dropout and ReLU at scale.
-- **The Modern Era:** **VGG** (pushed depth with 3 \times 3 filters), **GoogLeNet** (introduced 1 \times 1 convolutions), and **ResNet** (utilized residual mappings to reach 152 layers).
-
-### Interpretability and Visual Explanations
-
-To peer inside the "black box," we utilize several diagnostic frameworks:
-
-- **Grad-CAM / Grad-CAM++:** Uses gradient flow to localize which input regions most influence a specific classification.
-- **RISE:** An explanation method using randomized input masking to observe score sensitivity.
-- **LRP (Layer-wise Relevance Propagation):** Decomposes the output score backward through the network to attribute "relevance" to specific pixels.
+	![](Attachments/Pasted%20image%2020261112184402.png)
+	
+- **The Modern Era:** **VGG** (pushed depth with $3 \times 3 filters$), **GoogLeNet** (introduced $1 \times 1$ convolutions), and **ResNet** (utilized residual mappings to reach 152 layers).
 
 ### Final Synthesis
 
