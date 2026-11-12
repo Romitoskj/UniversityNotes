@@ -23,8 +23,8 @@ The transition to ConvNets is justified by two core assumptions regarding visual
 
 We trace a clear progression of architectural constraints to manage complexity:
 
-- **Fully Connected Nets:** Global connectivity (10^{12} parameters).
-- **Locally Connected Nets:** Introduction of local receptive fields. For a 1000 \times 1000 image with 1M hidden units and a 10 \times 10 filter, the count drops to 100M parameters.
+- **Fully Connected Nets:** Global connectivity ($10^{12}$ parameters).
+- **Locally Connected Nets:** Introduction of local receptive fields. For a $1000 \times 1000$ image with $1M$ hidden units and a $10 \times 10$ filter, the count drops to $100M$ parameters.
 - **Convolutional Networks:** Integration of parameter sharing. By applying the same 100 filters of size 10 \times 10 across all locations, we reduce the requirement to a mere 10,000 (10^4) parameters.
 
 Once the structural necessity of local sharing is established, we must define the mathematical operation governing this interaction: the 2D convolution.
