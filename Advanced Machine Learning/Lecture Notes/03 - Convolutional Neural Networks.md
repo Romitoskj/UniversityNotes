@@ -1,16 +1,14 @@
-# Advanced Machine Learning & Computer Vision: Convolutional Neural Networks (CNNs)
-
 ## 1. The Paradigm Shift: From Fully Connected to Convolutional Architectures
 
-Historically, the application of multi-layer perceptrons (MLPs) to image processing encountered a debilitating structural bottleneck. While the Universal Approximation Theorem posits that a sufficiently wide MLP can approximate any continuous function, we observe a systemic failure in the practical scalability of such models when confronted with high-resolution visual data. In a fully connected environment, the architecture treats every pixel as an independent feature, failing to exploit the inherent spatial structure of the visual world.
+Historically, the application of multi-layer perceptrons (MLPs) to image processing encountered a debilitating structural bottleneck. While the Universal Approximation Theorem posits that a sufficiently wide MLP can approximate any continuous function, we observe a systemic failure in the practical scalability of such models when confronted with high-resolution visual data. In a fully connected environment, the architecture treats *every pixel as an independent feature*, failing to exploit the inherent spatial structure of the visual world.
 
 ### The Parameter Explosion
 
-The engineering trade-off necessitates a departure from global connectivity due to the "parameter explosion." Consider a standard 1000 \times 1000 pixel image. If we provide a hidden layer of 1 million (10^6) units:
+The engineering trade-off necessitates a departure from global connectivity due to the "parameter explosion." Consider a standard $1000 \times 1000$ pixel image. If we provide a hidden layer of 1 million ($10^6$) units:
 
-- **Input Dimension:** 1,000,000 pixels.
-- **Hidden Units:** 1,000,000.
-- **Derivation:** 1,000,000 \times 1,000,000 = 10^{12} parameters.
+- **Input Dimension:** $1,000,000$ pixels.
+- **Hidden Units:** $1,000,000$.
+- **Derivation:** $1,000,000 \times 1,000,000 = 10^{12}$ parameters.
 
 A trillion parameters for a single layer is computationally untenable and fundamentally prone to overfitting. We must therefore put our computational resources elsewhere by adopting architectures that respect the data's geometry.
 
