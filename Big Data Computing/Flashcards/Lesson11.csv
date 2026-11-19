@@ -1,0 +1,57 @@
+What is the core trade-off made in Approximate Query Processing (AQP)?,"AQP accepts a small, controlled error in query accuracy in exchange for a large reduction in query latency."
+Why cannot precomputed inverted indexes solve aggregate query latency for massive datasets?,Indexes cannot be precomputed for every arbitrary combination of ad-hoc filters that an analytical query might specify.
+Why is parallel scanning alone insufficient for answering aggregate queries within an interactive latency budget?,"Even in parallel, reading every row of a massive multi-trillion row table takes seconds to minutes, exceeding interactive limits."
+What are the two primary technical strategies used in AQP?,"1. Sampling (statistically bounded approximate processing)
+2. Data-skipping (exact block pruning using metadata)"
+How is the sample mean $\bar{x}$ defined for a random sample of size $n$ drawn from a population?,$\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i$
+What does it mean for the sample mean $\bar{x}$ to be an unbiased estimator of the population mean $\mu$?,"Its expected value equals the true population mean ($E[\bar{x}] = \mu$), meaning there is no systematic over- or under-estimation."
+How is a total SUM aggregate estimated over a population of size $N$ using a sample mean $\bar{x}$?,$\widehat{\text{SUM}} = N \cdot \bar{x}$
+How is a COUNT aggregate for a specific condition estimated from a uniform sample?,It is estimated by multiplying the total population size $N$ by the fraction of rows in the sample satisfying the condition.
+What is the computational complexity of processing a sample of size $n$?,"$
+O(n)$, which is completely independent of the total population size $N$."
+What is the formula for the variance of the sample mean $\text{Var}(\bar{x})$ for $n$ independent samples?,"$\text{Var}(\bar{x}) = \frac{\sigma^2}{n}$, where $\sigma^2$ is the population variance."
+What is the standard error (SE) of the sample mean?,"$SE = \frac{\sigma}{\sqrt{n}}$, representing the typical standard deviation of the estimate $\bar{x}$ around $\mu$."
+How does reducing the standard error of a sample mean by a factor of 10 affect the required sample size $n$?,"It requires a 100-fold increase in the sample size $n$, because standard error shrinks as $\frac{1}{\sqrt{n}}$."
+Why does standard error scale so favorably for big data systems as data volume $N$ grows?,"The population size $N$ does not appear in the standard error formula for $n \ll N$, so absolute accuracy depends on $n$, not $N$."
+How is relative error defined for an estimated mean $\bar{x}$?,"Relative error is $\frac{SE}{\mu} = \frac{\sigma}{\mu \sqrt{n}}$, measuring standard error as a proportion of the true value."
+What is Bessel's correction in sample variance estimation?,Dividing the sum of squared deviations by $n - 1$ instead of $n$ to ensure the sample variance $s^2$ is an unbiased estimator of $\sigma^2$.
+What is the finite-population correction factor applied when sampling without replacement?,"$\sqrt{\frac{N - n}{N - 1}}$, which shrinks the variance towards zero as sample size $n$ approaches population size $N$."
+What does a confidence interval of level $1 - \delta$ promise?,Repeated draws of samples of size $n$ will yield intervals $\bar{x} \pm \varepsilon$ containing the true mean $\mu$ at least $100(1 - \delta)\%$ of the time.
+"State Hoeffding's inequality for independent, identically distributed variables $x_1, \dots, x_n \in [a, b]$.",$P(|\bar{x} - \mu| \ge \varepsilon) \le 2 \exp\left( -\frac{2n\varepsilon^2}{(b - a)^2} \right)$
+What does it mean that Hoeffding's inequality is distribution-free?,"It holds for any underlying probability distribution, requiring knowledge only of the range $[a, b]$, not the distribution's shape."
+"According to Hoeffding's inequality, what sample size $n$ is required to guarantee accuracy $\varepsilon$ with confidence $1 - \delta$ for $x_i \in [a, b]$?",$n = \frac{(b - a)^2 \ln(2/\delta)}{2\varepsilon^2}$
+What is the formula for the half-width $\varepsilon$ in a Hoeffding confidence interval given sample size $n$?,$\varepsilon = (b - a) \sqrt{\frac{\ln(2/\delta)}{2n}}$
+How does sample size $n$ scale with error tolerance $\varepsilon$ versus failure probability $\delta$ under Hoeffding's inequality?,"Sample size $n$ scales as $O(1/\varepsilon^2)$ with accuracy, but only logarithmically as $O(\ln(1/\delta))$ with confidence."
+What is the formula for the half-width $\varepsilon$ derived from Chebyshev's inequality?,$\varepsilon = \frac{\sigma}{\sqrt{n \delta}}$
+What information does Chebyshev's bound require that Hoeffding's bound does not?,"Chebyshev requires the population variance $\sigma^2$ (or sample variance $s^2$), whereas Hoeffding requires a strictly bounded domain $[a, b]$."
+How do Chebyshev and Hoeffding bounds compare regarding scaling with confidence level $\delta$?,"Chebyshev scales steeply as $O(1/\sqrt{\delta})$, while Hoeffding scales mildly as $O(\sqrt{\ln(1/\delta)})$."
+When is Chebyshev's bound typically tighter than Hoeffding's bound?,"Chebyshev is tighter at moderate confidence levels (e.g., $< 99\%$) or when the true variance $\sigma^2$ is much smaller than the full range $[a, b]^2$."
+What key distinction exists between sampling error and sample bias as sample size $n$ increases?,"Sampling error shrinks to zero as $n \to \infty$, whereas sample bias persists regardless of how large $n$ becomes."
+What common data ingestion patterns introduce sample bias into AQP systems?,"Sampling only recently inserted rows, scanning only the first physical blocks on disk, or taking a contiguous time segment."
+What is a zone map in analytical database engines?,Lightweight block-level metadata recording the minimum and maximum value of each column in a storage block.
+Why is data-skipping using zone maps classified as an exact AQP technique?,Because blocks are skipped only if metadata proves no row satisfies the query filter; scanned blocks are processed completely.
+Under what zone map condition can a block be safely skipped for a filter $x \ge t$?,Skip the block if $\text{max} < t$.
+Under what zone map condition can a block be safely skipped for a filter $x \le t$?,Skip the block if $\text{min} > t$.
+Under what zone map condition can a block be skipped for a range filter $a \le x \le b$?,Skip the block if $\text{max} < a$ or $\text{min} > b$.
+Under what zone map condition can a block be skipped for an equality filter $x = v$?,Skip the block if $v < \text{min}$ or $v > \text{max}$.
+Why does physical data layout dictate the performance benefit of zone maps?,"If rows are clustered/sorted by the filter column, block min/max ranges are tight; if rows are random, every block spans the full range."
+How do zone maps interact with columnar storage formats like Apache Parquet or ORC?,"Columnar formats store values contiguously, allowing min/max summaries to be checked without uncompressing or reading full columns."
+What is the execution order in a layered AQP pipeline?,"First, skip non-matching blocks exactly using zone maps; second, draw a random sample from the remaining candidate blocks."
+Why fails uniform sampling when answering point queries for rare items?,"Rare items have a high probability of having zero representatives in a random sample, causing them to be missed completely."
+Why does uniform sampling fail for COUNT DISTINCT queries?,"Extrapolating unique values seen in a sample depends heavily on value repetition frequencies, leading to massive over- or under-estimation."
+Why does uniform sampling fail for MAX or MIN queries?,"The single extreme row is included in a sample of size $n$ with probability only $\frac{n}{N}$, making severe underestimation likely."
+What specialized data structures are used instead of uniform sampling for COUNT DISTINCT queries?,"Sub-linear streaming sketches, such as the HyperLogLog sketch."
+What core challenge does streaming data present to simple random sampling?,"The total population size $N$ is unknown in advance, preventing fixed-probability uniform draws."
+How does Reservoir Sampling initialize a sample reservoir of size $k$?,It places the first $k$ elements of the stream directly into the reservoir.
+"In Reservoir Sampling, with what probability is the $i$-th arriving stream element ($i > k$) selected for entry into the reservoir of size $k$?",It enters the reservoir with probability $\frac{k}{i}$.
+"If a stream element enters a reservoir of size $k$ at step $i$, what is the probability that a specific existing element is evicted?",Each existing element in the reservoir has an equal $\frac{1}{k}$ probability of being replaced.
+What guarantee does Reservoir Sampling provide after observing $N$ elements?,Every element seen so far is present in the reservoir with uniform probability exactly $\frac{k}{N}$.
+What problem affects simple random sampling when applied to heavily skewed or power-law distributed data?,"A few extremely high-value rows carry most of the aggregate weight and are easily missed by random selection, causing high variance."
+How does Stratified Sampling solve the issue of high variance on skewed data?,"It partitions data into distinct subgroups (strata) and samples each separately, guaranteeing representation for rare/high-impact strata."
+How do histogram summaries improve upon basic min/max zone maps?,"Histograms divide values into multiple buckets and store approximate row counts per bucket, giving finer selectivity estimates."
+What is the primary function of a Bloom filter in data-skipping?,"It tests key existence per block, enabling the skipping of blocks that provably do not contain a queried key (no false negatives)."
+How does an adaptive sampling strategy determine when to stop sampling during query execution?,It continuously recomputes the confidence interval as rows are scanned and stops as soon as the half-width $\varepsilon$ meets the target tolerance.
+What three crucial questions should be evaluated for any approximate computation method?,"1. What is approximated?
+2. What exactly is the guarantee?
+3. What can break the guarantee?"
+How does the sampling mathematics of AQP directly connect to mini-batch Stochastic Gradient Descent (SGD) in machine learning?,"A mini-batch gradient is a sample mean of gradients across training examples, obeying the exact same standard error law $SE \propto \frac{1}{\sqrt{n}}$."
